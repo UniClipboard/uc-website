@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-export async function AudienceSection({ locale }: { locale: string }) {
+export async function AudienceSection({ locale: _locale }: { locale: string }) {
   const t = await getTranslations("landing.audience");
 
   const audiences = [
@@ -12,15 +12,18 @@ export async function AudienceSection({ locale }: { locale: string }) {
   ];
 
   return (
-    <section className="py-32 bg-gray-light dark:bg-slate-900/50 overflow-hidden border-t border-gray-mid dark:border-slate-700 celestial-pattern">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="flex flex-col gap-16 items-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-center text-charcoal dark:text-slate-100 leading-tight">
+    <section className="bg-gray-light border-gray-mid celestial-pattern overflow-hidden border-t py-32 dark:border-slate-700 dark:bg-slate-900/50">
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="flex flex-col items-center gap-16">
+          <h2 className="text-charcoal text-center text-3xl leading-tight font-extrabold md:text-5xl dark:text-slate-100">
             {t("title")}
           </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {audiences.map((audience) => (
-              <span key={audience.key} className="px-8 py-4 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-gray-mid dark:border-slate-700 rounded-xl font-bold text-sm tracking-wide">
+              <span
+                key={audience.key}
+                className="border-gray-mid rounded-xl border bg-white px-8 py-4 text-sm font-bold tracking-wide text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+              >
                 {t(audience.key)}
               </span>
             ))}

@@ -1,32 +1,36 @@
-import { getTranslations } from "next-intl/server";
 import { ShieldCheck } from "lucide-react";
 
-export async function TrustSection({ locale }: { locale: string }) {
+import { getTranslations } from "next-intl/server";
+
+export async function TrustSection({ locale: _locale }: { locale: string }) {
   const t = await getTranslations("landing.trust");
 
   return (
-    <section id="trust" className="bg-gray-dark dark:bg-slate-950 text-white py-32 relative overflow-hidden">
-      <div className="max-w-[1200px] mx-auto px-6 text-center flex flex-col items-center gap-10 relative z-10">
-        <div className="size-20 bg-white/5 rounded-2xl flex items-center justify-center backdrop-blur-xl border border-white/10">
-          <ShieldCheck className="size-10 text-silver-accent" />
+    <section
+      id="trust"
+      className="bg-gray-dark relative overflow-hidden py-32 text-white dark:bg-slate-950"
+    >
+      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-10 px-6 text-center">
+        <div className="flex size-20 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
+          <ShieldCheck className="text-silver-accent size-10" />
         </div>
         <div className="max-w-2xl">
-          <span className="inline-block px-4 py-1 bg-white/10 rounded-full text-silver-accent text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
+          <span className="text-silver-accent mb-6 inline-block rounded-full bg-white/10 px-4 py-1 text-[10px] font-bold tracking-[0.2em] uppercase">
             {t("badge")}
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
+          <h2 className="mb-6 text-4xl font-extrabold tracking-tight md:text-5xl">
             {t("title")}
           </h2>
-          <p className="text-xl text-slate-400 leading-relaxed font-medium">
+          <p className="text-xl leading-relaxed font-medium text-slate-400">
             {t("description")}
           </p>
         </div>
-        <a href="#" className="bg-white text-gray-dark text-sm px-10 py-4 rounded-xl font-bold hover:bg-gray-mid transition-all shadow-xl">
+        <button className="text-gray-dark hover:bg-gray-mid rounded-xl bg-white px-10 py-4 text-sm font-bold shadow-xl transition-all">
           {t("cta")}
-        </a>
+        </button>
       </div>
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-white/[0.02] skew-x-12"></div>
-      <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-white/[0.02] -rotate-12"></div>
+      <div className="absolute top-0 right-0 h-full w-1/3 skew-x-12 bg-white/[0.02]"></div>
+      <div className="absolute bottom-0 left-0 h-1/2 w-1/4 -rotate-12 bg-white/[0.02]"></div>
     </section>
   );
 }

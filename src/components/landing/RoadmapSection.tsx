@@ -1,7 +1,8 @@
-import { getTranslations } from "next-intl/server";
 import { CheckCircle2 } from "lucide-react";
 
-export async function RoadmapSection({ locale }: { locale: string }) {
+import { getTranslations } from "next-intl/server";
+
+export async function RoadmapSection({ locale: _locale }: { locale: string }) {
   const t = await getTranslations("landing.roadmap");
 
   const nowAvailable = [
@@ -17,31 +18,35 @@ export async function RoadmapSection({ locale }: { locale: string }) {
   ];
 
   return (
-    <section id="roadmap" className="py-32 bg-white dark:bg-slate-900 paper-texture celestial-pattern">
-      <div className="max-w-[1000px] mx-auto px-6">
-        <div className="text-center mb-24 flex flex-col items-center">
-          <span className="inline-block px-4 py-1.5 bg-gray-light dark:bg-slate-800 border border-gray-mid dark:border-slate-700 rounded-full text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
+    <section
+      id="roadmap"
+      className="paper-texture celestial-pattern bg-white py-32 dark:bg-slate-900"
+    >
+      <div className="mx-auto max-w-[1000px] px-6">
+        <div className="mb-24 flex flex-col items-center text-center">
+          <span className="bg-gray-light border-gray-mid mb-6 inline-block rounded-full border px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500">
             {t("badge")}
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-charcoal dark:text-slate-100">
+          <h2 className="text-charcoal text-4xl font-extrabold tracking-tight md:text-5xl dark:text-slate-100">
             {t("title")}
           </h2>
         </div>
         <div className="space-y-12">
-          <div className="bg-gray-light/50 dark:bg-slate-800/30 p-10 rounded-card border border-gray-mid dark:border-slate-700 hover:border-silver-accent transition-all">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="px-3 py-1 bg-gray-dark text-white text-[10px] font-bold rounded-md uppercase tracking-wider">
+          <div className="bg-gray-light/50 rounded-card border-gray-mid hover:border-silver-accent border p-10 transition-all dark:border-slate-700 dark:bg-slate-800/30">
+            <div className="mb-8 flex items-center gap-3">
+              <span className="bg-gray-dark rounded-md px-3 py-1 text-[10px] font-bold tracking-wider text-white uppercase">
                 {t("nowAvailable.label")}
               </span>
-              <div className="h-[1px] flex-grow bg-gray-mid dark:bg-slate-700"></div>
+              <div className="bg-gray-mid h-[1px] flex-grow dark:bg-slate-700"></div>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-3">
               {nowAvailable.map((feature) => {
                 const Icon = feature.icon;
                 return (
                   <div key={feature.key} className="space-y-2">
-                    <p className="font-bold text-gray-dark dark:text-slate-100 flex items-center gap-2">
-                      <Icon className="text-silver-accent" /> {t(`nowAvailable.${feature.key}.title`)}
+                    <p className="text-gray-dark flex items-center gap-2 font-bold dark:text-slate-100">
+                      <Icon className="text-silver-accent" />{" "}
+                      {t(`nowAvailable.${feature.key}.title`)}
                     </p>
                     <p className="text-sm text-slate-500 dark:text-slate-400">
                       {t(`nowAvailable.${feature.key}.description`)}
@@ -51,17 +56,17 @@ export async function RoadmapSection({ locale }: { locale: string }) {
               })}
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-10 rounded-card border border-gray-mid dark:border-slate-700 border-dashed">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="px-3 py-1 bg-gray-mid text-slate-500 text-[10px] font-bold rounded-md uppercase tracking-wider">
+          <div className="rounded-card border-gray-mid border border-dashed bg-white p-10 dark:border-slate-700 dark:bg-slate-800">
+            <div className="mb-8 flex items-center gap-3">
+              <span className="bg-gray-mid rounded-md px-3 py-1 text-[10px] font-bold tracking-wider text-slate-500 uppercase">
                 {t("comingSoon.label")}
               </span>
-              <div className="h-[1px] flex-grow bg-gray-mid/50 dark:bg-slate-700/50"></div>
+              <div className="bg-gray-mid/50 h-[1px] flex-grow dark:bg-slate-700/50"></div>
             </div>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-3">
               {comingSoon.map((feature) => (
                 <div key={feature.key} className="space-y-2 opacity-60">
-                  <p className="font-bold text-gray-dark dark:text-slate-100">
+                  <p className="text-gray-dark font-bold dark:text-slate-100">
                     {t(`comingSoon.${feature.key}.title`)}
                   </p>
                   <p className="text-sm text-slate-500 dark:text-slate-400">

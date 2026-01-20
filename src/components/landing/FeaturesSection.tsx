@@ -1,5 +1,5 @@
+import { History, Shield, Sparkles, Zap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { Zap, Sparkles, Shield, History } from "lucide-react";
 
 const features = [
   { icon: Zap, key: "fast" },
@@ -8,36 +8,42 @@ const features = [
   { icon: History, key: "history" },
 ];
 
-export async function FeaturesSection({ locale }: { locale: string }) {
+export async function FeaturesSection({ _locale }: { locale: string }) {
   const t = await getTranslations("landing.features");
 
   return (
-    <section id="features" className="bg-gray-light dark:bg-slate-900/50 py-32 relative celestial-pattern border-y border-gray-mid dark:border-slate-700">
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className="text-center mb-24 max-w-2xl mx-auto">
-          <span className="inline-block px-4 py-1.5 bg-white dark:bg-slate-800 border border-gray-mid dark:border-slate-700 rounded-full text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
+    <section
+      id="features"
+      className="bg-gray-light celestial-pattern border-gray-mid relative border-y py-32 dark:border-slate-700 dark:bg-slate-900/50"
+    >
+      <div className="mx-auto max-w-[1200px] px-6">
+        <div className="mx-auto mb-24 max-w-2xl text-center">
+          <span className="border-gray-mid mb-6 inline-block rounded-full border bg-white px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500">
             {t("badge")}
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-charcoal dark:text-slate-100 mb-6">
+          <h2 className="text-charcoal mb-6 text-4xl font-extrabold tracking-tight md:text-5xl dark:text-slate-100">
             {t("title")}
           </h2>
-          <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+          <p className="text-lg leading-relaxed font-medium text-slate-500 dark:text-slate-400">
             {t("subtitle")}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <div key={feature.key} className="group p-10 bg-white dark:bg-slate-800 rounded-card border border-gray-mid dark:border-slate-700 hover:border-silver-accent transition-all flex flex-col gap-6 shadow-sm">
-                <div className="size-14 bg-gray-light dark:bg-slate-700 rounded-xl flex items-center justify-center text-silver-accent group-hover:bg-gray-dark group-hover:text-white transition-all">
+              <div
+                key={feature.key}
+                className="group rounded-card border-gray-mid hover:border-silver-accent flex flex-col gap-6 border bg-white p-10 shadow-sm transition-all dark:border-slate-700 dark:bg-slate-800"
+              >
+                <div className="bg-gray-light text-silver-accent group-hover:bg-gray-dark flex size-14 items-center justify-center rounded-xl transition-all group-hover:text-white dark:bg-slate-700">
                   <Icon className="size-7" />
                 </div>
                 <div className="space-y-3">
-                  <h3 className="text-2xl font-bold text-gray-dark dark:text-slate-100">
+                  <h3 className="text-gray-dark text-2xl font-bold dark:text-slate-100">
                     {t(`${feature.key}.title`)}
                   </h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
+                  <p className="text-lg leading-relaxed text-slate-500 dark:text-slate-400">
                     {t(`${feature.key}.description`)}
                   </p>
                 </div>

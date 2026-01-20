@@ -1,35 +1,42 @@
+import { Bolt, Copy, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+
 import { getFormUrl } from "@/lib/form-config";
-import { Bolt, Plus, Copy } from "lucide-react";
 
 export async function HeroSection({ locale }: { locale: string }) {
   const t = await getTranslations("landing.hero");
   const formUrl = getFormUrl(locale as "zh" | "en");
 
   return (
-    <section className="relative min-h-screen bg-white dark:bg-slate-900 paper-texture celestial-pattern flex items-center justify-center pt-32 pb-20">
-      <div className="max-w-[900px] mx-auto px-6 text-center relative z-10">
+    <section className="paper-texture celestial-pattern relative flex min-h-screen items-center justify-center bg-white pt-32 pb-20 dark:bg-slate-900">
+      <div className="relative z-10 mx-auto max-w-[900px] px-6 text-center">
         <div className="flex flex-col items-center gap-8">
-          <span className="inline-block px-4 py-1.5 bg-gray-mid/30 dark:bg-slate-800/30 border border-gray-mid dark:border-slate-700 rounded-full text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+          <span className="bg-gray-mid/30 border-gray-mid inline-block rounded-full border px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase dark:border-slate-700 dark:bg-slate-800/30 dark:text-slate-400">
             {t("badge")}
           </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tight text-charcoal dark:text-slate-100">
-            {t("title")} <span className="text-silver-accent">{t("highlight")}</span>
+          <h1 className="text-charcoal text-5xl leading-[1.1] font-extrabold tracking-tight md:text-7xl dark:text-slate-100">
+            {t("title")}{" "}
+            <span className="text-silver-accent">{t("highlight")}</span>
           </h1>
-          <p className="text-lg md:text-xl font-medium text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">
+          <p className="max-w-2xl text-lg leading-relaxed font-medium text-slate-500 md:text-xl dark:text-slate-400">
             {t("description")}
           </p>
-          <div className="flex flex-wrap justify-center gap-4 mt-4">
-            <a href={formUrl} target="_blank" rel="noopener noreferrer" className="px-10 py-4 bg-gray-dark text-white rounded-xl font-bold text-lg shadow-lg shadow-slate-200 hover:bg-slate-800 transition-all">
+          <div className="mt-4 flex flex-wrap justify-center gap-4">
+            <a
+              href={formUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-gray-dark rounded-xl px-10 py-4 text-lg font-bold text-white shadow-lg shadow-slate-200 transition-all hover:bg-slate-800"
+            >
               {t("primaryCta")}
             </a>
-            <a href="#" className="px-10 py-4 bg-white dark:bg-slate-800 border border-gray-mid dark:border-slate-700 text-gray-dark dark:text-slate-100 rounded-xl font-bold text-lg hover:bg-gray-light dark:hover:bg-slate-700 transition-all">
+            <button className="border-gray-mid text-gray-dark hover:bg-gray-light rounded-xl border bg-white px-10 py-4 text-lg font-bold transition-all dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700">
               {t("secondaryCta")}
-            </a>
+            </button>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-4 text-slate-300 dark:text-slate-700 opacity-20">
+      <div className="absolute bottom-20 left-1/2 flex -translate-x-1/2 gap-4 text-slate-300 opacity-20 dark:text-slate-700">
         <Bolt className="size-10" />
         <Plus className="size-10" />
         <Copy className="size-10" />

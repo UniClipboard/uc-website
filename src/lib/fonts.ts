@@ -1,15 +1,16 @@
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Manrope, Noto_Sans_SC } from "next/font/google";
 
-const fontSans = Inter({
+const fontSans = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
-  fallback: ["system-ui", "arial"],
+  display: "swap",
 });
 
-const fontMono = JetBrains_Mono({
+const fontChinese = Noto_Sans_SC({
   subsets: ["latin"],
-  variable: "--font-mono",
-  fallback: ["system-ui", "arial"],
+  variable: "--font-chinese",
+  display: "swap",
+  weight: ["400", "500", "700"],
 });
 
-export const fonts = [fontSans.variable, fontMono.variable];
+export const fonts = `${fontChinese.variable} ${fontSans.variable}`;

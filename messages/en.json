@@ -4,5 +4,105 @@
     "signOut": "Sign out",
     "subtitle": "A Next.js starter template, packed with features like TypeScript, Tailwind CSS, Next-auth, Eslint, Stripe, testing tools and more. Jumpstart your project with efficiency and style.",
     "getStartedButton": "Get started"
+  },
+  "landing": {
+    "navigation": {
+      "features": "Features",
+      "trust": "Security",
+      "roadmap": "Roadmap",
+      "cta": "Join Waitlist"
+    },
+    "hero": {
+      "badge": "Chapter 1: Cross-Platform Sync",
+      "title": "Your clipboard,",
+      "highlight": "instantly synced across all devices.",
+      "description": "Move text and images between all your devices safely, quickly, and seamlessly. Eliminate friction and let creativity flow freely.",
+      "primaryCta": "Start Private Beta",
+      "secondaryCta": "Watch Demo Video"
+    },
+    "features": {
+      "badge": "Chapter 2: Core Values",
+      "title": "Why Choose UniClipboard",
+      "subtitle": "Built for users who demand extreme speed, pure minimalism, and absolute security.",
+      "fast": {
+        "title": "Lightning Fast",
+        "description": "Sync latency under 50ms. Your data flows as fast as your thoughts."
+      },
+      "minimalist": {
+        "title": "Minimalist Design",
+        "description": "No cluttered menus. Runs silently in the background with native system shortcuts."
+      },
+      "privacy": {
+        "title": "Absolute Privacy",
+        "description": "End-to-end encryption ensures only you can view your data. We never store raw content."
+      },
+      "history": {
+        "title": "Unlimited History",
+        "description": "Complete searchable history. Instantly find that crucial link from weeks ago."
+      }
+    },
+    "trust": {
+      "badge": "Chapter 3: Security Design",
+      "title": "Your Data, Yours Alone",
+      "description": "We use zero-knowledge encryption, meaning decryption keys never leave your device. We provide the infrastructure, and you retain complete data control.",
+      "cta": "Read Security Whitepaper"
+    },
+    "roadmap": {
+      "badge": "Chapter 4: Development Roadmap",
+      "title": "Product Roadmap",
+      "nowAvailable": {
+        "label": "Now Available",
+        "richText": {
+          "title": "Rich Text Sync",
+          "description": "Preserve formatting from Word, Docs, and IDEs."
+        },
+        "images": {
+          "title": "Image Transfer",
+          "description": "Screenshot on Mac, paste instantly on Windows."
+        },
+        "crossPlatform": {
+          "title": "Cross-Platform Clients",
+          "description": "Native support for macOS, Windows, and Linux."
+        }
+      },
+      "comingSoon": {
+        "label": "Coming Soon",
+        "mobile": {
+          "title": "Mobile Apps",
+          "description": "iOS/Android private beta launches in Q4."
+        },
+        "largeFiles": {
+          "title": "Large File Sync",
+          "description": "Transfer clipboard files up to 1GB."
+        },
+        "team": {
+          "title": "Team Shared Spaces",
+          "description": "Collaborative clipboard for design and dev teams."
+        }
+      }
+    },
+    "audience": {
+      "title": "Built for Modern Workflows",
+      "developer": "Developers",
+      "creator": "Content Creators",
+      "designer": "UI/UX Designers",
+      "admin": "System Admins",
+      "geek": "Power Users"
+    },
+    "cta": {
+      "badge": "Final Chapter",
+      "title": "Join Private Beta",
+      "description": "We're gradually opening access. Apply now to get on the waitlist for early access.",
+      "placeholder": "Enter your email",
+      "button": "Get Early Access",
+      "note": "No credit card required. Beta testers get lifetime membership discount."
+    },
+    "footer": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "twitter": "Twitter / X",
+      "github": "GitHub",
+      "copyright": "© 2024 UNICLIPBOARD."
+    }
   }
 }

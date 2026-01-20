@@ -8,6 +8,8 @@
 
 Implement a production-ready landing page for UniClipboard based on the provided HTML prototype. The page will be fully responsive, support Chinese and English languages, and include dark mode adaptation.
 
+prototype.html
+
 ## Requirements
 
 - **Target**: Implement prototype.html design in Next.js

@@ -3,19 +3,31 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().min(1),
-    APP_URL: z.string().url().min(1),
+    // Database - optional for landing page only
+    DATABASE_URL: z.string().optional(),
+
+    // App URL - optional, defaults to localhost
+    APP_URL: z.string().url().optional().default("http://localhost:3000"),
+
+    // Google verification - not required
     GOOGLE_SITE_VERIFICATION_ID: z.string().optional(),
-    GITHUB_ID: z.string().min(1),
-    GITHUB_SECRET: z.string().min(1),
+
+    // GitHub OAuth - optional for landing page only
+    GITHUB_ID: z.string().optional(),
+    GITHUB_SECRET: z.string().optional(),
+
+    // NextAuth - optional for landing page only
     NEXTAUTH_URL: z.string().url().optional(),
-    NEXTAUTH_SECRET: z.string().min(1),
-    STRIPE_SECRET_KEY: z.string().min(1),
-    STRIPE_WEBHOOK_SECRET_KEY: z.string().min(1),
-    STRIPE_SUBSCRIPTION_PRICE_ID: z.string().min(1),
+    NEXTAUTH_SECRET: z.string().optional(),
+
+    // Stripe - optional for landing page only
+    STRIPE_SECRET_KEY: z.string().optional(),
+    STRIPE_WEBHOOK_SECRET_KEY: z.string().optional(),
+    STRIPE_SUBSCRIPTION_PRICE_ID: z.string().optional(),
   },
   client: {
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1),
+    // Stripe public key - optional for landing page only
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,

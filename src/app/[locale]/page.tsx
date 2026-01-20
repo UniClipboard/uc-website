@@ -16,7 +16,7 @@ const LandingPage = async ({
 
   return (
     <>
-      <Navigation locale={locale} />
+      <Navigation />
       <main>
         <HeroSection locale={locale} />
         <FeaturesSection locale={locale} />

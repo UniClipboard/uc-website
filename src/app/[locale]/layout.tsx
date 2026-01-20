@@ -4,9 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 
-import { LangSwitcher } from "@/components/lang-switcher";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import { routing } from "@/i18n/routing";
 import { fonts } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site-config";
@@ -64,8 +62,6 @@ const RootLayout = async ({
         <NextIntlClientProvider>
           <ThemeProvider attribute="class">
             {children}
-            <LangSwitcher className="absolute right-5 bottom-16 z-10" />
-            <ThemeSwitcher className="absolute right-5 bottom-5 z-10" />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

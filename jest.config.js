@@ -9,7 +9,10 @@ const config = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jest-environment-jsdom",
   preset: "ts-jest",
-  testPathIgnorePatterns: ["<rootDir>/src/__tests__/e2e"],
+  testPathIgnorePatterns: [
+    "<rootDir>/src/__tests__/e2e",
+    "<rootDir>/.worktrees/",
+  ],
   transform: {
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.tsx?$": "ts-jest",

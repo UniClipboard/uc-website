@@ -49,3 +49,6 @@ sitemap-*.xml
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# git worktrees
+.worktrees/

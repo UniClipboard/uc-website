@@ -4,7 +4,7 @@ export async function Footer() {
   const t = await getTranslations("landing.footer");
 
   const links = [
-    { key: "twitter", href: "https://x.com/mkdir700" },
+    { key: "twitter", href: "https://x.com/UniClipboard" },
     { key: "github", href: "https://github.com/UniClipboard/UniClipboard" },
   ];
 

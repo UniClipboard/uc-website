@@ -3,7 +3,6 @@
     "navigation": {
       "features": "功能特性",
       "trust": "安全隐私",
-      "roadmap": "产品路线",
       "cta": "加入候补名单"
     },
     "hero": {
@@ -57,40 +56,6 @@
       "title": "您的数据，唯您可见",
       "description": "我们采用零知识加密技术，这意味着解密密钥永远不会离开您的设备。我们提供基础设施，而您拥有完全的数据控制权。",
       "cta": "查阅安全技术白皮书"
-    },
-    "roadmap": {
-      "badge": "第四章：发展路线",
-      "title": "产品路线图",
-      "nowAvailable": {
-        "label": "现已可用",
-        "richText": {
-          "title": "富文本同步",
-          "description": "支持 Word, Docs 和 IDE 的格式保留。"
-        },
-        "images": {
-          "title": "图像传输",
-          "description": "Mac 端截图，Windows 端即时粘贴。"
-        },
-        "crossPlatform": {
-          "title": "跨平台客户端",
-          "description": "原生支持 macOS, Windows 和 Linux。"
-        }
-      },
-      "comingSoon": {
-        "label": "即将到来",
-        "mobile": {
-          "title": "移动端应用",
-          "description": "iOS/Android 内部测试 Q4 启动。"
-        },
-        "largeFiles": {
-          "title": "大文件同步",
-          "description": "支持最高 1GB 的文件剪贴板传输。"
-        },
-        "team": {
-          "title": "团队共享空间",
-          "description": "为设计和开发团队打造的协作剪贴板。"
-        }
-      }
     },
     "audience": {
       "title": "为现代工作流而生",

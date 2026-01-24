@@ -13,6 +13,7 @@
 ## Task 1: Add Chinese Locale Support
 
 **Files:**
+
 - Modify: `src/i18n/routing.ts:1-8`
 - Create: `messages/zh.json`
 
@@ -52,6 +53,7 @@ git commit -m "feat: add Chinese locale support to routing"
 ## Task 2: Configure Font System
 
 **Files:**
+
 - Modify: `src/lib/fonts.ts:1-16`
 
 **Step 1: Update font configuration**
@@ -92,6 +94,7 @@ git commit -m "feat: configure Manrope and Noto Sans SC fonts"
 ## Task 3: Update Tailwind Configuration
 
 **Files:**
+
 - Modify: `src/styles/globals.css:1-125`
 
 **Step 1: Add custom colors and utilities to globals.css**
@@ -104,12 +107,12 @@ After line 42, before `@custom-variant dark`:
 
   /* Custom UniClipboard colors */
   --color-primary: #334155;
-  --color-gray-main: #F8FAFC;
-  --color-gray-light: #F1F5F9;
-  --color-gray-mid: #E2E8F0;
-  --color-gray-dark: #1E293B;
-  --color-silver-accent: #94A3B8;
-  --color-charcoal: #0F172A;
+  --color-gray-main: #f8fafc;
+  --color-gray-light: #f1f5f9;
+  --color-gray-mid: #e2e8f0;
+  --color-gray-dark: #1e293b;
+  --color-silver-accent: #94a3b8;
+  --color-charcoal: #0f172a;
 }
 ```
 
@@ -118,8 +121,11 @@ After line 125, add custom utilities:
 ```css
 /* Custom UniClipboard utilities */
 @utility paper-texture {
-  background-image:
-    radial-gradient(circle at 2px 2px, rgba(0,0,0,0.02) 1px, transparent 0);
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(0, 0, 0, 0.02) 1px,
+    transparent 0
+  );
   background-size: 32px 32px;
 }
 
@@ -160,6 +166,7 @@ git commit -m "feat: add UniClipboard custom colors and utilities"
 ## Task 4: Create Form URL Configuration
 
 **Files:**
+
 - Create: `src/lib/form-config.ts`
 
 **Step 1: Create form configuration file**
@@ -195,6 +202,7 @@ git commit -m "feat: add form URL configuration"
 ## Task 5: Create Landing Components Directory
 
 **Files:**
+
 - Create: `src/components/landing/` (directory)
 
 **Step 1: Create components directory**
@@ -220,6 +228,7 @@ git commit -m "feat: create landing components directory"
 ## Task 6: Create Navigation Component
 
 **Files:**
+
 - Create: `src/components/landing/Navigation.tsx`
 
 **Step 1: Write Navigation component**
@@ -248,7 +257,6 @@ export async function Navigation({ locale }: { locale: string }) {
         <div className="hidden md:flex items-center gap-10">
           <a className="text-xs font-bold text-slate-500 hover:text-gray-dark dark:hover:text-slate-100 transition-colors uppercase tracking-widest" href="#features">{t("features")}</a>
           <a className="text-xs font-bold text-slate-500 hover:text-gray-dark dark:hover:text-slate-100 transition-colors uppercase tracking-widest" href="#trust">{t("trust")}</a>
-          <a className="text-xs font-bold text-slate-500 hover:text-gray-dark dark:hover:text-slate-100 transition-colors uppercase tracking-widest" href="#roadmap">{t("roadmap")}</a>
         </div>
         <a href={formUrl} target="_blank" rel="noopener noreferrer" className="bg-gray-dark text-white text-xs font-bold px-6 py-2.5 rounded-lg hover:bg-slate-800 transition-all uppercase tracking-wider">
           {t("cta")}
@@ -276,6 +284,7 @@ git commit -m "feat: create Navigation component"
 ## Task 7: Create Hero Section Component
 
 **Files:**
+
 - Create: `src/components/landing/HeroSection.tsx`
 
 **Step 1: Write Hero section component**
@@ -340,6 +349,7 @@ git commit -m "feat: create HeroSection component"
 ## Task 8: Create Features Section Component
 
 **Files:**
+
 - Create: `src/components/landing/FeaturesSection.tsx`
 
 **Step 1: Write Features section component**
@@ -416,6 +426,7 @@ git commit -m "feat: create FeaturesSection component"
 ## Task 9: Create Trust Section Component
 
 **Files:**
+
 - Create: `src/components/landing/TrustSection.tsx`
 
 **Step 1: Write Trust section component**
@@ -470,112 +481,10 @@ git commit -m "feat: create TrustSection component"
 
 ---
 
-## Task 10: Create Roadmap Section Component
+## Task 10: Create Audience Section Component
 
 **Files:**
-- Create: `src/components/landing/RoadmapSection.tsx`
 
-**Step 1: Write Roadmap section component**
-
-```typescript
-// src/components/landing/RoadmapSection.tsx
-import { getTranslations } from "next-intl/server";
-import { CheckCircle2 } from "lucide-react";
-
-export async function RoadmapSection({ locale }: { locale: string }) {
-  const t = await getTranslations("landing.roadmap");
-
-  const nowAvailable = [
-    { key: "richText", icon: CheckCircle2 },
-    { key: "images", icon: CheckCircle2 },
-    { key: "crossPlatform", icon: CheckCircle2 },
-  ];
-
-  const comingSoon = [
-    { key: "mobile", icon: null },
-    { key: "largeFiles", icon: null },
-    { key: "team", icon: null },
-  ];
-
-  return (
-    <section id="roadmap" className="py-32 bg-white dark:bg-slate-900 paper-texture celestial-pattern">
-      <div className="max-w-[1000px] mx-auto px-6">
-        <div className="text-center mb-24 flex flex-col items-center">
-          <span className="inline-block px-4 py-1.5 bg-gray-light dark:bg-slate-800 border border-gray-mid dark:border-slate-700 rounded-full text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-6">
-            {t("badge")}
-          </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-charcoal dark:text-slate-100">
-            {t("title")}
-          </h2>
-        </div>
-        <div className="space-y-12">
-          <div className="bg-gray-light/50 dark:bg-slate-800/30 p-10 rounded-card border border-gray-mid dark:border-slate-700 hover:border-silver-accent transition-all">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="px-3 py-1 bg-gray-dark text-white text-[10px] font-bold rounded-md uppercase tracking-wider">
-                {t("nowAvailable.label")}
-              </span>
-              <div className="h-[1px] flex-grow bg-gray-mid dark:bg-slate-700"></div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {nowAvailable.map((feature) => {
-                const Icon = feature.icon;
-                return (
-                  <div key={feature.key} className="space-y-2">
-                    <p className="font-bold text-gray-dark dark:text-slate-100 flex items-center gap-2">
-                      <Icon className="text-silver-accent" /> {t(`nowAvailable.${feature.key}.title`)}
-                    </p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                      {t(`nowAvailable.${feature.key}.description`)}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-800 p-10 rounded-card border border-gray-mid dark:border-slate-700 border-dashed">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="px-3 py-1 bg-gray-mid text-slate-500 text-[10px] font-bold rounded-md uppercase tracking-wider">
-                {t("comingSoon.label")}
-              </span>
-              <div className="h-[1px] flex-grow bg-gray-mid/50 dark:bg-slate-700/50"></div>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {comingSoon.map((feature) => (
-                <div key={feature.key} className="space-y-2 opacity-60">
-                  <p className="font-bold text-gray-dark dark:text-slate-100">
-                    {t(`comingSoon.${feature.key}.title`)}
-                  </p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {t(`comingSoon.${feature.key}.description`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-```
-
-**Step 2: Verify TypeScript compiles**
-
-Run: `npm run typecheck`
-Expected: PASS (no errors)
-
-**Step 3: Commit**
-
-```bash
-git add src/components/landing/RoadmapSection.tsx
-git commit -m "feat: create RoadmapSection component"
-```
-
----
-
-## Task 11: Create Audience Section Component
-
-**Files:**
 - Create: `src/components/landing/AudienceSection.tsx`
 
 **Step 1: Write Audience section component**
@@ -633,6 +542,7 @@ git commit -m "feat: create AudienceSection component"
 ## Task 12: Create CTA Section Component
 
 **Files:**
+
 - Create: `src/components/landing/CtaSection.tsx`
 
 **Step 1: Write CTA section component**
@@ -696,6 +606,7 @@ git commit -m "feat: create CtaSection component"
 ## Task 13: Create Footer Component
 
 **Files:**
+
 - Create: `src/components/landing/Footer.tsx`
 
 **Step 1: Write Footer component**
@@ -758,6 +669,7 @@ git commit -m "feat: create Footer component"
 ## Task 14: Create Chinese Translation File
 
 **Files:**
+
 - Modify: `messages/zh.json`
 
 **Step 1: Write complete Chinese translations**
@@ -768,7 +680,6 @@ git commit -m "feat: create Footer component"
     "navigation": {
       "features": "功能特性",
       "trust": "安全隐私",
-      "roadmap": "产品路线",
       "cta": "加入候补名单"
     },
     "hero": {
@@ -805,40 +716,6 @@ git commit -m "feat: create Footer component"
       "title": "您的数据，唯您可见",
       "description": "我们采用零知识加密技术，这意味着解密密钥永远不会离开您的设备。我们提供基础设施，而您拥有完全的数据控制权。",
       "cta": "查阅安全技术白皮书"
-    },
-    "roadmap": {
-      "badge": "第四章：发展路线",
-      "title": "产品路线图",
-      "nowAvailable": {
-        "label": "现已可用",
-        "richText": {
-          "title": "富文本同步",
-          "description": "支持 Word, Docs 和 IDE 的格式保留。"
-        },
-        "images": {
-          "title": "图像传输",
-          "description": "Mac 端截图，Windows 端即时粘贴。"
-        },
-        "crossPlatform": {
-          "title": "跨平台客户端",
-          "description": "原生支持 macOS, Windows 和 Linux。"
-        }
-      },
-      "comingSoon": {
-        "label": "即将到来",
-        "mobile": {
-          "title": "移动端应用",
-          "description": "iOS/Android 内部测试 Q4 启动。"
-        },
-        "largeFiles": {
-          "title": "大文件同步",
-          "description": "支持最高 1GB 的文件剪贴板传输。"
-        },
-        "team": {
-          "title": "团队共享空间",
-          "description": "为设计和开发团队打造的协作剪贴板。"
-        }
-      }
     },
     "audience": {
       "title": "为现代工作流而生",
@@ -885,6 +762,7 @@ git commit -m "feat: add Chinese translations for landing page"
 ## Task 15: Update English Translation File
 
 **Files:**
+
 - Modify: `messages/en.json`
 
 **Step 1: Update English translations with landing page content**
@@ -901,7 +779,6 @@ git commit -m "feat: add Chinese translations for landing page"
     "navigation": {
       "features": "Features",
       "trust": "Security",
-      "roadmap": "Roadmap",
       "cta": "Join Waitlist"
     },
     "hero": {
@@ -938,40 +815,6 @@ git commit -m "feat: add Chinese translations for landing page"
       "title": "Your Data, Yours Alone",
       "description": "We use zero-knowledge encryption, meaning decryption keys never leave your device. We provide the infrastructure, and you retain complete data control.",
       "cta": "Read Security Whitepaper"
-    },
-    "roadmap": {
-      "badge": "Chapter 4: Development Roadmap",
-      "title": "Product Roadmap",
-      "nowAvailable": {
-        "label": "Now Available",
-        "richText": {
-          "title": "Rich Text Sync",
-          "description": "Preserve formatting from Word, Docs, and IDEs."
-        },
-        "images": {
-          "title": "Image Transfer",
-          "description": "Screenshot on Mac, paste instantly on Windows."
-        },
-        "crossPlatform": {
-          "title": "Cross-Platform Clients",
-          "description": "Native support for macOS, Windows, and Linux."
-        }
-      },
-      "comingSoon": {
-        "label": "Coming Soon",
-        "mobile": {
-          "title": "Mobile Apps",
-          "description": "iOS/Android private beta launches in Q4."
-        },
-        "largeFiles": {
-          "title": "Large File Sync",
-          "description": "Transfer clipboard files up to 1GB."
-        },
-        "team": {
-          "title": "Team Shared Spaces",
-          "description": "Collaborative clipboard for design and dev teams."
-        }
-      }
     },
     "audience": {
       "title": "Built for Modern Workflows",
@@ -1017,6 +860,7 @@ git commit -m "feat: add English translations for landing page"
 ## Task 16: Update Main Page Component
 
 **Files:**
+
 - Modify: `src/app/[locale]/page.tsx:1-71`
 
 **Step 1: Replace home page with landing page components**
@@ -1027,7 +871,6 @@ import { Navigation } from "@/components/landing/Navigation";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { TrustSection } from "@/components/landing/TrustSection";
-import { RoadmapSection } from "@/components/landing/RoadmapSection";
 import { AudienceSection } from "@/components/landing/AudienceSection";
 import { CtaSection } from "@/components/landing/CtaSection";
 import { Footer } from "@/components/landing/Footer";
@@ -1046,7 +889,6 @@ const LandingPage = async ({
         <HeroSection locale={locale} />
         <FeaturesSection locale={locale} />
         <TrustSection locale={locale} />
-        <RoadmapSection locale={locale} />
         <AudienceSection locale={locale} />
         <CtaSection locale={locale} />
       </main>
@@ -1075,6 +917,7 @@ git commit -m "feat: replace home page with UniClipboard landing page"
 ## Task 17: Update Site Configuration
 
 **Files:**
+
 - Modify: `src/lib/site-config.ts:1-11`
 
 **Step 1: Update site metadata**
@@ -1117,6 +960,7 @@ git commit -m "feat: update site config for UniClipboard"
 ## Task 18: Update Global Styles for Body Font
 
 **Files:**
+
 - Modify: `src/styles/globals.css:113-120`
 
 **Step 1: Update body styles to use new font stack**
@@ -1152,6 +996,7 @@ git commit -m "feat: update body font stack for Chinese and English"
 ## Task 19: Update Layout to Apply New Fonts
 
 **Files:**
+
 - Modify: `src/app/[locale]/layout.tsx:1-77`
 
 **Step 1: Update layout to use new font configuration**
@@ -1172,6 +1017,7 @@ Skip this step - Task 2 already updated the fonts.
 ## Task 20: Build and Verify
 
 **Files:**
+
 - (No specific files)
 
 **Step 1: Run full build**
@@ -1187,9 +1033,10 @@ Expected: Server starts successfully on port 3000
 **Step 3: Manual verification checklist**
 
 Open `http://localhost:3000` and verify:
+
 - [ ] Page loads without errors
 - [ ] Navigation displays correctly
-- [ ] All sections are visible (Hero, Features, Trust, Roadmap, Audience, CTA, Footer)
+- [ ] All sections are visible (Hero, Features, Trust, Audience, CTA, Footer)
 - [ ] Language switcher toggles between Chinese and English
 - [ ] Theme switcher toggles between light and dark modes
 - [ ] All buttons and links work

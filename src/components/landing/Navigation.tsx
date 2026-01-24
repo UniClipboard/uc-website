@@ -143,12 +143,6 @@ export function Navigation() {
                 >
                   {t("trust")}
                 </a>
-                <a
-                  className="hover:text-foreground text-muted-foreground text-xs font-bold tracking-widest uppercase transition-colors"
-                  href="#roadmap"
-                >
-                  {t("roadmap")}
-                </a>
               </div>
               <div
                 data-testid="nav-controls"

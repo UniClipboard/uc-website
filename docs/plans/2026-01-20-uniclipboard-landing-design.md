@@ -32,30 +32,33 @@ Single landing page at `/` route with the following sections:
 2. **Hero Section** - Main headline, description, CTA buttons
 3. **Features Section** - 4 feature cards with hover effects
 4. **Trust Section** - Dark background, security emphasis
-5. **Roadmap Section** - Current features vs upcoming features
-6. **Audience Section** - Target user tags
-7. **CTA Section** - Email input + submit button (redirect to forms)
-8. **Footer** - Copyright and links
+5. **Audience Section** - Target user tags
+6. **CTA Section** - Email input + submit button (redirect to forms)
+7. **Footer** - Copyright and links
 
 ### Technical Architecture
 
 **Component Hierarchy**:
+
 - `src/components/landing/` - All landing page components
 - `src/app/[locale]/page.tsx` - Main landing page entry
-- Break into reusable sub-components (Hero, Features, Trust, Roadmap, etc.)
+- Break into reusable sub-components (Hero, Features, Trust, Audience, CTA, etc.)
 
 **Styling Strategy**:
+
 - Tailwind CSS v4
 - Custom colors in `tailwind.config.ts`
 - Dark mode support via `next-themes`
 - Component variants via `class-variance-authority`
 
 **Internationalization**:
+
 - Keep `next-intl` configuration
 - All text through `getTranslations`
 - Form URLs managed via config
 
 **External Links**:
+
 - "立即开启内测" → Tencent Form (CN) / Google Form (EN)
 - "查看演示视频" → Placeholder `#` or reserved video link
 - Navigation "加入候补名单" → Form links
@@ -69,7 +72,7 @@ Single landing page at `/` route with the following sections:
 1. **Navigation.tsx**
    - Fixed positioning, glassmorphism
    - Logo area
-   - Nav links (Features, Trust, Roadmap)
+   - Nav links (Features, Trust)
    - CTA button (form link)
 
 2. **HeroSection.tsx**
@@ -87,20 +90,16 @@ Single landing page at `/` route with the following sections:
    - Security icon and description
    - CTA button (technical whitepaper)
 
-5. **RoadmapSection.tsx**
-   - "Now Available" feature list
-   - "Coming Soon" feature list (semi-transparent)
-
-6. **AudienceSection.tsx**
+5. **AudienceSection.tsx**
    - Section title
    - User tags (Developer, Creator, Designer, etc.)
 
-7. **CtaSection.tsx**
+6. **CtaSection.tsx**
    - Email input field
    - Submit button (form link)
    - Decorative background elements
 
-8. **Footer.tsx**
+7. **Footer.tsx**
    - Logo and copyright
    - Navigation links
 
@@ -137,6 +136,7 @@ colors: {
 ### Selected: Noto Sans SC + Manrope
 
 **Noto Sans SC** (Chinese)
+
 - Google's open-source Chinese font
 - Modern sans-serif design, clear and readable
 - Full coverage of Simplified/Traditional Chinese
@@ -144,6 +144,7 @@ colors: {
 - Consistent style with Manrope
 
 **Manrope** (English)
+
 - Font used in prototype
 - Strong geometric feel, modern and minimalist
 - Excellent screen rendering
@@ -185,24 +186,28 @@ font-family:
 ### Responsive Breakpoints
 
 **Mobile (< 768px)**:
+
 - Nav: Hide middle links, keep Logo + CTA only
 - Hero title: `text-4xl`
 - Feature cards: Single column (`grid-cols-1`)
 - Reduce spacing
 
 **Tablet (768px - 1024px)**:
+
 - Nav: Full layout
 - Hero title: Medium size
 - Feature cards: 2 columns (`grid-cols-2`)
 - Moderate spacing
 
 **Desktop (> 1024px)**:
+
 - Full design details
 - Max-width containers (`max-w-[1200px]` or `max-w-[900px]`)
 
 ### Dark Mode Adaptation
 
 **Color Mapping**:
+
 - `bg-gray-main (#F8FAFC)` → `bg-slate-900`
 - `bg-white` → `bg-slate-800`
 - `text-charcoal (#0F172A)` → `text-slate-100`
@@ -210,6 +215,7 @@ font-family:
 - `border-gray-mid (#E2E8F0)` → `border-slate-700`
 
 **Special Handling**:
+
 - Hero: Keep light background texture
 - Glassmorphism: Darker background `bg-slate-900/70`
 - Trust section (dark): Use even darker `bg-slate-950`
@@ -222,26 +228,29 @@ font-family:
 ### Translation File Structure
 
 **messages/zh.json**:
+
 - Navigation text
 - Hero headline and description
 - 4 feature titles and descriptions
 - Trust section content
-- Roadmap features
 - Audience tags
 - CTA section text
 - Footer links
 
 **messages/en.json**:
+
 - Corresponding English translations
 - Professional, concise technical writing style
 
 ### Translation Strategy
 
 **Headlines & Taglines**:
+
 - Chinese: Concise and powerful (e.g., "您的剪贴板，在任何设备间即时同步")
 - English: Corresponding translation, focus on conciseness
 
 **Feature Descriptions**:
+
 - Chinese: Four-character phrases (极速同步、极简主义、绝对隐私、无限历史)
 - English: Word or phrase (Lightning Fast, Minimalist, Absolute Privacy, Unlimited History)
 
@@ -249,8 +258,8 @@ font-family:
 
 ```typescript
 const FORM_URLS = {
-  zh: "https://docs.qq.com/form/page/[PLACEHOLDER]",  // Tencent Form
-  en: "https://forms.google.com/[PLACEHOLDER]",        // Google Form
+  zh: "https://docs.qq.com/form/page/[PLACEHOLDER]", // Tencent Form
+  en: "https://forms.google.com/[PLACEHOLDER]", // Google Form
 };
 ```
 
@@ -261,20 +270,24 @@ const FORM_URLS = {
 ### Performance Optimization
 
 **Font Loading**:
+
 - Use `display: 'swap'` to avoid FOIT
 - Enable `preload: true`
 - Subset fonts (Latin, Chinese-Simplified)
 
 **Image Optimization**:
+
 - Background patterns use SVG data URI (optimized)
 - Use Next.js `<Image>` component for other images
 - Enable blur placeholders
 
 **Code Splitting**:
+
 - Each section component independently imported
 - Dynamic imports for non-critical components (if needed)
 
 **CSS Optimization**:
+
 - Tailwind JIT mode (enabled)
 - Custom styles using CSS variables
 - Avoid inline styles
@@ -282,23 +295,26 @@ const FORM_URLS = {
 ### Implementation Details
 
 **Glassmorphism Effect**:
+
 ```css
 .glass-panel {
-  @apply bg-white/70 backdrop-blur-md
-         border border-slate-200/50;
+  @apply border border-slate-200/50 bg-white/70 backdrop-blur-md;
 }
 
 .dark .glass-panel {
-  @apply bg-slate-900/70 backdrop-blur-md
-         border border-slate-700/50;
+  @apply border border-slate-700/50 bg-slate-900/70 backdrop-blur-md;
 }
 ```
 
 **Decorative Backgrounds**:
+
 ```css
 .paper-texture {
-  background-image:
-    radial-gradient(circle at 2px 2px, rgba(0,0,0,0.02) 1px, transparent 0);
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(0, 0, 0, 0.02) 1px,
+    transparent 0
+  );
   background-size: 32px 32px;
 }
 
@@ -308,11 +324,13 @@ const FORM_URLS = {
 ```
 
 **Interactive States**:
+
 - All buttons have hover and focus states
 - Card hover effects (border color, icon color)
 - Smooth transitions (`transition-all duration-300`)
 
 **Accessibility**:
+
 - Semantic HTML (`<nav>`, `<section>`, `<main>`, `<footer>`)
 - Clear `aria-label` on buttons and links
 - Color contrast meets WCAG standards
@@ -320,12 +338,14 @@ const FORM_URLS = {
 ### SEO Optimization
 
 **Metadata**:
+
 ```typescript
 title: "UniClipboard | 安全高效的通用剪贴板",
 description: "安全、快速、无缝地在您的所有设备之间移动文本和图像",
 ```
 
 **Structured Data**:
+
 - Add JSON-LD schema markup
 - Product info, company info
 
@@ -336,6 +356,7 @@ description: "安全、快速、无缝地在您的所有设备之间移动文本
 ### Phase 1: Foundation Setup (Highest Priority)
 
 **Tasks**:
+
 1. Configure font system (Manrope + Noto Sans SC)
 2. Update Tailwind config (custom colors)
 3. Create basic component structure
@@ -343,6 +364,7 @@ description: "安全、快速、无缝地在您的所有设备之间移动文本
 5. Add global CSS utility classes
 
 **Deliverables**:
+
 - Fonts load correctly
 - Custom colors available
 - Component folder structure established
@@ -350,12 +372,14 @@ description: "安全、快速、无缝地在您的所有设备之间移动文本
 ### Phase 2: Core Components
 
 **Tasks**:
+
 1. Navigation component (fixed navbar + glassmorphism)
 2. HeroSection component (hero + CTAs)
 3. FeaturesSection component (4 feature cards)
 4. Footer component (copyright + links)
 
 **Deliverables**:
+
 - Landing page frame visible
 - Core content displayed
 - Responsive layout working
@@ -363,14 +387,15 @@ description: "安全、快速、无缝地在您的所有设备之间移动文本
 ### Phase 3: Complete & Optimize
 
 **Tasks**:
+
 1. TrustSection component (security section)
-2. RoadmapSection component (product roadmap)
-3. AudienceSection component (target users)
-4. CtaSection component (email input)
-5. Dark mode adaptation
-6. Animations and interactions
+2. AudienceSection component (target users)
+3. CtaSection component (email input)
+4. Dark mode adaptation
+5. Animations and interactions
 
 **Deliverables**:
+
 - Complete landing page
 - Dark mode perfectly adapted
 - All interactions working
@@ -378,6 +403,7 @@ description: "安全、快速、无缝地在您的所有设备之间移动文本
 ### Phase 4: Testing & Polish
 
 **Tasks**:
+
 1. Responsive testing (mobile, tablet, desktop)
 2. i18n testing (CN/EN switching)
 3. Performance check (Lighthouse score)
@@ -385,6 +411,7 @@ description: "安全、快速、无缝地在您的所有设备之间移动文本
 5. Cross-browser testing
 
 **Deliverables**:
+
 - Production-ready landing page
 - Pass all test checks
 

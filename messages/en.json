@@ -9,7 +9,6 @@
     "navigation": {
       "features": "Features",
       "trust": "Security",
-      "roadmap": "Roadmap",
       "cta": "Join Waitlist"
     },
     "hero": {
@@ -63,40 +62,6 @@
       "title": "Your Data, Yours Alone",
       "description": "We use zero-knowledge encryption, meaning decryption keys never leave your device. We provide the infrastructure, and you retain complete data control.",
       "cta": "Read Security Whitepaper"
-    },
-    "roadmap": {
-      "badge": "Chapter 4: Development Roadmap",
-      "title": "Product Roadmap",
-      "nowAvailable": {
-        "label": "Now Available",
-        "richText": {
-          "title": "Rich Text Sync",
-          "description": "Preserve formatting from Word, Docs, and IDEs."
-        },
-        "images": {
-          "title": "Image Transfer",
-          "description": "Screenshot on Mac, paste instantly on Windows."
-        },
-        "crossPlatform": {
-          "title": "Cross-Platform Clients",
-          "description": "Native support for macOS, Windows, and Linux."
-        }
-      },
-      "comingSoon": {
-        "label": "Coming Soon",
-        "mobile": {
-          "title": "Mobile Apps",
-          "description": "iOS/Android private beta launches in Q4."
-        },
-        "largeFiles": {
-          "title": "Large File Sync",
-          "description": "Transfer clipboard files up to 1GB."
-        },
-        "team": {
-          "title": "Team Shared Spaces",
-          "description": "Collaborative clipboard for design and dev teams."
-        }
-      }
     },
     "audience": {
       "title": "Built for Modern Workflows",

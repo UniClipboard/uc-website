@@ -18,7 +18,7 @@
       "highlight": "instantly synced across all devices.",
       "description": "Move text and images between all your devices safely, quickly, and seamlessly. Eliminate friction and let creativity flow freely.",
       "primaryCta": "Start Private Beta",
-      "secondaryCta": "Watch Demo Video"
+      "secondaryCta": "Star on GitHub"
     },
     "features": {
       "badge": "Chapter 2: Core Values",
@@ -119,7 +119,10 @@
       "terms": "Terms of Service",
       "twitter": "Twitter / X",
       "github": "GitHub",
-      "copyright": "© 2024 UNICLIPBOARD."
+      "copyright": "© 2026 UNICLIPBOARD."
     }
+  },
+  "whitepaper": {
+    "backToHome": "Back to home"
   }
 }

@@ -1,4 +1,4 @@
-import { Bolt, Copy, Plus } from "lucide-react";
+import { Bolt, Copy, Github, Plus } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { getFormUrl } from "@/lib/form-config";
@@ -26,9 +26,15 @@ export async function HeroSection({ locale }: { locale: string }) {
             >
               {t("primaryCta")}
             </a>
-            <button className="border-border text-foreground hover:bg-accent bg-card rounded-xl border px-10 py-4 text-lg font-bold transition-all">
+            <a
+              href="https://github.com/UniClipboard/UniClipboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-border text-foreground hover:bg-accent bg-card flex items-center gap-2 rounded-xl border px-10 py-4 text-lg font-bold transition-all"
+            >
+              <Github className="size-5" />
               {t("secondaryCta")}
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -12,13 +12,21 @@ const webhookHandler = async (req: NextRequest) => {
     const sig = req.headers.get("stripe-signature")!;
 
     let event: Stripe.Event;
+    const webhookSecret = env.STRIPE_WEBHOOK_SECRET_KEY;
+
+    if (!webhookSecret) {
+      return NextResponse.json(
+        {
+          error: {
+            message: "Stripe webhook secret is not configured",
+          },
+        },
+        { status: 500 },
+      );
+    }
 
     try {
-      event = stripeServer.webhooks.constructEvent(
-        buf,
-        sig,
-        env.STRIPE_WEBHOOK_SECRET_KEY,
-      );
+      event = stripeServer.webhooks.constructEvent(buf, sig, webhookSecret);
     } catch (err) {
       return NextResponse.json(
         {

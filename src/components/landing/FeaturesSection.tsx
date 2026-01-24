@@ -8,7 +8,7 @@ const features = [
   { icon: History, key: "history" },
 ];
 
-export async function FeaturesSection({ locale: _locale }: { locale: string }) {
+export async function FeaturesSection() {
   const t = await getTranslations("landing.features");
 
   return (

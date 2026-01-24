@@ -1,7 +1,9 @@
 import { ShieldCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-export async function TrustSection({ locale: _locale }: { locale: string }) {
+import { Link } from "@/i18n/navigation";
+
+export async function TrustSection() {
   const t = await getTranslations("landing.trust");
 
   return (
@@ -18,9 +20,12 @@ export async function TrustSection({ locale: _locale }: { locale: string }) {
             {t("description")}
           </p>
         </div>
-        <button className="hover:bg-primary/90 bg-primary rounded-xl px-10 py-4 text-sm font-bold text-white shadow-xl transition-all">
+        <Link
+          className="hover:bg-primary/90 bg-primary rounded-xl px-10 py-4 text-sm font-bold text-white shadow-xl transition-all"
+          href="/whitepaper"
+        >
           {t("cta")}
-        </button>
+        </Link>
       </div>
       <div className="absolute top-0 right-0 h-full w-1/3 skew-x-12 bg-white/5"></div>
       <div className="absolute bottom-0 left-0 h-1/2 w-1/4 -rotate-12 bg-white/5"></div>

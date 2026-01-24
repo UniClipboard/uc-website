@@ -1,13 +1,11 @@
 import { getTranslations } from "next-intl/server";
 
-export async function Footer({ locale: _locale }: { locale: string }) {
+export async function Footer() {
   const t = await getTranslations("landing.footer");
 
   const links = [
-    { key: "privacy", href: "#" },
-    { key: "terms", href: "#" },
-    { key: "twitter", href: "#" },
-    { key: "github", href: "#" },
+    { key: "twitter", href: "https://x.com/mkdir700" },
+    { key: "github", href: "https://github.com/UniClipboard/UniClipboard" },
   ];
 
   return (

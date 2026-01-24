@@ -7,11 +7,7 @@ const steps = [
   { icon: ClipboardCopy, key: "step3" },
 ];
 
-export async function HowItWorksSection({
-  locale: _locale,
-}: {
-  locale: string;
-}) {
+export async function HowItWorksSection() {
   const t = await getTranslations("landing.howItWorks");
 
   return (

@@ -1,7 +1,7 @@
 import { CheckCircle2 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-export async function RoadmapSection({ locale: _locale }: { locale: string }) {
+export async function RoadmapSection() {
   const t = await getTranslations("landing.roadmap");
 
   const nowAvailable = [

@@ -12,7 +12,7 @@
       "highlight": "在任何设备间即时同步。",
       "description": "安全、快速、无缝地在您的所有设备之间移动文本和图像。消除摩擦，让创意自由流动。",
       "primaryCta": "立即开启内测",
-      "secondaryCta": "查看演示视频"
+      "secondaryCta": "Star GitHub"
     },
     "features": {
       "badge": "第二章：核心价值",
@@ -113,7 +113,10 @@
       "terms": "服务条款",
       "twitter": "推特 / X",
       "github": "GitHub",
-      "copyright": "© 2024 UNICLIPBOARD."
+      "copyright": "© 2026 UNICLIPBOARD."
     }
+  },
+  "whitepaper": {
+    "backToHome": "返回主页"
   }
 }

@@ -10,7 +10,19 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-const sql = neon(process.env.DATABASE_URL!);
+const databaseUrl = process.env.DATABASE_URL;
+const resolvedDatabaseUrl = (() => {
+  if (!databaseUrl) return "postgresql://user:password@localhost:5432/postgres";
+
+  try {
+    new URL(databaseUrl);
+    return databaseUrl;
+  } catch {
+    return "postgresql://user:password@localhost:5432/postgres";
+  }
+})();
+
+const sql = neon(resolvedDatabaseUrl);
 export const db = drizzle({ client: sql });
 
 export const users = pgTable("user", {

@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-export async function AudienceSection({ locale: _locale }: { locale: string }) {
+export async function AudienceSection() {
   const t = await getTranslations("landing.audience");
 
   const audiences = [

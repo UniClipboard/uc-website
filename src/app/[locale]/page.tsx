@@ -20,14 +20,14 @@ const LandingPage = async ({
       <Navigation />
       <main>
         <HeroSection locale={locale} />
-        <FeaturesSection locale={locale} />
-        <HowItWorksSection locale={locale} />
-        <TrustSection locale={locale} />
-        <RoadmapSection locale={locale} />
-        <AudienceSection locale={locale} />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <TrustSection />
+        <RoadmapSection />
+        <AudienceSection />
         <CtaSection locale={locale} />
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   );
 };

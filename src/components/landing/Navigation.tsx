@@ -2,7 +2,7 @@
 
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
@@ -24,6 +24,7 @@ const switchLocalePathname = (pathname: string, nextLocale: "en" | "zh") => {
 
 export function Navigation() {
   const locale = useLocale();
+  const t = useTranslations("landing.navigation");
   const router = useRouter();
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
@@ -134,19 +135,19 @@ export function Navigation() {
                   className="hover:text-foreground text-muted-foreground text-xs font-bold tracking-widest uppercase transition-colors"
                   href="#features"
                 >
-                  Features
+                  {t("features")}
                 </a>
                 <a
                   className="hover:text-foreground text-muted-foreground text-xs font-bold tracking-widest uppercase transition-colors"
                   href="#trust"
                 >
-                  Trust
+                  {t("trust")}
                 </a>
                 <a
                   className="hover:text-foreground text-muted-foreground text-xs font-bold tracking-widest uppercase transition-colors"
                   href="#roadmap"
                 >
-                  Roadmap
+                  {t("roadmap")}
                 </a>
               </div>
               <div
@@ -180,7 +181,7 @@ export function Navigation() {
                 rel="noopener noreferrer"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-5 py-2.5 text-xs font-bold tracking-wider uppercase transition-all"
               >
-                Get Early Access
+                {t("cta")}
               </a>
             </div>
           </div>

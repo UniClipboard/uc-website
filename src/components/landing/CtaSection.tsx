@@ -18,28 +18,14 @@ export async function CtaSection({ locale }: { locale: string }) {
           <p className="text-silver-accent text-lg leading-relaxed font-medium">
             {t("description")}
           </p>
-          <form
-            action={formUrl}
-            method="get"
+          <a
+            href={formUrl}
             target="_blank"
-            className="w-full"
+            rel="noopener noreferrer"
+            className="bg-primary hover:bg-primary/90 inline-flex h-14 items-center justify-center rounded-xl px-8 text-base font-bold whitespace-nowrap text-white transition-all"
           >
-            <div className="flex w-full flex-col gap-3 rounded-2xl border border-white/10 bg-white/5 p-2 backdrop-blur-xl sm:flex-row">
-              <input
-                name="email"
-                type="email"
-                required
-                placeholder={t("placeholder")}
-                className="text-gray-dark focus:ring-primary h-14 flex-grow rounded-xl border-none bg-white px-6 text-base font-bold outline-none focus:ring-2"
-              />
-              <button
-                type="submit"
-                className="hover:bg-primary/90 bg-primary h-14 rounded-xl px-8 text-base font-bold whitespace-nowrap text-white transition-all"
-              >
-                {t("button")}
-              </button>
-            </div>
-          </form>
+            {t("button")}
+          </a>
           <p className="text-silver-accent/60 text-xs font-bold italic">
             {t("note")}
           </p>

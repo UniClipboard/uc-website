@@ -52,6 +52,15 @@ export async function HowItWorksSection() {
             );
           })}
         </div>
+
+        <div className="mt-16 text-center">
+          <a
+            href="#cta"
+            className="text-primary hover:text-primary/80 inline-flex items-center text-base font-semibold transition-colors"
+          >
+            {t("cta")}
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -7,7 +7,7 @@ export async function CtaSection({ locale }: { locale: string }) {
   const formUrl = getFormUrl(locale as "zh" | "en");
 
   return (
-    <section className="mx-auto max-w-[1200px] px-6 py-32">
+    <section id="cta" className="mx-auto max-w-[1200px] px-6 py-32">
       <div className="bg-gray-dark relative overflow-hidden rounded-[2rem] p-12 text-center text-white shadow-2xl md:p-24">
         <div className="absolute top-0 right-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5"></div>
         <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2 rounded-full bg-white/5"></div>

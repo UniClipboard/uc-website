@@ -54,6 +54,16 @@ export async function FeaturesSection() {
             );
           })}
         </div>
+
+        <div className="mt-12 flex flex-col items-center gap-3 text-center">
+          <a
+            href="#cta"
+            className="bg-secondary hover:bg-secondary/80 text-secondary-foreground inline-flex h-10 items-center justify-center rounded-lg px-6 text-sm font-medium transition-colors"
+          >
+            {t("cta.button")}
+          </a>
+          <p className="text-muted-foreground text-xs">{t("cta.note")}</p>
+        </div>
       </div>
     </section>
   );

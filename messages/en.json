@@ -21,41 +21,46 @@
     },
     "features": {
       "badge": "Chapter 2: Core Values",
-      "title": "Why Choose UniClipboard",
-      "subtitle": "Built for users who demand extreme speed, pure minimalism, and absolute security.",
+      "title": "Built for Fast, Local, Private Sync",
+      "subtitle": "Pair once. After that, your devices reconnect automatically on the same network - end-to-end encrypted.",
       "fast": {
-        "title": "Lightning Fast",
-        "description": "Sync latency under 50ms. Your data flows as fast as your thoughts."
+        "title": "Near-instant LAN sync",
+        "description": "Pair once, then UniClipboard reconnects automatically on your local network. No \"send\" button. No repeated confirmations."
       },
       "minimalist": {
-        "title": "Minimalist Design",
-        "description": "No cluttered menus. Runs silently in the background with native system shortcuts."
+        "title": "Runs quietly in the background",
+        "description": "No cluttered UI. No constant pop-ups. Native shortcuts and system-level integration."
       },
       "privacy": {
-        "title": "Absolute Privacy",
-        "description": "End-to-end encryption ensures only you can view your data. We never store raw content."
+        "title": "Local-first. End-to-end encrypted.",
+        "description": "Your clipboard data stays on your devices and is encrypted by default. Only you can access your content."
       },
       "history": {
-        "title": "Unlimited History",
-        "description": "Complete searchable history. Instantly find that crucial link from weeks ago."
+        "title": "Search when you need it",
+        "description": "Find recent text and links in seconds. You stay in control of what gets stored and for how long."
+      },
+      "cta": {
+        "button": "Join Private Beta",
+        "note": "LAN sync first. Remote sync later."
       }
     },
     "howItWorks": {
       "badge": "How It Works",
-      "title": "Simple as 1-2-3",
-      "subtitle": "Get up and running in less than a minute. No complex configuration required.",
+      "title": "How LAN Sync Works",
+      "subtitle": "A one-time pairing step, then automatic reconnection on your local network.",
       "step1": {
-        "title": "Install",
-        "description": "Download and install the app on all your devices."
+        "title": "Pair Devices (One-time)",
+        "description": "Confirm trust once. Approve a pairing request to establish a trusted relationship between devices."
       },
       "step2": {
-        "title": "Connect",
-        "description": "Sign in to securely link your devices together."
+        "title": "Auto Reconnect on LAN",
+        "description": "No manual steps after pairing. When your devices are on the same network, UniClipboard reconnects in the background."
       },
       "step3": {
-        "title": "Sync",
-        "description": "Copy on one device, paste on another. Magic."
-      }
+        "title": "Sync Securely",
+        "description": "Encrypted, direct, local-first. Clipboard data is encrypted before it leaves your device and synced directly over your network."
+      },
+      "cta": "Start Private Beta ->"
     },
     "trust": {
       "badge": "Chapter 3: Security Design",

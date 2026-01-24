@@ -41,6 +41,23 @@
         "description": "Complete searchable history. Instantly find that crucial link from weeks ago."
       }
     },
+    "howItWorks": {
+      "badge": "How It Works",
+      "title": "Simple as 1-2-3",
+      "subtitle": "Get up and running in less than a minute. No complex configuration required.",
+      "step1": {
+        "title": "Install",
+        "description": "Download and install the app on all your devices."
+      },
+      "step2": {
+        "title": "Connect",
+        "description": "Sign in to securely link your devices together."
+      },
+      "step3": {
+        "title": "Sync",
+        "description": "Copy on one device, paste on another. Magic."
+      }
+    },
     "trust": {
       "badge": "Chapter 3: Security Design",
       "title": "Your Data, Yours Alone",

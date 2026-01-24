@@ -39,27 +39,30 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
-  /* Custom UniClipboard colors */
-  --color-primary: #334155;
-  --color-gray-main: #F8FAFC;
-  --color-gray-light: #F1F5F9;
-  --color-gray-mid: #E2E8F0;
-  --color-gray-dark: #1E293B;
-  --color-silver-accent: #94A3B8;
-  --color-charcoal: #0F172A;
+  --color-gray-main: var(--gray-main);
+  --color-gray-light: var(--gray-light);
+  --color-gray-mid: var(--gray-mid);
+  --color-gray-dark: var(--gray-dark);
+  --color-silver-accent: var(--silver-accent);
+  --color-charcoal: var(--charcoal);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
+  --gray-main: #f6f7f8;
+  --gray-light: #f1f5f9;
+  --gray-mid: #e2e8f0;
+  --gray-dark: #101922;
+  --silver-accent: #94a3b8;
+  --charcoal: #0f172a;
+  --background: #f6f7f8;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #2b8cee;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
@@ -86,14 +89,14 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --background: #101922;
+  --foreground: #f8fafc;
+  --card: #16202a;
+  --card-foreground: #f8fafc;
+  --popover: #16202a;
+  --popover-foreground: #f8fafc;
+  --primary: #2b8cee;
+  --primary-foreground: #ffffff;
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -133,13 +136,16 @@
 }
 
 @utility container {
-  @apply max-w-screen-xl mx-auto p-5;
+  @apply mx-auto max-w-screen-xl p-5;
 }
 
 /* Custom UniClipboard utilities */
 @utility paper-texture {
-  background-image:
-    radial-gradient(circle at 2px 2px, rgba(0,0,0,0.02) 1px, transparent 0);
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(0, 0, 0, 0.02) 1px,
+    transparent 0
+  );
   background-size: 32px 32px;
 }
 
@@ -158,6 +164,6 @@
 }
 
 .dark .glass-panel {
-  background-color: rgba(15, 23, 42, 0.7);
+  background-color: rgba(16, 25, 34, 0.7);
   border-color: rgba(51, 65, 85, 0.5);
 }

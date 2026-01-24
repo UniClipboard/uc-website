@@ -11,10 +11,10 @@ export async function Footer({ locale: _locale }: { locale: string }) {
   ];
 
   return (
-    <footer className="border-gray-mid border-t bg-white py-16 dark:border-slate-700 dark:bg-slate-900">
+    <footer className="border-border bg-background border-t py-16">
       <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-10 px-6 md:flex-row">
         <div className="flex items-center gap-2">
-          <div className="bg-gray-light text-gray-dark flex size-8 items-center justify-center rounded-lg dark:bg-slate-800 dark:text-slate-100">
+          <div className="bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg">
             <svg
               className="size-4"
               fill="none"
@@ -27,22 +27,22 @@ export async function Footer({ locale: _locale }: { locale: string }) {
               ></path>
             </svg>
           </div>
-          <span className="text-gray-dark text-xl font-bold tracking-tight dark:text-slate-100">
+          <span className="text-foreground text-xl font-bold tracking-tight">
             UniClipboard
           </span>
         </div>
-        <div className="flex flex-wrap justify-center gap-8 text-xs font-bold tracking-widest text-slate-400 uppercase dark:text-slate-500">
+        <div className="text-muted-foreground flex flex-wrap justify-center gap-8 text-xs font-bold tracking-widest uppercase">
           {links.map((link) => (
             <a
               key={link.key}
-              className="hover:text-gray-dark transition-colors dark:hover:text-slate-100"
+              className="hover:text-foreground transition-colors"
               href={link.href}
             >
               {t(link.key)}
             </a>
           ))}
         </div>
-        <div className="text-xs font-bold tracking-widest text-slate-400 uppercase dark:text-slate-500">
+        <div className="text-muted-foreground text-xs font-bold tracking-widest uppercase">
           {t("copyright")}
         </div>
       </div>

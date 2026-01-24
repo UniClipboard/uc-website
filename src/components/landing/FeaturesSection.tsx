@@ -8,49 +8,48 @@ const features = [
   { icon: History, key: "history" },
 ];
 
-export async function FeaturesSection({
-  locale: _locale,
-}: {
-  locale: string;
-}) {
+export async function FeaturesSection({ locale: _locale }: { locale: string }) {
   const t = await getTranslations("landing.features");
 
   return (
     <section
       id="features"
-      className="bg-gray-light celestial-pattern border-gray-mid relative border-y py-32 dark:border-slate-700 dark:bg-slate-900/50"
+      className="bg-muted celestial-pattern border-border relative overflow-hidden border-y py-32"
     >
       <div className="mx-auto max-w-[1200px] px-6">
-        <div className="mx-auto mb-24 max-w-2xl text-center">
-          <span className="border-gray-mid mb-6 inline-block rounded-full border bg-white px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] text-slate-400 uppercase dark:border-slate-700 dark:bg-slate-800 dark:text-slate-500">
-            {t("badge")}
-          </span>
-          <h2 className="text-charcoal mb-6 text-4xl font-extrabold tracking-tight md:text-5xl dark:text-slate-100">
+        <div className="mx-auto mb-16 max-w-2xl text-center">
+          <h2 className="text-foreground mb-8 text-4xl font-extrabold tracking-tight md:text-5xl">
             {t("title")}
           </h2>
-          <p className="text-lg leading-relaxed font-medium text-slate-500 dark:text-slate-400">
+
+          <div className="bg-border/70 mx-auto mb-8 h-px w-24" />
+
+          <p className="text-muted-foreground text-lg leading-relaxed font-medium">
             {t("subtitle")}
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {features.map((feature) => {
             const Icon = feature.icon;
+
             return (
               <div
                 key={feature.key}
-                className="group rounded-card border-gray-mid hover:border-silver-accent flex flex-col gap-6 border bg-white p-10 shadow-sm transition-all dark:border-slate-700 dark:bg-slate-800"
+                className="bg-card border-border hover:border-primary/30 group rounded-xl border p-6 transition-all"
               >
-                <div className="bg-gray-light text-silver-accent group-hover:bg-gray-dark flex size-14 items-center justify-center rounded-xl transition-all group-hover:text-white dark:bg-slate-700">
-                  <Icon className="size-7" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="text-gray-dark text-2xl font-bold dark:text-slate-100">
+                <div className="mb-3 flex items-center gap-4">
+                  <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-10 w-10 items-center justify-center rounded-lg transition-colors group-hover:text-white">
+                    <Icon className="size-5" />
+                  </div>
+                  <h3 className="text-foreground text-lg font-bold tracking-tight">
                     {t(`${feature.key}.title`)}
                   </h3>
-                  <p className="text-lg leading-relaxed text-slate-500 dark:text-slate-400">
-                    {t(`${feature.key}.description`)}
-                  </p>
                 </div>
+
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {t(`${feature.key}.description`)}
+                </p>
               </div>
             );
           })}

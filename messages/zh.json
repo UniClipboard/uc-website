@@ -35,6 +35,23 @@
         "description": "支持键盘搜索的完整历史记录。瞬间找回几周前的关键链接。"
       }
     },
+    "howItWorks": {
+      "badge": "如何使用",
+      "title": "简单三步",
+      "subtitle": "一分钟内完成设置。无需复杂配置。",
+      "step1": {
+        "title": "下载安装",
+        "description": "在您的所有设备上下载并安装应用程序。"
+      },
+      "step2": {
+        "title": "安全连接",
+        "description": "登录账号以安全地连接您的设备。"
+      },
+      "step3": {
+        "title": "即时同步",
+        "description": "一处复制，处处粘贴。就是这么神奇。"
+      }
+    },
     "trust": {
       "badge": "第三章：安全设计",
       "title": "您的数据，唯您可见",

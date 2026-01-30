@@ -32,14 +32,28 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.title,
-    images: "/opengraph-image.jpg",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1584,
+        height: 672,
+        alt: "UniClipboard - Privacy-first clipboard sync",
+      },
+    ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: "/opengraph-image.jpg",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1584,
+        height: 672,
+        alt: "UniClipboard - Privacy-first clipboard sync",
+      },
+    ],
   },
 };
 
@@ -60,9 +74,7 @@ const RootLayout = async ({
     <html lang={locale} suppressHydrationWarning>
       <body className={cn("min-h-screen font-sans", fonts)}>
         <NextIntlClientProvider>
-          <ThemeProvider attribute="class">
-            {children}
-          </ThemeProvider>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

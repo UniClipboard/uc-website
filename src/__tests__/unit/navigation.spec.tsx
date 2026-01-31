@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import * as React from "react";
 
 import { Navigation } from "@/components/landing/Navigation";
@@ -105,6 +105,7 @@ jest.mock("framer-motion", () => {
 const mockUseLocale = jest.fn();
 jest.mock("next-intl", () => ({
   useLocale: () => mockUseLocale(),
+  useTranslations: () => (key) => key,
 }));
 
 const push = jest.fn();
@@ -134,10 +135,14 @@ describe("Navigation", () => {
 
     expect(screen.getByTestId("nav-controls")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Switch language" }),
+      within(screen.getByTestId("nav-controls")).getByRole("button", {
+        name: "Switch language",
+      }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Toggle theme" }),
+      within(screen.getByTestId("nav-controls")).getByRole("button", {
+        name: "Toggle theme",
+      }),
     ).toBeInTheDocument();
   });
 
@@ -157,7 +162,11 @@ describe("Navigation", () => {
 
     render(<Navigation />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Switch language" }));
+    fireEvent.click(
+      within(screen.getByTestId("nav-controls")).getByRole("button", {
+        name: "Switch language",
+      }),
+    );
     expect(push).toHaveBeenCalledWith("/zh");
   });
 
@@ -166,7 +175,11 @@ describe("Navigation", () => {
 
     render(<Navigation />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Toggle theme" }));
+    fireEvent.click(
+      within(screen.getByTestId("nav-controls")).getByRole("button", {
+        name: "Toggle theme",
+      }),
+    );
     expect(setTheme).toHaveBeenCalledWith("dark");
   });
 

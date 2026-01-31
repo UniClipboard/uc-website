@@ -1,5 +1,6 @@
 import { AudienceSection } from "@/components/landing/AudienceSection";
 import { CtaSection } from "@/components/landing/CtaSection";
+import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { Footer } from "@/components/landing/Footer";
 import { HeroSection } from "@/components/landing/HeroSection";
@@ -23,6 +24,7 @@ const LandingPage = async ({
         <HowItWorksSection />
         <TrustSection />
         <AudienceSection />
+        <FaqSection />
         <CtaSection locale={locale} />
       </main>
       <Footer />

@@ -84,6 +84,41 @@
       "button": "Get Early Access",
       "note": "No credit card required. Beta testers get lifetime membership discount."
     },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "item1": {
+        "q": "What is UniClipboard?",
+        "a": "UniClipboard is a cross-device clipboard sync tool that lets you seamlessly copy and paste text and files between Mac, Windows, and Linux.\nIts core goal is simple: make multi-device work feel natural without sacrificing privacy."
+      },
+      "item2": {
+        "q": "How is it different from iCloud / Windows Clipboard / other tools?",
+        "a": "The biggest differences are three things:\n- Privacy-first: end-to-end encryption, no plaintext cloud storage\n- Decentralized design: devices communicate directly, no central server\n- Open-source & auditable: you can see where data goes and how it is handled\nIf you care about what your clipboard contains, that's exactly the problem UniClipboard aims to solve."
+      },
+      "item3": {
+        "q": "Will my clipboard data be uploaded to the cloud?",
+        "a": "No.\nUniClipboard does not store your clipboard content in the cloud.\nAll data is encrypted and transferred only between devices you trust, and we cannot read your content."
+      },
+      "item4": {
+        "q": "Can you see my clipboard content?",
+        "a": "No - and you don't have to take our word for it.\n- Clipboard data is encrypted locally\n- Transit is end-to-end encrypted\n- There is no central server that can peek\nEven the developers cannot decrypt your clipboard contents."
+      },
+      "item5": {
+        "q": "Why build clipboard sync now?",
+        "a": "Because most existing solutions either:\n- Lock you into an ecosystem\n- Rely too heavily on the cloud\n- Are opaque about privacy\nUniClipboard is a long-term answer, not a pile of features."
+      },
+      "item6": {
+        "q": "Can I use it right now?",
+        "a": "It's currently in Private Alpha.\nThat means:\n- Features are evolving quickly\n- Bugs are possible\n- It's best for early users who want to help refine the product\nIf you're willing to test and share real feedback, you're welcome to join."
+      },
+      "item7": {
+        "q": "Is UniClipboard free?",
+        "a": "During Alpha, it's completely free.\nFuture pricing isn't finalized, but the principles are clear:\n- No selling user data\n- No ads\n- No privacy-for-profit"
+      },
+      "item8": {
+        "q": "Do I need an account?",
+        "a": "No.\nUniClipboard does not require registration or email/phone binding.\nDevices establish trust through secure pairing."
+      }
+    },
     "footer": {
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",

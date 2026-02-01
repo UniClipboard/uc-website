@@ -26,6 +26,17 @@ const LandingPage = async ({
         <CtaSection locale={locale} />
       </main>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "UniClipboard",
+            url: "https://www.uniclipboard.app",
+          }),
+        }}
+      />
     </>
   );
 };

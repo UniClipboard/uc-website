@@ -10,52 +10,70 @@ import { fonts } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: siteConfig.title,
-    template: `%s | ${siteConfig.title}`,
-  },
-  description: siteConfig.description,
-  keywords: siteConfig.keywords,
-  robots: { index: true, follow: true },
-  icons: {
-    icon: "/favicon/favicon.ico",
-    shortcut: "/favicon/favicon-16x16.png",
-    apple: "/favicon/apple-touch-icon.png",
-  },
-  verification: {
-    google: siteConfig.googleSiteVerificationId,
-  },
-  openGraph: {
-    url: siteConfig.url,
-    title: siteConfig.title,
-    description: siteConfig.description,
-    siteName: siteConfig.title,
-    images: [
-      {
-        url: "/opengraph-image.jpg",
-        width: 1584,
-        height: 672,
-        alt: "UniClipboard - Privacy-first clipboard sync",
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isDefault = locale === routing.defaultLocale;
+  const canonicalUrl = isDefault ? "/" : `/${locale}`;
+
+  return {
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        en: "/",
+        zh: "/zh",
+        "x-default": "/",
       },
-    ],
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.title,
+    },
+    metadataBase: new URL(siteConfig.url),
+    title: {
+      default: siteConfig.title,
+      template: `%s | ${siteConfig.title}`,
+    },
     description: siteConfig.description,
-    images: [
-      {
-        url: "/opengraph-image.jpg",
-        width: 1584,
-        height: 672,
-        alt: "UniClipboard - Privacy-first clipboard sync",
-      },
-    ],
-  },
-};
+    keywords: siteConfig.keywords,
+    robots: { index: true, follow: true },
+    icons: {
+      icon: "/favicon/favicon.ico",
+      shortcut: "/favicon/favicon-16x16.png",
+      apple: "/favicon/apple-touch-icon.png",
+    },
+    verification: {
+      google: siteConfig.googleSiteVerificationId,
+    },
+    openGraph: {
+      url: siteConfig.url,
+      title: siteConfig.title,
+      description: siteConfig.description,
+      siteName: siteConfig.title,
+      images: [
+        {
+          url: "/opengraph-image.jpg",
+          width: 1584,
+          height: 672,
+          alt: "UniClipboard - Privacy-first clipboard sync",
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteConfig.title,
+      description: siteConfig.description,
+      images: [
+        {
+          url: "/opengraph-image.jpg",
+          width: 1584,
+          height: 672,
+          alt: "UniClipboard - Privacy-first clipboard sync",
+        },
+      ],
+    },
+  };
+}
 
 const RootLayout = async ({
   children,

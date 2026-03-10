@@ -2,7 +2,9 @@ import { render, screen } from "@testing-library/react";
 
 import LandingPage from "@/app/[locale]/page";
 import { DownloadSection } from "@/components/landing/DownloadSection";
-import type { StableReleaseFetchResult } from "@/lib/release-feed/fetch-stable-release";
+
+import enMessages from "../../../messages/en.json";
+import zhMessages from "../../../messages/zh.json";
 
 jest.mock(
   "@/lib/release-feed/fetch-stable-release",
@@ -19,31 +21,26 @@ jest.mock(
   { virtual: true },
 );
 
+let currentLocale: "en" | "zh" = "en";
+
+const getDownloadDictionary = (locale: "en" | "zh") => {
+  const messages = locale === "en" ? enMessages : zhMessages;
+
+  return messages.landing.download as Record<string, string>;
+};
+
 jest.mock("next-intl/server", () => ({
-  getTranslations: async () => (key: string) => {
-    const dictionary: Record<string, string> = {
-      sectionTitle: "Download the latest release",
-      sectionDescription:
-        "Choose an official package below. If feed data is stale, use the fallback release page.",
-      degradedNotice: "Release details are temporarily unavailable.",
-      fallbackAction: "Open latest release",
-      notesUnavailable: "Release notes are currently unavailable.",
-      metadataUnavailable: "Metadata unavailable",
-      freshnessHint: "Status updates refresh automatically every hour.",
-      notesLabel: "Release notes",
-      latestVersionLabel: "Latest version",
-      publishedAtLabel: "Published at",
-      downloadsLabel: "Direct downloads",
-      unavailableValue: "Unavailable",
-    };
-    return dictionary[key] ?? key;
+  getTranslations: async (namespace: string) => {
+    if (namespace !== "landing.download") return (key: string) => key;
+    const dictionary = getDownloadDictionary(currentLocale);
+    return (key: string) => dictionary[key] ?? key;
   },
 }));
 
 describe("landing release state integration", () => {
   beforeEach(() => {
+    currentLocale = "en";
     jest.clearAllMocks();
-    jest.restoreAllMocks();
   });
 
   it("renders degraded release fallback without crashing landing page", async () => {
@@ -53,36 +50,16 @@ describe("landing release state integration", () => {
     const mockedNormalizeStableRelease = jest.requireMock(
       "@/lib/release-feed/normalize-release",
     ).normalizeStableRelease as jest.Mock;
-
-    const degradedResult: StableReleaseFetchResult = {
-      status: "degraded",
-      reason: "network-error",
-      fallbackReleaseUrl:
-        "https://github.com/uniclipboard/uniclipboard/releases/latest",
-      metadata: {
-        sourceUrl: "https://release.uniclipboard.app/stable.json",
-        fetchedAt: "2026-03-10T00:00:00.000Z",
-        revalidateSeconds: 3600,
-      },
-    };
+    const dictionary = getDownloadDictionary("en");
 
     mockedFetchStableRelease.mockRejectedValue(new Error("socket closed"));
-    mockedNormalizeStableRelease.mockReturnValue({
-      status: "degraded",
-      version: "unavailable",
-      publishedAt: "unavailable",
-      notes: ["notes unavailable"],
-      downloads: [],
-      fallbackReleaseUrl: degradedResult.fallbackReleaseUrl,
-      blockedPlatforms: [],
-      degradedReason: "network-error",
-    });
 
     await expect(
       LandingPage({
         params: Promise.resolve({ locale: "en" }),
       }),
     ).resolves.toBeTruthy();
+    expect(mockedNormalizeStableRelease).not.toHaveBeenCalled();
 
     const section = await DownloadSection({
       release: {
@@ -91,58 +68,57 @@ describe("landing release state integration", () => {
         publishedAt: "unavailable",
         notes: ["notes unavailable"],
         downloads: [],
-        fallbackReleaseUrl: degradedResult.fallbackReleaseUrl,
+        fallbackReleaseUrl:
+          "https://github.com/uniclipboard/uniclipboard/releases/latest",
         blockedPlatforms: [],
         degradedReason: "network-error",
       },
     });
     render(section);
 
-    expect(
-      screen.getByText("Release details are temporarily unavailable."),
-    ).toBeInTheDocument();
+    expect(screen.getByText(dictionary.degradedNotice)).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: "Open latest release",
+        name: dictionary.fallbackAction,
       }),
-    ).toHaveAttribute("href", degradedResult.fallbackReleaseUrl);
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/uniclipboard/uniclipboard/releases/latest",
+    );
   });
 
   it("renders locale copy for degraded release section", async () => {
-    const mockedFetchStableRelease = jest.requireMock(
-      "@/lib/release-feed/fetch-stable-release",
-    ).fetchStableRelease as jest.Mock;
-    const mockedNormalizeStableRelease = jest.requireMock(
-      "@/lib/release-feed/normalize-release",
-    ).normalizeStableRelease as jest.Mock;
+    const enDictionary = getDownloadDictionary("en");
+    const zhDictionary = getDownloadDictionary("zh");
 
-    mockedFetchStableRelease.mockResolvedValue({
-      status: "degraded",
-      reason: "network-error",
-      fallbackReleaseUrl:
-        "https://github.com/uniclipboard/uniclipboard/releases/latest",
-      metadata: {
-        sourceUrl: "https://release.uniclipboard.app/stable.json",
-        fetchedAt: "2026-03-10T00:00:00.000Z",
-        revalidateSeconds: 3600,
+    expect(Object.keys(zhDictionary).sort()).toEqual(
+      Object.keys(enDictionary).sort(),
+    );
+
+    currentLocale = "zh";
+    const section = await DownloadSection({
+      release: {
+        status: "degraded",
+        version: "unavailable",
+        publishedAt: "unavailable",
+        notes: ["notes unavailable"],
+        downloads: [],
+        fallbackReleaseUrl:
+          "https://github.com/uniclipboard/uniclipboard/releases/latest",
+        blockedPlatforms: [],
+        degradedReason: "network-error",
       },
-    } as StableReleaseFetchResult);
-    mockedNormalizeStableRelease.mockReturnValue({
-      status: "degraded",
-      version: "unavailable",
-      publishedAt: "unavailable",
-      notes: ["notes unavailable"],
-      downloads: [],
-      fallbackReleaseUrl:
-        "https://github.com/uniclipboard/uniclipboard/releases/latest",
-      blockedPlatforms: [],
-      degradedReason: "network-error",
     });
+    render(section);
 
-    await expect(
-      LandingPage({
-        params: Promise.resolve({ locale: "en" }),
+    expect(screen.getByText(zhDictionary.degradedNotice)).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: zhDictionary.fallbackAction,
       }),
-    ).resolves.toBeTruthy();
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/uniclipboard/uniclipboard/releases/latest",
+    );
   });
 });

@@ -41,6 +41,9 @@ describe("release feed schema", () => {
     }
     expect(result.error.code).toBe("INVALID_STABLE_FEED");
     expect(result.error.issues.length).toBeGreaterThan(0);
+    expect(result.error.issues).toEqual(
+      expect.arrayContaining([expect.stringContaining("metadata.version")]),
+    );
   });
 });
 
@@ -91,6 +94,29 @@ describe("release feed cache", () => {
         status: "degraded",
         reason: "network-error",
         fallbackReleaseUrl: FALLBACK_RELEASE_URL,
+        metadata: expect.objectContaining({
+          sourceUrl: STABLE_RELEASE_FEED_URL,
+          revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+        }),
+      }),
+    );
+  });
+
+  it("maps http failures into degraded status with response code", async () => {
+    const fetchMock = global.fetch as jest.Mock;
+    fetchMock.mockResolvedValue({
+      ok: false,
+      status: 503,
+    } as Response);
+
+    await expect(fetchStableRelease()).resolves.toEqual(
+      expect.objectContaining({
+        status: "degraded",
+        reason: "http-error",
+        fallbackReleaseUrl: FALLBACK_RELEASE_URL,
+        metadata: expect.objectContaining({
+          httpStatus: 503,
+        }),
       }),
     );
   });
@@ -129,6 +155,7 @@ describe("release feed host filtering", () => {
     ]);
     expect(normalized.blockedPlatforms).toEqual(["malware"]);
     expect(normalized.status).toBe("degraded");
+    expect(normalized.degradedReason).toBe("unsafe-links-filtered");
   });
 
   it("keeps ok status when all download hosts are approved", () => {

@@ -3,7 +3,9 @@ import {
   fetchStableRelease,
   STABLE_RELEASE_FEED_URL,
   STABLE_RELEASE_REVALIDATE_SECONDS,
+  type StableReleaseFetchResult,
 } from "@/lib/release-feed/fetch-stable-release";
+import { normalizeStableRelease } from "@/lib/release-feed/normalize-release";
 import { parseStableReleasePayload } from "@/lib/release-feed/schema";
 
 describe("release feed schema", () => {
@@ -91,5 +93,67 @@ describe("release feed cache", () => {
         fallbackReleaseUrl: FALLBACK_RELEASE_URL,
       }),
     );
+  });
+});
+
+describe("release feed host filtering", () => {
+  it("drops disallowed hosts while preserving approved links", () => {
+    const result: StableReleaseFetchResult = {
+      status: "ok",
+      metadata: {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt: "2026-03-10T00:00:00.000Z",
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+      },
+      payload: {
+        metadata: {
+          version: "0.2.1",
+          releaseUrl:
+            "https://github.com/uniclipboard/uniclipboard/releases/latest",
+        },
+        downloads: {
+          linux:
+            "https://release.uniclipboard.app/downloads/uniclipboard-linux.AppImage",
+          malware: "https://evil.example.com/payload.exe",
+        },
+      },
+    };
+
+    const normalized = normalizeStableRelease(result);
+
+    expect(normalized.downloads).toEqual([
+      {
+        platform: "linux",
+        url: "https://release.uniclipboard.app/downloads/uniclipboard-linux.AppImage",
+      },
+    ]);
+    expect(normalized.blockedPlatforms).toEqual(["malware"]);
+    expect(normalized.status).toBe("degraded");
+  });
+
+  it("keeps ok status when all download hosts are approved", () => {
+    const result: StableReleaseFetchResult = {
+      status: "ok",
+      metadata: {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt: "2026-03-10T00:00:00.000Z",
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+      },
+      payload: {
+        metadata: {
+          version: "0.2.1",
+          releaseUrl:
+            "https://github.com/uniclipboard/uniclipboard/releases/latest",
+        },
+        downloads: {
+          windows:
+            "https://release.uniclipboard.app/downloads/uniclipboard-windows.exe",
+        },
+      },
+    };
+
+    const normalized = normalizeStableRelease(result);
+    expect(normalized.status).toBe("ok");
+    expect(normalized.downloads).toHaveLength(1);
   });
 });

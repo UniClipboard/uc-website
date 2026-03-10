@@ -1,5 +1,6 @@
 import { AudienceSection } from "@/components/landing/AudienceSection";
 import { CtaSection } from "@/components/landing/CtaSection";
+import { DownloadSection } from "@/components/landing/DownloadSection";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { Footer } from "@/components/landing/Footer";
@@ -7,6 +8,25 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { Navigation } from "@/components/landing/Navigation";
 import { TrustSection } from "@/components/landing/TrustSection";
+import {
+  FALLBACK_RELEASE_URL,
+  fetchStableRelease,
+} from "@/lib/release-feed/fetch-stable-release";
+import {
+  normalizeStableRelease,
+  type StableReleaseViewModel,
+} from "@/lib/release-feed/normalize-release";
+
+const buildDegradedFallback = (): StableReleaseViewModel => ({
+  status: "degraded",
+  version: "unavailable",
+  publishedAt: "unavailable",
+  notes: ["notes unavailable"],
+  downloads: [],
+  fallbackReleaseUrl: FALLBACK_RELEASE_URL,
+  blockedPlatforms: [],
+  degradedReason: "network-error",
+});
 
 const LandingPage = async ({
   params,
@@ -14,12 +34,20 @@ const LandingPage = async ({
   params: Promise<{ locale: string }>;
 }) => {
   const { locale } = await params;
+  let stableRelease = buildDegradedFallback();
+
+  try {
+    stableRelease = normalizeStableRelease(await fetchStableRelease());
+  } catch {
+    stableRelease = buildDegradedFallback();
+  }
 
   return (
     <>
       <Navigation />
       <main>
         <HeroSection locale={locale} />
+        <DownloadSection release={stableRelease} />
         <FeaturesSection />
         <HowItWorksSection />
         <TrustSection />

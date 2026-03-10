@@ -78,6 +78,20 @@
       "button": "获取优先访问权",
       "note": "无需信用卡。内测参与者将获得永久会员优惠。"
     },
+    "download": {
+      "sectionTitle": "下载最新版本",
+      "sectionDescription": "请选择下方官方安装包链接。如果版本源信息暂时不可用，请使用后备发布页面。",
+      "degradedNotice": "版本详情暂时不可用。",
+      "fallbackAction": "打开最新发布页",
+      "notesUnavailable": "当前无法提供发布说明。",
+      "metadataUnavailable": "元数据不可用",
+      "freshnessHint": "状态信息会每小时自动刷新。",
+      "notesLabel": "发布说明",
+      "latestVersionLabel": "最新版本",
+      "publishedAtLabel": "发布时间",
+      "downloadsLabel": "直接下载",
+      "unavailableValue": "不可用"
+    },
     "faq": {
       "title": "常见问题",
       "item1": {

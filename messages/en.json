@@ -84,6 +84,20 @@
       "button": "Get Early Access",
       "note": "No credit card required. Beta testers get lifetime membership discount."
     },
+    "download": {
+      "sectionTitle": "Download the latest release",
+      "sectionDescription": "Use an official package link below. If release feed details are delayed, use the fallback release page.",
+      "degradedNotice": "Release details are temporarily unavailable.",
+      "fallbackAction": "Open latest release",
+      "notesUnavailable": "Release notes are currently unavailable.",
+      "metadataUnavailable": "Metadata unavailable",
+      "freshnessHint": "Status updates refresh automatically every hour.",
+      "notesLabel": "Release notes",
+      "latestVersionLabel": "Latest version",
+      "publishedAtLabel": "Published at",
+      "downloadsLabel": "Direct downloads",
+      "unavailableValue": "Unavailable"
+    },
     "faq": {
       "title": "Frequently Asked Questions",
       "item1": {

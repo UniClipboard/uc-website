@@ -1,10 +1,24 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+current_phase: P1 - Release Feed Reliability Foundation
+status: complete
+last_updated: "2026-03-10T11:26:00.000Z"
+progress:
+  total_phases: 1
+  completed_phases: 1
+  total_plans: 2
+  completed_plans: 2
+---
+
 # Planning State
 
 **Last Updated:** 2026-03-10  
-**Current Stage:** Phase execution in progress  
+**Current Stage:** Phase 1 execution complete  
 **Milestone:** Release-focused website upgrade
 **Current Phase:** P1 - Release Feed Reliability Foundation
-**Current Plan Position:** 01 complete, next 02
+**Current Plan Position:** 02 complete (phase complete)
 
 ## Artifacts
 
@@ -17,7 +31,7 @@
 
 | Phase | Name | Status |
 |------|------|--------|
-| P1 | Release Feed Reliability Foundation | In Progress (Plan 01 complete) |
+| P1 | Release Feed Reliability Foundation | Complete (Plan 01 + 02 complete) |
 | P2 | Direct Download Experience | Planned |
 | P3 | Release Metadata Visibility | Planned |
 | P4 | Official Release Messaging Alignment | Planned |
@@ -42,7 +56,9 @@
 - Use a non-throwing `ok | degraded` release-feed fetch contract to prevent UI-callsite runtime leaks.
 - Enforce HTTPS + explicit host allowlist before exposing any download URL.
 - Treat filtered or empty approved download sets as degraded while preserving fallback release URL continuity.
+- [Phase 01-release-feed-reliability-foundation]: Resolve release-fetch exceptions at page boundary with deterministic degraded view model.
+- [Phase 01-release-feed-reliability-foundation]: Enforce en/zh landing.download key parity via integration assertions for fallback UX safety.
 
 ## Next Action
 
-Execute `.planning/phases/01-release-feed-reliability-foundation/01-02-PLAN.md` to integrate release-feed reliability contract into landing UI and extend validation coverage.
+Plan and execute P2 workstream for direct multi-platform download experience (`DL-*`, `UX-*` requirements).

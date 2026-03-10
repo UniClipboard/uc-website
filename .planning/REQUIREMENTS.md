@@ -32,7 +32,7 @@ Requirements for initial release-focused milestone. Each requirement will map to
 ### Reliability and Safety
 
 - [x] **SAFE-01**: System validates release feed shape before rendering download UI.
-- [ ] **SAFE-02**: System renders a clear degraded-state message if release feed fetch fails, without crashing page rendering.
+- [x] **SAFE-02**: System renders a clear degraded-state message if release feed fetch fails, without crashing page rendering.
 - [x] **SAFE-03**: System only exposes download links from approved release host(s) to avoid unsafe redirect targets.
 - [x] **SAFE-04**: System applies predictable caching/revalidation for release feed so users see timely stable version updates.
 
@@ -87,10 +87,10 @@ Finalized traceability from `.planning/ROADMAP.md`.
 | REL-02 | P3 | Planned |
 | REL-03 | P3 | Planned |
 | REL-04 | P3 | Planned |
-| SAFE-01 | P1 | In Progress (Plan 01) |
-| SAFE-02 | P1 | Planned |
-| SAFE-03 | P1 | In Progress (Plan 01) |
-| SAFE-04 | P1 | In Progress (Plan 01) |
+| SAFE-01 | P1 | Complete |
+| SAFE-02 | P1 | Complete |
+| SAFE-03 | P1 | Complete |
+| SAFE-04 | P1 | Complete |
 | UX-01 | P2 | Planned |
 | UX-02 | P2 | Planned |
 | UX-03 | P2 | Planned |
@@ -104,4 +104,4 @@ Finalized traceability from `.planning/ROADMAP.md`.
 
 ---
 *Requirements defined: 2026-03-10*
-*Last updated: 2026-03-10 after Phase 01 Plan 01 execution*
+*Last updated: 2026-03-10 after Phase 01 Plan 02 execution*

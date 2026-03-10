@@ -16,7 +16,7 @@
 
 **Requirement ownership:** `SAFE-01`, `SAFE-02`, `SAFE-03`, `SAFE-04`
 
-**Plan progress:** 1/2 plans complete (`01-01` complete, `01-02` pending)
+**Plan progress:** 2/2 plans complete (`01-01`, `01-02` complete)
 
 **Observable success criteria:**
 1. Invalid or schema-breaking `stable.json` payloads are rejected by runtime validation before download UI model generation.
@@ -65,4 +65,4 @@
 | Coverage | 100% |
 
 ---
-*Roadmap status: phase execution in progress (P1 plan 01 complete)*
+*Roadmap status: P1 complete, ready for P2 planning/execution*

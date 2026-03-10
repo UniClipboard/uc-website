@@ -70,36 +70,38 @@ Explicitly excluded for this milestone.
 
 ## Traceability
 
-Initial traceability (to be finalized by roadmap generation).
+Finalized traceability from `.planning/ROADMAP.md`.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MSG-01 | TBD | Pending |
-| MSG-02 | TBD | Pending |
-| MSG-03 | TBD | Pending |
-| DL-01 | TBD | Pending |
-| DL-02 | TBD | Pending |
-| DL-03 | TBD | Pending |
-| DL-04 | TBD | Pending |
-| DL-05 | TBD | Pending |
-| DL-06 | TBD | Pending |
-| REL-01 | TBD | Pending |
-| REL-02 | TBD | Pending |
-| REL-03 | TBD | Pending |
-| REL-04 | TBD | Pending |
-| SAFE-01 | TBD | Pending |
-| SAFE-02 | TBD | Pending |
-| SAFE-03 | TBD | Pending |
-| SAFE-04 | TBD | Pending |
-| UX-01 | TBD | Pending |
-| UX-02 | TBD | Pending |
-| UX-03 | TBD | Pending |
+| MSG-01 | P4 | Planned |
+| MSG-02 | P4 | Planned |
+| MSG-03 | P4 | Planned |
+| DL-01 | P2 | Planned |
+| DL-02 | P2 | Planned |
+| DL-03 | P2 | Planned |
+| DL-04 | P2 | Planned |
+| DL-05 | P2 | Planned |
+| DL-06 | P2 | Planned |
+| REL-01 | P3 | Planned |
+| REL-02 | P3 | Planned |
+| REL-03 | P3 | Planned |
+| REL-04 | P3 | Planned |
+| SAFE-01 | P1 | Planned |
+| SAFE-02 | P1 | Planned |
+| SAFE-03 | P1 | Planned |
+| SAFE-04 | P1 | Planned |
+| UX-01 | P2 | Planned |
+| UX-02 | P2 | Planned |
+| UX-03 | P2 | Planned |
 
 **Coverage:**
 - v1 requirements: 20 total
-- Mapped to phases: 0
-- Unmapped: 20 ⚠️
+- Mapped to phases: 20
+- Unmapped: 0 ✅
+- Duplicate mappings: 0 ✅
+- Coverage: 100% ✅
 
 ---
 *Requirements defined: 2026-03-10*
-*Last updated: 2026-03-10 after initial definition*
+*Last updated: 2026-03-10 after roadmap finalization*

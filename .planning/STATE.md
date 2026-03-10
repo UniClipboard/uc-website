@@ -1,8 +1,10 @@
 # Planning State
 
 **Last Updated:** 2026-03-10  
-**Current Stage:** Roadmap finalized for v1  
+**Current Stage:** Phase execution in progress  
 **Milestone:** Release-focused website upgrade
+**Current Phase:** P1 - Release Feed Reliability Foundation
+**Current Plan Position:** 01 complete, next 02
 
 ## Artifacts
 
@@ -15,7 +17,7 @@
 
 | Phase | Name | Status |
 |------|------|--------|
-| P1 | Release Feed Reliability Foundation | Planned |
+| P1 | Release Feed Reliability Foundation | In Progress (Plan 01 complete) |
 | P2 | Direct Download Experience | Planned |
 | P3 | Release Metadata Visibility | Planned |
 | P4 | Official Release Messaging Alignment | Planned |
@@ -33,8 +35,14 @@
 
 ## Blockers
 
-None.
+- `pnpm typecheck` has pre-existing failures outside Plan 01 scope (`src/__tests__/unit/navigation.spec.tsx`, `src/app/[locale]/whitepaper/page.tsx`), logged at `.planning/phases/01-release-feed-reliability-foundation/deferred-items.md`.
+
+## Decisions
+
+- Use a non-throwing `ok | degraded` release-feed fetch contract to prevent UI-callsite runtime leaks.
+- Enforce HTTPS + explicit host allowlist before exposing any download URL.
+- Treat filtered or empty approved download sets as degraded while preserving fallback release URL continuity.
 
 ## Next Action
 
-Run phase-level planning (`PLAN.md`) and execution in roadmap order `P1 → P2 → P3 → P4`.
+Execute `.planning/phases/01-release-feed-reliability-foundation/01-02-PLAN.md` to integrate release-feed reliability contract into landing UI and extend validation coverage.

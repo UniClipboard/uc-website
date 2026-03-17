@@ -92,23 +92,66 @@ const markdownComponents: Components = {
       {...props}
     />
   ),
-  code: ({ className, ...props }) => (
-    <code
+  code: ({ className, children, ...props }) => {
+    const isInPre =
+      className?.includes("language-") ||
+      (typeof children === "string" && children.includes("\n"));
+    if (isInPre) {
+      return (
+        <code className={cn("font-mono text-sm", className)} {...props}>
+          {children}
+        </code>
+      );
+    }
+    return (
+      <code
+        className={cn(
+          "bg-muted text-foreground rounded-md px-1.5 py-0.5 font-mono text-sm font-medium",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
+  pre: ({ className, ...props }) => (
+    <pre
       className={cn(
-        "bg-muted text-foreground rounded-md px-1.5 py-0.5 font-mono text-sm font-medium",
+        "bg-muted/50 border-border my-8 overflow-x-auto rounded-xl border p-4 text-sm",
         className,
       )}
       {...props}
     />
   ),
-  pre: ({ className, ...props }) => (
-    <pre
+  table: ({ className, ...props }) => (
+    <div className="my-8 overflow-x-auto">
+      <table
+        className={cn("w-full border-collapse text-sm", className)}
+        {...props}
+      />
+    </div>
+  ),
+  thead: ({ className, ...props }) => (
+    <thead className={cn("border-border border-b", className)} {...props} />
+  ),
+  tr: ({ className, ...props }) => (
+    <tr
+      className={cn("border-border border-b last:border-0", className)}
+      {...props}
+    />
+  ),
+  th: ({ className, ...props }) => (
+    <th
       className={cn(
-        "glass-panel my-8 overflow-x-auto rounded-xl p-4 text-sm",
+        "text-foreground px-4 py-3 text-left font-semibold",
         className,
       )}
       {...props}
     />
+  ),
+  td: ({ className, ...props }) => (
+    <td className={cn("text-foreground/80 px-4 py-3", className)} {...props} />
   ),
   hr: ({ className, ...props }) => (
     <hr className={cn("border-border my-12", className)} {...props} />

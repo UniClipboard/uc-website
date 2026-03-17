@@ -1,4 +1,3 @@
-import { AudienceSection } from "@/components/landing/AudienceSection";
 import { CtaSection } from "@/components/landing/CtaSection";
 import { DownloadSection } from "@/components/landing/DownloadSection";
 import { FaqSection } from "@/components/landing/FaqSection";
@@ -7,7 +6,6 @@ import { Footer } from "@/components/landing/Footer";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { Navigation } from "@/components/landing/Navigation";
-import { TrustSection } from "@/components/landing/TrustSection";
 import {
   FALLBACK_RELEASE_URL,
   fetchStableRelease,
@@ -28,12 +26,7 @@ const buildDegradedFallback = (): StableReleaseViewModel => ({
   degradedReason: "network-error",
 });
 
-const LandingPage = async ({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) => {
-  const { locale } = await params;
+const LandingPage = async () => {
   let stableRelease = buildDegradedFallback();
 
   try {
@@ -46,14 +39,12 @@ const LandingPage = async ({
     <>
       <Navigation />
       <main>
-        <HeroSection locale={locale} />
-        <DownloadSection release={stableRelease} />
+        <HeroSection />
         <FeaturesSection />
         <HowItWorksSection />
-        <TrustSection />
-        <AudienceSection />
+        <DownloadSection release={stableRelease} />
         <FaqSection />
-        <CtaSection locale={locale} />
+        <CtaSection />
       </main>
       <Footer />
       <script

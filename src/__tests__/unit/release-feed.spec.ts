@@ -27,6 +27,48 @@ describe("release feed schema", () => {
     expect(result.ok).toBe(true);
   });
 
+  it("accepts the current upstream stable feed payload shape", () => {
+    const result = parseStableReleasePayload({
+      version: "0.2.3",
+      notes: "Release notes",
+      pub_date: "2026-03-11T06:28:09Z",
+      platforms: {
+        "linux-x86_64": {
+          signature: "abc",
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_amd64.AppImage",
+        },
+        "windows-x86_64": {
+          signature: "def",
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
+        },
+        "darwin-aarch64": {
+          signature: "ghi",
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+        },
+      },
+    });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) {
+      throw new Error("Expected upstream schema parse to succeed");
+    }
+    expect(result.data).toEqual({
+      metadata: {
+        version: "0.2.3",
+        publishedAt: "2026-03-11T06:28:09Z",
+        notes: "Release notes",
+      },
+      downloads: {
+        "Linux x86_64":
+          "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_amd64.AppImage",
+        "Windows x86_64":
+          "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
+        "macOS ARM64":
+          "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+      },
+    });
+  });
+
   it("rejects malformed payloads with structured parse metadata", () => {
     const result = parseStableReleasePayload({
       metadata: {
@@ -182,5 +224,55 @@ describe("release feed host filtering", () => {
     const normalized = normalizeStableRelease(result);
     expect(normalized.status).toBe("ok");
     expect(normalized.downloads).toHaveLength(1);
+  });
+
+  it("normalizes current upstream platform labels into downloadable entries", () => {
+    const parsed = parseStableReleasePayload({
+      version: "0.2.3",
+      pub_date: "2026-03-11T06:28:09Z",
+      platforms: {
+        "linux-x86_64": {
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_amd64.AppImage",
+        },
+        "windows-x86_64": {
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
+        },
+        "darwin-aarch64": {
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+        },
+      },
+    });
+
+    if (!parsed.ok) {
+      throw new Error("Expected upstream schema parse to succeed");
+    }
+
+    const normalized = normalizeStableRelease({
+      status: "ok",
+      metadata: {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt: "2026-03-11T11:30:21.000Z",
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+      },
+      payload: parsed.data,
+    });
+
+    expect(normalized.status).toBe("ok");
+    expect(normalized.version).toBe("0.2.3");
+    expect(normalized.publishedAt).toBe("2026-03-11T06:28:09Z");
+    expect(normalized.downloads).toEqual([
+      {
+        platform: "Linux x86_64",
+        url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_amd64.AppImage",
+      },
+      {
+        platform: "Windows x86_64",
+        url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
+      },
+      {
+        platform: "macOS ARM64",
+        url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+      },
+    ]);
   });
 });

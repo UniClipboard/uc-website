@@ -105,7 +105,7 @@ jest.mock("framer-motion", () => {
 const mockUseLocale = jest.fn();
 jest.mock("next-intl", () => ({
   useLocale: () => mockUseLocale(),
-  useTranslations: () => (key) => key,
+  useTranslations: () => (key: string) => key,
 }));
 
 const push = jest.fn();

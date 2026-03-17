@@ -1,16 +1,11 @@
-import { Manrope, Noto_Sans_SC } from "next/font/google";
+import "@fontsource-variable/noto-sans-sc";
 
-const fontSans = Manrope({
-  subsets: ["latin"],
+import localFont from "next/font/local";
+
+const fontSans = localFont({
+  src: "../assets/fonts/manrope-latin-wght-normal.woff2",
   variable: "--font-sans",
   display: "swap",
 });
 
-const fontChinese = Noto_Sans_SC({
-  subsets: ["latin"],
-  variable: "--font-chinese",
-  display: "swap",
-  weight: ["400", "500", "700"],
-});
-
-export const fonts = `${fontChinese.variable} ${fontSans.variable}`;
+export const fonts = fontSans.variable;

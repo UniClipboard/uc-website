@@ -1,66 +1,78 @@
 {
   "landing": {
     "navigation": {
-      "features": "功能特性",
-      "trust": "安全隐私",
-      "cta": "加入候补名单"
+      "why": "为什么选择",
+      "security": "安全",
+      "faq": "FAQ",
+      "download": "下载",
+      "productNote": "通用剪贴板同步",
+      "primaryCta": "立即下载",
+      "secondaryCta": "加入候补名单"
     },
     "hero": {
-      "badge": "第一章：全平台同步",
-      "title": "您的剪贴板，",
-      "highlight": "在任何设备间即时同步。",
-      "description": "安全、快速、无缝地在您的所有设备之间移动文本和图像。消除摩擦，让创意自由流动。",
-      "primaryCta": "立即开启内测",
-      "secondaryCta": "Star GitHub"
+      "eyebrow": "通用剪贴板同步",
+      "title": "复制一次，",
+      "titleLine2": "随处粘贴。",
+      "description": "UniClipboard 在 macOS、Windows 和 Linux 之间同步你的剪贴板——端到端加密、本地优先、无需注册账号。",
+      "primaryCta": "立即下载",
+      "secondaryCta": "加入候补名单",
+      "tertiaryCta": "GitHub",
+      "fact1": {
+        "label": "平台",
+        "value": "macOS、Windows、Linux"
+      },
+      "fact2": {
+        "label": "连接",
+        "value": "局域网自动重连"
+      },
+      "fact3": {
+        "label": "隐私",
+        "value": "端到端加密，无需注册"
+      }
     },
     "features": {
-      "badge": "第二章：核心价值",
-      "title": "专为快速、本地、私密同步而生",
-      "subtitle": "一次配对。此后，您的设备将在同一网络上自动重新连接——端到端加密。",
-      "fast": {
-        "title": "近乎即时的局域网同步",
-        "description": "配对一次，UniClipboard 就会在您的本地网络上自动重新连接。无需“发送”按钮。无需重复确认。"
+      "eyebrow": "为什么选择 UniClipboard",
+      "title": "不是把剪贴板搬到云上，而是让它回到你的设备之间。",
+      "subtitle": "三件最重要的事：它为什么更顺手、为什么更可信、为什么更适合长期使用。",
+      "local": {
+        "title": "本地优先，而不是云优先",
+        "description": "设备在同一网络下直接通信，数据不需要先绕到中心服务器再回来。复制和粘贴保持快速，也更符合隐私直觉。"
       },
-      "minimalist": {
-        "title": "后台静默运行",
-        "description": "没有杂乱的界面。没有不断的弹窗。原生快捷键和系统级集成。"
+      "frictionless": {
+        "title": "少一步确认，少一次打断",
+        "description": "完成一次配对后，UniClipboard 会在后台自动重连。你不需要为每次跨设备复制都重新做一遍流程。"
       },
-      "privacy": {
-        "title": "本地优先。端到端加密。",
-        "description": "您的剪贴板数据保留在您的设备上，默认加密。只有您可以访问您的内容。"
-      },
-      "history": {
-        "title": "按需搜索",
-        "description": "几秒钟内找到最近的文本和链接。您可以控制存储内容和时长。"
-      },
-      "cta": {
-        "button": "加入内测",
-        "note": "优先局域网同步。远程同步稍后推出。"
+      "private": {
+        "title": "默认加密，可解释，可审计",
+        "description": "内容在离开设备前就被加密，不依赖你去「相信」平台会善待数据。这是一个可以被解释清楚的同步方式。"
       }
     },
     "howItWorks": {
-      "badge": "如何使用",
-      "title": "局域网同步如何工作",
-      "subtitle": "一次配对步骤，然后在本地网络上自动重新连接。",
+      "eyebrow": "它如何工作",
+      "title": "三步就够了。",
+      "subtitle": "先建立信任，再让同步退到后台。",
       "step1": {
-        "title": "配对设备（仅一次）",
-        "description": "确认信任一次。批准配对请求以建立设备之间的信任关系。"
+        "title": "配对一次",
+        "description": "首次连接时确认受信设备，建立一对一信任关系。之后不需要每次复制都重新授权。"
       },
       "step2": {
-        "title": "局域网自动重连",
-        "description": "配对后无需手动步骤。当您的设备在同一网络上时，UniClipboard 会在后台重新连接。"
+        "title": "自动重连",
+        "description": "设备回到同一网络后会在后台重新连接，尽量不打断你当前正在做的事。"
       },
       "step3": {
-        "title": "安全同步",
-        "description": "加密、直接、本地优先。剪贴板数据在离开您的设备之前已加密，并直接通过您的网络同步。"
+        "title": "直接、安全地同步",
+        "description": "剪贴板内容在离开设备前就加密，再通过你自己的网络直接传输，而不是走一层你看不见的中转。"
       },
-      "cta": "开始内测 →"
-    },
-    "trust": {
-      "badge": "第三章：安全设计",
-      "title": "您的数据，唯您可见",
-      "description": "我们采用零知识加密技术，这意味着解密密钥永远不会离开您的设备。我们提供基础设施，而您拥有完全的数据控制权。",
-      "cta": "查阅安全技术白皮书"
+      "securityEyebrow": "安全说明",
+      "securityTitle": "你的数据不该为了方便而被交出去。",
+      "securityDescription": "UniClipboard 尽量减少平台知道的内容，同时让用户能明白同步到底是怎么发生的。",
+      "security": {
+        "fact1": "不需要注册账号，也不强制绑定邮箱或手机号。",
+        "fact2": "剪贴板内容在本地加密，传输过程保持端到端加密。",
+        "fact3": "如果你想看得更深，可以直接阅读安全技术白皮书。"
+      },
+      "whitepaperCta": "查看白皮书",
+      "downloadCta": "直接下载"
     },
     "audience": {
       "title": "为现代工作流而生",
@@ -71,36 +83,40 @@
       "geek": "极客用户"
     },
     "cta": {
-      "badge": "最终章",
-      "title": "加入私人测试",
-      "description": "我们正在逐步开放访问权限。立即申请排队，成为首批受邀用户。",
+      "badge": "开始使用",
+      "title": "复制一次，",
+      "titleLine2": "随处粘贴。",
+      "description": "下载桌面端应用，开始在所有设备之间同步剪贴板。",
       "placeholder": "输入您的电子邮箱",
-      "button": "获取优先访问权",
-      "note": "无需信用卡。内测参与者将获得永久会员优惠。"
+      "button": "立即下载",
+      "note": "免费且开源，无需注册账号。"
     },
     "download": {
       "sectionTitle": "下载最新版本",
-      "sectionDescription": "请选择下方官方安装包链接。如果版本源信息暂时不可用，请使用后备发布页面。",
+      "sectionDescription": "选择您的平台下载最新版本。如果版本源信息暂时不可用，请使用后备发布页面。",
       "degradedNotice": "版本详情暂时不可用。",
       "fallbackAction": "打开最新发布页",
-      "notesUnavailable": "当前无法提供发布说明。",
       "metadataUnavailable": "元数据不可用",
       "freshnessHint": "状态信息会每小时自动刷新。",
-      "notesLabel": "发布说明",
       "latestVersionLabel": "最新版本",
       "publishedAtLabel": "发布时间",
-      "downloadsLabel": "直接下载",
-      "unavailableValue": "不可用"
+      "unavailableValue": "不可用",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "noDownloadsForPlatform": "暂无可用下载。"
     },
     "faq": {
-      "title": "常见问题",
+      "eyebrow": "常见问题",
+      "title": "在你决定之前。",
+      "subtitle": "真正影响决定的几个问题。",
       "item1": {
         "q": "UniClipboard 是做什么的？",
         "a": "UniClipboard 是一个跨设备剪贴板同步工具，让你在 Mac / Windows / Linux 之间无缝复制、粘贴文本和文件。\n它的核心目标只有一个：在不牺牲隐私的前提下，让多设备协作变得自然。"
       },
       "item2": {
         "q": "和 iCloud / Windows 剪贴板 / 第三方工具有什么不同？",
-        "a": "最大的不同在于三点：\n- 隐私优先：数据端到端加密，不做云端明文存储\n- 去中心化设计：设备之间直接通信，不依赖中心服务器\n- 开源 & 可审计：你可以清楚知道数据去了哪里、怎么被处理\n如果你在意“剪贴板里到底包含了什么”，这正是 UniClipboard 想解决的问题。"
+        "a": "最大的不同在于三点：\n- 隐私优先：数据端到端加密，不做云端明文存储\n- 去中心化设计：设备之间直接通信，不依赖中心服务器\n- 开源 & 可审计：你可以清楚知道数据去了哪里、怎么被处理\n如果你在意「剪贴板里到底包含了什么」，这正是 UniClipboard 想解决的问题。"
       },
       "item3": {
         "q": "我的剪贴板数据会上传到云端吗？",
@@ -108,30 +124,23 @@
       },
       "item4": {
         "q": "你们能看到我的剪贴板内容吗？",
-        "a": "不能，也不需要你相信我们。\n- 剪贴板数据在本地加密\n- 传输过程是端到端加密\n- 没有中心服务器可以“偷看”数据\n即使是开发者本人，也无法解密你的剪贴板内容。"
+        "a": "不能，也不需要你相信我们。\n- 剪贴板数据在本地加密\n- 传输过程是端到端加密\n- 没有中心服务器可以「偷看」数据\n即使是开发者本人，也无法解密你的剪贴板内容。"
       },
       "item5": {
         "q": "为什么现在才做剪贴板同步？",
-        "a": "因为大多数现有方案，要么：\n- 强绑定生态\n- 过度依赖云端\n- 对隐私几乎不透明\nUniClipboard 更像是一个长期主义的答案，而不是“功能堆砌”。"
+        "a": "因为大多数现有方案，要么：\n- 强绑定生态\n- 过度依赖云端\n- 对隐私几乎不透明\nUniClipboard 更像是一个长期主义的答案，而不是「功能堆砌」。"
       },
       "item6": {
         "q": "现在可以直接使用吗？",
         "a": "目前处于 私有测试（Private Alpha） 阶段。\n这意味着：\n- 功能还在快速迭代\n- 可能存在 bug\n- 更适合愿意一起打磨产品的早期用户\n如果你愿意参与测试并反馈真实使用体验，非常欢迎加入。"
-      },
-      "item7": {
-        "q": "UniClipboard 是免费的吗？",
-        "a": "在 Alpha 阶段，完全免费。\n未来是否收费、如何收费，目前尚未最终决定，但原则很明确：\n- 不出售用户数据\n- 不做广告\n- 不牺牲隐私换取商业化"
-      },
-      "item8": {
-        "q": "需要注册账号吗？",
-        "a": "不需要。\nUniClipboard 不要求注册账号，也不强制绑定邮箱或手机号。\n设备之间通过安全配对建立信任关系。"
       }
     },
     "footer": {
-      "privacy": "隐私政策",
-      "terms": "服务条款",
+      "tagline": "一个更安静、更可信的跨设备剪贴板同步。",
       "twitter": "推特 / X",
       "github": "GitHub",
+      "whitepaper": "白皮书",
+      "download": "下载",
       "copyright": "© 2026 UNICLIPBOARD."
     }
   },

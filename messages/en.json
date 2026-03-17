@@ -7,66 +7,78 @@
   },
   "landing": {
     "navigation": {
-      "features": "Features",
-      "trust": "Security",
-      "cta": "Join Waitlist"
+      "why": "Why",
+      "security": "Security",
+      "faq": "FAQ",
+      "download": "Download",
+      "productNote": "Universal clipboard sync",
+      "primaryCta": "Download",
+      "secondaryCta": "Join Waitlist"
     },
     "hero": {
-      "badge": "Chapter 1: Cross-Platform Sync",
-      "title": "Your clipboard,",
-      "highlight": "instantly synced across all devices.",
-      "description": "Move text and images between all your devices safely, quickly, and seamlessly. Eliminate friction and let creativity flow freely.",
-      "primaryCta": "Start Private Beta",
-      "secondaryCta": "Star on GitHub"
+      "eyebrow": "Universal clipboard sync",
+      "title": "Copy once.",
+      "titleLine2": "Paste anywhere.",
+      "description": "UniClipboard syncs your clipboard across macOS, Windows, and Linux — encrypted end-to-end, local-first, no account required.",
+      "primaryCta": "Download now",
+      "secondaryCta": "Join waitlist",
+      "tertiaryCta": "GitHub",
+      "fact1": {
+        "label": "Platforms",
+        "value": "macOS, Windows, Linux"
+      },
+      "fact2": {
+        "label": "Connection",
+        "value": "Auto-reconnects on LAN"
+      },
+      "fact3": {
+        "label": "Privacy",
+        "value": "E2E encrypted, no account"
+      }
     },
     "features": {
-      "badge": "Chapter 2: Core Values",
-      "title": "Built for Fast, Local, Private Sync",
-      "subtitle": "Pair once. After that, your devices reconnect automatically on the same network - end-to-end encrypted.",
-      "fast": {
-        "title": "Near-instant LAN sync",
-        "description": "Pair once, then UniClipboard reconnects automatically on your local network. No \"send\" button. No repeated confirmations."
+      "eyebrow": "Why UniClipboard",
+      "title": "It does not move your clipboard into the cloud. It keeps it between your devices.",
+      "subtitle": "Three things that matter: why it feels better, why it is easier to trust, and why it holds up long term.",
+      "local": {
+        "title": "Local-first, not cloud-first",
+        "description": "When devices are on the same network, they talk directly. Your clipboard does not need to detour through a central server just to come back."
       },
-      "minimalist": {
-        "title": "Runs quietly in the background",
-        "description": "No cluttered UI. No constant pop-ups. Native shortcuts and system-level integration."
+      "frictionless": {
+        "title": "Less confirmation, less interruption",
+        "description": "After one pairing step, UniClipboard reconnects in the background. You do not repeat a sharing flow every time you copy across devices."
       },
-      "privacy": {
-        "title": "Local-first. End-to-end encrypted.",
-        "description": "Your clipboard data stays on your devices and is encrypted by default. Only you can access your content."
-      },
-      "history": {
-        "title": "Search when you need it",
-        "description": "Find recent text and links in seconds. You stay in control of what gets stored and for how long."
-      },
-      "cta": {
-        "button": "Join Private Beta",
-        "note": "LAN sync first. Remote sync later."
+      "private": {
+        "title": "Encrypted by default, explainable by design",
+        "description": "Content is encrypted before it leaves your device. The point is not to ask for blind trust, but to make the sync model understandable."
       }
     },
     "howItWorks": {
-      "badge": "How It Works",
-      "title": "How LAN Sync Works",
-      "subtitle": "A one-time pairing step, then automatic reconnection on your local network.",
+      "eyebrow": "How it works",
+      "title": "Three steps are enough.",
+      "subtitle": "Establish trust once, then let sync fade into the background.",
       "step1": {
-        "title": "Pair Devices (One-time)",
-        "description": "Confirm trust once. Approve a pairing request to establish a trusted relationship between devices."
+        "title": "Pair once",
+        "description": "Approve the first connection and create a trusted relationship between devices. You should not need to repeat that every time you copy."
       },
       "step2": {
-        "title": "Auto Reconnect on LAN",
-        "description": "No manual steps after pairing. When your devices are on the same network, UniClipboard reconnects in the background."
+        "title": "Reconnect automatically",
+        "description": "When paired devices return to the same network, they reconnect quietly in the background instead of asking for another manual flow."
       },
       "step3": {
-        "title": "Sync Securely",
-        "description": "Encrypted, direct, local-first. Clipboard data is encrypted before it leaves your device and synced directly over your network."
+        "title": "Sync directly and securely",
+        "description": "Clipboard data is encrypted before it leaves your device, then transferred directly over your network instead of through an opaque middle layer."
       },
-      "cta": "Start Private Beta ->"
-    },
-    "trust": {
-      "badge": "Chapter 3: Security Design",
-      "title": "Your Data, Yours Alone",
-      "description": "We use zero-knowledge encryption, meaning decryption keys never leave your device. We provide the infrastructure, and you retain complete data control.",
-      "cta": "Read Security Whitepaper"
+      "securityEyebrow": "Security note",
+      "securityTitle": "Your data should not be traded for convenience.",
+      "securityDescription": "UniClipboard minimizes what the platform knows while keeping the sync model simple enough to explain clearly.",
+      "security": {
+        "fact1": "No required account, and no forced email or phone binding.",
+        "fact2": "Clipboard content is encrypted locally and stays end-to-end encrypted in transit.",
+        "fact3": "If you want more detail, you can read the security whitepaper directly."
+      },
+      "whitepaperCta": "Read whitepaper",
+      "downloadCta": "Download now"
     },
     "audience": {
       "title": "Built for Modern Workflows",
@@ -77,29 +89,33 @@
       "geek": "Power Users"
     },
     "cta": {
-      "badge": "Final Chapter",
-      "title": "Join Private Beta",
-      "description": "We're gradually opening access. Apply now to get on the waitlist for early access.",
+      "badge": "Get started",
+      "title": "Copy once.",
+      "titleLine2": "Paste anywhere.",
+      "description": "Download the desktop app and start syncing your clipboard across all your devices.",
       "placeholder": "Enter your email",
-      "button": "Get Early Access",
-      "note": "No credit card required. Beta testers get lifetime membership discount."
+      "button": "Download now",
+      "note": "Free and open source. No account required."
     },
     "download": {
       "sectionTitle": "Download the latest release",
-      "sectionDescription": "Use an official package link below. If release feed details are delayed, use the fallback release page.",
+      "sectionDescription": "Choose your platform below to download the latest version. If release feed details are delayed, use the fallback release page.",
       "degradedNotice": "Release details are temporarily unavailable.",
       "fallbackAction": "Open latest release",
-      "notesUnavailable": "Release notes are currently unavailable.",
       "metadataUnavailable": "Metadata unavailable",
       "freshnessHint": "Status updates refresh automatically every hour.",
-      "notesLabel": "Release notes",
       "latestVersionLabel": "Latest version",
       "publishedAtLabel": "Published at",
-      "downloadsLabel": "Direct downloads",
-      "unavailableValue": "Unavailable"
+      "unavailableValue": "Unavailable",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "noDownloadsForPlatform": "No downloads available yet."
     },
     "faq": {
-      "title": "Frequently Asked Questions",
+      "eyebrow": "Frequently asked questions",
+      "title": "Before you decide.",
+      "subtitle": "The questions that actually move the decision.",
       "item1": {
         "q": "What is UniClipboard?",
         "a": "UniClipboard is a cross-device clipboard sync tool that lets you seamlessly copy and paste text and files between Mac, Windows, and Linux.\nIts core goal is simple: make multi-device work feel natural without sacrificing privacy."
@@ -123,21 +139,14 @@
       "item6": {
         "q": "Can I use it right now?",
         "a": "It's currently in Private Alpha.\nThat means:\n- Features are evolving quickly\n- Bugs are possible\n- It's best for early users who want to help refine the product\nIf you're willing to test and share real feedback, you're welcome to join."
-      },
-      "item7": {
-        "q": "Is UniClipboard free?",
-        "a": "During Alpha, it's completely free.\nFuture pricing isn't finalized, but the principles are clear:\n- No selling user data\n- No ads\n- No privacy-for-profit"
-      },
-      "item8": {
-        "q": "Do I need an account?",
-        "a": "No.\nUniClipboard does not require registration or email/phone binding.\nDevices establish trust through secure pairing."
       }
     },
     "footer": {
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Service",
+      "tagline": "A quieter, more trustworthy clipboard sync.",
       "twitter": "Twitter / X",
       "github": "GitHub",
+      "whitepaper": "Whitepaper",
+      "download": "Download",
       "copyright": "© 2026 UNICLIPBOARD."
     }
   },

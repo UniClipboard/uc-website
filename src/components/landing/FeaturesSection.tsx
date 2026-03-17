@@ -1,69 +1,52 @@
-import { History, Shield, Sparkles, Zap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-const features = [
-  { icon: Zap, key: "fast" },
-  { icon: Sparkles, key: "minimalist" },
-  { icon: Shield, key: "privacy" },
-  { icon: History, key: "history" },
-];
+import { AnimateIn, StaggerChild, StaggerIn } from "./AnimateIn";
+
+const items = ["local", "frictionless", "private"] as const;
 
 export async function FeaturesSection() {
   const t = await getTranslations("landing.features");
 
   return (
-    <section
-      id="features"
-      className="bg-muted celestial-pattern border-border relative overflow-hidden border-y py-32"
-    >
-      <div className="mx-auto max-w-[1200px] px-6">
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <h2 className="text-foreground mb-8 text-4xl font-extrabold tracking-tight md:text-5xl">
-            {t("title")}
-          </h2>
+    <section id="why" className="relative py-20 sm:py-28">
+      <div className="landing-shell">
+        <AnimateIn>
+          <div className="max-w-xl">
+            <p className="landing-kicker">{t("eyebrow")}</p>
+            <h2 className="mt-5 text-[clamp(1.8rem,4.2vw,3.2rem)] leading-[1.05] font-semibold tracking-[-0.04em] text-balance">
+              {t("title")}
+            </h2>
+            <p className="text-muted-foreground mt-5 text-base leading-8">
+              {t("subtitle")}
+            </p>
+          </div>
+        </AnimateIn>
 
-          <div className="bg-border/70 mx-auto mb-8 h-px w-24" />
-
-          <p className="text-muted-foreground text-lg leading-relaxed font-medium">
-            {t("subtitle")}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {features.map((feature) => {
-            const Icon = feature.icon;
-
-            return (
+        <StaggerIn stagger={0.15} className="mt-16 grid gap-0 sm:grid-cols-3">
+          {items.map((item, index) => (
+            <StaggerChild key={item}>
               <div
-                key={feature.key}
-                className="bg-card border-border hover:border-primary/30 group rounded-xl border p-6 transition-all"
+                className={`py-8 sm:pr-10 ${
+                  index === 0
+                    ? "border-t border-[color:var(--border)] sm:border-t"
+                    : "border-t border-[color:var(--border)]"
+                } ${index < 2 ? "sm:border-t sm:border-r" : "sm:border-t"} ${
+                  index > 0 ? "sm:pl-10" : ""
+                }`}
               >
-                <div className="mb-3 flex items-center gap-4">
-                  <div className="bg-primary/10 text-primary group-hover:bg-primary flex h-10 w-10 items-center justify-center rounded-lg transition-colors group-hover:text-white">
-                    <Icon className="size-5" />
-                  </div>
-                  <h3 className="text-foreground text-lg font-bold tracking-tight">
-                    {t(`${feature.key}.title`)}
-                  </h3>
-                </div>
-
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {t(`${feature.key}.description`)}
+                <p className="text-primary text-sm font-semibold">
+                  0{index + 1}
+                </p>
+                <h3 className="mt-4 text-lg leading-snug font-medium tracking-[-0.02em]">
+                  {t(`${item}.title`)}
+                </h3>
+                <p className="text-muted-foreground mt-3 text-[0.94rem] leading-7">
+                  {t(`${item}.description`)}
                 </p>
               </div>
-            );
-          })}
-        </div>
-
-        <div className="mt-12 flex flex-col items-center gap-3 text-center">
-          <a
-            href="#cta"
-            className="bg-secondary hover:bg-secondary/80 text-secondary-foreground inline-flex h-10 items-center justify-center rounded-lg px-6 text-sm font-medium transition-colors"
-          >
-            {t("cta.button")}
-          </a>
-          <p className="text-muted-foreground text-xs">{t("cta.note")}</p>
-        </div>
+            </StaggerChild>
+          ))}
+        </StaggerIn>
       </div>
     </section>
   );

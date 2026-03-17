@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 
 import { ThemeProvider } from "@/components/theme-provider";
@@ -91,6 +92,12 @@ const RootLayout = async ({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={cn("min-h-screen font-sans", fonts)}>
+        {process.env.NODE_ENV === "development" && (
+          <Script
+            src="https://cdn.jsdelivr.net/npm/react-grab@latest/dist/index.global.js"
+            strategy="lazyOnload"
+          />
+        )}
         <NextIntlClientProvider>
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </NextIntlClientProvider>

@@ -1,35 +1,15 @@
 "use client";
 
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { usePathname, useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useMotionValueEvent, useScroll } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
-import { getFormUrl } from "@/lib/form-config";
-
-const switchLocalePathname = (pathname: string, nextLocale: "en" | "zh") => {
-  const segments = pathname.split("/");
-  const maybeLocale = segments[1];
-
-  if (maybeLocale === "en" || maybeLocale === "zh") {
-    segments[1] = nextLocale;
-    return segments.join("/") || `/${nextLocale}`;
-  }
-
-  if (pathname === "/") return `/${nextLocale}`;
-  return `/${nextLocale}${pathname.startsWith("/") ? "" : "/"}${pathname}`;
-};
 
 export function Navigation() {
-  const locale = useLocale();
   const t = useTranslations("landing.navigation");
-  const router = useRouter();
-  const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const formUrl = getFormUrl(locale as "zh" | "en");
-
   const { scrollY } = useScroll();
   const [isCompact, setIsCompact] = useState(() =>
     typeof window !== "undefined" ? window.scrollY > 64 : false,
@@ -40,76 +20,52 @@ export function Navigation() {
     setIsCompact((prev) => (prev === next ? prev : next));
   }, []);
 
-  useMotionValueEvent(scrollY, "change", (v: number) => {
-    const next = v > 64;
+  useMotionValueEvent(scrollY, "change", (value: number) => {
+    const next = value > 64;
     setIsCompact((prev) => (prev === next ? prev : next));
   });
 
-  const nextLocale = locale === "en" ? "zh" : "en";
   const nextTheme = theme === "dark" ? "light" : "dark";
 
-  const headerVariants = {
-    expanded: { top: 0 },
-    compact: { top: 24 },
-  } as const;
-
-  const navVariants = {
-    expanded: { borderRadius: 0, maxWidth: "100%", width: "100%" },
-    compact: { borderRadius: 9999, maxWidth: 1100, width: "95%" },
-  } as const;
-
-  const backgroundVariants = {
-    expanded: { opacity: 0 },
-    compact: { opacity: 1 },
-  } as const;
-
-  const borderVariants = {
-    expanded: { opacity: 1 },
-    compact: { opacity: 0 },
-  } as const;
+  const ease = "cubic-bezier(0.22, 1, 0.36, 1)";
+  const duration = "600ms";
 
   return (
     <>
-      <motion.header
+      <header
         data-testid="nav-root"
         data-nav-variant={isCompact ? "compact" : "expanded"}
         className="fixed inset-x-0 z-50"
-        initial={false}
-        animate={isCompact ? "compact" : "expanded"}
-        variants={headerVariants}
-        transition={{ type: "spring", stiffness: 520, damping: 46 }}
+        style={{
+          top: isCompact ? 16 : 0,
+          paddingLeft: isCompact ? 12 : 0,
+          paddingRight: isCompact ? 12 : 0,
+          transition: `top ${duration} ${ease}, padding ${duration} ${ease}`,
+        }}
       >
-        <motion.nav
+        <nav
           data-testid="nav-shell"
           data-nav-shape={isCompact ? "pill" : "square"}
-          className="relative mx-auto overflow-hidden"
-          initial={false}
-          animate={isCompact ? "compact" : "expanded"}
-          variants={navVariants}
-          transition={{ type: "spring", stiffness: 520, damping: 46 }}
+          className="relative mx-auto overflow-hidden border-b border-transparent"
+          style={{
+            maxWidth: isCompact ? 1120 : "100vw",
+            borderRadius: isCompact ? 22 : 0,
+            transition: `max-width ${duration} ${ease}, border-radius ${duration} ${ease}`,
+          }}
         >
-          <motion.div
+          <div
             aria-hidden="true"
-            className="border-border/70 pointer-events-none absolute inset-0 border-b"
-            style={{ borderRadius: "inherit" }}
-            initial={false}
-            animate={isCompact ? "compact" : "expanded"}
-            variants={borderVariants}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-          />
-          <motion.div
-            aria-hidden="true"
-            className="glass-panel border-border pointer-events-none absolute inset-0 border shadow-sm"
-            style={{ borderRadius: "inherit" }}
-            initial={false}
-            animate={isCompact ? "compact" : "expanded"}
-            variants={backgroundVariants}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="absolute inset-0 border border-[color:color-mix(in_oklab,var(--color-border)_70%,white)] bg-[color:color-mix(in_oklab,var(--color-background)_88%,white)] shadow-[0_20px_50px_rgba(70,51,32,0.06)] backdrop-blur-xl dark:border-white/8 dark:bg-[color:color-mix(in_oklab,var(--color-background)_84%,black)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.25)]"
+            style={{
+              borderRadius: "inherit",
+              opacity: isCompact ? 1 : 0.92,
+              transition: `opacity 180ms ease-out`,
+            }}
           />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-[1100px] items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-2">
-              <div className="bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-lg shadow-sm">
+          <div className="relative z-10 mx-auto flex w-full max-w-[1120px] items-center justify-between gap-6 px-5 py-4 md:px-6">
+            <a href="#top" className="flex shrink-0 items-center gap-3">
+              <div className="bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-[1.1rem] shadow-[0_12px_30px_rgba(38,106,74,0.20)]">
                 <svg
                   data-testid="nav-logo-icon"
                   aria-hidden="true"
@@ -122,90 +78,89 @@ export function Navigation() {
                   <path
                     d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"
                     fill="currentColor"
-                  ></path>
+                  />
                 </svg>
               </div>
-              <h2 className="text-foreground text-lg font-bold tracking-tight">
-                UniClipboard
-              </h2>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="hidden items-center gap-8 md:flex">
-                <a
-                  className="hover:text-foreground text-muted-foreground text-xs font-bold tracking-widest uppercase transition-colors"
-                  href="#features"
-                >
-                  {t("features")}
-                </a>
-                <a
-                  className="hover:text-foreground text-muted-foreground text-xs font-bold tracking-widest uppercase transition-colors"
-                  href="#trust"
-                >
-                  {t("trust")}
-                </a>
+              <div className="min-w-0">
+                <p className="text-foreground text-[15px] leading-none font-semibold tracking-[-0.02em]">
+                  UniClipboard
+                </p>
+                <p className="text-muted-foreground mt-1 hidden text-[11px] tracking-[0.16em] uppercase md:block">
+                  {t("productNote")}
+                </p>
               </div>
-              <div
-                data-testid="nav-controls"
-                className="bg-background/60 border-border/60 hidden h-9 items-center rounded-full border px-1 backdrop-blur-md md:flex"
-              >
-                <button
-                  type="button"
-                  aria-label="Switch language"
-                  onClick={() =>
-                    router.push(switchLocalePathname(pathname, nextLocale))
-                  }
-                  className="hover:bg-background/70 text-foreground focus-visible:ring-ring/30 inline-flex size-7 items-center justify-center rounded-full transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
-                >
-                  <Icons.globe className="size-4" />
-                </button>
-                <span className="bg-border/80 mx-1 h-5 w-px" />
-                <button
-                  type="button"
-                  aria-label="Toggle theme"
-                  onClick={() => setTheme(nextTheme)}
-                  className="hover:bg-background/70 text-foreground focus-visible:ring-ring/30 inline-flex size-7 items-center justify-center rounded-full transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
-                >
-                  <Icons.sun className="size-4 dark:hidden" />
-                  <Icons.moon className="hidden size-4 dark:block" />
-                </button>
-              </div>
+            </a>
+
+            <div className="hidden items-center gap-7 md:flex">
               <a
-                href={formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-5 py-2.5 text-xs font-bold tracking-wider uppercase transition-all"
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                href="#why"
               >
-                {t("cta")}
+                {t("why")}
+              </a>
+              <a
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                href="#security"
+              >
+                {t("security")}
+              </a>
+              <a
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                href="#faq"
+              >
+                {t("faq")}
+              </a>
+              <a
+                className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                href="#download"
+              >
+                {t("download")}
+              </a>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                data-testid="nav-controls"
+                type="button"
+                aria-label="Toggle theme"
+                onClick={() => setTheme(nextTheme)}
+                className="bg-muted/60 border-border hover:bg-muted text-foreground focus-visible:ring-ring/30 hidden size-10 items-center justify-center rounded-full border shadow-[inset_0_1px_0_rgba(255,255,255,0.4)] transition-colors focus-visible:ring-[3px] focus-visible:outline-none md:inline-flex"
+              >
+                <Icons.sun className="size-4 dark:hidden" />
+                <Icons.moon className="hidden size-4 dark:block" />
+              </button>
+
+              <a
+                href="#download"
+                className="bg-primary text-primary-foreground inline-flex h-10 items-center justify-center rounded-full px-4 text-sm font-medium shadow-[0_12px_30px_rgba(38,106,74,0.20)] transition-all duration-300 ease-out hover:-translate-y-0.5"
+              >
+                {t("primaryCta")}
               </a>
             </div>
           </div>
-        </motion.nav>
-      </motion.header>
-      <div className="fixed right-6 bottom-6 z-50 flex md:hidden">
+        </nav>
+      </header>
+
+      <div className="fixed right-5 bottom-5 z-50 flex md:hidden">
         <div
           data-testid="mobile-nav-controls"
-          className="bg-background/60 border-border/60 flex flex-col items-center rounded-full border p-1 backdrop-blur-md"
+          className="flex items-center gap-1 rounded-full border border-[color:color-mix(in_oklab,var(--color-border)_70%,white)] bg-[color:color-mix(in_oklab,var(--color-background)_90%,white)] p-1 shadow-[0_20px_40px_rgba(70,51,32,0.10)] backdrop-blur-xl dark:border-white/8 dark:bg-[color:color-mix(in_oklab,var(--color-background)_84%,black)]"
         >
-          <button
-            type="button"
-            aria-label="Switch language"
-            onClick={() =>
-              router.push(switchLocalePathname(pathname, nextLocale))
-            }
-            className="hover:bg-background/70 text-foreground focus-visible:ring-ring/30 inline-flex size-7 items-center justify-center rounded-full transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
-          >
-            <Icons.globe className="size-4" />
-          </button>
-          <span className="bg-border/80 my-1 h-px w-5" />
           <button
             type="button"
             aria-label="Toggle theme"
             onClick={() => setTheme(nextTheme)}
-            className="hover:bg-background/70 text-foreground focus-visible:ring-ring/30 inline-flex size-7 items-center justify-center rounded-full transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
+            className="hover:bg-accent text-foreground focus-visible:ring-ring/30 inline-flex size-8 items-center justify-center rounded-full transition-colors focus-visible:ring-[3px] focus-visible:outline-none"
           >
             <Icons.sun className="size-4 dark:hidden" />
             <Icons.moon className="hidden size-4 dark:block" />
           </button>
+          <a
+            href="#download"
+            className="bg-primary text-primary-foreground inline-flex h-8 items-center justify-center rounded-full px-3 text-xs font-medium"
+          >
+            {t("primaryCta")}
+          </a>
         </div>
       </div>
     </>

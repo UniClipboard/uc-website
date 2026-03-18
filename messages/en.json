@@ -125,20 +125,16 @@
         "a": "The biggest differences are three things:\n- Privacy-first: end-to-end encryption, no plaintext cloud storage\n- Decentralized design: devices communicate directly, no central server\n- Open-source & auditable: you can see where data goes and how it is handled\nIf you care about what your clipboard contains, that's exactly the problem UniClipboard aims to solve."
       },
       "item3": {
-        "q": "Will my clipboard data be uploaded to the cloud?",
-        "a": "No.\nUniClipboard does not store your clipboard content in the cloud.\nAll data is encrypted and transferred only between devices you trust, and we cannot read your content."
+        "q": "Is my data safe?",
+        "a": "Your data never touches the cloud, and no one can peek at it.\n- Clipboard data is encrypted locally\n- Transit is end-to-end encrypted\n- There is no central server storing data\nEven the developers cannot decrypt your clipboard contents."
       },
       "item4": {
-        "q": "Can you see my clipboard content?",
-        "a": "No - and you don't have to take our word for it.\n- Clipboard data is encrypted locally\n- Transit is end-to-end encrypted\n- There is no central server that can peek\nEven the developers cannot decrypt your clipboard contents."
+        "q": "Is it free?",
+        "a": "LAN sync is completely free — it costs us nothing to operate.\nIn the future, we plan to support cross-network (WAN) sync, which may be a paid feature."
       },
       "item5": {
-        "q": "Why build clipboard sync now?",
-        "a": "Because most existing solutions either:\n- Lock you into an ecosystem\n- Rely too heavily on the cloud\n- Are opaque about privacy\nUniClipboard is a long-term answer, not a pile of features."
-      },
-      "item6": {
-        "q": "Can I use it right now?",
-        "a": "It's currently in Private Alpha.\nThat means:\n- Features are evolving quickly\n- Bugs are possible\n- It's best for early users who want to help refine the product\nIf you're willing to test and share real feedback, you're welcome to join."
+        "q": "Which platforms are supported?",
+        "a": "Currently desktop only (Windows, macOS, Linux).\nMobile support is planned."
       }
     },
     "footer": {

@@ -5,7 +5,7 @@ import { AnimateIn, StaggerChild, StaggerIn } from "./AnimateIn";
 
 export async function FaqSection() {
   const t = await getTranslations("landing.faq");
-  const items = Array.from({ length: 6 }, (_, i) => i + 1);
+  const items = Array.from({ length: 5 }, (_, i) => i + 1);
 
   return (
     <section id="faq" className="py-20 sm:py-28">

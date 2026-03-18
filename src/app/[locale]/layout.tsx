@@ -37,11 +37,6 @@ export async function generateMetadata({
     description: siteConfig.description,
     keywords: siteConfig.keywords,
     robots: { index: true, follow: true },
-    icons: {
-      icon: "/favicon/favicon.ico",
-      shortcut: "/favicon/favicon-16x16.png",
-      apple: "/favicon/apple-touch-icon.png",
-    },
     verification: {
       google: siteConfig.googleSiteVerificationId,
     },

@@ -54,11 +54,7 @@ describe("landing release state integration", () => {
 
     mockedFetchStableRelease.mockRejectedValue(new Error("socket closed"));
 
-    await expect(
-      LandingPage({
-        params: Promise.resolve({ locale: "en" }),
-      }),
-    ).resolves.toBeTruthy();
+    await expect(LandingPage()).resolves.toBeTruthy();
     expect(mockedNormalizeStableRelease).not.toHaveBeenCalled();
 
     const section = await DownloadSection({

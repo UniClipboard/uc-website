@@ -1,226 +1,282 @@
-import { Apple, ArrowUpRight, Download, Monitor, Terminal } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-release";
 
 import { AnimateIn } from "./AnimateIn";
+import { DownloadFocus } from "./DownloadFocus";
 
 type DownloadSectionProps = {
   release: StableReleaseViewModel;
 };
 
-type PlatformGroup = {
-  id: string;
-  icon: typeof Apple;
-  entries: Array<{ platform: string; url: string; arch: string; ext: string }>;
-};
+type GroupOS = "mac" | "win" | "linux";
 
 function getFileExtension(url: string): string {
   const match = url.match(/\.([a-zA-Z0-9]+)(?:\?.*)?$/);
   return match ? `.${match[1]}` : "";
 }
 
-function getArchLabel(platform: string): string {
-  if (platform.includes("ARM64")) return "Apple Silicon";
+function getOS(platform: string): GroupOS | null {
+  if (platform.startsWith("macOS")) return "mac";
+  if (platform.startsWith("Windows")) return "win";
+  if (platform.startsWith("Linux")) return "linux";
+  return null;
+}
+
+function getArchLabel(
+  platform: string,
+  archLabels: { arm: string; intel: string; x64: string; appimage: string },
+): string {
+  if (platform.includes("ARM64") && platform.startsWith("macOS"))
+    return archLabels.arm;
   if (platform.includes("x86_64") && platform.startsWith("macOS"))
-    return "Intel";
-  if (platform.includes("x86_64")) return "x64";
-  if (platform.includes("arm64")) return "ARM64";
+    return archLabels.intel;
+  if (platform.startsWith("Linux") && platform.includes("AppImage"))
+    return archLabels.appimage;
+  if (platform.includes("x86_64") || platform.includes("x64"))
+    return archLabels.x64;
+  if (platform.includes("ARM64") || platform.includes("arm64")) return "ARM64";
   return platform;
 }
 
-function groupDownloadsByPlatform(
-  downloads: Array<{ platform: string; url: string }>,
-): PlatformGroup[] {
-  const groups: Record<
-    string,
-    Array<{ platform: string; url: string; arch: string; ext: string }>
-  > = {
-    macOS: [],
-    Windows: [],
-    Linux: [],
-  };
-
-  for (const entry of downloads) {
-    const arch = getArchLabel(entry.platform);
-    const ext = getFileExtension(entry.url);
-    const enriched = { ...entry, arch, ext };
-
-    if (entry.platform.startsWith("macOS")) {
-      groups.macOS.push(enriched);
-    } else if (entry.platform.startsWith("Windows")) {
-      groups.Windows.push(enriched);
-    } else if (entry.platform.startsWith("Linux")) {
-      groups.Linux.push(enriched);
-    }
+function fmtPublished(iso: string, unavailable: string): string {
+  if (!iso || iso === "unavailable") return unavailable;
+  try {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const m = months[d.getUTCMonth()];
+    const day = d.getUTCDate();
+    const yr = d.getUTCFullYear();
+    const h = String(d.getUTCHours()).padStart(2, "0");
+    const mn = String(d.getUTCMinutes()).padStart(2, "0");
+    return `${m} ${day}, ${yr} · ${h}:${mn} UTC`;
+  } catch {
+    return iso;
   }
-
-  return [
-    { id: "macOS", icon: Apple, entries: groups.macOS },
-    { id: "Windows", icon: Monitor, entries: groups.Windows },
-    { id: "Linux", icon: Terminal, entries: groups.Linux },
-  ];
 }
-
-const normalizeValue = (value: string, unavailableLabel: string) =>
-  value === "unavailable" ? unavailableLabel : value;
 
 export async function DownloadSection({ release }: DownloadSectionProps) {
   const t = await getTranslations("landing.download");
-  const unavailableLabel = t("unavailableValue");
 
-  const versionLabel = normalizeValue(release.version, unavailableLabel);
-  const publishedAtLabel = normalizeValue(
-    release.publishedAt,
-    unavailableLabel,
-  );
-
-  const platformGroups = groupDownloadsByPlatform(release.downloads);
-  const hasAnyDownloads = platformGroups.some(
-    (group) => group.entries.length > 0,
-  );
-  const showInlineFallbackLink =
-    release.status !== "degraded" || hasAnyDownloads;
-
-  const platformNames: Record<string, string> = {
-    macOS: t("platformMacOS"),
-    Windows: t("platformWindows"),
-    Linux: t("platformLinux"),
+  const unavailable = t("unavailableValue");
+  const archLabels = {
+    arm: t("archArm"),
+    intel: t("archIntel"),
+    x64: t("archX64"),
+    appimage: t("archAppimage"),
   };
 
+  const groupedItems: Record<
+    GroupOS,
+    Array<{ arch: string; ext: string; url: string }>
+  > = {
+    mac: [],
+    win: [],
+    linux: [],
+  };
+
+  for (const entry of release.downloads) {
+    const os = getOS(entry.platform);
+    if (!os) continue;
+    groupedItems[os].push({
+      arch: getArchLabel(entry.platform, archLabels),
+      ext: getFileExtension(entry.url),
+      url: entry.url,
+    });
+  }
+
+  const groups = [
+    { os: "mac" as const, label: t("platformMacOS"), items: groupedItems.mac },
+    {
+      os: "win" as const,
+      label: t("platformWindows"),
+      items: groupedItems.win,
+    },
+    {
+      os: "linux" as const,
+      label: t("platformLinux"),
+      items: groupedItems.linux,
+    },
+  ];
+
+  const versionLabel =
+    release.version === "unavailable" ? unavailable : release.version;
+  const publishedAtLabel = fmtPublished(release.publishedAt, unavailable);
+
+  const isDegraded = release.status === "degraded";
+
   return (
-    <section id="download" className="relative py-20 sm:py-28">
-      <div className="landing-shell">
-        <AnimateIn variant="scale-up">
-          <div className="landing-panel rounded-[2rem] px-6 py-8 md:px-10 md:py-10">
-            <div className="grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start">
-              <div className="max-w-[30rem]">
-                <p className="landing-kicker">{t("sectionTitle")}</p>
-                <h2 className="mt-5 text-[clamp(1.8rem,4.2vw,3.2rem)] leading-[0.96] font-semibold tracking-[-0.05em]">
-                  {t("sectionTitle")}
-                </h2>
-                <p className="text-muted-foreground mt-4 max-w-md text-[0.94rem] leading-7">
-                  {t("sectionDescription")}
+    <section
+      id="download"
+      className="border-border bg-bg2 relative border-b py-[120px]"
+    >
+      {/* Soft radial glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(60% 50% at 70% 50%, var(--border) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="landing-shell relative">
+        <div
+          className="grid items-center gap-16"
+          style={{ gridTemplateColumns: "1fr 1.1fr" }}
+        >
+          {/* Left: heading + meta */}
+          <div>
+            <AnimateIn variant="fade-in" duration={0.5}>
+              <p className="landing-kicker">{t("eyebrow")}</p>
+            </AnimateIn>
+            <AnimateIn delay={0.06} duration={0.6}>
+              <h2
+                className="text-foreground mt-3.5 mb-[22px]"
+                style={{
+                  fontSize: "clamp(2rem, 4.4vw, 3rem)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.03em",
+                  textWrap: "balance",
+                  lineHeight: 1.05,
+                }}
+              >
+                {t("title")}
+              </h2>
+            </AnimateIn>
+            <AnimateIn delay={0.12} duration={0.5}>
+              <p
+                className="text-muted-foreground mb-8"
+                style={{ fontSize: 16, lineHeight: 1.6, maxWidth: 460 }}
+              >
+                {t("description")}
+              </p>
+            </AnimateIn>
+
+            {isDegraded && (
+              <AnimateIn delay={0.16} duration={0.5}>
+                <p className="text-muted-foreground border-border bg-card mb-6 inline-flex rounded-full border px-3 py-1.5 text-sm font-medium">
+                  {t("degradedNotice")}
                 </p>
-                {release.status === "degraded" ? (
-                  <p className="border-border bg-accent/70 mt-5 inline-flex rounded-full border px-3 py-1.5 text-sm font-medium">
-                    {t("degradedNotice")}
-                  </p>
-                ) : null}
+              </AnimateIn>
+            )}
 
-                <div className="mt-8 grid gap-4 text-sm sm:grid-cols-2">
-                  <div className="rounded-2xl border border-dashed border-[color:var(--border)] p-4">
-                    <p className="text-muted-foreground text-xs tracking-[0.18em] uppercase">
-                      {t("latestVersionLabel")}
-                    </p>
-                    <p className="text-foreground mt-2 text-lg font-medium">
-                      {versionLabel}
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-dashed border-[color:var(--border)] p-4">
-                    <p className="text-muted-foreground text-xs tracking-[0.18em] uppercase">
-                      {t("publishedAtLabel")}
-                    </p>
-                    <p className="text-foreground mt-2 text-lg font-medium">
-                      {publishedAtLabel}
-                    </p>
-                  </div>
+            <AnimateIn delay={0.18} duration={0.5}>
+              <div
+                className="text-muted-foreground flex flex-col gap-2.5"
+                style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}
+              >
+                <div className="flex gap-3.5">
+                  <span
+                    style={{
+                      color: "var(--muted2)",
+                      width: 96,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      fontSize: 10,
+                    }}
+                  >
+                    {t("versionLabel")}
+                  </span>
+                  <span style={{ color: "var(--ink2)" }}>v{versionLabel}</span>
                 </div>
-
-                <div className="mt-8">
-                  {showInlineFallbackLink ? (
-                    <a
-                      href={release.fallbackReleaseUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-foreground hover:text-primary inline-flex items-center gap-2 text-sm font-medium transition-colors"
-                    >
-                      {t("fallbackAction")}
-                      <ArrowUpRight className="h-4 w-4" />
-                    </a>
-                  ) : null}
-                  <p className="text-muted-foreground mt-3 text-xs leading-6">
-                    {t("freshnessHint")}
-                  </p>
+                <div className="flex gap-3.5">
+                  <span
+                    style={{
+                      color: "var(--muted2)",
+                      width: 96,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      fontSize: 10,
+                    }}
+                  >
+                    {t("publishedLabel")}
+                  </span>
+                  <span style={{ color: "var(--ink2)" }}>
+                    {publishedAtLabel}
+                  </span>
+                </div>
+                <div className="flex gap-3.5">
+                  <span
+                    style={{
+                      color: "var(--muted2)",
+                      width: 96,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      fontSize: 10,
+                    }}
+                  >
+                    {t("channelLabel")}
+                  </span>
+                  <span
+                    className="inline-flex items-center gap-1.5"
+                    style={{ color: "var(--ink2)" }}
+                  >
+                    <span
+                      className="inline-block"
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: 99,
+                        background: "#3DA47A",
+                        boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
+                        animation: "uc-dot-pulse 2s ease-in-out infinite",
+                      }}
+                    />
+                    {t("channelStable")}
+                  </span>
                 </div>
               </div>
+            </AnimateIn>
 
-              <div className="overflow-hidden rounded-[1.8rem] border border-[color:var(--border)] bg-[color:color-mix(in_oklab,var(--color-muted)_45%,white)] dark:bg-[color:color-mix(in_oklab,var(--color-muted)_45%,black)]">
-                {platformGroups.map((group, groupIndex) => {
-                  const Icon = group.icon;
-
-                  return (
-                    <div
-                      key={group.id}
-                      className={
-                        groupIndex === 0
-                          ? ""
-                          : "border-t border-[color:var(--border)]"
-                      }
-                    >
-                      <div className="flex items-center gap-3 px-5 pt-5 pb-3 sm:px-7">
-                        <div className="bg-card text-foreground flex h-10 w-10 items-center justify-center rounded-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]">
-                          <Icon className="h-[18px] w-[18px]" />
-                        </div>
-                        <div>
-                          <h3 className="text-foreground text-[15px] font-semibold">
-                            {platformNames[group.id]}
-                          </h3>
-                          {group.entries.length === 0 ? (
-                            <p className="text-muted-foreground text-sm">
-                              {t("noDownloadsForPlatform")}
-                            </p>
-                          ) : null}
-                        </div>
-                      </div>
-
-                      {group.entries.length > 0 ? (
-                        <div className="px-3 pb-3 sm:px-4 sm:pb-4">
-                          {group.entries.map((entry) => (
-                            <a
-                              key={`${entry.platform}-${entry.url}`}
-                              href={entry.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="group flex items-center justify-between rounded-2xl border border-transparent px-3 py-3 transition-colors hover:border-[color:var(--border)] hover:bg-white/55 sm:px-4 dark:hover:bg-white/3"
-                            >
-                              <div className="flex min-w-0 items-center gap-4">
-                                <div className="min-w-0">
-                                  <p className="text-foreground text-sm font-medium">
-                                    {entry.arch}
-                                  </p>
-                                  <p className="text-muted-foreground mt-0.5 text-xs">
-                                    {entry.ext || entry.platform}
-                                  </p>
-                                </div>
-                              </div>
-                              <span className="border-border bg-card text-foreground group-hover:bg-primary group-hover:text-primary-foreground inline-flex h-9 shrink-0 items-center gap-2 rounded-full border px-3 text-sm font-medium transition-colors">
-                                <Download className="h-4 w-4" />
-                              </span>
-                            </a>
-                          ))}
-                        </div>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {release.status === "degraded" && !hasAnyDownloads ? (
-              <div className="mt-8 border-t border-[color:var(--border)] pt-6">
-                <a
-                  href={release.fallbackReleaseUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary text-primary-foreground inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-medium shadow-[0_18px_40px_rgba(38,106,74,0.22)] transition-all duration-300 ease-out hover:-translate-y-0.5"
-                >
-                  {t("fallbackAction")}
-                </a>
-              </div>
-            ) : null}
+            <AnimateIn delay={0.24} duration={0.5}>
+              <p
+                className="text-muted-foreground mt-6"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {t("freshnessHint")}
+              </p>
+            </AnimateIn>
           </div>
-        </AnimateIn>
+
+          {/* Right: download focus card */}
+          <AnimateIn delay={0.14} duration={0.6}>
+            <DownloadFocus
+              groups={groups}
+              version={versionLabel}
+              publishedAt={publishedAtLabel}
+              fallbackUrl={release.fallbackReleaseUrl}
+              labels={{
+                versionLabel: t("versionLabel"),
+                publishedLabel: t("publishedLabel"),
+                channelLabel: t("channelLabel"),
+                channelStable: t("channelStable"),
+                fallback: t("fallback"),
+                downloadAction: t("downloadAction"),
+                recommended: t("recommended"),
+                noDownloads: t("noDownloads"),
+              }}
+            />
+          </AnimateIn>
+        </div>
       </div>
     </section>
   );

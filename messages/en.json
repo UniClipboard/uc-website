@@ -7,143 +7,158 @@
   },
   "landing": {
     "navigation": {
-      "why": "Why",
-      "security": "Security",
+      "features": "Features",
+      "how": "How it works",
+      "download": "Install",
       "faq": "FAQ",
-      "download": "Download",
-      "productNote": "Universal clipboard sync",
-      "primaryCta": "Download",
-      "secondaryCta": "Join Waitlist"
+      "github": "GitHub"
     },
     "hero": {
-      "eyebrow": "Universal clipboard sync",
-      "title": "Copy once.",
-      "titleLine2": "Paste anywhere.",
-      "description": "UniClipboard syncs your clipboard across macOS, Windows, and Linux — encrypted end-to-end, local-first, no account required.",
-      "primaryCta": "Download now",
-      "secondaryCta": "Join waitlist",
-      "tertiaryCta": "GitHub",
-      "fact1": {
-        "label": "Platforms",
-        "value": "macOS, Windows, Linux"
-      },
-      "fact2": {
-        "label": "Connection",
-        "value": "Auto-reconnects on LAN"
-      },
-      "fact3": {
-        "label": "Privacy",
-        "value": "E2E encrypted, no account"
-      }
+      "eyebrow": "Privacy-first · End-to-end encrypted · Cross-network",
+      "title": "Copy on one device.",
+      "titleLine2": "Paste on another.",
+      "description": "Privacy-first clipboard sync across your devices. Text, images and files flow securely — same Wi-Fi or across the internet.",
+      "primaryCta": "Install",
+      "secondaryCta": "Quick start",
+      "meta1": "AGPL-3.0",
+      "meta2": "Rust + Tauri",
+      "meta3": "iroh QUIC P2P",
+      "videoLabel": "PLAYBACK",
+      "videoPlay": "Play demo",
+      "videoPause": "Pause",
+      "videoDuration": "00:60"
     },
     "features": {
-      "eyebrow": "Why UniClipboard",
-      "title": "It does not move your clipboard into the cloud. It keeps it between your devices.",
-      "subtitle": "Three things that matter: why it feels better, why it is easier to trust, and why it holds up long term.",
-      "local": {
-        "title": "Local-first, not cloud-first",
-        "description": "When devices are on the same network, they talk directly. Your clipboard does not need to detour through a central server just to come back."
+      "eyebrow": "Features",
+      "title": "Feels like the OS clipboard — but cross-platform, searchable, auditable.",
+      "moreEyebrow": "More",
+      "moreTitle": "Other things you might want.",
+      "h1": {
+        "eyebrow": "01 — Frictionless",
+        "title": "Use the ⌘C / ⌘V you already know.",
+        "lede": "No app to open, no file to send, no account to log into. Copy on one device, paste on another — that's it.",
+        "b1Title": "Zero extra steps",
+        "b1Desc": "An extension of the system clipboard — not another app to switch to.",
+        "b2Title": "Native shortcuts",
+        "b2Desc": "⌘C / Ctrl-C to copy, ⌘V / Ctrl-V to paste — no muscle-memory taxes.",
+        "b3Title": "Self-healing",
+        "b3Desc": "Reconnects automatically after Wi-Fi switches and sleep/wake. No re-pairing.",
+        "mediaCaption": "demo · ⌘C → ⌘V"
       },
-      "frictionless": {
-        "title": "Less confirmation, less interruption",
-        "description": "After one pairing step, UniClipboard reconnects in the background. You do not repeat a sharing flow every time you copy across devices."
+      "h2": {
+        "eyebrow": "02 — Privacy-first",
+        "title": "The relay only sees ciphertext.",
+        "lede": "Content is encrypted at the source and decrypted only on your devices. Keys live in the system keyring and never leave your machine.",
+        "b1Title": "End-to-end encrypted",
+        "b1Desc": "XChaCha20-Poly1305 AEAD — encrypted in transit and at rest.",
+        "b2Title": "No cloud account",
+        "b2Desc": "No email, no phone number — just two devices exchanging a public key.",
+        "b3Title": "Auditable",
+        "b3Desc": "Open source (AGPL-3.0). Read and verify the crypto yourself.",
+        "mediaCaption": "illustration · ciphertext through relay"
       },
-      "private": {
-        "title": "Encrypted by default, explainable by design",
-        "description": "Content is encrypted before it leaves your device. The point is not to ask for blind trust, but to make the sync model understandable."
+      "h3": {
+        "eyebrow": "03 — Cross-platform · cross-network",
+        "title": "Not just LAN. Not bound to one network.",
+        "lede": "First-class on Windows, macOS, and Linux. Direct on the same Wi-Fi; NAT hole-punching across networks; encrypted relay as a fallback.",
+        "b1Title": "Three native platforms",
+        "b1Desc": "Not an Electron wrapper — built on Rust + Tauri.",
+        "b2Title": "Direct first",
+        "b2Desc": "Devices on the same network connect peer-to-peer, no relay.",
+        "b3Title": "Relay fallback",
+        "b3Desc": "Across home/office/internet — automatic hole-punching, encrypted relay if it fails.",
+        "mediaCaption": "illustration · 3 devices · LAN + relay"
+      },
+      "more": {
+        "f1Title": "Cross-platform",
+        "f1Desc": "First-class support on Windows, macOS, and Linux — your clipboard works wherever you do.",
+        "f4Title": "Local full-text search",
+        "f4Desc": "Search the full history in milliseconds — even with tens of thousands of entries. The index stays encrypted on disk.",
+        "f6Title": "Quick Panel",
+        "f6Desc": "A keyboard-shortcut overlay with inline preview for text, links, images, code, and files — feels like part of the OS clipboard.",
+        "f5Title": "Text, images & files",
+        "f5Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
+        "f7Title": "Command-line tool",
+        "f7Desc": "A uniclip CLI mirrors the GUI flow and works headlessly — built for terminals, SSH, scripts, and tmux workflows.",
+        "f9Title": "Multi-device management",
+        "f9Desc": "Manage paired devices, presence and per-device sync preferences. Lost a device? Revoke it from any paired one."
       }
     },
     "howItWorks": {
       "eyebrow": "How it works",
-      "title": "Three steps are enough.",
-      "subtitle": "Establish trust once, then let sync fade into the background.",
-      "step1": {
-        "title": "Pair once",
-        "description": "Approve the first connection and create a trusted relationship between devices. You should not need to repeat that every time you copy."
-      },
-      "step2": {
-        "title": "Reconnect automatically",
-        "description": "When paired devices return to the same network, they reconnect quietly in the background instead of asking for another manual flow."
-      },
-      "step3": {
-        "title": "Sync directly and securely",
-        "description": "Clipboard data is encrypted before it leaves your device, then transferred directly over your network instead of through an opaque middle layer."
-      },
-      "securityEyebrow": "Security note",
-      "securityTitle": "Your data should not be traded for convenience.",
-      "securityDescription": "UniClipboard minimizes what the platform knows while keeping the sync model simple enough to explain clearly.",
-      "security": {
-        "fact1": "No required account, and no forced email or phone binding.",
-        "fact2": "Clipboard content is encrypted locally and stays end-to-end encrypted in transit.",
-        "fact3": "If you want more detail, you can read the security whitepaper directly."
-      },
-      "whitepaperCta": "Read whitepaper",
-      "downloadCta": "Download now"
-    },
-    "audience": {
-      "title": "Built for Modern Workflows",
-      "developer": "Developers",
-      "creator": "Content Creators",
-      "designer": "UI/UX Designers",
-      "admin": "System Admins",
-      "geek": "Power Users"
-    },
-    "cta": {
-      "badge": "Get started",
-      "title": "Copy once.",
-      "titleLine2": "Paste anywhere.",
-      "description": "Download the desktop app and start syncing your clipboard across all your devices.",
-      "placeholder": "Enter your email",
-      "button": "Download now",
-      "note": "Free and open source. No account required."
+      "title": "Pair once. After that, just copy and paste.",
+      "step1Title": "Local pairing",
+      "step1Desc": "Devices exchange a public key once, locally — no cloud account, no email. Generate a short-lived invitation code on one device; the new device joins with the code and the space passphrase.",
+      "step2Title": "Encrypted transport",
+      "step2Desc": "Content is encrypted at the source. Ciphertext flows over a direct P2P link (same Wi-Fi or NAT hole-punching). When direct fails, it falls back to an encrypted relay. Even a malicious relay only sees ciphertext.",
+      "step3Title": "Local decrypt & store",
+      "step3Desc": "Decryption happens only on your devices. Local history and the search index are encrypted at rest. Connections recover automatically after Wi-Fi switches, sleep/wake, or brief disconnects."
     },
     "download": {
-      "sectionTitle": "Download the latest release",
-      "sectionDescription": "Choose your platform below to download the latest version. If release feed details are delayed, use the fallback release page.",
-      "degradedNotice": "Release details are temporarily unavailable.",
-      "fallbackAction": "Open latest release",
-      "metadataUnavailable": "Metadata unavailable",
+      "eyebrow": "Download the latest release",
+      "title": "Pick your platform.",
+      "description": "Choose your platform below to download the latest version. If the release feed is delayed, use the fallback release page.",
+      "versionLabel": "Version",
+      "publishedLabel": "Published",
+      "channelLabel": "Channel",
+      "channelStable": "stable",
+      "openRelease": "Open latest release",
+      "fallback": "All releases",
       "freshnessHint": "Status updates refresh automatically every hour.",
-      "latestVersionLabel": "Latest version",
-      "publishedAtLabel": "Published at",
-      "unavailableValue": "Unavailable",
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
       "platformLinux": "Linux",
-      "noDownloadsForPlatform": "No downloads available yet."
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "downloadAction": "Download",
+      "recommended": "Recommended",
+      "noDownloads": "No downloads available yet.",
+      "degradedNotice": "Release details are temporarily unavailable.",
+      "metadataUnavailable": "Metadata unavailable",
+      "unavailableValue": "Unavailable"
     },
     "faq": {
-      "eyebrow": "Frequently asked questions",
-      "title": "Before you decide.",
-      "subtitle": "The questions that actually move the decision.",
+      "eyebrow": "FAQ",
+      "title": "Things you'll probably ask.",
       "item1": {
-        "q": "What is UniClipboard?",
-        "a": "UniClipboard is a cross-device clipboard sync tool that lets you seamlessly copy and paste text and files between Mac, Windows, and Linux.\nIts core goal is simple: make multi-device work feel natural without sacrificing privacy."
+        "q": "Why not just iCloud Universal Clipboard?",
+        "a": "If you only use Apple devices, don't need history, and fully trust Apple's closed-source E2E encryption — iCloud is fine. The moment you add a Windows or Linux machine, want a searchable history, or want to verify the encryption yourself, you need something else."
       },
       "item2": {
-        "q": "How is it different from iCloud / Windows Clipboard / other tools?",
-        "a": "The biggest differences are three things:\n- Privacy-first: end-to-end encryption, no plaintext cloud storage\n- Decentralized design: devices communicate directly, no central server\n- Open-source & auditable: you can see where data goes and how it is handled\nIf you care about what your clipboard contains, that's exactly the problem UniClipboard aims to solve."
+        "q": "Why not a self-hosted clipboard sync (e.g. ClipCascade)?",
+        "a": "Self-hosted means you operate a server. UniClipboard works out of the box — direct P2P first, encrypted relay only as a fallback. You never have to run any infrastructure."
       },
       "item3": {
-        "q": "Is my data safe?",
-        "a": "Your data never touches the cloud, and no one can peek at it.\n- Clipboard data is encrypted locally\n- Transit is end-to-end encrypted\n- There is no central server storing data\nEven the developers cannot decrypt your clipboard contents."
+        "q": "Does it work fully offline / LAN-only?",
+        "a": "Yes. Devices on the same Wi-Fi connect directly without going through the relay. Even if the relay is unreachable, devices on the same network keep syncing."
       },
       "item4": {
-        "q": "Is it free?",
-        "a": "LAN sync is completely free — it costs us nothing to operate.\nIn the future, we plan to support cross-network (WAN) sync, which may be a paid feature."
+        "q": "Where does my clipboard history actually live?",
+        "a": "Only on your devices. Local storage is encrypted at rest with a key that never leaves the system keyring. No UniClipboard server ever receives or stores your clipboard content."
       },
       "item5": {
-        "q": "Which platforms are supported?",
-        "a": "Currently desktop only (Windows, macOS, Linux).\nMobile support is planned."
+        "q": "Do you support mobile (iOS / Android)?",
+        "a": "Not yet. The current release focuses on getting Windows, macOS and Linux right. Mobile is on the roadmap, but OS-level clipboard permissions and background-execution limits need to be solved first — we'll ship it when it's ready, not before."
       }
     },
     "footer": {
-      "tagline": "A quieter, more trustworthy clipboard sync.",
-      "twitter": "Twitter / X",
-      "github": "GitHub",
-      "whitepaper": "Whitepaper",
-      "download": "Download",
-      "copyright": "© 2026 UNICLIPBOARD."
+      "thanksTitle": "Thanks",
+      "thanksDesc": "Cross-device clipboard sync — end-to-end encrypted, open source, auditable. Flows seamlessly between your own machines, without any cloud account in between.",
+      "linksTitle": "Links",
+      "repo": "Repository",
+      "issues": "Issues",
+      "releases": "Releases",
+      "docs": "README",
+      "legalTitle": "License",
+      "license": "AGPL-3.0",
+      "madeBy": "UniClipboard contributors",
+      "contactTitle": "Contact",
+      "twitter": "X (Twitter)",
+      "email": "hello@uniclipboard.app",
+      "copyright": "© 2026 UniClipboard contributors",
+      "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
   },
   "whitepaper": {

@@ -88,10 +88,7 @@ const RootLayout = async ({
     <html lang={locale} suppressHydrationWarning>
       <body className={cn("min-h-screen font-sans", fonts)}>
         {process.env.NODE_ENV === "development" && (
-          <Script
-            src="https://cdn.jsdelivr.net/npm/react-grab@latest/dist/index.global.js"
-            strategy="lazyOnload"
-          />
+          <Script src="/react-grab.global.js" strategy="lazyOnload" />
         )}
         <NextIntlClientProvider>
           <ThemeProvider attribute="class">{children}</ThemeProvider>

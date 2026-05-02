@@ -7,6 +7,7 @@ type Item = {
   arch: string;
   ext: string;
   url: string;
+  minOS: string;
 };
 
 type Group = {
@@ -18,13 +19,8 @@ type Group = {
 export type DownloadFocusProps = {
   groups: Group[];
   version: string;
-  publishedAt: string;
   fallbackUrl: string;
   labels: {
-    versionLabel: string;
-    publishedLabel: string;
-    channelLabel: string;
-    channelStable: string;
     fallback: string;
     downloadAction: string;
     recommended: string;
@@ -35,7 +31,7 @@ export type DownloadFocusProps = {
 function GlyphMac({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M16.36 1.43c.07 1.4-.46 2.78-1.34 3.78-.93 1.07-2.45 1.9-3.94 1.78-.1-1.37.5-2.79 1.4-3.7.95-.99 2.55-1.74 3.88-1.86zM20.2 17.78c-.6 1.39-.89 2-1.66 3.22-1.07 1.7-2.58 3.81-4.45 3.83-1.66.02-2.09-1.08-4.34-1.07-2.25.01-2.72 1.09-4.39 1.07-1.87-.02-3.3-1.93-4.37-3.62C-1.97 16.55-2.28 9.3 1.05 6.34c1.5-1.34 3.2-2.13 4.81-2.13 1.66 0 2.69 1.06 4.07 1.06 1.34 0 2.16-1.06 4.07-1.06 1.45 0 2.99.79 4.08 2.13-3.59 1.97-3.01 7.1.12 8.44z" />
+      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
     </svg>
   );
 }
@@ -72,7 +68,6 @@ function detectOS(): Group["os"] {
 export function DownloadFocus({
   groups,
   version,
-  publishedAt,
   fallbackUrl,
   labels,
 }: DownloadFocusProps) {
@@ -86,13 +81,14 @@ export function DownloadFocus({
   }, []);
 
   const activeGroup = groups.find((g) => g.os === activeTab) ?? groups[0];
+  const maxItemCount = Math.max(...groups.map((g) => g.items.length), 1);
+  const placeholderCount = Math.max(0, maxItemCount - activeGroup.items.length);
 
   return (
     <div
       className="bg-card border-border rounded-[18px] border p-[22px]"
       style={{ boxShadow: "0 24px 60px -32px rgba(0,0,0,0.18)" }}
     >
-      {/* Tabs */}
       <div
         role="tablist"
         className="bg-bg2 mb-[18px] flex gap-1 rounded-[12px] p-1"
@@ -143,26 +139,64 @@ export function DownloadFocus({
         })}
       </div>
 
-      {/* Items */}
       <div className="flex flex-col gap-2.5">
         {activeGroup.items.length === 0 ? (
-          <div
-            className="text-muted-foreground rounded-[12px] px-4 py-5 text-center"
-            style={{ border: "1px dashed var(--border)" }}
-          >
-            {labels.noDownloads}
-          </div>
+          <>
+            <div
+              className="text-muted-foreground rounded-[12px] px-4 py-5 text-center"
+              style={{ border: "1px dashed var(--border)" }}
+            >
+              {labels.noDownloads}
+            </div>
+            {Array.from({ length: Math.max(0, maxItemCount - 1) }).map(
+              (_, i) => (
+                <div
+                  key={`empty-placeholder-${i}`}
+                  aria-hidden
+                  className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5"
+                  style={{
+                    visibility: "hidden",
+                    border: "1px solid transparent",
+                  }}
+                >
+                  <div className="size-9 shrink-0 rounded-[9px]" />
+                  <div className="min-w-0 flex-1">
+                    <div
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 600,
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      &nbsp;
+                    </div>
+                    <div
+                      className="mt-1"
+                      style={{ fontSize: 11, lineHeight: 1.4 }}
+                    >
+                      &nbsp;
+                    </div>
+                  </div>
+                  <div className="size-[30px] shrink-0 rounded-[8px]" />
+                </div>
+              ),
+            )}
+          </>
         ) : (
           activeGroup.items.map((it, i) => {
             const isPrimary = i === 0;
             const fg = isPrimary ? "var(--background)" : "var(--foreground)";
             const bg = isPrimary ? "var(--foreground)" : "transparent";
             const border = isPrimary ? "var(--foreground)" : "var(--border)";
-            const subFg = isPrimary ? "rgba(255,255,255,0.6)" : "var(--muted)";
+            const subFg = isPrimary
+              ? "color-mix(in srgb, var(--background) 60%, transparent)"
+              : "var(--muted)";
             const tagBorder = isPrimary
-              ? "rgba(255,255,255,0.18)"
+              ? "color-mix(in srgb, var(--background) 18%, transparent)"
               : "var(--hair2)";
-            const iconBg = isPrimary ? "rgba(255,255,255,0.10)" : "var(--bg2)";
+            const iconBg = isPrimary
+              ? "color-mix(in srgb, var(--background) 10%, transparent)"
+              : "var(--bg2)";
             return (
               <a
                 key={`${it.arch}-${i}`}
@@ -197,7 +231,7 @@ export function DownloadFocus({
                     {labels.downloadAction} {it.arch}
                   </div>
                   <div
-                    className="mt-1"
+                    className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1"
                     style={{
                       fontFamily: "var(--font-mono)",
                       fontSize: 11,
@@ -205,9 +239,15 @@ export function DownloadFocus({
                       letterSpacing: "0.04em",
                     }}
                   >
-                    {activeGroup.label} · v{version}
+                    <span>v{version}</span>
+                    {it.minOS && (
+                      <>
+                        <span aria-hidden>·</span>
+                        <span>{it.minOS}</span>
+                      </>
+                    )}
                     <span
-                      className="ml-2.5 rounded px-1.5 py-px"
+                      className="rounded px-1.5 py-px"
                       style={{
                         border: `1px solid ${tagBorder}`,
                         fontSize: 10,
@@ -230,9 +270,37 @@ export function DownloadFocus({
             );
           })
         )}
+        {activeGroup.items.length > 0 &&
+          Array.from({ length: placeholderCount }).map((_, i) => (
+            <div
+              key={`placeholder-${i}`}
+              aria-hidden
+              className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5"
+              style={{
+                visibility: "hidden",
+                border: "1px solid transparent",
+              }}
+            >
+              <div className="size-9 shrink-0 rounded-[9px]" />
+              <div className="min-w-0 flex-1">
+                <div
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 600,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  &nbsp;
+                </div>
+                <div className="mt-1" style={{ fontSize: 11, lineHeight: 1.4 }}>
+                  &nbsp;
+                </div>
+              </div>
+              <div className="size-[30px] shrink-0 rounded-[8px]" />
+            </div>
+          ))}
       </div>
 
-      {/* Footer link */}
       <div
         className="mt-[18px] flex items-center justify-between gap-4 pt-3.5"
         style={{ borderTop: "1px solid var(--hair2)" }}
@@ -263,12 +331,6 @@ export function DownloadFocus({
           <ArrowUpRight size={12} />
         </a>
       </div>
-
-      {/* hidden published meta to satisfy unused param warning if needed */}
-      <span aria-hidden className="sr-only">
-        {labels.publishedLabel}: {publishedAt} · {labels.channelLabel}:{" "}
-        {labels.channelStable}
-      </span>
     </div>
   );
 }

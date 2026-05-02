@@ -48,6 +48,7 @@ export function HeroVideo({
     v.addEventListener("timeupdate", onTime);
     v.addEventListener("play", onPlayEvt);
     v.addEventListener("pause", onPauseEvt);
+    if (v.readyState >= 2) onLoaded();
     return () => {
       v.removeEventListener("loadeddata", onLoaded);
       v.removeEventListener("timeupdate", onTime);
@@ -170,7 +171,7 @@ export function HeroVideo({
         >
           <video
             ref={videoRef}
-            src="https://assets.uniclipboard.app/demo.mp4"
+            src="/video/demo.mp4"
             playsInline
             muted
             preload="auto"

@@ -1,6 +1,6 @@
 "use client";
 
-import { Github } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -15,10 +15,19 @@ export function Navigation() {
   const router = useRouter();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const dark = mounted && resolvedTheme === "dark";
   const nextTheme = theme === "dark" ? "light" : "dark";
@@ -27,6 +36,13 @@ export function Navigation() {
     if (next === locale) return;
     router.replace(pathname, { locale: next });
   };
+
+  const navLinks = [
+    { href: "#features", label: t("features") },
+    { href: "#compare", label: t("compare") },
+    { href: "#download", label: t("download") },
+    { href: "#faq", label: t("faq") },
+  ];
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -38,30 +54,21 @@ export function Navigation() {
         </a>
 
         <div className="text-muted-foreground hidden items-center gap-7 text-[13px] md:flex">
-          <a
-            className="hover:text-foreground transition-colors"
-            href="#features"
-          >
-            {t("features")}
-          </a>
-          <a className="hover:text-foreground transition-colors" href="#how">
-            {t("how")}
-          </a>
-          <a
-            className="hover:text-foreground transition-colors"
-            href="#download"
-          >
-            {t("download")}
-          </a>
-          <a className="hover:text-foreground transition-colors" href="#faq">
-            {t("faq")}
-          </a>
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              className="hover:text-foreground transition-colors"
+              href={link.href}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
         <div className="flex items-center gap-2.5">
           <div
             role="tablist"
-            className="border-border bg-foreground/5 inline-flex rounded-full border p-[2px]"
+            className="border-border bg-foreground/5 hidden rounded-full border p-[2px] sm:inline-flex"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 11,
@@ -98,7 +105,7 @@ export function Navigation() {
             type="button"
             aria-label="Toggle theme"
             onClick={() => setTheme(nextTheme)}
-            className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground inline-flex size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors"
+            className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground hidden size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors sm:inline-flex"
             suppressHydrationWarning
           >
             {mounted &&
@@ -115,12 +122,123 @@ export function Navigation() {
             rel="noopener noreferrer"
             aria-label={t("github")}
             title={t("github")}
-            className="border-border text-foreground hover:bg-foreground/5 inline-flex size-8 items-center justify-center rounded-lg border transition-colors"
+            className="border-border text-foreground hover:bg-foreground/5 hidden size-8 items-center justify-center rounded-lg border transition-colors sm:inline-flex"
           >
             <Github className="size-4" />
           </a>
+
+          <a
+            href="#download"
+            className="bg-primary text-primary-foreground inline-flex items-center justify-center rounded-lg px-3 py-2 text-[12px] font-medium md:hidden"
+          >
+            {t("download")}
+          </a>
+
+          <button
+            type="button"
+            aria-label={menuOpen ? t("menuClose") : t("menu")}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="border-border text-foreground hover:bg-foreground/5 inline-flex size-8 items-center justify-center rounded-lg border transition-colors md:hidden"
+          >
+            {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+          </button>
         </div>
       </nav>
+
+      {menuOpen && (
+        <div
+          className="bg-background border-border fixed inset-x-0 top-[78px] bottom-0 z-40 border-t md:hidden"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="landing-shell flex h-full flex-col gap-1 py-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors"
+              >
+                {link.label}
+                <span
+                  className="text-muted2"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  ↗
+                </span>
+              </a>
+            ))}
+
+            <div className="border-border mt-4 flex items-center gap-3 border-t pt-5">
+              <div
+                role="tablist"
+                className="border-border bg-foreground/5 inline-flex rounded-full border p-[2px]"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  letterSpacing: "0.04em",
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => switchLang("zh")}
+                  className="cursor-pointer rounded-full px-2.5 py-1 transition-colors"
+                  style={{
+                    background:
+                      locale === "zh" ? "var(--foreground)" : "transparent",
+                    color:
+                      locale === "zh" ? "var(--background)" : "var(--muted)",
+                  }}
+                >
+                  ZH
+                </button>
+                <button
+                  type="button"
+                  onClick={() => switchLang("en")}
+                  className="cursor-pointer rounded-full px-2.5 py-1 transition-colors"
+                  style={{
+                    background:
+                      locale === "en" ? "var(--foreground)" : "transparent",
+                    color:
+                      locale === "en" ? "var(--background)" : "var(--muted)",
+                  }}
+                >
+                  EN
+                </button>
+              </div>
+              <button
+                type="button"
+                aria-label="Toggle theme"
+                onClick={() => setTheme(nextTheme)}
+                className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground inline-flex size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors"
+                suppressHydrationWarning
+              >
+                {mounted &&
+                  (dark ? (
+                    <Icons.sun className="size-[14px]" />
+                  ) : (
+                    <Icons.moon className="size-[14px]" />
+                  ))}
+              </button>
+              <a
+                href="https://github.com/UniClipboard/UniClipboard"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={t("github")}
+                title={t("github")}
+                className="border-border text-foreground hover:bg-foreground/5 inline-flex size-8 items-center justify-center rounded-lg border transition-colors"
+              >
+                <Github className="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

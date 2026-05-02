@@ -3,20 +3,23 @@
     "navigation": {
       "features": "功能",
       "how": "工作原理",
+      "compare": "对比",
       "download": "下载",
       "faq": "FAQ",
-      "github": "GitHub"
+      "github": "GitHub",
+      "menu": "菜单",
+      "menuClose": "关闭菜单"
     },
     "hero": {
-      "eyebrow": "隐私优先 · 端到端加密 · 跨网络",
-      "title": "这台复制，",
-      "titleLine2": "那台粘贴。",
-      "description": "隐私优先的跨设备剪贴板同步。文本、图片、文件在你的设备之间安全流动——同一 Wi-Fi 或跨越互联网都行。",
-      "primaryCta": "立即安装",
-      "secondaryCta": "快速上手",
-      "meta1": "AGPL-3.0",
-      "meta2": "Rust + Tauri",
-      "meta3": "iroh QUIC P2P",
+      "eyebrow": "开源 · 端到端加密 · 三平台原生",
+      "title": "Mac 上复制的，",
+      "titleLine2": "Windows 上直接粘。",
+      "description": "免费、开源、端到端加密——文本、图片和文件在你的 Mac、Windows、Linux 之间顺畅流动。同一 Wi-Fi 直连，跨网络自动打洞，全程不需要账号。",
+      "secondaryCta": "技术白皮书",
+      "starsSuffix": "on GitHub",
+      "starsFallback": "GitHub",
+      "free": "免费 & 开源",
+      "e2e": "端到端加密",
       "videoLabel": "PLAYBACK",
       "videoPlay": "播放演示",
       "videoPause": "暂停",
@@ -24,59 +27,122 @@
     },
     "features": {
       "eyebrow": "核心功能",
-      "title": "用起来跟系统剪贴板一样——但跨平台、可搜索、可审计。",
+      "title": "用起来跟系统剪切板一样——但跨平台、可搜索、可审计。",
       "moreEyebrow": "更多功能",
       "moreTitle": "你可能还想要这些。",
       "h1": {
-        "eyebrow": "01 — 使用简单",
-        "title": "还是熟悉的 ⌘C / ⌘V。",
-        "lede": "不用打开 App、不用上传文件、不用注册账号。一台复制，另一台粘贴——就这么简单。",
-        "b1Title": "零额外步骤",
-        "b1Desc": "它是系统剪贴板的延伸，不是又一个要切换的 App。",
-        "b2Title": "系统原生快捷键",
-        "b2Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴——肌肉记忆零成本。",
-        "b3Title": "自动恢复",
-        "b3Desc": "Wi-Fi 切换、休眠唤醒后自动重连，无需重新配对。",
-        "mediaCaption": "demo · ⌘C → ⌘V"
-      },
-      "h2": {
-        "eyebrow": "02 — 隐私优先",
+        "eyebrow": "01 — 隐私优先",
         "title": "中继看到的，只有密文。",
-        "lede": "内容在源设备加密，只在你的设备上解密。密钥存放在系统 Keyring 里，永远不离开本机。",
+        "lede": "内容在源设备加密，只在你的设备上解密。密钥存放在系统 Keyring 里，永远不离开本机。开源，可审计。",
         "b1Title": "端到端加密",
         "b1Desc": "XChaCha20-Poly1305 AEAD——传输和本地存储均加密。",
         "b2Title": "无需云账号",
         "b2Desc": "不绑邮箱、不绑手机号——两台设备交换一次公钥就够了。",
-        "b3Title": "可审计",
-        "b3Desc": "开源（AGPL-3.0）。加密实现你可以自己读、自己验证。",
+        "b3Title": "代码可审计",
+        "b3Desc": "AGPL-3.0 开源。加密实现你可以自己读、自己验证。",
         "mediaCaption": "illustration · ciphertext through relay"
       },
-      "h3": {
-        "eyebrow": "03 — 跨平台 · 跨网络",
+      "h2": {
+        "eyebrow": "02 — 跨平台 · 跨网络",
         "title": "不止于 LAN，也不限于单一网络。",
-        "lede": "Windows、macOS、Linux 全平台原生支持。同一 Wi-Fi 实时直连；跨网络自动 NAT 打洞，连不通时回退到加密中继。",
+        "lede": "Windows、macOS、Linux 全平台原生支持，基于 Rust + Tauri 构建——不是 Electron 套壳。同一 Wi-Fi 实时直连；跨网络自动 NAT 打洞，连不通时回退到加密中继。",
         "b1Title": "三平台原生",
-        "b1Desc": "不是 Electron 套壳——基于 Rust + Tauri。",
+        "b1Desc": "Rust + Tauri，启动快、占用低，跟系统融为一体。",
         "b2Title": "直连优先",
-        "b2Desc": "同网络的设备走 P2P，不绕中继。",
+        "b2Desc": "同网络的设备走 P2P，不绕中继，毫秒级延迟。",
         "b3Title": "跨网络也能用",
         "b3Desc": "跨家庭、办公室、互联网时自动打洞，失败时回退到加密中继。",
         "mediaCaption": "illustration · 3 devices · LAN + relay"
       },
+      "h3": {
+        "eyebrow": "03 — 重度用户友好",
+        "title": "Quick Panel、本地全文搜索、CLI——一个都不少。",
+        "lede": "唤起浮层立刻预览历史记录；上万条记录里毫秒级搜索；终端、SSH、tmux 里有无头 CLI。它的体验深度，超过它表面看起来的简单。",
+        "b1Title": "Quick Panel",
+        "b1Desc": "快捷键唤起的悬浮面板，文本、链接、图片、代码、文件都有内联预览。",
+        "b2Title": "本地全文搜索",
+        "b2Desc": "上万条记录毫秒级搜遍历史，索引在磁盘上同样保持加密。",
+        "b3Title": "uniclip CLI",
+        "b3Desc": "图形界面的能力一行命令搞定，无头运行——为终端、SSH、脚本和 tmux 而生。",
+        "mediaCaption": "demo · ⌘C → ⌘V"
+      },
       "more": {
-        "f1Title": "跨平台",
-        "f1Desc": "Windows、macOS、Linux 全平台原生支持——剪贴板跟着你走。",
-        "f4Title": "本地全文搜索",
-        "f4Desc": "即便有上万条记录，也能毫秒级搜遍历史。索引在磁盘上同样保持加密。",
-        "f6Title": "Quick Panel",
-        "f6Desc": "快捷键唤起的悬浮面板，文本、链接、图片、代码、文件都有内联预览——就像系统剪贴板的一部分。",
-        "f5Title": "文本、图片与文件",
-        "f5Desc": "一台复制，另一台粘贴。大文件采用流式传输，不必整个加载到内存。",
-        "f7Title": "命令行",
-        "f7Desc": "uniclip CLI 提供与图形界面一致的能力，且支持无头运行——为终端、SSH、脚本和 tmux 而生。",
-        "f9Title": "多设备管理",
-        "f9Desc": "管理已配对设备、在线状态，并可为每台设备单独配置同步偏好。设备丢了？在任意一台已配对设备上即可吊销。"
+        "f1Title": "熟悉的快捷键",
+        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴——肌肉记忆零成本。它是系统剪切板的延伸，不是又一个要切换的 App。",
+        "f4Title": "自动恢复",
+        "f4Desc": "Wi-Fi 切换、休眠唤醒、短暂掉线后自动重连，无需重新配对。",
+        "f6Title": "文本、图片与文件",
+        "f6Desc": "一台复制，另一台粘贴。大文件采用流式传输，不必整个加载到内存。",
+        "f5Title": "多设备管理",
+        "f5Desc": "管理已配对设备、在线状态，单独配置每台的同步偏好。设备丢了？任意已配对设备一键吊销。",
+        "f7Title": "敏感字段过滤",
+        "f7Desc": "自动跳过密码管理器和系统 Keychain 标记的敏感剪切板，避免把 Token 同步到其它设备。",
+        "f9Title": "可控的历史保留",
+        "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。"
       }
+    },
+    "comparison": {
+      "eyebrow": "对比",
+      "title": "为什么不是 iCloud？为什么不是自托管？",
+      "subtitle": "如果以下任何一条对你重要——那你需要的就不是 iCloud 通用剪贴板，也不是要你自己运维的方案。",
+      "tools": {
+        "uc": "UniClipboard",
+        "icloud": "iCloud 通用剪贴板",
+        "selfhost": "自托管 (ClipCascade 等)",
+        "manager": "本机剪切板管理器 (Pastebot / Maccy)"
+      },
+      "rows": {
+        "crossPlatform": {
+          "label": "支持 macOS / Windows / Linux",
+          "uc": "三平台原生",
+          "icloud": "仅 Apple",
+          "selfhost": "看实现",
+          "manager": "通常单平台"
+        },
+        "e2e": {
+          "label": "端到端加密 + 可审计",
+          "uc": "开源可读",
+          "icloud": "闭源 E2E",
+          "selfhost": "看实现",
+          "manager": "纯本地"
+        },
+        "infra": {
+          "label": "无需自己运维服务器",
+          "uc": "开箱即用",
+          "icloud": "开箱即用",
+          "selfhost": "需自托管",
+          "manager": "无服务器"
+        },
+        "history": {
+          "label": "可搜索的历史记录",
+          "uc": "本机加密索引",
+          "icloud": "无历史",
+          "selfhost": "看实现",
+          "manager": "本机历史"
+        },
+        "noAccount": {
+          "label": "无需注册 / 邮箱",
+          "uc": "公钥配对",
+          "icloud": "需要 Apple ID",
+          "selfhost": "看实现",
+          "manager": "无账号"
+        },
+        "transport": {
+          "label": "同 Wi-Fi 直连，跨网中继回退",
+          "uc": "P2P + 中继",
+          "icloud": "仅近场",
+          "selfhost": "通常仅服务器",
+          "manager": "纯本地"
+        },
+        "price": {
+          "label": "价格",
+          "uc": "免费 · 开源",
+          "icloud": "免费",
+          "selfhost": "免费 + 服务器成本",
+          "manager": "$30+"
+        }
+      },
+      "footnote": "对比基于 2026-05 公开信息，如有出入欢迎在 GitHub 上提 Issue。"
     },
     "howItWorks": {
       "eyebrow": "工作原理",
@@ -91,14 +157,13 @@
     "download": {
       "eyebrow": "下载最新版本",
       "title": "选择你的平台。",
-      "description": "在下方选择你的平台，下载最新版本。如果发布信息暂未刷新，可前往备用发布页查看。",
+      "description": "我们已经为你识别了平台。如果不对，可以在下面切换。每个安装包都附了系统要求，方便你下载前确认。",
       "versionLabel": "版本",
       "publishedLabel": "发布时间",
       "channelLabel": "通道",
       "channelStable": "stable",
       "openRelease": "查看发布页",
       "fallback": "所有版本",
-      "freshnessHint": "状态信息每小时自动刷新。",
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
       "platformLinux": "Linux",
@@ -111,17 +176,26 @@
       "noDownloads": "暂无可用下载。",
       "degradedNotice": "版本详情暂时不可用。",
       "metadataUnavailable": "元数据不可用",
-      "unavailableValue": "不可用"
+      "unavailableValue": "不可用",
+      "ctaPrimaryGeneric": "立即安装",
+      "ctaPrimaryWith": "下载",
+      "ctaOtherPlatforms": "其它平台",
+      "ctaLinuxX64": "Linux · x64",
+      "ctaLinuxArm": "Linux · ARM64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": "AppImage · x86_64",
+      "minOSLinuxArm": "AppImage · ARM64"
     },
     "faq": {
       "eyebrow": "FAQ",
       "title": "你可能想问的几件事。",
       "item1": {
         "q": "为什么不直接用 iCloud 通用剪贴板？",
-        "a": "如果你只用 Apple 设备、不需要剪贴板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
+        "a": "如果你只用 Apple 设备、不需要剪切板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
       },
       "item2": {
-        "q": "为什么不用自托管的剪贴板同步（例如 ClipCascade）？",
+        "q": "为什么不用自托管的剪切板同步（例如 ClipCascade）？",
         "a": "自托管意味着你得自己运维一台服务器。UniClipboard 开箱即用——P2P 直连为主，加密中继只作兜底。你完全不用维护任何基础设施。"
       },
       "item3": {
@@ -129,17 +203,23 @@
         "a": "可以。同一 Wi-Fi 下的设备会直接互联，不经过中继。即便中继不可达，同网络的设备之间也能继续同步。"
       },
       "item4": {
-        "q": "剪贴板历史到底存在哪里？",
-        "a": "只存在你自己的设备上。本地数据在磁盘上加密保存，密钥放在系统 Keyring 内，永不离开本机。任何 UniClipboard 的服务器都不会接收或存储剪贴板内容。"
+        "q": "剪切板历史到底存在哪里？",
+        "a": "只存在你自己的设备上。本地数据在磁盘上加密保存，密钥放在系统 Keyring 内，永不离开本机。任何 UniClipboard 的服务器都不会接收或存储剪切板内容。"
       },
       "item5": {
         "q": "支持移动端（iOS / Android）吗？",
-        "a": "暂不支持。当前版本专注做好 Windows、macOS、Linux 三个桌面平台。移动端在我们的规划之中，但系统层面的剪贴板权限和后台运行限制需要先妥善解决——我们会在准备好之后再发布，而不是赶着上线。"
+        "a": "暂不支持。当前版本专注做好 Windows、macOS、Linux 三个桌面平台。移动端在我们的规划之中，但系统层面的剪切板权限和后台运行限制需要先妥善解决——我们会在准备好之后再发布，而不是赶着上线。",
+        "waitlistCta": "想第一时间知道？加入移动端 waitlist →",
+        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=%E5%B8%8C%E6%9C%9B%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8F%AF%E7%94%A8%E6%97%B6%E5%BE%97%E5%88%B0%E9%80%9A%E7%9F%A5%E3%80%82"
+      },
+      "item6": {
+        "q": "AGPL-3.0 会影响我在公司里用吗？",
+        "a": "不会。AGPL 约束的是「修改源码后再以网络服务的形式分发」的场景。直接安装、自用、给团队用，跟普通免费软件没区别——不需要开源你公司任何代码。"
       }
     },
     "footer": {
       "thanksTitle": "致谢",
-      "thanksDesc": "跨设备剪贴板同步——端到端加密、开源可审计。数据只在你自己的设备之间流动，不经过任何云账号。",
+      "thanksDesc": "跨设备剪切板同步——端到端加密、开源可审计。数据只在你自己的设备之间流动，不经过任何云账号。",
       "linksTitle": "链接",
       "repo": "仓库",
       "issues": "Issues",

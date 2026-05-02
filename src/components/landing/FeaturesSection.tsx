@@ -2,10 +2,13 @@ import type { LucideIcon } from "lucide-react";
 import {
   Command,
   FileText,
+  Globe,
   History,
+  Lock,
   Network,
   RefreshCw,
   Shield,
+  Zap,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { ReactElement } from "react";
@@ -18,13 +21,14 @@ import { PowerFlow } from "./illustrations/PowerFlow";
 type Hero = {
   ns: "h1" | "h2" | "h3";
   Illustration: () => ReactElement;
+  Icon: LucideIcon;
   animated?: boolean;
 };
 
 const heroes: Hero[] = [
-  { ns: "h1", Illustration: EncryptionFlow, animated: true },
-  { ns: "h2", Illustration: NetworkFlow, animated: true },
-  { ns: "h3", Illustration: PowerFlow, animated: true },
+  { ns: "h1", Illustration: EncryptionFlow, Icon: Lock, animated: true },
+  { ns: "h2", Illustration: NetworkFlow, Icon: Globe, animated: true },
+  { ns: "h3", Illustration: PowerFlow, Icon: Zap, animated: true },
 ];
 
 type More = { icon: LucideIcon; key: string };
@@ -168,6 +172,97 @@ function HeroBlock({
   );
 }
 
+function FeatureBlockMobile({
+  t,
+  ns,
+  Icon,
+  isLast,
+}: {
+  t: (k: string) => string;
+  ns: Hero["ns"];
+  Icon: LucideIcon;
+  isLast: boolean;
+}) {
+  return (
+    <div
+      className="py-9"
+      style={{ borderBottom: isLast ? "none" : "1px solid var(--border)" }}
+    >
+      <AnimateIn variant="fade-in" duration={0.5}>
+        <div className="border-border bg-bg2 mb-4 flex size-10 items-center justify-center rounded-[10px] border">
+          <Icon className="text-foreground size-[18px]" strokeWidth={1.6} />
+        </div>
+      </AnimateIn>
+      <AnimateIn variant="fade-in" duration={0.5}>
+        <p className="landing-kicker">{t(`${ns}.eyebrow`)}</p>
+      </AnimateIn>
+      <AnimateIn delay={0.05} duration={0.5}>
+        <h3
+          className="text-foreground mt-2.5 mb-3"
+          style={{
+            fontSize: "clamp(1.5rem, 6vw, 1.75rem)",
+            fontWeight: 600,
+            letterSpacing: "-0.02em",
+            lineHeight: 1.15,
+            textWrap: "balance",
+          }}
+        >
+          {t(`${ns}.title`)}
+        </h3>
+      </AnimateIn>
+      <AnimateIn delay={0.08} duration={0.5}>
+        <p
+          className="text-muted-foreground mb-5"
+          style={{ fontSize: 14.5, lineHeight: 1.6 }}
+        >
+          {t(`${ns}.lede`)}
+        </p>
+      </AnimateIn>
+      <AnimateIn delay={0.12} duration={0.5}>
+        <ul className="border-border flex list-none flex-col gap-3 border-t p-0 pt-4">
+          {[1, 2, 3].map((i) => (
+            <li
+              key={i}
+              className="grid items-baseline gap-3"
+              style={{ gridTemplateColumns: "18px 1fr" }}
+            >
+              <span
+                className="text-muted2"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 10,
+                  letterSpacing: "0.04em",
+                  paddingTop: 2,
+                }}
+              >
+                {String(i).padStart(2, "0")}
+              </span>
+              <span>
+                <span
+                  className="text-foreground"
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    letterSpacing: "-0.005em",
+                  }}
+                >
+                  {t(`${ns}.b${i}Title`)}
+                </span>
+                <span
+                  className="text-muted-foreground ml-2"
+                  style={{ fontSize: 13, lineHeight: 1.55 }}
+                >
+                  {t(`${ns}.b${i}Desc`)}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </AnimateIn>
+    </div>
+  );
+}
+
 export async function FeaturesSection() {
   const t = await getTranslations("landing.features");
   const tMore = await getTranslations("landing.features.more");
@@ -175,7 +270,7 @@ export async function FeaturesSection() {
   return (
     <section
       id="features"
-      className="border-border bg-background border-b py-[100px]"
+      className="border-border bg-background border-b py-[72px] md:py-[100px]"
     >
       <div className="landing-shell">
         <AnimateIn variant="fade-in" duration={0.5}>
@@ -183,20 +278,22 @@ export async function FeaturesSection() {
         </AnimateIn>
         <AnimateIn delay={0.06} duration={0.6}>
           <h2
-            className="text-foreground mt-3.5 mb-14"
+            className="text-foreground mt-3.5 mb-8 md:mb-14"
             style={{
-              fontSize: "clamp(2rem, 4vw, 2.75rem)",
+              fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
               fontWeight: 600,
               letterSpacing: "-0.025em",
               maxWidth: 720,
               textWrap: "balance",
+              lineHeight: 1.15,
             }}
           >
             {t("title")}
           </h2>
         </AnimateIn>
 
-        <div>
+        {/* Desktop hero blocks */}
+        <div className="hidden md:block">
           {heroes.map((h, i) => (
             <HeroBlock
               key={h.ns}
@@ -210,7 +307,20 @@ export async function FeaturesSection() {
           ))}
         </div>
 
-        <div className="mt-24">
+        {/* Mobile hero blocks */}
+        <div className="md:hidden">
+          {heroes.map((h, i) => (
+            <FeatureBlockMobile
+              key={h.ns}
+              t={t}
+              ns={h.ns}
+              Icon={h.Icon}
+              isLast={i === heroes.length - 1}
+            />
+          ))}
+        </div>
+
+        <div className="mt-14 md:mt-24">
           <AnimateIn variant="fade-in" duration={0.5}>
             <p className="landing-kicker" style={{ color: "var(--muted2)" }}>
               {t("moreEyebrow")}
@@ -218,11 +328,12 @@ export async function FeaturesSection() {
           </AnimateIn>
           <AnimateIn delay={0.06} duration={0.5}>
             <h3
-              className="text-foreground mt-3 mb-9"
+              className="text-foreground mt-3 mb-7 md:mb-9"
               style={{
-                fontSize: "clamp(1.5rem, 2.4vw, 1.75rem)",
+                fontSize: "clamp(1.375rem, 2.4vw, 1.75rem)",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
+                lineHeight: 1.2,
               }}
             >
               {t("moreTitle")}
@@ -237,17 +348,17 @@ export async function FeaturesSection() {
               const Icon = it.icon;
               return (
                 <StaggerChild key={it.key}>
-                  <div className="border-border group relative flex h-full flex-col gap-2.5 border-r border-b p-6 transition-colors duration-300 hover:bg-[var(--hair2)]">
-                    <div className="bg-bg2 group-hover:bg-foreground mb-1.5 flex size-7 items-center justify-center rounded-[7px] transition-all duration-300 group-hover:scale-105">
+                  <div className="border-border group relative flex h-full flex-col gap-2 border-r border-b p-5 transition-colors duration-300 md:gap-2.5 md:p-6 md:hover:bg-[var(--hair2)]">
+                    <div className="bg-bg2 md:group-hover:bg-foreground mb-1 flex size-7 items-center justify-center rounded-[7px] transition-all duration-300 md:mb-1.5 md:group-hover:scale-105">
                       <Icon
-                        className="text-foreground group-hover:text-background size-[15px] transition-colors duration-300"
+                        className="text-foreground md:group-hover:text-background size-[15px] transition-colors duration-300"
                         strokeWidth={1.6}
                       />
                     </div>
                     <div
-                      className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5"
+                      className="text-foreground transition-transform duration-300 md:group-hover:translate-x-0.5"
                       style={{
-                        fontSize: 15,
+                        fontSize: 14.5,
                         fontWeight: 600,
                         letterSpacing: "-0.005em",
                       }}
@@ -255,7 +366,7 @@ export async function FeaturesSection() {
                       {tMore(`${it.key}Title`)}
                     </div>
                     <div
-                      className="text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300"
+                      className="text-muted-foreground md:group-hover:text-foreground/80 transition-colors duration-300"
                       style={{ fontSize: 13, lineHeight: 1.55 }}
                     >
                       {tMore(`${it.key}Desc`)}

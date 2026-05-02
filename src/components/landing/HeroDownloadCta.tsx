@@ -26,6 +26,7 @@ export type HeroDownloadCtaLabels = {
 type Props = {
   downloads: DownloadEntry[];
   labels: HeroDownloadCtaLabels;
+  fullWidth?: boolean;
 };
 
 type Detected = {
@@ -122,7 +123,11 @@ function resolveCta(
   return { url: chosen.url, platformLabel: archLabel };
 }
 
-export function HeroDownloadCta({ downloads, labels }: Props) {
+export function HeroDownloadCta({
+  downloads,
+  labels,
+  fullWidth = false,
+}: Props) {
   const [resolved, setResolved] = useState<ResolvedCta | null>(null);
   const [ready, setReady] = useState(false);
 
@@ -141,12 +146,19 @@ export function HeroDownloadCta({ downloads, labels }: Props) {
 
   const hasMatch = ready && resolved !== null && downloads.length > 0;
 
+  const buttonClass = fullWidth
+    ? "bg-primary text-primary-foreground flex w-full items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium"
+    : "bg-primary text-primary-foreground inline-flex items-center rounded-[8px] px-[18px] py-[10px] text-[13.5px] font-medium transition-transform hover:-translate-y-[1px]";
+
   return (
-    <div className="flex flex-col items-center gap-3.5">
-      <a
-        href={hasMatch ? resolved!.url : "#download"}
-        className="bg-primary text-primary-foreground inline-flex items-center rounded-[8px] px-[18px] py-[10px] text-[13.5px] font-medium transition-transform hover:-translate-y-[1px]"
-      >
+    <div
+      className={
+        fullWidth
+          ? "flex w-full flex-col items-stretch gap-3.5"
+          : "flex flex-col items-center gap-3.5"
+      }
+    >
+      <a href={hasMatch ? resolved!.url : "#download"} className={buttonClass}>
         <span suppressHydrationWarning>
           {hasMatch
             ? `${labels.primaryWith} ${resolved!.platformLabel}`
@@ -155,8 +167,12 @@ export function HeroDownloadCta({ downloads, labels }: Props) {
       </a>
 
       <div
-        className="text-muted-foreground flex items-center gap-2.5"
-        style={{ fontSize: 12.5 }}
+        className={
+          fullWidth
+            ? "text-muted-foreground flex items-center justify-center gap-2.5"
+            : "text-muted-foreground flex items-center gap-2.5"
+        }
+        style={{ fontSize: fullWidth ? 13 : 12.5 }}
       >
         <a
           href="#download"

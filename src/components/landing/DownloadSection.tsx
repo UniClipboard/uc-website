@@ -1,3 +1,4 @@
+import { ArrowUpRight, Monitor } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-release";
@@ -141,7 +142,7 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
   return (
     <section
       id="download"
-      className="border-border bg-bg2 relative border-b py-[120px]"
+      className="border-border bg-bg2 relative border-b py-[80px] md:py-[120px]"
     >
       <div
         aria-hidden
@@ -153,7 +154,8 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
       />
 
       <div className="landing-shell relative">
-        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
+        {/* Desktop / tablet */}
+        <div className="hidden items-center gap-10 md:grid md:grid-cols-[1fr_1.1fr] md:gap-16">
           <div>
             <AnimateIn variant="fade-in" duration={0.5}>
               <p className="landing-kicker">{t("eyebrow")}</p>
@@ -262,6 +264,107 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
                 noDownloads: t("noDownloads"),
               }}
             />
+          </AnimateIn>
+        </div>
+
+        {/* Mobile */}
+        <div className="md:hidden">
+          <AnimateIn variant="fade-in" duration={0.5}>
+            <p className="landing-kicker">{t("eyebrow")}</p>
+          </AnimateIn>
+          <AnimateIn delay={0.06} duration={0.6}>
+            <h2
+              className="text-foreground mt-3.5 mb-4"
+              style={{
+                fontSize: "clamp(1.75rem, 6vw, 2.25rem)",
+                fontWeight: 600,
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+                textWrap: "balance",
+              }}
+            >
+              {t("title")}
+            </h2>
+          </AnimateIn>
+          <AnimateIn delay={0.1} duration={0.5}>
+            <p
+              className="text-muted-foreground mb-6"
+              style={{ fontSize: 14.5, lineHeight: 1.6 }}
+            >
+              {t("descriptionMobile")}
+            </p>
+          </AnimateIn>
+
+          {isDegraded && (
+            <AnimateIn delay={0.14} duration={0.5}>
+              <p className="text-muted-foreground border-border bg-card mb-5 inline-flex rounded-full border px-3 py-1.5 text-sm">
+                {t("degradedNotice")}
+              </p>
+            </AnimateIn>
+          )}
+
+          <AnimateIn delay={0.16} duration={0.6}>
+            <div className="border-border bg-card rounded-[14px] border px-5 py-7 text-center">
+              <div className="bg-bg2 mx-auto mb-4 inline-flex size-11 items-center justify-center rounded-full">
+                <Monitor
+                  className="text-muted-foreground size-5"
+                  strokeWidth={1.6}
+                />
+              </div>
+
+              <div
+                className="text-foreground inline-flex items-center gap-2"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  letterSpacing: "-0.005em",
+                }}
+              >
+                v{versionLabel}
+                <span
+                  aria-hidden
+                  className="inline-block size-1.5 rounded-full"
+                  style={{
+                    background: "#3DA47A",
+                    boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
+                    animation: "uc-dot-pulse 2s ease-in-out infinite",
+                  }}
+                />
+                <span
+                  className="text-muted2"
+                  style={{ fontWeight: 500, letterSpacing: "0.04em" }}
+                >
+                  {t("channelStable")}
+                </span>
+              </div>
+
+              <p
+                className="text-muted-foreground mt-1"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  letterSpacing: "0.03em",
+                }}
+              >
+                {publishedAtLabel}
+              </p>
+
+              <a
+                href={release.fallbackReleaseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground border-border bg-bg2 hover:bg-foreground/5 mt-5 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 transition-colors"
+                style={{
+                  fontSize: 12.5,
+                  fontWeight: 500,
+                  letterSpacing: "-0.005em",
+                }}
+              >
+                {t("openRelease")}
+                <ArrowUpRight size={13} />
+              </a>
+            </div>
           </AnimateIn>
         </div>
       </div>

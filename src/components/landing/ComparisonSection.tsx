@@ -130,14 +130,23 @@ export async function ComparisonSection() {
     manager: t("tools.manager"),
   };
 
+  const toolLabelsShort: Record<Tool, string> = {
+    uc: t("toolsShort.uc"),
+    icloud: t("toolsShort.icloud"),
+    selfhost: t("toolsShort.selfhost"),
+    manager: t("toolsShort.manager"),
+  };
+
   const rowData: Array<{
     key: string;
     label: string;
+    labelMobile: string;
     cells: CellTexts;
     verdicts: Record<Tool, Verdict>;
   }> = rows.map((r) => ({
     key: r.key,
     label: t(`rows.${r.key}.label`),
+    labelMobile: t(`rows.${r.key}.labelMobile`),
     cells: {
       uc: t(`rows.${r.key}.uc`),
       icloud: t(`rows.${r.key}.icloud`),
@@ -150,7 +159,7 @@ export async function ComparisonSection() {
   return (
     <section
       id="compare"
-      className="border-border bg-background border-b py-[100px]"
+      className="border-border bg-background border-b py-[72px] md:py-[100px]"
     >
       <div className="landing-shell">
         <AnimateIn variant="fade-in" duration={0.5}>
@@ -160,11 +169,12 @@ export async function ComparisonSection() {
           <h2
             className="text-foreground mt-3.5 mb-4"
             style={{
-              fontSize: "clamp(2rem, 4vw, 2.75rem)",
+              fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
               fontWeight: 600,
               letterSpacing: "-0.025em",
               maxWidth: 760,
               textWrap: "balance",
+              lineHeight: 1.15,
             }}
           >
             {t("title")}
@@ -172,9 +182,9 @@ export async function ComparisonSection() {
         </AnimateIn>
         <AnimateIn delay={0.1} duration={0.5}>
           <p
-            className="text-muted-foreground mb-12"
+            className="text-muted-foreground mb-8 md:mb-12"
             style={{
-              fontSize: 16,
+              fontSize: 15,
               lineHeight: 1.6,
               maxWidth: 640,
               textWrap: "pretty",
@@ -255,72 +265,82 @@ export async function ComparisonSection() {
           </div>
         </AnimateIn>
 
-        {/* Mobile cards */}
-        <div className="flex flex-col gap-3 md:hidden">
-          {tools.map((tool) => (
-            <AnimateIn key={tool} variant="fade-up" duration={0.5}>
+        {/* Mobile: compact verdict matrix */}
+        <AnimateIn variant="fade-up" duration={0.5} className="md:hidden">
+          <div className="border-border bg-card overflow-hidden rounded-[14px] border">
+            <div
+              className="grid"
+              style={{
+                gridTemplateColumns: "minmax(0,1fr) repeat(4, 1fr)",
+              }}
+            >
               <div
-                className="rounded-[14px] border p-4"
+                className="border-border bg-bg2 border-b px-3 py-2.5"
+                aria-hidden
+              />
+              {tools.map((tool, idx) => {
+                const isUC = tool === "uc";
+                return (
+                  <div
+                    key={tool}
+                    className="border-border flex items-center justify-center border-b px-1.5 py-2.5 text-center"
+                    style={{
+                      background: isUC ? "var(--foreground)" : "var(--bg2)",
+                      color: isUC
+                        ? "var(--background)"
+                        : "var(--muted-foreground)",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10.5,
+                      fontWeight: isUC ? 600 : 500,
+                      letterSpacing: "0.02em",
+                      borderLeft: idx === 0 ? "none" : "1px solid var(--hair2)",
+                    }}
+                  >
+                    {toolLabelsShort[tool]}
+                  </div>
+                );
+              })}
+            </div>
+            {rowData.map((row, rowIdx) => (
+              <div
+                key={row.key}
+                className="grid"
                 style={{
-                  borderColor:
-                    tool === "uc" ? "var(--foreground)" : "var(--border)",
-                  background: tool === "uc" ? "var(--bg2)" : "var(--card)",
+                  gridTemplateColumns: "minmax(0,1fr) repeat(4, 1fr)",
+                  borderTop: rowIdx > 0 ? "1px solid var(--hair2)" : "none",
                 }}
               >
                 <div
-                  className="text-foreground mb-3"
+                  className="text-foreground flex items-center px-3 py-2.5"
                   style={{
-                    fontSize: 14,
-                    fontWeight: 600,
+                    fontSize: 12.5,
+                    fontWeight: 500,
                     letterSpacing: "-0.005em",
+                    lineHeight: 1.25,
                   }}
                 >
-                  {toolLabels[tool]}
-                  {tool === "uc" && (
-                    <span
-                      className="text-muted2 ml-2"
+                  {row.labelMobile}
+                </div>
+                {tools.map((tool, idx) => {
+                  const isUC = tool === "uc";
+                  return (
+                    <div
+                      key={tool}
+                      className="flex items-center justify-center py-2.5"
                       style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 10,
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
+                        background: isUC ? "var(--bg2)" : "transparent",
+                        borderLeft:
+                          idx === 0 ? "none" : "1px solid var(--hair2)",
                       }}
                     >
-                      this
-                    </span>
-                  )}
-                </div>
-                <ul className="flex flex-col gap-2">
-                  {rowData.map((row) => (
-                    <li
-                      key={row.key}
-                      className="grid items-start gap-2"
-                      style={{ gridTemplateColumns: "20px 1fr auto" }}
-                    >
                       <VerdictGlyph verdict={row.verdicts[tool]} />
-                      <span
-                        className="text-muted-foreground"
-                        style={{ fontSize: 13, lineHeight: 1.5 }}
-                      >
-                        {row.label}
-                      </span>
-                      <span
-                        className="text-foreground text-right"
-                        style={{
-                          fontSize: 12,
-                          fontWeight: 500,
-                          letterSpacing: "-0.005em",
-                        }}
-                      >
-                        {row.cells[tool]}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                    </div>
+                  );
+                })}
               </div>
-            </AnimateIn>
-          ))}
-        </div>
+            ))}
+          </div>
+        </AnimateIn>
 
         <p
           className="text-muted2 mt-7"

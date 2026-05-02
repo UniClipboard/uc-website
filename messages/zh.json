@@ -18,6 +18,8 @@
       "title": "Mac 上复制的，",
       "titleLine2": "Windows 上直接粘。",
       "description": "免费、开源、端到端加密——文本、图片和文件在你的 Mac、Windows、Linux 之间顺畅流动。同一 Wi-Fi 直连，跨网络自动打洞，全程不需要账号。",
+      "descriptionMobile": "端到端加密，文本、图片、文件跨设备同步。开源、免费、无需账号。",
+      "mobileBadge": "移动端开发中",
       "secondaryCta": "技术白皮书",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -91,9 +93,16 @@
         "selfhost": "自托管 (ClipCascade 等)",
         "manager": "本机剪切板管理器 (Pastebot / Maccy)"
       },
+      "toolsShort": {
+        "uc": "UC",
+        "icloud": "iCloud",
+        "selfhost": "自托管",
+        "manager": "管理器"
+      },
       "rows": {
         "crossPlatform": {
           "label": "支持 macOS / Windows / Linux",
+          "labelMobile": "跨平台",
           "uc": "三平台原生",
           "icloud": "仅 Apple",
           "selfhost": "看实现",
@@ -101,6 +110,7 @@
         },
         "e2e": {
           "label": "端到端加密 + 可审计",
+          "labelMobile": "E2E + 开源",
           "uc": "开源可读",
           "icloud": "闭源 E2E",
           "selfhost": "看实现",
@@ -108,6 +118,7 @@
         },
         "infra": {
           "label": "无需自己运维服务器",
+          "labelMobile": "免运维",
           "uc": "开箱即用",
           "icloud": "开箱即用",
           "selfhost": "需自托管",
@@ -115,6 +126,7 @@
         },
         "history": {
           "label": "可搜索的历史记录",
+          "labelMobile": "可搜历史",
           "uc": "本机加密索引",
           "icloud": "无历史",
           "selfhost": "看实现",
@@ -122,6 +134,7 @@
         },
         "noAccount": {
           "label": "无需注册 / 邮箱",
+          "labelMobile": "免账号",
           "uc": "公钥配对",
           "icloud": "需要 Apple ID",
           "selfhost": "看实现",
@@ -129,6 +142,7 @@
         },
         "transport": {
           "label": "同 Wi-Fi 直连，跨网中继回退",
+          "labelMobile": "跨网络",
           "uc": "P2P + 中继",
           "icloud": "仅近场",
           "selfhost": "通常仅服务器",
@@ -136,6 +150,7 @@
         },
         "price": {
           "label": "价格",
+          "labelMobile": "价格",
           "uc": "免费 · 开源",
           "icloud": "免费",
           "selfhost": "免费 + 服务器成本",
@@ -158,6 +173,7 @@
       "eyebrow": "下载最新版本",
       "title": "选择你的平台。",
       "description": "我们已经为你识别了平台。如果不对，可以在下面切换。每个安装包都附了系统要求，方便你下载前确认。",
+      "descriptionMobile": "UniClipboard 是桌面应用，请在 Mac、Windows 或 Linux 上打开本页下载。",
       "versionLabel": "版本",
       "publishedLabel": "发布时间",
       "channelLabel": "通道",

@@ -24,6 +24,8 @@
       "title": "Copy on your Mac.",
       "titleLine2": "Paste on your Windows.",
       "description": "Free, open source, and end-to-end encrypted — text, images, and files flow seamlessly between your Mac, Windows, and Linux machines. Direct on the same Wi-Fi, NAT hole-punching across networks. No account ever.",
+      "descriptionMobile": "End-to-end encrypted sync for text, images, and files across Mac, Windows, and Linux. No account.",
+      "mobileBadge": "Mobile coming soon",
       "secondaryCta": "Technical whitepaper",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -97,9 +99,16 @@
         "selfhost": "Self-hosted (e.g. ClipCascade)",
         "manager": "Local clipboard manager (Pastebot / Maccy)"
       },
+      "toolsShort": {
+        "uc": "UC",
+        "icloud": "iCloud",
+        "selfhost": "Self-host",
+        "manager": "Manager"
+      },
       "rows": {
         "crossPlatform": {
           "label": "macOS / Windows / Linux",
+          "labelMobile": "Cross-platform",
           "uc": "All three, native",
           "icloud": "Apple only",
           "selfhost": "Depends",
@@ -107,6 +116,7 @@
         },
         "e2e": {
           "label": "E2E encrypted + auditable",
+          "labelMobile": "E2E + audit",
           "uc": "Open source",
           "icloud": "Closed-source E2E",
           "selfhost": "Depends",
@@ -114,6 +124,7 @@
         },
         "infra": {
           "label": "No server to run",
+          "labelMobile": "No infra",
           "uc": "Out of the box",
           "icloud": "Out of the box",
           "selfhost": "Self-hosted",
@@ -121,6 +132,7 @@
         },
         "history": {
           "label": "Searchable history",
+          "labelMobile": "Searchable",
           "uc": "Encrypted local index",
           "icloud": "No history",
           "selfhost": "Depends",
@@ -128,6 +140,7 @@
         },
         "noAccount": {
           "label": "No account / email",
+          "labelMobile": "No account",
           "uc": "Public-key pairing",
           "icloud": "Apple ID required",
           "selfhost": "Depends",
@@ -135,6 +148,7 @@
         },
         "transport": {
           "label": "Direct on Wi-Fi, relay across networks",
+          "labelMobile": "Direct + relay",
           "uc": "P2P + relay",
           "icloud": "Proximity only",
           "selfhost": "Server-only typically",
@@ -142,6 +156,7 @@
         },
         "price": {
           "label": "Price",
+          "labelMobile": "Price",
           "uc": "Free · open source",
           "icloud": "Free",
           "selfhost": "Free + server cost",
@@ -164,6 +179,7 @@
       "eyebrow": "Download the latest release",
       "title": "Pick your platform.",
       "description": "We've detected your platform. Pick a different one below if you need to. Each installer comes with the OS requirement so you know before you download.",
+      "descriptionMobile": "UniClipboard is desktop-only. Open this page on Mac, Windows, or Linux to install.",
       "versionLabel": "Version",
       "publishedLabel": "Published",
       "channelLabel": "Channel",

@@ -30,10 +30,7 @@ export async function Footer() {
       }}
     >
       <div className="landing-shell">
-        <div
-          className="grid items-start gap-10"
-          style={{ gridTemplateColumns: "1.7fr 1fr 1fr 1.1fr" }}
-        >
+        <div className="grid items-start gap-10 sm:grid-cols-2 md:grid-cols-[1.7fr_1fr_1fr_1.1fr]">
           {/* Wordmark + thanks blurb */}
           <div>
             <div className="mb-[18px] flex items-center gap-2.5">

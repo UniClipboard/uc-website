@@ -1,10 +1,15 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
-type Item = { q: string; a: string };
+export type FaqItem = {
+  q: string;
+  a: string;
+  cta?: { label: string; href: string };
+};
 
-export function FaqAccordion({ items }: { items: Item[] }) {
+export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState(0);
 
   return (
@@ -38,7 +43,7 @@ export function FaqAccordion({ items }: { items: Item[] }) {
             </button>
             <div
               style={{
-                maxHeight: isOpen ? 320 : 0,
+                maxHeight: isOpen ? 480 : 0,
                 overflow: "hidden",
                 transition: "max-height .35s cubic-bezier(.2,.7,.3,1)",
               }}
@@ -53,6 +58,20 @@ export function FaqAccordion({ items }: { items: Item[] }) {
                 }}
               >
                 {it.a}
+                {it.cta && (
+                  <a
+                    href={it.cta.href}
+                    className="text-foreground hover:text-foreground/70 mt-3.5 inline-flex items-center gap-1.5 underline-offset-4 transition-colors hover:underline"
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 500,
+                      letterSpacing: "-0.005em",
+                    }}
+                  >
+                    {it.cta.label}
+                    <ArrowUpRight size={14} />
+                  </a>
+                )}
               </div>
             </div>
           </div>

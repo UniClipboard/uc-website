@@ -1,11 +1,11 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Bolt,
-  Code,
-  Image as ImageIcon,
-  Laptop,
+  Command,
+  FileText,
+  History,
   Network,
-  Search,
+  RefreshCw,
+  Shield,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { ReactElement } from "react";
@@ -16,77 +16,6 @@ type Hero = {
   ns: "h1" | "h2" | "h3";
   Illustration: () => ReactElement;
 };
-
-const heroes: Hero[] = [
-  { ns: "h1", Illustration: IllSimple },
-  { ns: "h2", Illustration: IllPrivacy },
-  { ns: "h3", Illustration: IllNetwork },
-];
-
-type More = { icon: LucideIcon; key: string };
-const moreItems: More[] = [
-  { icon: Laptop, key: "f1" },
-  { icon: Search, key: "f4" },
-  { icon: Bolt, key: "f6" },
-  { icon: ImageIcon, key: "f5" },
-  { icon: Code, key: "f7" },
-  { icon: Network, key: "f9" },
-];
-
-function IllSimple() {
-  return (
-    <svg
-      width="320"
-      height="200"
-      viewBox="0 0 320 200"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect
-        x="20"
-        y="40"
-        width="120"
-        height="120"
-        rx="10"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="180"
-        y="40"
-        width="120"
-        height="120"
-        rx="10"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M140 100 H180"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeDasharray="4 4"
-      />
-      <text
-        x="55"
-        y="105"
-        fontFamily="ui-monospace, monospace"
-        fontSize="14"
-        fill="currentColor"
-      >
-        ⌘C
-      </text>
-      <text
-        x="215"
-        y="105"
-        fontFamily="ui-monospace, monospace"
-        fontSize="14"
-        fill="currentColor"
-      >
-        ⌘V
-      </text>
-    </svg>
-  );
-}
 
 function IllPrivacy() {
   return (
@@ -211,6 +140,117 @@ function IllNetwork() {
   );
 }
 
+function IllPower() {
+  return (
+    <svg
+      width="340"
+      height="200"
+      viewBox="0 0 340 200"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="40"
+        y="30"
+        width="260"
+        height="140"
+        rx="10"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <rect
+        x="56"
+        y="46"
+        width="228"
+        height="22"
+        rx="5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeDasharray="3 3"
+      />
+      <text
+        x="64"
+        y="62"
+        fontFamily="ui-monospace, monospace"
+        fontSize="10"
+        fill="currentColor"
+      >
+        ⌘ search clipboard…
+      </text>
+      <rect
+        x="56"
+        y="78"
+        width="228"
+        height="20"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <rect
+        x="56"
+        y="104"
+        width="228"
+        height="20"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <rect
+        x="56"
+        y="130"
+        width="228"
+        height="20"
+        rx="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <text
+        x="64"
+        y="92"
+        fontFamily="ui-monospace, monospace"
+        fontSize="9"
+        fill="currentColor"
+      >
+        const url = …
+      </text>
+      <text
+        x="64"
+        y="118"
+        fontFamily="ui-monospace, monospace"
+        fontSize="9"
+        fill="currentColor"
+      >
+        screenshot.png
+      </text>
+      <text
+        x="64"
+        y="144"
+        fontFamily="ui-monospace, monospace"
+        fontSize="9"
+        fill="currentColor"
+      >
+        ssh user@host
+      </text>
+    </svg>
+  );
+}
+
+const heroes: Hero[] = [
+  { ns: "h1", Illustration: IllPrivacy },
+  { ns: "h2", Illustration: IllNetwork },
+  { ns: "h3", Illustration: IllPower },
+];
+
+type More = { icon: LucideIcon; key: string };
+const moreItems: More[] = [
+  { icon: Command, key: "f1" },
+  { icon: RefreshCw, key: "f4" },
+  { icon: FileText, key: "f6" },
+  { icon: Network, key: "f5" },
+  { icon: Shield, key: "f7" },
+  { icon: History, key: "f9" },
+];
+
 function HeroBlock({
   t,
   ns,
@@ -234,7 +274,7 @@ function HeroBlock({
             "repeating-linear-gradient(135deg, var(--hair2) 0 1px, transparent 1px 16px)",
         }}
       >
-        <div className="text-foreground pointer-events-none absolute inset-0 flex items-center justify-center opacity-25">
+        <div className="text-foreground pointer-events-none absolute inset-0 flex items-center justify-center opacity-40">
           <Illustration />
         </div>
         <div
@@ -270,7 +310,7 @@ function HeroBlock({
         <h3
           className="text-foreground mt-3.5 mb-[18px]"
           style={{
-            fontSize: 36,
+            fontSize: "clamp(1.75rem, 3.2vw, 2.25rem)",
             fontWeight: 600,
             letterSpacing: "-0.025em",
             lineHeight: 1.15,
@@ -334,9 +374,8 @@ function HeroBlock({
 
   return (
     <div
-      className="grid items-center gap-16 py-16"
+      className="grid items-center gap-10 py-12 md:grid-cols-2 md:gap-16 md:py-16"
       style={{
-        gridTemplateColumns: "1fr 1fr",
         borderBottom: isLast ? "none" : "1px solid var(--border)",
       }}
     >
@@ -372,7 +411,7 @@ export async function FeaturesSection() {
           <h2
             className="text-foreground mt-3.5 mb-14"
             style={{
-              fontSize: 44,
+              fontSize: "clamp(2rem, 4vw, 2.75rem)",
               fontWeight: 600,
               letterSpacing: "-0.025em",
               maxWidth: 720,
@@ -406,7 +445,7 @@ export async function FeaturesSection() {
             <h3
               className="text-foreground mt-3 mb-9"
               style={{
-                fontSize: 28,
+                fontSize: "clamp(1.5rem, 2.4vw, 1.75rem)",
                 fontWeight: 600,
                 letterSpacing: "-0.02em",
               }}
@@ -417,7 +456,7 @@ export async function FeaturesSection() {
 
           <StaggerIn
             stagger={0.06}
-            className="border-border grid grid-cols-3 border-t border-l"
+            className="border-border grid grid-cols-1 border-t border-l sm:grid-cols-2 md:grid-cols-3"
           >
             {moreItems.map((it) => {
               const Icon = it.icon;

@@ -39,6 +39,18 @@ function getArchLabel(
   return platform;
 }
 
+function getMinOSLabel(
+  platform: string,
+  labels: { mac: string; win: string; linuxX64: string; linuxArm: string },
+): string {
+  if (platform.startsWith("macOS")) return labels.mac;
+  if (platform.startsWith("Windows")) return labels.win;
+  if (platform.startsWith("Linux") && platform.includes("ARM64"))
+    return labels.linuxArm;
+  if (platform.startsWith("Linux")) return labels.linuxX64;
+  return "";
+}
+
 function fmtPublished(iso: string, unavailable: string): string {
   if (!iso || iso === "unavailable") return unavailable;
   try {
@@ -79,10 +91,16 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
     x64: t("archX64"),
     appimage: t("archAppimage"),
   };
+  const minOSLabels = {
+    mac: t("minOSMac"),
+    win: t("minOSWin"),
+    linuxX64: t("minOSLinuxX64"),
+    linuxArm: t("minOSLinuxArm"),
+  };
 
   const groupedItems: Record<
     GroupOS,
-    Array<{ arch: string; ext: string; url: string }>
+    Array<{ arch: string; ext: string; url: string; minOS: string }>
   > = {
     mac: [],
     win: [],
@@ -96,6 +114,7 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
       arch: getArchLabel(entry.platform, archLabels),
       ext: getFileExtension(entry.url),
       url: entry.url,
+      minOS: getMinOSLabel(entry.platform, minOSLabels),
     });
   }
 
@@ -124,7 +143,6 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
       id="download"
       className="border-border bg-bg2 relative border-b py-[120px]"
     >
-      {/* Soft radial glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
@@ -135,11 +153,7 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
       />
 
       <div className="landing-shell relative">
-        <div
-          className="grid items-center gap-16"
-          style={{ gridTemplateColumns: "1fr 1.1fr" }}
-        >
-          {/* Left: heading + meta */}
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
           <div>
             <AnimateIn variant="fade-in" duration={0.5}>
               <p className="landing-kicker">{t("eyebrow")}</p>
@@ -192,7 +206,29 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
                   >
                     {t("versionLabel")}
                   </span>
-                  <span style={{ color: "var(--ink2)" }}>v{versionLabel}</span>
+                  <span
+                    className="inline-flex items-center gap-2"
+                    style={{ color: "var(--ink2)" }}
+                  >
+                    v{versionLabel}
+                    <span
+                      className="inline-flex items-center gap-1.5"
+                      style={{ color: "var(--muted)" }}
+                    >
+                      <span
+                        className="inline-block"
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: 99,
+                          background: "#3DA47A",
+                          boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
+                          animation: "uc-dot-pulse 2s ease-in-out infinite",
+                        }}
+                      />
+                      {t("channelStable")}
+                    </span>
+                  </span>
                 </div>
                 <div className="flex gap-3.5">
                   <span
@@ -210,65 +246,16 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
                     {publishedAtLabel}
                   </span>
                 </div>
-                <div className="flex gap-3.5">
-                  <span
-                    style={{
-                      color: "var(--muted2)",
-                      width: 96,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      fontSize: 10,
-                    }}
-                  >
-                    {t("channelLabel")}
-                  </span>
-                  <span
-                    className="inline-flex items-center gap-1.5"
-                    style={{ color: "var(--ink2)" }}
-                  >
-                    <span
-                      className="inline-block"
-                      style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: 99,
-                        background: "#3DA47A",
-                        boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
-                        animation: "uc-dot-pulse 2s ease-in-out infinite",
-                      }}
-                    />
-                    {t("channelStable")}
-                  </span>
-                </div>
               </div>
-            </AnimateIn>
-
-            <AnimateIn delay={0.24} duration={0.5}>
-              <p
-                className="text-muted-foreground mt-6"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.04em",
-                }}
-              >
-                {t("freshnessHint")}
-              </p>
             </AnimateIn>
           </div>
 
-          {/* Right: download focus card */}
           <AnimateIn delay={0.14} duration={0.6}>
             <DownloadFocus
               groups={groups}
               version={versionLabel}
-              publishedAt={publishedAtLabel}
               fallbackUrl={release.fallbackReleaseUrl}
               labels={{
-                versionLabel: t("versionLabel"),
-                publishedLabel: t("publishedLabel"),
-                channelLabel: t("channelLabel"),
-                channelStable: t("channelStable"),
                 fallback: t("fallback"),
                 downloadAction: t("downloadAction"),
                 recommended: t("recommended"),

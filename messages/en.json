@@ -9,20 +9,23 @@
     "navigation": {
       "features": "Features",
       "how": "How it works",
+      "compare": "Compare",
       "download": "Install",
       "faq": "FAQ",
-      "github": "GitHub"
+      "github": "GitHub",
+      "menu": "Menu",
+      "menuClose": "Close menu"
     },
     "hero": {
-      "eyebrow": "Privacy-first · End-to-end encrypted · Cross-network",
-      "title": "Copy on one device.",
-      "titleLine2": "Paste on another.",
-      "description": "Privacy-first clipboard sync across your devices. Text, images and files flow securely — same Wi-Fi or across the internet.",
-      "primaryCta": "Install",
-      "secondaryCta": "Quick start",
-      "meta1": "AGPL-3.0",
-      "meta2": "Rust + Tauri",
-      "meta3": "iroh QUIC P2P",
+      "eyebrow": "Open source · End-to-end encrypted · Native on three platforms",
+      "title": "Copy on your Mac.",
+      "titleLine2": "Paste on your Windows.",
+      "description": "Free, open source, and end-to-end encrypted — text, images, and files flow seamlessly between your Mac, Windows, and Linux machines. Direct on the same Wi-Fi, NAT hole-punching across networks. No account ever.",
+      "secondaryCta": "Technical whitepaper",
+      "starsSuffix": "on GitHub",
+      "starsFallback": "GitHub",
+      "free": "Free & open source",
+      "e2e": "End-to-end encrypted",
       "videoLabel": "PLAYBACK",
       "videoPlay": "Play demo",
       "videoPause": "Pause",
@@ -34,55 +37,118 @@
       "moreEyebrow": "More",
       "moreTitle": "Other things you might want.",
       "h1": {
-        "eyebrow": "01 — Frictionless",
-        "title": "Use the ⌘C / ⌘V you already know.",
-        "lede": "No app to open, no file to send, no account to log into. Copy on one device, paste on another — that's it.",
-        "b1Title": "Zero extra steps",
-        "b1Desc": "An extension of the system clipboard — not another app to switch to.",
-        "b2Title": "Native shortcuts",
-        "b2Desc": "⌘C / Ctrl-C to copy, ⌘V / Ctrl-V to paste — no muscle-memory taxes.",
-        "b3Title": "Self-healing",
-        "b3Desc": "Reconnects automatically after Wi-Fi switches and sleep/wake. No re-pairing.",
-        "mediaCaption": "demo · ⌘C → ⌘V"
-      },
-      "h2": {
-        "eyebrow": "02 — Privacy-first",
+        "eyebrow": "01 — Privacy first",
         "title": "The relay only sees ciphertext.",
-        "lede": "Content is encrypted at the source and decrypted only on your devices. Keys live in the system keyring and never leave your machine.",
+        "lede": "Content is encrypted at the source and decrypted only on your devices. Keys live in the system keyring and never leave your machine. Open source, auditable.",
         "b1Title": "End-to-end encrypted",
         "b1Desc": "XChaCha20-Poly1305 AEAD — encrypted in transit and at rest.",
         "b2Title": "No cloud account",
         "b2Desc": "No email, no phone number — just two devices exchanging a public key.",
-        "b3Title": "Auditable",
-        "b3Desc": "Open source (AGPL-3.0). Read and verify the crypto yourself.",
+        "b3Title": "Auditable code",
+        "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself.",
         "mediaCaption": "illustration · ciphertext through relay"
       },
-      "h3": {
-        "eyebrow": "03 — Cross-platform · cross-network",
+      "h2": {
+        "eyebrow": "02 — Cross-platform · cross-network",
         "title": "Not just LAN. Not bound to one network.",
-        "lede": "First-class on Windows, macOS, and Linux. Direct on the same Wi-Fi; NAT hole-punching across networks; encrypted relay as a fallback.",
+        "lede": "First-class on Windows, macOS, and Linux — built on Rust + Tauri, not an Electron wrapper. Direct on the same Wi-Fi; NAT hole-punching across networks; encrypted relay as a fallback.",
         "b1Title": "Three native platforms",
-        "b1Desc": "Not an Electron wrapper — built on Rust + Tauri.",
+        "b1Desc": "Rust + Tauri — fast launch, low footprint, integrates with the OS.",
         "b2Title": "Direct first",
-        "b2Desc": "Devices on the same network connect peer-to-peer, no relay.",
+        "b2Desc": "Devices on the same network connect peer-to-peer with millisecond latency.",
         "b3Title": "Relay fallback",
         "b3Desc": "Across home/office/internet — automatic hole-punching, encrypted relay if it fails.",
         "mediaCaption": "illustration · 3 devices · LAN + relay"
       },
+      "h3": {
+        "eyebrow": "03 — Power-user friendly",
+        "title": "Quick Panel, full-text search, CLI — all included.",
+        "lede": "A keyboard-shortcut overlay to preview history; millisecond search across tens of thousands of items; a headless CLI for terminals, SSH, and tmux. Deeper than its surface lets on.",
+        "b1Title": "Quick Panel",
+        "b1Desc": "Shortcut overlay with inline previews for text, links, images, code, and files.",
+        "b2Title": "Local full-text search",
+        "b2Desc": "Search the full history in milliseconds — even with tens of thousands of entries. The index stays encrypted on disk.",
+        "b3Title": "uniclip CLI",
+        "b3Desc": "GUI features, one command — runs headlessly for terminals, SSH, scripts, and tmux workflows.",
+        "mediaCaption": "demo · ⌘C → ⌘V"
+      },
       "more": {
-        "f1Title": "Cross-platform",
-        "f1Desc": "First-class support on Windows, macOS, and Linux — your clipboard works wherever you do.",
-        "f4Title": "Local full-text search",
-        "f4Desc": "Search the full history in milliseconds — even with tens of thousands of entries. The index stays encrypted on disk.",
-        "f6Title": "Quick Panel",
-        "f6Desc": "A keyboard-shortcut overlay with inline preview for text, links, images, code, and files — feels like part of the OS clipboard.",
-        "f5Title": "Text, images & files",
-        "f5Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
-        "f7Title": "Command-line tool",
-        "f7Desc": "A uniclip CLI mirrors the GUI flow and works headlessly — built for terminals, SSH, scripts, and tmux workflows.",
-        "f9Title": "Multi-device management",
-        "f9Desc": "Manage paired devices, presence and per-device sync preferences. Lost a device? Revoke it from any paired one."
+        "f1Title": "Native shortcuts",
+        "f1Desc": "⌘C / Ctrl-C to copy, ⌘V / Ctrl-V to paste — no muscle-memory taxes. An extension of the system clipboard, not another app.",
+        "f4Title": "Self-healing",
+        "f4Desc": "Reconnects automatically after Wi-Fi switches, sleep/wake, and brief disconnects. No re-pairing.",
+        "f6Title": "Text, images & files",
+        "f6Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
+        "f5Title": "Multi-device management",
+        "f5Desc": "Manage paired devices, presence and per-device sync preferences. Lost a device? Revoke it from any paired one.",
+        "f7Title": "Sensitive-field filtering",
+        "f7Desc": "Skips clipboard items flagged by password managers and the system keychain — your tokens won't sync to other devices.",
+        "f9Title": "Tunable history retention",
+        "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time."
       }
+    },
+    "comparison": {
+      "eyebrow": "Compare",
+      "title": "Why not iCloud? Why not self-hosted?",
+      "subtitle": "If any of these matters to you — iCloud Universal Clipboard and \"run-your-own-server\" tools won't cut it.",
+      "tools": {
+        "uc": "UniClipboard",
+        "icloud": "iCloud Universal",
+        "selfhost": "Self-hosted (e.g. ClipCascade)",
+        "manager": "Local clipboard manager (Pastebot / Maccy)"
+      },
+      "rows": {
+        "crossPlatform": {
+          "label": "macOS / Windows / Linux",
+          "uc": "All three, native",
+          "icloud": "Apple only",
+          "selfhost": "Depends",
+          "manager": "Single platform"
+        },
+        "e2e": {
+          "label": "E2E encrypted + auditable",
+          "uc": "Open source",
+          "icloud": "Closed-source E2E",
+          "selfhost": "Depends",
+          "manager": "Local only"
+        },
+        "infra": {
+          "label": "No server to run",
+          "uc": "Out of the box",
+          "icloud": "Out of the box",
+          "selfhost": "Self-hosted",
+          "manager": "No server"
+        },
+        "history": {
+          "label": "Searchable history",
+          "uc": "Encrypted local index",
+          "icloud": "No history",
+          "selfhost": "Depends",
+          "manager": "Local history"
+        },
+        "noAccount": {
+          "label": "No account / email",
+          "uc": "Public-key pairing",
+          "icloud": "Apple ID required",
+          "selfhost": "Depends",
+          "manager": "No account"
+        },
+        "transport": {
+          "label": "Direct on Wi-Fi, relay across networks",
+          "uc": "P2P + relay",
+          "icloud": "Proximity only",
+          "selfhost": "Server-only typically",
+          "manager": "Local only"
+        },
+        "price": {
+          "label": "Price",
+          "uc": "Free · open source",
+          "icloud": "Free",
+          "selfhost": "Free + server cost",
+          "manager": "$30+"
+        }
+      },
+      "footnote": "Comparison based on public information as of 2026-05. Spotted something off? Open an issue on GitHub."
     },
     "howItWorks": {
       "eyebrow": "How it works",
@@ -97,14 +163,13 @@
     "download": {
       "eyebrow": "Download the latest release",
       "title": "Pick your platform.",
-      "description": "Choose your platform below to download the latest version. If the release feed is delayed, use the fallback release page.",
+      "description": "We've detected your platform. Pick a different one below if you need to. Each installer comes with the OS requirement so you know before you download.",
       "versionLabel": "Version",
       "publishedLabel": "Published",
       "channelLabel": "Channel",
       "channelStable": "stable",
       "openRelease": "Open latest release",
       "fallback": "All releases",
-      "freshnessHint": "Status updates refresh automatically every hour.",
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
       "platformLinux": "Linux",
@@ -117,7 +182,16 @@
       "noDownloads": "No downloads available yet.",
       "degradedNotice": "Release details are temporarily unavailable.",
       "metadataUnavailable": "Metadata unavailable",
-      "unavailableValue": "Unavailable"
+      "unavailableValue": "Unavailable",
+      "ctaPrimaryGeneric": "Install",
+      "ctaPrimaryWith": "Download for",
+      "ctaOtherPlatforms": "Other platforms",
+      "ctaLinuxX64": "Linux · x64",
+      "ctaLinuxArm": "Linux · ARM64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": "AppImage · x86_64",
+      "minOSLinuxArm": "AppImage · ARM64"
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -140,7 +214,13 @@
       },
       "item5": {
         "q": "Do you support mobile (iOS / Android)?",
-        "a": "Not yet. The current release focuses on getting Windows, macOS and Linux right. Mobile is on the roadmap, but OS-level clipboard permissions and background-execution limits need to be solved first — we'll ship it when it's ready, not before."
+        "a": "Not yet. The current release focuses on getting Windows, macOS and Linux right. Mobile is on the roadmap, but OS-level clipboard permissions and background-execution limits need to be solved first — we'll ship it when it's ready, not before.",
+        "waitlistCta": "Want to know first? Join the mobile waitlist →",
+        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=Notify%20me%20when%20mobile%20is%20available."
+      },
+      "item6": {
+        "q": "Will AGPL-3.0 affect me using it inside a company?",
+        "a": "No. AGPL only kicks in if you modify the source and then redistribute it as a network service. Installing it for personal or team use is no different from any other free app — you don't have to open-source any of your company's code."
       }
     },
     "footer": {

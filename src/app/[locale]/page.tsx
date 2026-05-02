@@ -1,10 +1,11 @@
+import { ComparisonSection } from "@/components/landing/ComparisonSection";
 import { DownloadSection } from "@/components/landing/DownloadSection";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { Footer } from "@/components/landing/Footer";
 import { HeroSection } from "@/components/landing/HeroSection";
-import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { Navigation } from "@/components/landing/Navigation";
+import { fetchGitHubStars } from "@/lib/github-stars";
 import {
   FALLBACK_RELEASE_URL,
   fetchStableRelease,
@@ -34,13 +35,53 @@ const LandingPage = async () => {
     stableRelease = buildDegradedFallback();
   }
 
+  const starsResult = await fetchGitHubStars();
+  const stars = starsResult.stars;
+
+  const versionForSchema =
+    stableRelease.version === "unavailable" ? undefined : stableRelease.version;
+
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "UniClipboard",
+    applicationCategory: "ProductivityApplication",
+    operatingSystem: "macOS, Windows, Linux",
+    url: "https://www.uniclipboard.app",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    softwareVersion: versionForSchema,
+    license: "https://www.gnu.org/licenses/agpl-3.0.html",
+    downloadUrl: "https://github.com/UniClipboard/UniClipboard/releases/latest",
+    sameAs: ["https://github.com/UniClipboard/UniClipboard"],
+    ...(stars !== null && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "5",
+        ratingCount: String(stars),
+        bestRating: "5",
+        worstRating: "1",
+      },
+    }),
+  };
+
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "UniClipboard",
+    url: "https://www.uniclipboard.app",
+  };
+
   return (
     <>
       <Navigation />
       <main>
-        <HeroSection />
+        <HeroSection release={stableRelease} stars={stars} />
         <FeaturesSection />
-        <HowItWorksSection />
+        <ComparisonSection />
         <DownloadSection release={stableRelease} />
         <FaqSection />
       </main>
@@ -48,12 +89,7 @@ const LandingPage = async () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "UniClipboard",
-            url: "https://www.uniclipboard.app",
-          }),
+          __html: JSON.stringify([orgSchema, softwareSchema]),
         }}
       />
     </>

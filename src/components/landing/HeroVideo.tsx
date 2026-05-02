@@ -61,14 +61,11 @@ export function HeroVideo({
     e?.stopPropagation();
     const v = videoRef.current;
     if (!v || !hasVideo) return;
-    if (v.paused) {
-      v.play();
-      setPlaying(true);
-    } else {
-      v.pause();
-      setPlaying(false);
-    }
+    if (v.paused) v.play();
+    else v.pause();
   };
+
+  const showControls = (hover || !playing) && hasVideo;
 
   return (
     <div
@@ -76,206 +73,211 @@ export function HeroVideo({
       onMouseLeave={() => setHover(false)}
       className="relative w-full"
     >
-      {/* Ambient glow pad */}
+      {/* Ambient brand glow */}
       <div
         aria-hidden
-        className="pointer-events-none absolute"
+        className="pointer-events-none absolute -z-10"
         style={{
-          inset: "-8% -6% -14% -6%",
+          inset: "-14% -10% -22% -10%",
           background:
-            "radial-gradient(60% 55% at 50% 50%, rgba(10,10,10,0.10) 0%, rgba(10,10,10,0.04) 35%, rgba(10,10,10,0) 70%)",
-          filter: "blur(8px)",
+            "radial-gradient(55% 50% at 50% 45%, rgba(99,102,241,0.14) 0%, rgba(99,102,241,0.05) 40%, rgba(99,102,241,0) 75%)",
+          filter: "blur(28px)",
+          opacity: hover ? 1 : 0.7,
+          transition: "opacity .5s ease",
         }}
       />
 
+      {/* Cinematic video card */}
       <div
-        className="relative rounded-[28px] p-[6px] transition-all"
+        role="presentation"
+        aria-label={videoLabel}
+        onClick={onPlay}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onPlay();
+          }
+        }}
+        className="relative w-full overflow-hidden rounded-[20px] bg-[#0A0A0A] transition-all duration-500"
         style={{
-          background: hover ? "rgba(10,10,10,0.04)" : "rgba(10,10,10,0.02)",
+          aspectRatio: "16 / 9",
+          cursor: hasVideo ? "pointer" : "default",
           boxShadow: hover
-            ? "inset 0 0 0 1px rgba(10,10,10,0.10)"
-            : "inset 0 0 0 1px rgba(10,10,10,0.06)",
+            ? "0 60px 120px -28px rgba(10,10,10,0.34), 0 24px 48px -22px rgba(10,10,10,0.20), 0 0 0 1px rgba(10,10,10,0.10)"
+            : "0 40px 90px -30px rgba(10,10,10,0.22), 0 16px 32px -16px rgba(10,10,10,0.12), 0 0 0 1px rgba(10,10,10,0.07)",
+          transform: hover ? "translateY(-3px)" : "translateY(0)",
         }}
       >
-        {/* Corner brackets */}
-        {[
-          { top: -1, left: -1, bT: 1, bL: 1 },
-          { top: -1, right: -1, bT: 1, bR: 1 },
-          { bottom: -1, left: -1, bB: 1, bL: 1 },
-          { bottom: -1, right: -1, bB: 1, bR: 1 },
-        ].map((c, i) => (
-          <div
-            key={i}
-            aria-hidden
-            className="pointer-events-none absolute z-[2]"
-            style={{
-              width: 14,
-              height: 14,
-              top: c.top,
-              left: c.left,
-              right: c.right,
-              bottom: c.bottom,
-              borderTop: c.bT
-                ? `1.5px solid ${hover ? "var(--foreground)" : "rgba(10,10,10,0.35)"}`
-                : "none",
-              borderBottom: c.bB
-                ? `1.5px solid ${hover ? "var(--foreground)" : "rgba(10,10,10,0.35)"}`
-                : "none",
-              borderLeft: c.bL
-                ? `1.5px solid ${hover ? "var(--foreground)" : "rgba(10,10,10,0.35)"}`
-                : "none",
-              borderRight: c.bR
-                ? `1.5px solid ${hover ? "var(--foreground)" : "rgba(10,10,10,0.35)"}`
-                : "none",
-              transition: "border-color .25s ease",
-            }}
-          />
-        ))}
+        <video
+          ref={videoRef}
+          src="/video/demo.mp4"
+          playsInline
+          muted
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+          style={{ opacity: hasVideo ? 1 : 0 }}
+        />
 
-        {/* PLAYBACK label */}
+        {/* Loading shimmer when no video */}
+        {!hasVideo && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 overflow-hidden"
+          >
+            <div
+              className="absolute inset-y-0 w-[40%]"
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+                animation: "uc-shimmer 2.4s linear infinite",
+                left: "-40%",
+              }}
+            />
+          </div>
+        )}
+
+        {/* Center play affordance — visible while paused */}
         <div
-          className="pointer-events-none absolute z-[3] px-2"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300"
           style={{
-            top: -7,
-            left: 28,
-            background: "var(--background)",
-            fontFamily: "var(--font-mono)",
-            fontSize: 9,
-            letterSpacing: "0.18em",
-            color: hover ? "var(--foreground)" : "var(--muted)",
-            transition: "color .25s ease",
+            opacity: !playing && hasVideo ? 1 : 0,
+            background:
+              !playing && hasVideo
+                ? "radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.18), rgba(0,0,0,0.32))"
+                : "transparent",
           }}
         >
-          ▸ {videoLabel}
+          <button
+            type="button"
+            onClick={onPlay}
+            aria-label={playLabel}
+            className="pointer-events-auto inline-flex cursor-pointer items-center gap-2.5 rounded-full pr-5 pl-4 transition-transform duration-300"
+            style={{
+              height: 48,
+              background: "rgba(255,255,255,0.96)",
+              color: "#0A0A0A",
+              fontFamily: "var(--font-sans)",
+              fontSize: 14,
+              fontWeight: 500,
+              letterSpacing: "-0.005em",
+              boxShadow:
+                "0 14px 36px -8px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.6) inset",
+              backdropFilter: "blur(8px)",
+              transform: hover ? "scale(1.04)" : "scale(1)",
+            }}
+          >
+            <span
+              className="inline-flex h-[26px] w-[26px] items-center justify-center rounded-full"
+              style={{ background: "#0A0A0A" }}
+            >
+              <Play
+                size={11}
+                fill="#fff"
+                stroke="#fff"
+                style={{ marginLeft: 1 }}
+              />
+            </span>
+            {playLabel}
+          </button>
         </div>
 
+        {/* Bottom scrim */}
         <div
-          role="presentation"
-          onClick={onPlay}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              onPlay();
-            }
-          }}
-          className="relative w-full overflow-hidden rounded-[22px] bg-[#0A0A0A]"
+          className="pointer-events-none absolute right-0 bottom-0 left-0 h-[88px] transition-opacity duration-300"
           style={{
-            aspectRatio: "16 / 9",
-            cursor: hasVideo ? "pointer" : "default",
-            boxShadow: hover
-              ? "0 50px 90px -30px rgba(10,10,10,0.30), 0 20px 40px -20px rgba(10,10,10,0.20), inset 0 0 0 1px rgba(255,255,255,0.06)"
-              : "0 40px 80px -30px rgba(10,10,10,0.25), 0 14px 30px -16px rgba(10,10,10,0.16), inset 0 0 0 1px rgba(255,255,255,0.05)",
-            transform: hover ? "translateY(-2px)" : "translateY(0)",
-            transition: "transform .35s ease, box-shadow .35s ease",
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2) 55%, transparent)",
+            opacity: showControls && playing ? 1 : 0,
           }}
+        />
+
+        {/* Bottom controls — only while playing + hover */}
+        <div
+          className="absolute right-5 bottom-4 left-5 flex items-center gap-3 transition-opacity duration-300"
+          style={{ opacity: showControls && playing ? 1 : 0 }}
         >
-          <video
-            ref={videoRef}
-            src="/video/demo.mp4"
-            playsInline
-            muted
-            preload="auto"
-            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
-            style={{ opacity: hasVideo ? 1 : 0 }}
-          />
-
-          {/* Bottom scrim */}
-          <div
-            className="pointer-events-none absolute right-0 bottom-0 left-0 h-[90px] transition-opacity duration-300"
+          <button
+            type="button"
+            onClick={onPlay}
+            aria-label={pauseLabel}
+            className="inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full text-white transition-colors hover:bg-white/25"
             style={{
-              background:
-                "linear-gradient(to top, rgba(0,0,0,0.55), transparent)",
-              opacity: hover || !playing ? 1 : 0,
+              background: "rgba(255,255,255,0.14)",
+              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.22)",
+              backdropFilter: "blur(6px)",
             }}
-          />
-
-          {/* Bottom controls */}
-          <div
-            className="absolute right-[26px] bottom-[22px] left-[26px] flex items-center gap-3.5 transition-opacity duration-300"
-            style={{ opacity: hover || !playing ? 1 : 0 }}
           >
-            <button
-              type="button"
-              onClick={onPlay}
-              className="inline-flex cursor-pointer items-center gap-2.5 rounded-full px-4 py-[9px] pl-3 text-[#0A0A0A] transition-transform"
-              style={{
-                background: "rgba(255,255,255,0.96)",
-                fontFamily: "var(--font-sans)",
-                fontSize: 13,
-                fontWeight: 500,
-                letterSpacing: "-0.005em",
-                boxShadow: "0 8px 24px -8px rgba(0,0,0,0.45)",
-                transform: hover ? "scale(1.04)" : "scale(1)",
-              }}
-            >
-              {playing ? (
-                <Pause size={14} fill="#0A0A0A" stroke="#0A0A0A" />
-              ) : (
-                <Play size={14} fill="#0A0A0A" stroke="#0A0A0A" />
-              )}
-              {playing ? pauseLabel : playLabel}
-            </button>
+            <Pause size={11} fill="white" stroke="white" />
+          </button>
 
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "rgba(255,255,255,0.92)",
+              letterSpacing: "0.03em",
+              fontVariantNumeric: "tabular-nums",
+            }}
+          >
+            {fmt(currentTime)}
+          </span>
+
+          <div
+            role="slider"
+            aria-label="Seek"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(progress)}
+            tabIndex={0}
+            onKeyDown={(e) => {
+              const v = videoRef.current;
+              if (!v || !v.duration) return;
+              if (e.key === "ArrowRight") {
+                e.preventDefault();
+                v.currentTime = Math.min(v.duration, v.currentTime + 5);
+              } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                v.currentTime = Math.max(0, v.currentTime - 5);
+              }
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              const v = videoRef.current;
+              if (!v || !v.duration) return;
+              const r = e.currentTarget.getBoundingClientRect();
+              const pct = (e.clientX - r.left) / r.width;
+              v.currentTime = Math.max(0, Math.min(1, pct)) * v.duration;
+            }}
+            className="group relative h-[3px] flex-1 rounded-full"
+            style={{
+              background: "rgba(255,255,255,0.18)",
+              cursor: hasVideo ? "pointer" : "default",
+            }}
+          >
             <div
-              className="flex flex-1 items-center gap-3"
+              className="absolute top-0 bottom-0 left-0 rounded-full bg-white transition-[width] duration-100 ease-linear"
+              style={{ width: `${progress}%` }}
+            />
+            <div
+              className="absolute top-1/2 h-[11px] w-[11px] -translate-y-1/2 rounded-full bg-white opacity-0 transition-opacity group-hover:opacity-100"
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                color: "rgba(255,255,255,0.55)",
-                letterSpacing: "0.05em",
+                left: `calc(${progress}% - 5.5px)`,
+                boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
               }}
-            >
-              <span>{fmt(currentTime)}</span>
-              <div
-                role="slider"
-                aria-label="Seek"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={Math.round(progress)}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  const v = videoRef.current;
-                  if (!v || !v.duration) return;
-                  if (e.key === "ArrowRight") {
-                    e.preventDefault();
-                    v.currentTime = Math.min(v.duration, v.currentTime + 5);
-                  } else if (e.key === "ArrowLeft") {
-                    e.preventDefault();
-                    v.currentTime = Math.max(0, v.currentTime - 5);
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const v = videoRef.current;
-                  if (!v || !v.duration) return;
-                  const r = e.currentTarget.getBoundingClientRect();
-                  const pct = (e.clientX - r.left) / r.width;
-                  v.currentTime = Math.max(0, Math.min(1, pct)) * v.duration;
-                }}
-                className="relative h-[2px] flex-1 overflow-hidden rounded-full"
-                style={{
-                  background: "rgba(255,255,255,0.18)",
-                  cursor: hasVideo ? "pointer" : "default",
-                }}
-              >
-                <div
-                  className="absolute top-0 bottom-0 left-0 rounded-full bg-white transition-[width] duration-100 ease-linear"
-                  style={{ width: `${progress}%` }}
-                />
-                <div
-                  className="absolute top-0 bottom-0 w-[30%]"
-                  style={{
-                    left: "-30%",
-                    background:
-                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
-                    animation: "uc-shimmer 2.4s linear infinite",
-                    opacity: hasVideo ? 0 : 1,
-                  }}
-                />
-              </div>
-              <span>{hasVideo ? fmt(duration) : durationLabel}</span>
-            </div>
+            />
           </div>
+
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "rgba(255,255,255,0.6)",
+              letterSpacing: "0.03em",
+              fontVariantNumeric: "tabular-nums",
+            }}
+          >
+            {hasVideo ? fmt(duration) : durationLabel}
+          </span>
         </div>
       </div>
 
@@ -284,12 +286,12 @@ export function HeroVideo({
         aria-hidden
         className="pointer-events-none absolute"
         style={{
-          left: "8%",
-          right: "8%",
-          bottom: -22,
-          height: 28,
+          left: "10%",
+          right: "10%",
+          bottom: -26,
+          height: 30,
           background:
-            "radial-gradient(60% 100% at 50% 0%, rgba(10,10,10,0.18), rgba(10,10,10,0) 80%)",
+            "radial-gradient(60% 100% at 50% 0%, rgba(10,10,10,0.16), rgba(10,10,10,0) 80%)",
           filter: "blur(6px)",
         }}
       />

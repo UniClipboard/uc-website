@@ -43,4 +43,7 @@ export const env = createEnv({
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
   },
+  // Treat empty-string env vars (e.g. unset CI secrets passed through `env:`)
+  // as undefined so optional URL/string fields don't fail format validation.
+  emptyStringAsUndefined: true,
 });

@@ -1,4 +1,3 @@
-import { CtaSection } from "@/components/landing/CtaSection";
 import { DownloadSection } from "@/components/landing/DownloadSection";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
@@ -44,7 +43,6 @@ const LandingPage = async () => {
         <HowItWorksSection />
         <DownloadSection release={stableRelease} />
         <FaqSection />
-        <CtaSection />
       </main>
       <Footer />
       <script

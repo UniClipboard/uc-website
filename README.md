@@ -62,7 +62,7 @@ Easily deploy your Next.js app with <a href="https://vercel.com/">Vercel</a> by 
 ### 2. Install dependencies
 
 ```bash
-npm install
+bun install
 ```
 
 ### 3. Set up environment variables
@@ -72,7 +72,7 @@ Create `.env` file and set env variables from `.env.example` file.
 It is required if you want husky to work
 
 ```bash
-npm run prepare
+bun run prepare
 ```
 
 ### 5. Run the dev server
@@ -80,7 +80,7 @@ npm run prepare
 You can start the server using this command:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 and open http://localhost:3000/ to see this app.

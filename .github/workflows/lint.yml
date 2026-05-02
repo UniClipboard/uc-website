@@ -10,14 +10,17 @@ jobs:
     name: Eslint, Typescript, prettier and test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
       - name: Install dependencies
-        run: npm install
+        run: bun install --frozen-lockfile
       - name: ESLint
-        run: npm run lint
+        run: bun run lint
       - name: Type check
-        run: npm run typecheck
+        run: bun run typecheck
       - name: Prettier
-        run: npm run format:check
+        run: bun run format:check
       - name: Tests
-        run: npm run test
+        run: bun run test

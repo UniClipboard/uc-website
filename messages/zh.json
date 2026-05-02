@@ -1,143 +1,158 @@
 {
   "landing": {
     "navigation": {
-      "why": "为什么选择",
-      "security": "安全",
-      "faq": "FAQ",
+      "features": "功能",
+      "how": "工作原理",
       "download": "下载",
-      "productNote": "通用剪贴板同步",
-      "primaryCta": "立即下载",
-      "secondaryCta": "加入候补名单"
+      "faq": "FAQ",
+      "github": "GitHub"
     },
     "hero": {
-      "eyebrow": "通用剪贴板同步",
-      "title": "复制一次，",
-      "titleLine2": "随处粘贴。",
-      "description": "UniClipboard 在 macOS、Windows 和 Linux 之间同步你的剪贴板——端到端加密、本地优先、无需注册账号。",
-      "primaryCta": "立即下载",
-      "secondaryCta": "加入候补名单",
-      "tertiaryCta": "GitHub",
-      "fact1": {
-        "label": "平台",
-        "value": "macOS、Windows、Linux"
-      },
-      "fact2": {
-        "label": "连接",
-        "value": "局域网自动重连"
-      },
-      "fact3": {
-        "label": "隐私",
-        "value": "端到端加密，无需注册"
-      }
+      "eyebrow": "隐私优先 · 端到端加密 · 跨网络",
+      "title": "这台复制，",
+      "titleLine2": "那台粘贴。",
+      "description": "隐私优先的跨设备剪贴板同步。文本、图片、文件在你的设备之间安全流动——同一 Wi-Fi 或跨越互联网都行。",
+      "primaryCta": "立即安装",
+      "secondaryCta": "快速上手",
+      "meta1": "AGPL-3.0",
+      "meta2": "Rust + Tauri",
+      "meta3": "iroh QUIC P2P",
+      "videoLabel": "PLAYBACK",
+      "videoPlay": "播放演示",
+      "videoPause": "暂停",
+      "videoDuration": "00:60"
     },
     "features": {
-      "eyebrow": "为什么选择 UniClipboard",
-      "title": "不是把剪贴板搬到云上，而是让它回到你的设备之间。",
-      "subtitle": "三件最重要的事：它为什么更顺手、为什么更可信、为什么更适合长期使用。",
-      "local": {
-        "title": "本地优先，而不是云优先",
-        "description": "设备在同一网络下直接通信，数据不需要先绕到中心服务器再回来。复制和粘贴保持快速，也更符合隐私直觉。"
+      "eyebrow": "核心功能",
+      "title": "用起来跟系统剪贴板一样——但跨平台、可搜索、可审计。",
+      "moreEyebrow": "更多功能",
+      "moreTitle": "你可能还想要这些。",
+      "h1": {
+        "eyebrow": "01 — 使用简单",
+        "title": "还是熟悉的 ⌘C / ⌘V。",
+        "lede": "不用打开 App、不用上传文件、不用注册账号。一台复制，另一台粘贴——就这么简单。",
+        "b1Title": "零额外步骤",
+        "b1Desc": "它是系统剪贴板的延伸，不是又一个要切换的 App。",
+        "b2Title": "系统原生快捷键",
+        "b2Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴——肌肉记忆零成本。",
+        "b3Title": "自动恢复",
+        "b3Desc": "Wi-Fi 切换、休眠唤醒后自动重连，无需重新配对。",
+        "mediaCaption": "demo · ⌘C → ⌘V"
       },
-      "frictionless": {
-        "title": "少一步确认，少一次打断",
-        "description": "完成一次配对后，UniClipboard 会在后台自动重连。你不需要为每次跨设备复制都重新做一遍流程。"
+      "h2": {
+        "eyebrow": "02 — 隐私优先",
+        "title": "中继看到的，只有密文。",
+        "lede": "内容在源设备加密，只在你的设备上解密。密钥存放在系统 Keyring 里，永远不离开本机。",
+        "b1Title": "端到端加密",
+        "b1Desc": "XChaCha20-Poly1305 AEAD——传输和本地存储均加密。",
+        "b2Title": "无需云账号",
+        "b2Desc": "不绑邮箱、不绑手机号——两台设备交换一次公钥就够了。",
+        "b3Title": "可审计",
+        "b3Desc": "开源（AGPL-3.0）。加密实现你可以自己读、自己验证。",
+        "mediaCaption": "illustration · ciphertext through relay"
       },
-      "private": {
-        "title": "默认加密，可解释，可审计",
-        "description": "内容在离开设备前就被加密，不依赖你去「相信」平台会善待数据。这是一个可以被解释清楚的同步方式。"
+      "h3": {
+        "eyebrow": "03 — 跨平台 · 跨网络",
+        "title": "不止于 LAN，也不限于单一网络。",
+        "lede": "Windows、macOS、Linux 全平台原生支持。同一 Wi-Fi 实时直连；跨网络自动 NAT 打洞，连不通时回退到加密中继。",
+        "b1Title": "三平台原生",
+        "b1Desc": "不是 Electron 套壳——基于 Rust + Tauri。",
+        "b2Title": "直连优先",
+        "b2Desc": "同网络的设备走 P2P，不绕中继。",
+        "b3Title": "跨网络也能用",
+        "b3Desc": "跨家庭、办公室、互联网时自动打洞，失败时回退到加密中继。",
+        "mediaCaption": "illustration · 3 devices · LAN + relay"
+      },
+      "more": {
+        "f1Title": "跨平台",
+        "f1Desc": "Windows、macOS、Linux 全平台原生支持——剪贴板跟着你走。",
+        "f4Title": "本地全文搜索",
+        "f4Desc": "即便有上万条记录，也能毫秒级搜遍历史。索引在磁盘上同样保持加密。",
+        "f6Title": "Quick Panel",
+        "f6Desc": "快捷键唤起的悬浮面板，文本、链接、图片、代码、文件都有内联预览——就像系统剪贴板的一部分。",
+        "f5Title": "文本、图片与文件",
+        "f5Desc": "一台复制，另一台粘贴。大文件采用流式传输，不必整个加载到内存。",
+        "f7Title": "命令行",
+        "f7Desc": "uniclip CLI 提供与图形界面一致的能力，且支持无头运行——为终端、SSH、脚本和 tmux 而生。",
+        "f9Title": "多设备管理",
+        "f9Desc": "管理已配对设备、在线状态，并可为每台设备单独配置同步偏好。设备丢了？在任意一台已配对设备上即可吊销。"
       }
     },
     "howItWorks": {
-      "eyebrow": "它如何工作",
-      "title": "三步就够了。",
-      "subtitle": "先建立信任，再让同步退到后台。",
-      "step1": {
-        "title": "配对一次",
-        "description": "首次连接时确认受信设备，建立一对一信任关系。之后不需要每次复制都重新授权。"
-      },
-      "step2": {
-        "title": "自动重连",
-        "description": "设备回到同一网络后会在后台重新连接，尽量不打断你当前正在做的事。"
-      },
-      "step3": {
-        "title": "直接、安全地同步",
-        "description": "剪贴板内容在离开设备前就加密，再通过你自己的网络直接传输，而不是走一层你看不见的中转。"
-      },
-      "securityEyebrow": "安全说明",
-      "securityTitle": "你的数据不该为了方便而被交出去。",
-      "securityDescription": "UniClipboard 尽量减少平台知道的内容，同时让用户能明白同步到底是怎么发生的。",
-      "security": {
-        "fact1": "不需要注册账号，也不强制绑定邮箱或手机号。",
-        "fact2": "剪贴板内容在本地加密，传输过程保持端到端加密。",
-        "fact3": "如果你想看得更深，可以直接阅读安全技术白皮书。"
-      },
-      "whitepaperCta": "查看白皮书",
-      "downloadCta": "直接下载"
-    },
-    "audience": {
-      "title": "为现代工作流而生",
-      "developer": "开发者",
-      "creator": "内容创作者",
-      "designer": "UI/UX 设计师",
-      "admin": "系统管理员",
-      "geek": "极客用户"
-    },
-    "cta": {
-      "badge": "开始使用",
-      "title": "复制一次，",
-      "titleLine2": "随处粘贴。",
-      "description": "下载桌面端应用，开始在所有设备之间同步剪贴板。",
-      "placeholder": "输入您的电子邮箱",
-      "button": "立即下载",
-      "note": "免费且开源，无需注册账号。"
+      "eyebrow": "工作原理",
+      "title": "配对一次，之后只剩复制和粘贴。",
+      "step1Title": "本地配对",
+      "step1Desc": "设备之间在本地交换一次公钥——无需云账号，也不需要邮箱。在已有设备上生成一个短期邀请码，新设备输入邀请码和 Space 口令即可加入。",
+      "step2Title": "加密传输",
+      "step2Desc": "内容在源设备完成加密，密文走 P2P 直连（同 Wi-Fi 或跨网 NAT 打洞）；连不通时回退到加密中继。加密与传输彼此独立——即便中继被攻陷，也只能看到密文。",
+      "step3Title": "本地解密、本地存储",
+      "step3Desc": "解密只在你自己的设备上完成。本地历史与全文搜索索引在磁盘上同样加密。Wi-Fi 切换、休眠唤醒或短暂掉线后会自动恢复连接。"
     },
     "download": {
-      "sectionTitle": "下载最新版本",
-      "sectionDescription": "选择您的平台下载最新版本。如果版本源信息暂时不可用，请使用后备发布页面。",
-      "degradedNotice": "版本详情暂时不可用。",
-      "fallbackAction": "打开最新发布页",
-      "metadataUnavailable": "元数据不可用",
-      "freshnessHint": "状态信息会每小时自动刷新。",
-      "latestVersionLabel": "最新版本",
-      "publishedAtLabel": "发布时间",
-      "unavailableValue": "不可用",
+      "eyebrow": "下载最新版本",
+      "title": "选择你的平台。",
+      "description": "在下方选择你的平台，下载最新版本。如果发布信息暂未刷新，可前往备用发布页查看。",
+      "versionLabel": "版本",
+      "publishedLabel": "发布时间",
+      "channelLabel": "通道",
+      "channelStable": "stable",
+      "openRelease": "查看发布页",
+      "fallback": "所有版本",
+      "freshnessHint": "状态信息每小时自动刷新。",
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
       "platformLinux": "Linux",
-      "noDownloadsForPlatform": "暂无可用下载。"
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "downloadAction": "下载",
+      "recommended": "推荐",
+      "noDownloads": "暂无可用下载。",
+      "degradedNotice": "版本详情暂时不可用。",
+      "metadataUnavailable": "元数据不可用",
+      "unavailableValue": "不可用"
     },
     "faq": {
-      "eyebrow": "常见问题",
-      "title": "在你决定之前。",
-      "subtitle": "真正影响决定的几个问题。",
+      "eyebrow": "FAQ",
+      "title": "你可能想问的几件事。",
       "item1": {
-        "q": "UniClipboard 是做什么的？",
-        "a": "UniClipboard 是一个跨设备剪贴板同步工具，让你在 Mac / Windows / Linux 之间无缝复制、粘贴文本和文件。\n它的核心目标只有一个：在不牺牲隐私的前提下，让多设备协作变得自然。"
+        "q": "为什么不直接用 iCloud 通用剪贴板？",
+        "a": "如果你只用 Apple 设备、不需要剪贴板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
       },
       "item2": {
-        "q": "和 iCloud / Windows 剪贴板 / 第三方工具有什么不同？",
-        "a": "最大的不同在于三点：\n- 隐私优先：数据端到端加密，不做云端明文存储\n- 去中心化设计：设备之间直接通信，不依赖中心服务器\n- 开源 & 可审计：你可以清楚知道数据去了哪里、怎么被处理\n如果你在意「剪贴板里到底包含了什么」，这正是 UniClipboard 想解决的问题。"
+        "q": "为什么不用自托管的剪贴板同步（例如 ClipCascade）？",
+        "a": "自托管意味着你得自己运维一台服务器。UniClipboard 开箱即用——P2P 直连为主，加密中继只作兜底。你完全不用维护任何基础设施。"
       },
       "item3": {
-        "q": "我的数据安全吗？",
-        "a": "数据不会上传到云端，也没有人能偷看。\n- 剪贴板数据在本地加密\n- 传输过程端到端加密\n- 没有中心服务器存储数据\n即使是开发者本人，也无法解密你的剪贴板内容。"
+        "q": "可以纯离线 / 只在局域网内工作吗？",
+        "a": "可以。同一 Wi-Fi 下的设备会直接互联，不经过中继。即便中继不可达，同网络的设备之间也能继续同步。"
       },
       "item4": {
-        "q": "收费吗？",
-        "a": "局域网同步完全免费，因为不涉及任何服务器运营成本。\n未来我们会支持跨公网的数据同步，这部分可能会收费。"
+        "q": "剪贴板历史到底存在哪里？",
+        "a": "只存在你自己的设备上。本地数据在磁盘上加密保存，密钥放在系统 Keyring 内，永不离开本机。任何 UniClipboard 的服务器都不会接收或存储剪贴板内容。"
       },
       "item5": {
-        "q": "支持哪些平台？",
-        "a": "目前支持桌面端（Windows、macOS、Linux）。\n移动端正在计划中。"
+        "q": "支持移动端（iOS / Android）吗？",
+        "a": "暂不支持。当前版本专注做好 Windows、macOS、Linux 三个桌面平台。移动端在我们的规划之中，但系统层面的剪贴板权限和后台运行限制需要先妥善解决——我们会在准备好之后再发布，而不是赶着上线。"
       }
     },
     "footer": {
-      "tagline": "一个更安静、更可信的跨设备剪贴板同步。",
-      "twitter": "推特 / X",
-      "github": "GitHub",
-      "whitepaper": "白皮书",
-      "download": "下载",
-      "copyright": "© 2026 UNICLIPBOARD."
+      "thanksTitle": "致谢",
+      "thanksDesc": "跨设备剪贴板同步——端到端加密、开源可审计。数据只在你自己的设备之间流动，不经过任何云账号。",
+      "linksTitle": "链接",
+      "repo": "仓库",
+      "issues": "Issues",
+      "releases": "Releases",
+      "docs": "README",
+      "legalTitle": "协议",
+      "license": "AGPL-3.0",
+      "madeBy": "UniClipboard contributors",
+      "contactTitle": "联系",
+      "twitter": "X (Twitter)",
+      "email": "hello@uniclipboard.app",
+      "copyright": "© 2026 UniClipboard contributors",
+      "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
   },
   "whitepaper": {

@@ -153,6 +153,7 @@ export async function HeroSection({ release, stars }: Props) {
               playLabel={t("videoPlay")}
               pauseLabel={t("videoPause")}
               videoLabel={t("videoLabel")}
+              seekLabel={t("videoSeek")}
             />
           </AnimateIn>
 

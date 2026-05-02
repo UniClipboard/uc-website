@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 
 import { ArrowLeft } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -160,8 +160,13 @@ const markdownComponents: Components = {
 
 const WhitepaperPage = async () => {
   const t = await getTranslations("whitepaper");
-  const filePath = path.join(process.cwd(), "content", "whitepaper.md");
-  const content = await fs.readFile(filePath, "utf8");
+  const locale = await getLocale();
+  const localizedFile = `whitepaper.${locale}.md`;
+  const localizedPath = path.join(process.cwd(), "content", localizedFile);
+  const fallbackPath = path.join(process.cwd(), "content", "whitepaper.md");
+  const content = await fs
+    .readFile(localizedPath, "utf8")
+    .catch(() => fs.readFile(fallbackPath, "utf8"));
 
   return (
     <div className="bg-background paper-texture selection:bg-primary/20 min-h-screen">

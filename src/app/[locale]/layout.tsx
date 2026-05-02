@@ -20,6 +20,16 @@ export async function generateMetadata({
   const isDefault = locale === routing.defaultLocale;
   const canonicalUrl = isDefault ? "/" : `/${locale}`;
 
+  const ogImage = {
+    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    width: 1730,
+    height: 909,
+    alt:
+      locale === "zh"
+        ? "UniClipboard — 在 Mac 上复制，在 Windows 上粘贴"
+        : "UniClipboard — Copy on your Mac. Paste on your Windows.",
+  };
+
   return {
     alternates: {
       canonical: canonicalUrl,
@@ -45,28 +55,15 @@ export async function generateMetadata({
       title: siteConfig.title,
       description: siteConfig.description,
       siteName: siteConfig.title,
-      images: [
-        {
-          url: "/opengraph-image.jpg",
-          width: 1584,
-          height: 672,
-          alt: "UniClipboard - Privacy-first clipboard sync",
-        },
-      ],
+      locale: locale === "zh" ? "zh_CN" : "en_US",
+      images: [ogImage],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: siteConfig.title,
       description: siteConfig.description,
-      images: [
-        {
-          url: "/opengraph-image.jpg",
-          width: 1584,
-          height: 672,
-          alt: "UniClipboard - Privacy-first clipboard sync",
-        },
-      ],
+      images: [ogImage],
     },
   };
 }

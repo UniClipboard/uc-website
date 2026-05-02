@@ -11,234 +11,20 @@ import { getTranslations } from "next-intl/server";
 import type { ReactElement } from "react";
 
 import { AnimateIn, StaggerChild, StaggerIn } from "./AnimateIn";
+import { EncryptionFlow } from "./illustrations/EncryptionFlow";
+import { NetworkFlow } from "./illustrations/NetworkFlow";
+import { PowerFlow } from "./illustrations/PowerFlow";
 
 type Hero = {
   ns: "h1" | "h2" | "h3";
   Illustration: () => ReactElement;
+  animated?: boolean;
 };
 
-function IllPrivacy() {
-  return (
-    <svg
-      width="340"
-      height="200"
-      viewBox="0 0 340 200"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect
-        x="10"
-        y="70"
-        width="80"
-        height="60"
-        rx="8"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="250"
-        y="70"
-        width="80"
-        height="60"
-        rx="8"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="140"
-        y="80"
-        width="60"
-        height="40"
-        rx="6"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeDasharray="3 3"
-      />
-      <text
-        x="148"
-        y="105"
-        fontFamily="ui-monospace, monospace"
-        fontSize="11"
-        fill="currentColor"
-      >
-        0xA3F1…
-      </text>
-      <path d="M90 100 H140" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M200 100 H250" stroke="currentColor" strokeWidth="1.6" />
-      <circle cx="170" cy="50" r="10" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M165 50 V46 a5 5 0 0 1 10 0 V50"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        fill="none"
-      />
-    </svg>
-  );
-}
-
-function IllNetwork() {
-  return (
-    <svg
-      width="340"
-      height="200"
-      viewBox="0 0 340 200"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect
-        x="20"
-        y="30"
-        width="80"
-        height="50"
-        rx="6"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="240"
-        y="30"
-        width="80"
-        height="50"
-        rx="6"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="130"
-        y="120"
-        width="80"
-        height="50"
-        rx="6"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path d="M100 55 H240" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M60 80 Q60 130 130 145"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeDasharray="4 4"
-        fill="none"
-      />
-      <path
-        d="M280 80 Q280 130 210 145"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeDasharray="4 4"
-        fill="none"
-      />
-      <text
-        x="150"
-        y="145"
-        fontFamily="ui-monospace, monospace"
-        fontSize="10"
-        fill="currentColor"
-      >
-        relay
-      </text>
-    </svg>
-  );
-}
-
-function IllPower() {
-  return (
-    <svg
-      width="340"
-      height="200"
-      viewBox="0 0 340 200"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect
-        x="40"
-        y="30"
-        width="260"
-        height="140"
-        rx="10"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="56"
-        y="46"
-        width="228"
-        height="22"
-        rx="5"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeDasharray="3 3"
-      />
-      <text
-        x="64"
-        y="62"
-        fontFamily="ui-monospace, monospace"
-        fontSize="10"
-        fill="currentColor"
-      >
-        ⌘ search clipboard…
-      </text>
-      <rect
-        x="56"
-        y="78"
-        width="228"
-        height="20"
-        rx="4"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <rect
-        x="56"
-        y="104"
-        width="228"
-        height="20"
-        rx="4"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <rect
-        x="56"
-        y="130"
-        width="228"
-        height="20"
-        rx="4"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <text
-        x="64"
-        y="92"
-        fontFamily="ui-monospace, monospace"
-        fontSize="9"
-        fill="currentColor"
-      >
-        const url = …
-      </text>
-      <text
-        x="64"
-        y="118"
-        fontFamily="ui-monospace, monospace"
-        fontSize="9"
-        fill="currentColor"
-      >
-        screenshot.png
-      </text>
-      <text
-        x="64"
-        y="144"
-        fontFamily="ui-monospace, monospace"
-        fontSize="9"
-        fill="currentColor"
-      >
-        ssh user@host
-      </text>
-    </svg>
-  );
-}
-
 const heroes: Hero[] = [
-  { ns: "h1", Illustration: IllPrivacy },
-  { ns: "h2", Illustration: IllNetwork },
-  { ns: "h3", Illustration: IllPower },
+  { ns: "h1", Illustration: EncryptionFlow, animated: true },
+  { ns: "h2", Illustration: NetworkFlow, animated: true },
+  { ns: "h3", Illustration: PowerFlow, animated: true },
 ];
 
 type More = { icon: LucideIcon; key: string };
@@ -255,47 +41,35 @@ function HeroBlock({
   t,
   ns,
   Illustration,
+  animated,
   flip,
   isLast,
 }: {
   t: (k: string) => string;
   ns: Hero["ns"];
   Illustration: () => ReactElement;
+  animated?: boolean;
   flip: boolean;
   isLast: boolean;
 }) {
   const media = (
     <AnimateIn delay={0.08} duration={0.6}>
       <div
-        className="border-border bg-bg2 relative flex items-end justify-between overflow-hidden rounded-[18px] border p-[18px]"
+        className="border-border bg-bg2 relative overflow-hidden rounded-[18px] border"
         style={{
           aspectRatio: "16 / 10",
           backgroundImage:
             "repeating-linear-gradient(135deg, var(--hair2) 0 1px, transparent 1px 16px)",
         }}
       >
-        <div className="text-foreground pointer-events-none absolute inset-0 flex items-center justify-center opacity-40">
+        <div
+          className={
+            animated
+              ? "text-foreground absolute inset-0 flex items-center justify-center"
+              : "text-foreground pointer-events-none absolute inset-0 flex items-center justify-center opacity-40"
+          }
+        >
           <Illustration />
-        </div>
-        <div
-          className="text-muted2 relative"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 11,
-            letterSpacing: "0.04em",
-          }}
-        >
-          {`// ${t(`${ns}.mediaCaption`)}`}
-        </div>
-        <div
-          className="text-muted2 relative"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 11,
-            letterSpacing: "0.04em",
-          }}
-        >
-          16 : 10
         </div>
       </div>
     </AnimateIn>
@@ -429,6 +203,7 @@ export async function FeaturesSection() {
               t={t}
               ns={h.ns}
               Illustration={h.Illustration}
+              animated={h.animated}
               flip={i % 2 === 1}
               isLast={i === heroes.length - 1}
             />
@@ -462,15 +237,15 @@ export async function FeaturesSection() {
               const Icon = it.icon;
               return (
                 <StaggerChild key={it.key}>
-                  <div className="border-border flex h-full flex-col gap-2.5 border-r border-b p-6">
-                    <div className="bg-bg2 mb-1.5 flex size-7 items-center justify-center rounded-[7px]">
+                  <div className="border-border group relative flex h-full flex-col gap-2.5 border-r border-b p-6 transition-colors duration-300 hover:bg-[var(--hair2)]">
+                    <div className="bg-bg2 group-hover:bg-foreground mb-1.5 flex size-7 items-center justify-center rounded-[7px] transition-all duration-300 group-hover:scale-105">
                       <Icon
-                        className="text-foreground size-[15px]"
+                        className="text-foreground group-hover:text-background size-[15px] transition-colors duration-300"
                         strokeWidth={1.6}
                       />
                     </div>
                     <div
-                      className="text-foreground"
+                      className="text-foreground transition-transform duration-300 group-hover:translate-x-0.5"
                       style={{
                         fontSize: 15,
                         fontWeight: 600,
@@ -480,7 +255,7 @@ export async function FeaturesSection() {
                       {tMore(`${it.key}Title`)}
                     </div>
                     <div
-                      className="text-muted-foreground"
+                      className="text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300"
                       style={{ fontSize: 13, lineHeight: 1.55 }}
                     >
                       {tMore(`${it.key}Desc`)}

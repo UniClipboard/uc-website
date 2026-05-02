@@ -108,7 +108,7 @@ export async function Footer() {
             </div>
           </div>
 
-          {/* Legal / license */}
+          {/* Tech stack — thanks to the open source projects we build on */}
           <div>
             <div
               className="mb-[18px]"
@@ -120,25 +120,29 @@ export async function Footer() {
                 color: "var(--footer-fg-faint)",
               }}
             >
-              {t("legalTitle")}
+              {t("stackTitle")}
             </div>
-            <div
-              className="mb-1.5"
-              style={{
-                fontSize: 13,
-                color: "var(--footer-fg)",
-                opacity: 0.85,
-              }}
-            >
-              {t("license")}
-            </div>
-            <div
-              style={{
-                fontSize: 13,
-                color: "var(--footer-fg-muted)",
-              }}
-            >
-              {t("madeBy")}
+            <div className="flex flex-col gap-2 text-[13px]">
+              {[
+                { href: "https://www.rust-lang.org/", label: "Rust" },
+                { href: "https://tauri.app/", label: "Tauri" },
+                { href: "https://www.iroh.computer/", label: "iroh" },
+                { href: "https://ui.shadcn.com/", label: "shadcn/ui" },
+              ].map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "var(--footer-fg)",
+                    textDecoration: "none",
+                    opacity: 0.85,
+                  }}
+                >
+                  {l.label}
+                </a>
+              ))}
             </div>
           </div>
 
@@ -179,6 +183,29 @@ export async function Footer() {
                   <XGlyph size={12} />
                 </span>
                 <span>{t("twitter")}</span>
+              </a>
+              <a
+                href="https://x.com/mkdir700"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 py-2"
+                style={{
+                  color: "var(--footer-fg)",
+                  textDecoration: "none",
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                <span
+                  className="inline-flex size-[26px] items-center justify-center rounded-[7px]"
+                  style={{
+                    border: "1px solid var(--footer-hair)",
+                    color: "var(--footer-fg)",
+                  }}
+                >
+                  <XGlyph size={12} />
+                </span>
+                <span>{t("authorTwitter")}</span>
               </a>
               <a
                 href="mailto:hello@uniclipboard.app"

@@ -1,5 +1,5 @@
 <a href="https://next-starter-skolaczk.vercel.app/">
-<img src="/public/opengraph-image.jpg" alt="thumbnail">
+<img src="/public/og-en.jpg" alt="thumbnail">
 </a>
 <p align="center">
   <a href="#-features"><strong>Features</strong></a> ·

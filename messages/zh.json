@@ -8,7 +8,10 @@
       "faq": "FAQ",
       "github": "GitHub",
       "menu": "菜单",
-      "menuClose": "关闭菜单"
+      "menuClose": "关闭菜单",
+      "themeSystem": "跟随系统",
+      "themeLight": "浅色",
+      "themeDark": "深色"
     },
     "hero": {
       "eyebrow": "开源 · 端到端加密 · 三平台原生",
@@ -39,8 +42,7 @@
         "b2Title": "无需云账号",
         "b2Desc": "不绑邮箱、不绑手机号——两台设备交换一次公钥就够了。",
         "b3Title": "代码可审计",
-        "b3Desc": "AGPL-3.0 开源。加密实现你可以自己读、自己验证。",
-        "mediaCaption": "illustration · ciphertext through relay"
+        "b3Desc": "AGPL-3.0 开源。加密实现你可以自己读、自己验证。"
       },
       "h2": {
         "eyebrow": "02 — 跨平台 · 跨网络",
@@ -51,8 +53,7 @@
         "b2Title": "直连优先",
         "b2Desc": "同网络的设备走 P2P，不绕中继，毫秒级延迟。",
         "b3Title": "跨网络也能用",
-        "b3Desc": "跨家庭、办公室、互联网时自动打洞，失败时回退到加密中继。",
-        "mediaCaption": "illustration · 3 devices · LAN + relay"
+        "b3Desc": "跨家庭、办公室、互联网时自动打洞，失败时回退到加密中继。"
       },
       "h3": {
         "eyebrow": "03 — 重度用户友好",
@@ -63,8 +64,7 @@
         "b2Title": "本地全文搜索",
         "b2Desc": "上万条记录毫秒级搜遍历史，索引在磁盘上同样保持加密。",
         "b3Title": "uniclip CLI",
-        "b3Desc": "图形界面的能力一行命令搞定，无头运行——为终端、SSH、脚本和 tmux 而生。",
-        "mediaCaption": "demo · ⌘C → ⌘V"
+        "b3Desc": "图形界面的能力一行命令搞定，无头运行——为终端、SSH、脚本和 tmux 而生。"
       },
       "more": {
         "f1Title": "熟悉的快捷键",
@@ -225,13 +225,12 @@
       "issues": "Issues",
       "releases": "Releases",
       "docs": "README",
-      "legalTitle": "协议",
-      "license": "AGPL-3.0",
-      "madeBy": "UniClipboard contributors",
+      "stackTitle": "技术栈",
       "contactTitle": "联系",
       "twitter": "X (Twitter)",
+      "authorTwitter": "联系作者 · @mkdir700",
       "email": "hello@uniclipboard.app",
-      "copyright": "© 2026 UniClipboard contributors",
+      "copyright": "© 2026 mkdir700",
       "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
   },

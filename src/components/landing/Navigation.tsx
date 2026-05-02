@@ -10,7 +10,7 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 
 export function Navigation() {
   const t = useTranslations("landing.navigation");
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -29,8 +29,24 @@ export function Navigation() {
     };
   }, [menuOpen]);
 
-  const dark = mounted && resolvedTheme === "dark";
-  const nextTheme = theme === "dark" ? "light" : "dark";
+  const themeOrder = ["system", "light", "dark"] as const;
+  type ThemeChoice = (typeof themeOrder)[number];
+  const currentTheme: ThemeChoice =
+    theme === "light" || theme === "dark" ? theme : "system";
+  const nextTheme: ThemeChoice =
+    themeOrder[(themeOrder.indexOf(currentTheme) + 1) % themeOrder.length];
+  const themeLabels: Record<ThemeChoice, string> = {
+    system: t("themeSystem"),
+    light: t("themeLight"),
+    dark: t("themeDark"),
+  };
+  const themeIcon = !mounted ? null : currentTheme === "system" ? (
+    <Icons.monitor className="size-[14px]" />
+  ) : currentTheme === "dark" ? (
+    <Icons.moon className="size-[14px]" />
+  ) : (
+    <Icons.sun className="size-[14px]" />
+  );
 
   const switchLang = (next: "zh" | "en") => {
     if (next === locale) return;
@@ -104,16 +120,12 @@ export function Navigation() {
           <button
             type="button"
             aria-label="Toggle theme"
+            title={mounted ? themeLabels[currentTheme] : undefined}
             onClick={() => setTheme(nextTheme)}
             className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground hidden size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors sm:inline-flex"
             suppressHydrationWarning
           >
-            {mounted &&
-              (dark ? (
-                <Icons.sun className="size-[14px]" />
-              ) : (
-                <Icons.moon className="size-[14px]" />
-              ))}
+            {themeIcon}
           </button>
 
           <a
@@ -214,16 +226,12 @@ export function Navigation() {
               <button
                 type="button"
                 aria-label="Toggle theme"
+                title={mounted ? themeLabels[currentTheme] : undefined}
                 onClick={() => setTheme(nextTheme)}
                 className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground inline-flex size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors"
                 suppressHydrationWarning
               >
-                {mounted &&
-                  (dark ? (
-                    <Icons.sun className="size-[14px]" />
-                  ) : (
-                    <Icons.moon className="size-[14px]" />
-                  ))}
+                {themeIcon}
               </button>
               <a
                 href="https://github.com/UniClipboard/UniClipboard"

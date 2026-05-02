@@ -17,7 +17,10 @@ export async function HeroSection({ release, stars }: Props) {
   const tDl = await getTranslations("landing.download");
 
   return (
-    <section id="top" className="relative overflow-hidden pt-[120px] pb-[96px]">
+    <section
+      id="top"
+      className="relative isolate overflow-hidden pt-[120px] pb-[96px]"
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"

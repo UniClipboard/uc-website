@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type FaqItem = {
   q: string;
@@ -11,15 +11,43 @@ export type FaqItem = {
 
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [open, setOpen] = useState(0);
+  const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const innerRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [panelHeights, setPanelHeights] = useState<number[]>([]);
+  const [minHeight, setMinHeight] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    const measure = () => {
+      const heights = innerRefs.current.map((el) => el?.offsetHeight ?? 0);
+      const buttonsTotal = buttonRefs.current.reduce(
+        (sum, el) => sum + (el?.offsetHeight ?? 0),
+        0,
+      );
+      const panelsMax = heights.length ? Math.max(...heights) : 0;
+      setPanelHeights(heights);
+      if (buttonsTotal > 0) setMinHeight(buttonsTotal + panelsMax);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    for (const el of innerRefs.current) if (el) ro.observe(el);
+    for (const el of buttonRefs.current) if (el) ro.observe(el);
+    return () => ro.disconnect();
+  }, [items]);
 
   return (
-    <div className="border-border border-t">
+    <div className="border-border border-t" style={{ minHeight }}>
       {items.map((it, i) => {
         const isOpen = open === i;
+        const panelHeight = panelHeights[i] ?? 0;
+        const measured = panelHeights.length === items.length;
         return (
           <div key={i} className="border-border border-b">
             <button
+              ref={(el) => {
+                buttonRefs.current[i] = el;
+              }}
               type="button"
+              aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? -1 : i)}
               className="text-foreground flex w-full cursor-pointer items-center justify-between bg-transparent py-5 text-left"
               style={{
@@ -43,12 +71,17 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             </button>
             <div
               style={{
-                maxHeight: isOpen ? 480 : 0,
+                height: isOpen ? (measured ? panelHeight : "auto") : 0,
                 overflow: "hidden",
-                transition: "max-height .35s cubic-bezier(.2,.7,.3,1)",
+                transition: measured
+                  ? "height .35s cubic-bezier(.2,.7,.3,1)"
+                  : "none",
               }}
             >
               <div
+                ref={(el) => {
+                  innerRefs.current[i] = el;
+                }}
                 className="text-muted-foreground pb-[22px]"
                 style={{
                   fontSize: 15,

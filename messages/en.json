@@ -14,7 +14,10 @@
       "faq": "FAQ",
       "github": "GitHub",
       "menu": "Menu",
-      "menuClose": "Close menu"
+      "menuClose": "Close menu",
+      "themeSystem": "System",
+      "themeLight": "Light",
+      "themeDark": "Dark"
     },
     "hero": {
       "eyebrow": "Open source · End-to-end encrypted · Native on three platforms",
@@ -45,8 +48,7 @@
         "b2Title": "No cloud account",
         "b2Desc": "No email, no phone number — just two devices exchanging a public key.",
         "b3Title": "Auditable code",
-        "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself.",
-        "mediaCaption": "illustration · ciphertext through relay"
+        "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself."
       },
       "h2": {
         "eyebrow": "02 — Cross-platform · cross-network",
@@ -57,8 +59,7 @@
         "b2Title": "Direct first",
         "b2Desc": "Devices on the same network connect peer-to-peer with millisecond latency.",
         "b3Title": "Relay fallback",
-        "b3Desc": "Across home/office/internet — automatic hole-punching, encrypted relay if it fails.",
-        "mediaCaption": "illustration · 3 devices · LAN + relay"
+        "b3Desc": "Across home/office/internet — automatic hole-punching, encrypted relay if it fails."
       },
       "h3": {
         "eyebrow": "03 — Power-user friendly",
@@ -69,8 +70,7 @@
         "b2Title": "Local full-text search",
         "b2Desc": "Search the full history in milliseconds — even with tens of thousands of entries. The index stays encrypted on disk.",
         "b3Title": "uniclip CLI",
-        "b3Desc": "GUI features, one command — runs headlessly for terminals, SSH, scripts, and tmux workflows.",
-        "mediaCaption": "demo · ⌘C → ⌘V"
+        "b3Desc": "GUI features, one command — runs headlessly for terminals, SSH, scripts, and tmux workflows."
       },
       "more": {
         "f1Title": "Native shortcuts",
@@ -231,13 +231,12 @@
       "issues": "Issues",
       "releases": "Releases",
       "docs": "README",
-      "legalTitle": "License",
-      "license": "AGPL-3.0",
-      "madeBy": "UniClipboard contributors",
+      "stackTitle": "Built with",
       "contactTitle": "Contact",
       "twitter": "X (Twitter)",
+      "authorTwitter": "Author · @mkdir700",
       "email": "hello@uniclipboard.app",
-      "copyright": "© 2026 UniClipboard contributors",
+      "copyright": "© 2026 mkdir700",
       "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
   },

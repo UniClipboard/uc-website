@@ -73,6 +73,7 @@ export function DownloadFocus({
 }: DownloadFocusProps) {
   const [primaryOS, setPrimaryOS] = useState<Group["os"]>("mac");
   const [activeTab, setActiveTab] = useState<Group["os"]>("mac");
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const os = detectOS();
@@ -184,7 +185,7 @@ export function DownloadFocus({
           </>
         ) : (
           activeGroup.items.map((it, i) => {
-            const isPrimary = i === 0;
+            const isPrimary = hoveredIdx === i;
             const fg = isPrimary ? "var(--background)" : "var(--foreground)";
             const bg = isPrimary ? "var(--foreground)" : "transparent";
             const border = isPrimary ? "var(--foreground)" : "var(--border)";
@@ -201,7 +202,11 @@ export function DownloadFocus({
               <a
                 key={`${it.arch}-${i}`}
                 href={it.url}
-                className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5 transition-transform hover:-translate-y-[1px]"
+                onMouseEnter={() => setHoveredIdx(i)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                onFocus={() => setHoveredIdx(i)}
+                onBlur={() => setHoveredIdx(null)}
+                className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5 transition-[transform,background-color,color,border-color] duration-200 hover:-translate-y-[1px]"
                 style={{
                   background: bg,
                   color: fg,

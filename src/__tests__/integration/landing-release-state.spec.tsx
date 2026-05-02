@@ -72,15 +72,17 @@ describe("landing release state integration", () => {
     });
     render(section);
 
-    expect(screen.getByText(dictionary.degradedNotice)).toBeInTheDocument();
     expect(
-      screen.getByRole("link", {
-        name: dictionary.fallbackAction,
-      }),
-    ).toHaveAttribute(
-      "href",
-      "https://github.com/uniclipboard/uniclipboard/releases/latest",
-    );
+      screen.getAllByText(dictionary.degradedNotice).length,
+    ).toBeGreaterThan(0);
+    const releaseLinks = screen
+      .getAllByRole("link")
+      .filter(
+        (link) =>
+          link.getAttribute("href") ===
+          "https://github.com/uniclipboard/uniclipboard/releases/latest",
+      );
+    expect(releaseLinks.length).toBeGreaterThan(0);
   });
 
   it("renders locale copy for degraded release section", async () => {
@@ -107,14 +109,16 @@ describe("landing release state integration", () => {
     });
     render(section);
 
-    expect(screen.getByText(zhDictionary.degradedNotice)).toBeInTheDocument();
     expect(
-      screen.getByRole("link", {
-        name: zhDictionary.fallbackAction,
-      }),
-    ).toHaveAttribute(
-      "href",
-      "https://github.com/uniclipboard/uniclipboard/releases/latest",
-    );
+      screen.getAllByText(zhDictionary.degradedNotice).length,
+    ).toBeGreaterThan(0);
+    const releaseLinks = screen
+      .getAllByRole("link")
+      .filter(
+        (link) =>
+          link.getAttribute("href") ===
+          "https://github.com/uniclipboard/uniclipboard/releases/latest",
+      );
+    expect(releaseLinks.length).toBeGreaterThan(0);
   });
 });

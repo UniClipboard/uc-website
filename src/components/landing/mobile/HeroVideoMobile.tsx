@@ -7,6 +7,7 @@ type Props = {
   playLabel: string;
   pauseLabel: string;
   videoLabel: string;
+  seekLabel: string;
 };
 
 const fmt = (s: number) => {
@@ -16,7 +17,7 @@ const fmt = (s: number) => {
   return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 };
 
-export function HeroVideoMobile({ playLabel, pauseLabel, videoLabel }: Props) {
+export function HeroVideoMobile({ playLabel, pauseLabel, videoLabel, seekLabel }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasVideo, setHasVideo] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -70,7 +71,6 @@ export function HeroVideoMobile({ playLabel, pauseLabel, videoLabel }: Props) {
     <div className="relative w-full">
       <div
         role="presentation"
-        aria-label={videoLabel}
         onClick={toggle}
         className="relative w-full overflow-hidden rounded-[14px] bg-[#0A0A0A]"
         style={{
@@ -86,6 +86,7 @@ export function HeroVideoMobile({ playLabel, pauseLabel, videoLabel }: Props) {
           playsInline
           muted
           preload="auto"
+          aria-label={videoLabel}
           className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
           style={{ opacity: hasVideo ? 1 : 0 }}
         />
@@ -181,7 +182,7 @@ export function HeroVideoMobile({ playLabel, pauseLabel, videoLabel }: Props) {
 
         <div
           role="slider"
-          aria-label="Seek"
+          aria-label={seekLabel}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(progress)}

@@ -34,7 +34,8 @@
       "videoLabel": "uniclipboard — demo.mp4",
       "videoPlay": "Play demo",
       "videoPause": "Pause",
-      "videoDuration": "00:60"
+      "videoDuration": "00:60",
+      "videoSeek": "Seek"
     },
     "features": {
       "eyebrow": "Features",

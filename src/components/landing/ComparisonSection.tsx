@@ -332,6 +332,7 @@ export async function ComparisonSection() {
                         borderLeft:
                           idx === 0 ? "none" : "1px solid var(--hair2)",
                       }}
+                      aria-label={row.cells[tool]}
                     >
                       <VerdictGlyph verdict={row.verdicts[tool]} />
                     </div>

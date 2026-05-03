@@ -17,7 +17,12 @@ const fmt = (s: number) => {
   return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 };
 
-export function HeroVideoMobile({ playLabel, pauseLabel, videoLabel, seekLabel }: Props) {
+export function HeroVideoMobile({
+  playLabel,
+  pauseLabel,
+  videoLabel,
+  seekLabel,
+}: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasVideo, setHasVideo] = useState(false);
   const [playing, setPlaying] = useState(false);

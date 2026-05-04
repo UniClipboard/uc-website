@@ -244,8 +244,9 @@
       "docs": "README",
       "stackTitle": "技术栈",
       "contactTitle": "联系",
-      "twitter": "X (Twitter)",
-      "authorTwitter": "联系作者 · @mkdir700",
+      "twitter": "X · @uniclipboard",
+      "authorTwitter": "X · @mkdir700",
+      "bilibili": "B站 · @mkdir700",
       "email": "hello@uniclipboard.app",
       "copyright": "© 2026 mkdir700",
       "rustNote": "made with Rust 🦀 · AGPL-3.0"

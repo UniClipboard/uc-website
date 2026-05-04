@@ -18,6 +18,23 @@ function XGlyph({ size = 12 }: { size?: number }) {
   );
 }
 
+function BilibiliGlyph({ size = 13 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      aria-hidden
+      style={{ display: "block" }}
+    >
+      <path
+        d="M18.223 3.086a1.25 1.25 0 0 1 0 1.768L17.08 5.997l.831.001a3.5 3.5 0 0 1 3.5 3.5v8a3.5 3.5 0 0 1-3.5 3.5h-12a3.5 3.5 0 0 1-3.5-3.5v-8a3.5 3.5 0 0 1 3.5-3.5l.83-.001-1.142-1.143a1.25 1.25 0 1 1 1.768-1.768L9.732 5.999h4.535l2.188-2.913a1.25 1.25 0 0 1 1.768 0ZM17.911 8.5h-12a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1Zm-9.286 2.97a1.25 1.25 0 0 1 1.25 1.25v1.06a1.25 1.25 0 1 1-2.5 0v-1.06a1.25 1.25 0 0 1 1.25-1.25Zm6.75 0a1.25 1.25 0 0 1 1.25 1.25v1.06a1.25 1.25 0 1 1-2.5 0v-1.06a1.25 1.25 0 0 1 1.25-1.25Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 export async function Footer() {
   const t = await getTranslations("landing.footer");
 
@@ -72,7 +89,7 @@ export async function Footer() {
             >
               {t("linksTitle")}
             </div>
-            <div className="flex flex-col gap-2 text-[13px]">
+            <div className="flex flex-col gap-1 text-[13px]">
               {[
                 {
                   href: "https://github.com/UniClipboard/UniClipboard",
@@ -96,6 +113,7 @@ export async function Footer() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex min-h-8 items-center"
                   style={{
                     color: "var(--footer-fg)",
                     textDecoration: "none",
@@ -122,7 +140,7 @@ export async function Footer() {
             >
               {t("stackTitle")}
             </div>
-            <div className="flex flex-col gap-2 text-[13px]">
+            <div className="flex flex-col gap-1 text-[13px]">
               {[
                 { href: "https://www.rust-lang.org/", label: "Rust" },
                 { href: "https://tauri.app/", label: "Tauri" },
@@ -134,6 +152,7 @@ export async function Footer() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex min-h-8 items-center"
                   style={{
                     color: "var(--footer-fg)",
                     textDecoration: "none",
@@ -165,7 +184,7 @@ export async function Footer() {
                 href="https://x.com/uniclipboard"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 py-2"
+                className="inline-flex min-h-8 items-center gap-2.5"
                 style={{
                   color: "var(--footer-fg)",
                   textDecoration: "none",
@@ -188,7 +207,7 @@ export async function Footer() {
                 href="https://x.com/mkdir700"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 py-2"
+                className="inline-flex min-h-8 items-center gap-2.5"
                 style={{
                   color: "var(--footer-fg)",
                   textDecoration: "none",
@@ -208,8 +227,31 @@ export async function Footer() {
                 <span>{t("authorTwitter")}</span>
               </a>
               <a
+                href="https://space.bilibili.com/473609649"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-8 items-center gap-2.5"
+                style={{
+                  color: "var(--footer-fg)",
+                  textDecoration: "none",
+                  fontSize: 13,
+                  fontWeight: 500,
+                }}
+              >
+                <span
+                  className="inline-flex size-[26px] items-center justify-center rounded-[7px]"
+                  style={{
+                    border: "1px solid var(--footer-hair)",
+                    color: "var(--footer-fg)",
+                  }}
+                >
+                  <BilibiliGlyph size={13} />
+                </span>
+                <span>{t("bilibili")}</span>
+              </a>
+              <a
                 href="mailto:hello@uniclipboard.app"
-                className="inline-flex items-center gap-2.5 py-2"
+                className="inline-flex min-h-8 items-center gap-2.5"
                 style={{
                   color: "var(--footer-fg)",
                   textDecoration: "none",

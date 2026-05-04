@@ -1,71 +1,30 @@
 "use client";
 
-import { Pause, Play } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Play } from "lucide-react";
+import { useState } from "react";
+
+import { HeroVideoModal } from "./HeroVideoModal";
 
 type HeroVideoProps = {
   playLabel: string;
-  pauseLabel: string;
-  durationLabel: string;
   videoLabel: string;
+  openLabel: string;
+  closeLabel: string;
 };
 
-const fmt = (s: number) => {
-  if (!s || !isFinite(s)) return "00:00";
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-};
+const VIDEO_SRC = "/video/demo.mp4";
+const POSTER_SRC = "/video/demo-poster.jpg";
 
 export function HeroVideo({
   playLabel,
-  pauseLabel,
-  durationLabel,
   videoLabel,
+  openLabel,
+  closeLabel,
 }: HeroVideoProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasVideo, setHasVideo] = useState(false);
-  const [playing, setPlaying] = useState(false);
   const [hover, setHover] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const onLoaded = () => {
-      setHasVideo(true);
-      setDuration(v.duration || 0);
-    };
-    const onTime = () => {
-      setCurrentTime(v.currentTime || 0);
-      if (v.duration) setProgress((v.currentTime / v.duration) * 100);
-    };
-    const onPlayEvt = () => setPlaying(true);
-    const onPauseEvt = () => setPlaying(false);
-    v.addEventListener("loadeddata", onLoaded);
-    v.addEventListener("timeupdate", onTime);
-    v.addEventListener("play", onPlayEvt);
-    v.addEventListener("pause", onPauseEvt);
-    if (v.readyState >= 2) onLoaded();
-    return () => {
-      v.removeEventListener("loadeddata", onLoaded);
-      v.removeEventListener("timeupdate", onTime);
-      v.removeEventListener("play", onPlayEvt);
-      v.removeEventListener("pause", onPauseEvt);
-    };
-  }, []);
-
-  const onPlay = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    const v = videoRef.current;
-    if (!v || !hasVideo) return;
-    if (v.paused) v.play();
-    else v.pause();
-  };
-
-  const showControls = (hover || !playing) && hasVideo;
+  const openModal = () => setOpen(true);
 
   return (
     <div
@@ -73,7 +32,6 @@ export function HeroVideo({
       onMouseLeave={() => setHover(false)}
       className="relative w-full"
     >
-      {/* Ambient brand glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute -z-10"
@@ -87,70 +45,50 @@ export function HeroVideo({
         }}
       />
 
-      {/* Cinematic video card */}
       <div
-        role="presentation"
-        aria-label={videoLabel}
-        onClick={onPlay}
+        role="button"
+        tabIndex={0}
+        aria-label={openLabel}
+        onClick={openModal}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            onPlay();
+            openModal();
           }
         }}
-        className="relative w-full overflow-hidden rounded-[20px] bg-[#0A0A0A] transition-all duration-500"
+        className="relative w-full cursor-pointer overflow-hidden rounded-[20px] bg-[#0A0A0A] transition-all duration-500"
         style={{
           aspectRatio: "16 / 9",
-          cursor: hasVideo ? "pointer" : "default",
           boxShadow: hover
             ? "0 60px 120px -28px rgba(10,10,10,0.34), 0 24px 48px -22px rgba(10,10,10,0.20), 0 0 0 1px rgba(10,10,10,0.10)"
             : "0 40px 90px -30px rgba(10,10,10,0.22), 0 16px 32px -16px rgba(10,10,10,0.12), 0 0 0 1px rgba(10,10,10,0.07)",
           transform: hover ? "translateY(-3px)" : "translateY(0)",
         }}
       >
-        <video
-          ref={videoRef}
-          src="/video/demo.mp4"
-          playsInline
-          muted
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
-          style={{ opacity: hasVideo ? 1 : 0 }}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={POSTER_SRC}
+          alt=""
+          aria-hidden
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
         />
 
-        {/* Loading shimmer when no video */}
-        {!hasVideo && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 overflow-hidden"
-          >
-            <div
-              className="absolute inset-y-0 w-[40%]"
-              style={{
-                background:
-                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
-                animation: "uc-shimmer 2.4s linear infinite",
-                left: "-40%",
-              }}
-            />
-          </div>
-        )}
-
-        {/* Center play affordance — visible while paused */}
         <div
           className="pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300"
           style={{
-            opacity: !playing && hasVideo ? 1 : 0,
             background:
-              !playing && hasVideo
-                ? "radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.18), rgba(0,0,0,0.32))"
-                : "transparent",
+              "radial-gradient(60% 70% at 50% 50%, rgba(0,0,0,0.18), rgba(0,0,0,0.32))",
           }}
         >
           <button
             type="button"
-            onClick={onPlay}
-            aria-label={playLabel}
+            onClick={(e) => {
+              e.stopPropagation();
+              openModal();
+            }}
+            aria-label={openLabel}
             className="pointer-events-auto inline-flex cursor-pointer items-center gap-2.5 rounded-full pr-5 pl-4 transition-transform duration-300"
             style={{
               height: 48,
@@ -180,108 +118,8 @@ export function HeroVideo({
             {playLabel}
           </button>
         </div>
-
-        {/* Bottom scrim */}
-        <div
-          className="pointer-events-none absolute right-0 bottom-0 left-0 h-[88px] transition-opacity duration-300"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2) 55%, transparent)",
-            opacity: showControls && playing ? 1 : 0,
-          }}
-        />
-
-        {/* Bottom controls — only while playing + hover */}
-        <div
-          className="absolute right-5 bottom-4 left-5 flex items-center gap-3 transition-opacity duration-300"
-          style={{ opacity: showControls && playing ? 1 : 0 }}
-        >
-          <button
-            type="button"
-            onClick={onPlay}
-            aria-label={pauseLabel}
-            className="inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-full text-white transition-colors hover:bg-white/25"
-            style={{
-              background: "rgba(255,255,255,0.14)",
-              boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.22)",
-              backdropFilter: "blur(6px)",
-            }}
-          >
-            <Pause size={11} fill="white" stroke="white" />
-          </button>
-
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              color: "rgba(255,255,255,0.92)",
-              letterSpacing: "0.03em",
-              fontVariantNumeric: "tabular-nums",
-            }}
-          >
-            {fmt(currentTime)}
-          </span>
-
-          <div
-            role="slider"
-            aria-label="Seek"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={Math.round(progress)}
-            tabIndex={0}
-            onKeyDown={(e) => {
-              const v = videoRef.current;
-              if (!v || !v.duration) return;
-              if (e.key === "ArrowRight") {
-                e.preventDefault();
-                v.currentTime = Math.min(v.duration, v.currentTime + 5);
-              } else if (e.key === "ArrowLeft") {
-                e.preventDefault();
-                v.currentTime = Math.max(0, v.currentTime - 5);
-              }
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              const v = videoRef.current;
-              if (!v || !v.duration) return;
-              const r = e.currentTarget.getBoundingClientRect();
-              const pct = (e.clientX - r.left) / r.width;
-              v.currentTime = Math.max(0, Math.min(1, pct)) * v.duration;
-            }}
-            className="group relative h-[3px] flex-1 rounded-full"
-            style={{
-              background: "rgba(255,255,255,0.18)",
-              cursor: hasVideo ? "pointer" : "default",
-            }}
-          >
-            <div
-              className="absolute top-0 bottom-0 left-0 rounded-full bg-white transition-[width] duration-100 ease-linear"
-              style={{ width: `${progress}%` }}
-            />
-            <div
-              className="absolute top-1/2 h-[11px] w-[11px] -translate-y-1/2 rounded-full bg-white opacity-0 transition-opacity group-hover:opacity-100"
-              style={{
-                left: `calc(${progress}% - 5.5px)`,
-                boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
-              }}
-            />
-          </div>
-
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              color: "rgba(255,255,255,0.6)",
-              letterSpacing: "0.03em",
-              fontVariantNumeric: "tabular-nums",
-            }}
-          >
-            {hasVideo ? fmt(duration) : durationLabel}
-          </span>
-        </div>
       </div>
 
-      {/* Reflection floor */}
       <div
         aria-hidden
         className="pointer-events-none absolute"
@@ -294,6 +132,14 @@ export function HeroVideo({
             "radial-gradient(60% 100% at 50% 0%, rgba(10,10,10,0.16), rgba(10,10,10,0) 80%)",
           filter: "blur(6px)",
         }}
+      />
+
+      <HeroVideoModal
+        open={open}
+        onClose={() => setOpen(false)}
+        src={VIDEO_SRC}
+        videoLabel={videoLabel}
+        closeLabel={closeLabel}
       />
     </div>
   );

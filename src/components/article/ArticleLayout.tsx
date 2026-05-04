@@ -4,11 +4,9 @@ import { getTranslations } from "next-intl/server";
 import {
   Article,
   ArticleHero,
-  type ComparisonRow,
   ComparisonTable,
   CtaCard,
   FaqGrid,
-  type FaqItem,
   JsonLd,
   StepsSection,
   TldrSection,
@@ -17,33 +15,43 @@ import {
 } from "@/components/article/sections";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
+import type {
+  ArticleCategoryValue,
+  ArticleContent,
+  ArticleLocale,
+} from "@/lib/article-content";
 import { siteConfig } from "@/lib/site-config";
-
-export type ArticleConfig = {
-  pagePath: string;
-  namespace: string;
-  breadcrumbMiddleKey: string;
-  datePublished: string;
-  about?: string[];
-  howTo?: {
-    tools: string[];
-    totalTime?: string;
-  };
-};
 
 const localePathPrefix = (locale: string) =>
   locale === "en" ? "" : `/${locale}`;
 
+const HUB_BASE_PATH: Record<ArticleCategoryValue, string> = {
+  compare: "/compare",
+  "use-cases": "/use-cases",
+};
+
+const HUB_NAMESPACE: Record<ArticleCategoryValue, string> = {
+  compare: "compareHub",
+  "use-cases": "useCasesHub",
+};
+
+export type ArticleEntry = {
+  slug: string;
+  category: ArticleCategoryValue;
+  datePublished: string;
+};
+
+const articlePagePath = (entry: ArticleEntry) =>
+  `${HUB_BASE_PATH[entry.category]}/${entry.slug}`;
+
 export async function buildArticleMetadata(
-  config: ArticleConfig,
+  entry: ArticleEntry,
+  content: ArticleContent,
   locale: string,
 ): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace: config.namespace });
-
-  const canonical = `${localePathPrefix(locale)}${config.pagePath}`;
-  const title = t("seoTitle");
-  const description = t("seoDescription");
-  const keywords = t("seoKeywords")
+  const pagePath = articlePagePath(entry);
+  const canonical = `${localePathPrefix(locale)}${pagePath}`;
+  const keywords = content.seo.keywords
     .split(",")
     .map((k) => k.trim())
     .filter(Boolean);
@@ -52,24 +60,24 @@ export async function buildArticleMetadata(
     url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
     width: 1730,
     height: 909,
-    alt: t("ogAlt"),
+    alt: content.seo.ogAlt,
   };
 
   return {
-    title,
-    description,
+    title: content.seo.title,
+    description: content.seo.description,
     keywords,
     alternates: {
       canonical,
       languages: {
-        en: config.pagePath,
-        zh: `/zh${config.pagePath}`,
-        "x-default": config.pagePath,
+        en: pagePath,
+        zh: `/zh${pagePath}`,
+        "x-default": pagePath,
       },
     },
     openGraph: {
-      title,
-      description,
+      title: content.seo.title,
+      description: content.seo.description,
       url: `${siteConfig.url}${canonical}`,
       type: "article",
       siteName: siteConfig.brand,
@@ -78,36 +86,40 @@ export async function buildArticleMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: content.seo.title,
+      description: content.seo.description,
       images: [ogImage],
     },
   };
 }
 
-type PageProps = {
-  config: ArticleConfig;
-  locale: string;
-};
-
-export async function ArticleLayout({ config, locale }: PageProps) {
-  const t = await getTranslations({ locale, namespace: config.namespace });
-
-  const tldrItems = t.raw("tldrItems") as string[];
-  const switchSteps = t.raw("switchSteps") as string[];
-  const rows = t.raw("rows") as ComparisonRow[];
-  const faqItems = t.raw("faqItems") as FaqItem[];
+export async function ArticleLayout({
+  entry,
+  content,
+  locale,
+}: {
+  entry: ArticleEntry;
+  content: ArticleContent;
+  locale: ArticleLocale;
+}) {
+  const hubT = await getTranslations({
+    locale,
+    namespace: HUB_NAMESPACE[entry.category],
+  });
+  const breadcrumbHome = hubT("breadcrumbHome");
+  const breadcrumbParent = hubT("breadcrumbCurrent");
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
   const homePath = locale === "en" ? "/" : `/${locale}`;
-  const canonical = `${localePathPrefix(locale)}${config.pagePath}`;
+  const pagePath = articlePagePath(entry);
+  const canonical = `${localePathPrefix(locale)}${pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
-  const parentPath = config.pagePath.split("/").slice(0, -1).join("/") || "/";
+  const parentPath = HUB_BASE_PATH[entry.category];
   const parentUrl = `${baseUrl}${localePathPrefix(locale)}${parentPath}`;
 
   const aboutEntries = [
     { "@type": "SoftwareApplication" as const, name: "UniClipboard" },
-    ...(config.about ?? []).map((name) => ({
+    ...(content.about ?? []).map((name) => ({
       "@type": "SoftwareApplication" as const,
       name,
     })),
@@ -116,11 +128,11 @@ export async function ArticleLayout({ config, locale }: PageProps) {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: t("seoTitle"),
-    description: t("seoDescription"),
+    headline: content.seo.title,
+    description: content.seo.description,
     inLanguage: locale === "zh" ? "zh-CN" : "en",
-    datePublished: config.datePublished,
-    dateModified: t("lastUpdatedDate"),
+    datePublished: entry.datePublished,
+    dateModified: content.meta.lastUpdatedDate,
     mainEntityOfPage: pageUrl,
     author: { "@type": "Organization", name: siteConfig.brand, url: baseUrl },
     publisher: {
@@ -131,21 +143,21 @@ export async function ArticleLayout({ config, locale }: PageProps) {
     about: aboutEntries,
   };
 
-  const howToSchema = config.howTo
+  const howToSchema = content.howTo
     ? {
         "@context": "https://schema.org",
         "@type": "HowTo",
-        name: t("switchTitle"),
-        description: t("seoDescription"),
+        name: content.steps.title,
+        description: content.seo.description,
         inLanguage: locale === "zh" ? "zh-CN" : "en",
-        ...(config.howTo.totalTime
-          ? { totalTime: config.howTo.totalTime }
+        ...(content.howTo.totalTime
+          ? { totalTime: content.howTo.totalTime }
           : {}),
-        tool: config.howTo.tools.map((name) => ({
+        tool: content.howTo.tools.map((name) => ({
           "@type": "HowToTool",
           name,
         })),
-        step: switchSteps.map((step, i) => ({
+        step: content.steps.items.map((step, i) => ({
           "@type": "HowToStep",
           position: i + 1,
           name: step.split(/[.。]/)[0],
@@ -158,7 +170,7 @@ export async function ArticleLayout({ config, locale }: PageProps) {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: content.faq.items.map((item) => ({
       "@type": "Question",
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
@@ -172,19 +184,19 @@ export async function ArticleLayout({ config, locale }: PageProps) {
       {
         "@type": "ListItem",
         position: 1,
-        name: t("breadcrumbHome"),
+        name: breadcrumbHome,
         item: `${baseUrl}${homePath}`,
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: t(config.breadcrumbMiddleKey),
+        name: breadcrumbParent,
         item: parentUrl,
       },
       {
         "@type": "ListItem",
         position: 3,
-        name: t("breadcrumbCurrent"),
+        name: content.meta.breadcrumbCurrent,
         item: pageUrl,
       },
     ],
@@ -203,64 +215,56 @@ export async function ArticleLayout({ config, locale }: PageProps) {
       <Article>
         <ArticleHero
           breadcrumbs={[
-            { label: t("breadcrumbHome"), href: "/" },
-            { label: t(config.breadcrumbMiddleKey), href: parentPath },
-            { label: t("breadcrumbCurrent") },
+            { label: breadcrumbHome, href: "/" },
+            { label: breadcrumbParent, href: parentPath },
+            { label: content.meta.breadcrumbCurrent },
           ]}
-          eyebrow={t("eyebrow")}
-          title={t("title")}
-          subtitle={t("subtitle")}
-          lede={t("lede")}
-          lastUpdatedLabel={t("lastUpdatedLabel")}
-          lastUpdatedDate={t("lastUpdatedDate")}
+          eyebrow={content.hero.eyebrow}
+          title={content.hero.title}
+          subtitle={content.hero.subtitle}
+          lede={content.hero.lede}
+          lastUpdatedLabel={content.meta.lastUpdatedLabel}
+          lastUpdatedDate={content.meta.lastUpdatedDate}
         />
         <TldrSection
-          eyebrow={t("tldrEyebrow")}
-          title={t("tldrTitle")}
-          items={tldrItems}
+          eyebrow={content.tldr.eyebrow}
+          title={content.tldr.title}
+          items={content.tldr.items}
         />
         <TwoColumnSection
-          left={{
-            eyebrow: t("section1Eyebrow"),
-            title: t("section1Title"),
-            body: t("section1Body"),
-          }}
-          right={{
-            eyebrow: t("section2Eyebrow"),
-            title: t("section2Title"),
-            body: t("section2Body"),
-          }}
+          left={content.twoColumn.left}
+          right={content.twoColumn.right}
         />
         <ComparisonTable
-          eyebrow={t("tableEyebrow")}
-          title={t("tableTitle")}
-          featureHeader={t("tableHeader.feature")}
-          ucHeader={t("tableHeader.uc")}
-          otherHeader={t("tableHeader.other")}
-          rows={rows}
-          note={t("tableNote")}
+          eyebrow={content.comparison.eyebrow}
+          title={content.comparison.title}
+          featureHeader={content.comparison.headers.feature}
+          ucHeader={content.comparison.headers.uc}
+          otherHeader={content.comparison.headers.other}
+          rows={content.comparison.rows}
+          note={content.comparison.note || undefined}
         />
         <StepsSection
-          eyebrow={t("switchEyebrow")}
-          title={t("switchTitle")}
-          steps={switchSteps}
+          eyebrow={content.steps.eyebrow}
+          title={content.steps.title}
+          steps={content.steps.items}
         />
         <VerdictSection
-          eyebrow={t("verdictEyebrow")}
-          title={t("verdictTitle")}
-          body={t("verdictBody")}
+          eyebrow={content.verdict.eyebrow}
+          title={content.verdict.title}
+          body={content.verdict.body}
         />
         <FaqGrid
-          eyebrow={t("faqEyebrow")}
-          title={t("faqTitle")}
-          items={faqItems}
+          eyebrow={content.faq.eyebrow}
+          title={content.faq.title}
+          items={content.faq.items}
         />
         <CtaCard
-          eyebrow={t("ctaEyebrow")}
-          title={t("ctaTitle")}
-          body={t("ctaBody")}
-          primary={{ label: t("ctaPrimary"), href: "/#download" }}
-          secondary={{ label: t("ctaSecondary"), href: "/whitepaper" }}
+          eyebrow={content.cta.eyebrow}
+          title={content.cta.title}
+          body={content.cta.body}
+          primary={{ label: content.cta.primary, href: "/#download" }}
+          secondary={{ label: content.cta.secondary, href: "/whitepaper" }}
         />
       </Article>
       <Footer />

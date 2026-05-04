@@ -3,10 +3,10 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    // Database - optional for landing page only
+    // Database
     DATABASE_URL: z.string().optional(),
 
-    // App URL - optional, defaults to localhost
+    // App URL
     APP_URL: z.string().url().optional().default("http://localhost:3000"),
 
     // Search engine site verification - all optional
@@ -15,24 +15,20 @@ export const env = createEnv({
     BAIDU_SITE_VERIFICATION_ID: z.string().optional(),
     YANDEX_SITE_VERIFICATION_ID: z.string().optional(),
 
-    // GitHub OAuth - optional for landing page only
-    GITHUB_ID: z.string().optional(),
-    GITHUB_SECRET: z.string().optional(),
+    // Clerk
+    CLERK_SECRET_KEY: z.string().optional(),
 
-    // NextAuth - optional for landing page only
-    NEXTAUTH_URL: z.string().url().optional(),
-    NEXTAUTH_SECRET: z.string().optional(),
-
-    // Stripe - optional for landing page only
-    STRIPE_SECRET_KEY: z.string().optional(),
-    STRIPE_WEBHOOK_SECRET_KEY: z.string().optional(),
-    STRIPE_SUBSCRIPTION_PRICE_ID: z.string().optional(),
+    // Admin allowlist - comma-separated email addresses
+    ADMIN_EMAILS: z.string().optional(),
   },
   client: {
-    // Stripe public key - optional for landing page only
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
     // Google Analytics 4 measurement ID (e.g. G-XXXXXXXXXX)
     NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
+
+    // Clerk
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().optional(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().optional().default("/admin/sign-in"),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().optional().default("/admin/sign-in"),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -41,16 +37,13 @@ export const env = createEnv({
     BING_SITE_VERIFICATION_ID: process.env.BING_SITE_VERIFICATION_ID,
     BAIDU_SITE_VERIFICATION_ID: process.env.BAIDU_SITE_VERIFICATION_ID,
     YANDEX_SITE_VERIFICATION_ID: process.env.YANDEX_SITE_VERIFICATION_ID,
-    GITHUB_ID: process.env.GITHUB_ID,
-    GITHUB_SECRET: process.env.GITHUB_SECRET,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
-    STRIPE_WEBHOOK_SECRET_KEY: process.env.STRIPE_WEBHOOK_SECRET_KEY,
-    STRIPE_SUBSCRIPTION_PRICE_ID: process.env.STRIPE_SUBSCRIPTION_PRICE_ID,
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    ADMIN_EMAILS: process.env.ADMIN_EMAILS,
     NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
   },
   // Treat empty-string env vars (e.g. unset CI secrets passed through `env:`)
   // as undefined so optional URL/string fields don't fail format validation.

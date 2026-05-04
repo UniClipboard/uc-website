@@ -5,19 +5,18 @@ import { getTranslations } from "next-intl/server";
 import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
+import { getPublishedArticlesByCategory } from "@/db/articles";
 import { Link } from "@/i18n/navigation";
-import {
-  type ArticleCategory,
-  articleHref,
-  type ArticleManifestEntry,
-  articlesByCategory,
-} from "@/lib/articles";
+import type {
+  ArticleCategoryValue,
+  ArticleLocale,
+} from "@/lib/article-content";
 import { siteConfig } from "@/lib/site-config";
 
 import { BreadcrumbBar, JsonLd } from "./sections";
 
 export type HubConfig = {
-  category: ArticleCategory;
+  category: ArticleCategoryValue;
   pagePath: string;
   namespace: string;
 };
@@ -81,39 +80,20 @@ type HubProps = {
   locale: string;
 };
 
-type ArticleCardData = {
-  entry: ArticleManifestEntry;
-  title: string;
-  subtitle: string;
-  lastUpdatedDate: string;
-};
-
-async function loadCards(
-  entries: ArticleManifestEntry[],
-  locale: string,
-): Promise<ArticleCardData[]> {
-  return Promise.all(
-    entries.map(async (entry) => {
-      const t = await getTranslations({ locale, namespace: entry.namespace });
-      return {
-        entry,
-        title: t("title"),
-        subtitle: t("subtitle"),
-        lastUpdatedDate: t("lastUpdatedDate"),
-      };
-    }),
-  );
-}
-
 export async function ArticleHubLayout({ config, locale }: HubProps) {
   const t = await getTranslations({ locale, namespace: config.namespace });
-  const entries = articlesByCategory(config.category);
-  const cards = await loadCards(entries, locale);
+  const articles = await getPublishedArticlesByCategory(
+    config.category,
+    locale as ArticleLocale,
+  );
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
   const homePath = locale === "en" ? "/" : `/${locale}`;
   const canonical = `${localePathPrefix(locale)}${config.pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
+
+  const articleHref = (slug: string) =>
+    `${config.pagePath === "/compare" ? "/compare" : "/use-cases"}/${slug}`;
 
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -125,11 +105,11 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
     isPartOf: { "@type": "WebSite", name: siteConfig.brand, url: baseUrl },
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: cards.map((card, i) => ({
+      itemListElement: articles.map((article, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `${baseUrl}${localePathPrefix(locale)}${articleHref(card.entry)}`,
-        name: card.title,
+        url: `${baseUrl}${localePathPrefix(locale)}${articleHref(article.slug)}`,
+        name: article.content.hero.title,
       })),
     },
   };
@@ -200,7 +180,7 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
                   letterSpacing: "0.06em",
                 }}
               >
-                <span>{t("countLabel", { count: cards.length })}</span>
+                <span>{t("countLabel", { count: articles.length })}</span>
               </p>
             </AnimateIn>
           </div>
@@ -208,7 +188,7 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
 
         <section className="bg-bg2 border-border border-b py-[72px] md:py-[100px]">
           <div className="landing-shell">
-            {cards.length === 0 ? (
+            {articles.length === 0 ? (
               <p
                 className="text-muted-foreground"
                 style={{ fontSize: 16, lineHeight: 1.6 }}
@@ -217,10 +197,10 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
               </p>
             ) : (
               <ul className="grid list-none gap-5 p-0 md:grid-cols-2 md:gap-6">
-                {cards.map((card) => (
-                  <li key={card.entry.slug} className="m-0">
+                {articles.map((article) => (
+                  <li key={article.id} className="m-0">
                     <Link
-                      href={articleHref(card.entry)}
+                      href={articleHref(article.slug)}
                       className="border-border bg-background hover:border-foreground/30 group block h-full rounded-[14px] border p-7 transition-colors md:p-8"
                     >
                       <div className="mb-4 flex items-center justify-between">
@@ -235,8 +215,8 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
                             letterSpacing: "0.04em",
                           }}
                         >
-                          <time dateTime={card.lastUpdatedDate}>
-                            {card.lastUpdatedDate}
+                          <time dateTime={article.content.meta.lastUpdatedDate}>
+                            {article.content.meta.lastUpdatedDate}
                           </time>
                         </span>
                       </div>
@@ -250,13 +230,13 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
                           textWrap: "balance",
                         }}
                       >
-                        {card.title}
+                        {article.content.hero.title}
                       </h2>
                       <p
                         className="text-muted-foreground mb-6"
                         style={{ fontSize: 15, lineHeight: 1.6 }}
                       >
-                        {card.subtitle}
+                        {article.content.hero.subtitle}
                       </p>
                       <span
                         className="text-foreground inline-flex items-center gap-1.5 text-sm font-medium"

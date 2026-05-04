@@ -40,6 +40,10 @@ Compared to self-hosted clipboard sync (e.g. ClipCascade), UniClipboard requires
 - Home (English): https://www.uniclipboard.app/
 - Home (Simplified Chinese): https://www.uniclipboard.app/zh
 - Technical whitepaper: https://www.uniclipboard.app/whitepaper
+- All comparisons (English): https://www.uniclipboard.app/compare
+- All comparisons (Simplified Chinese): https://www.uniclipboard.app/zh/compare
+- All use-case guides (English): https://www.uniclipboard.app/use-cases
+- All use-case guides (Simplified Chinese): https://www.uniclipboard.app/zh/use-cases
 - Compare with iCloud Universal Clipboard (English): https://www.uniclipboard.app/compare/icloud-universal-clipboard
 - Compare with iCloud Universal Clipboard (Simplified Chinese): https://www.uniclipboard.app/zh/compare/icloud-universal-clipboard
 - How to copy from Mac to Windows (English): https://www.uniclipboard.app/use-cases/mac-to-windows-clipboard

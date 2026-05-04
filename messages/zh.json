@@ -264,6 +264,36 @@
   "whitepaper": {
     "backToHome": "返回主页"
   },
+  "compareHub": {
+    "seoTitle": "UniClipboard 对比 — 开源剪贴板同步对比 iCloud / Maccy / 其它",
+    "seoDescription": "把 UniClipboard 和你可能正在用的那些剪贴板管理器、同步工具一一摆在一起：iCloud 通用剪贴板、Maccy 等等。挑出适合自己的那一个，而不是先看到的那一个。",
+    "seoKeywords": "UniClipboard 替代, 剪贴板管理器对比, iCloud 通用剪贴板 替代, Maccy 替代, 跨平台剪贴板同步对比, 开源剪贴板管理器",
+    "ogAlt": "UniClipboard 对比 iCloud、Maccy 等剪贴板工具",
+    "breadcrumbHome": "首页",
+    "breadcrumbCurrent": "对比",
+    "eyebrow": "对比",
+    "title": "UniClipboard 和别的工具怎么比。",
+    "subtitle": "把它和你可能正在用的那些工具一一摆在一起：诚实地说出短板，明确每个工具适合谁。",
+    "categoryLabel": "对比",
+    "readMore": "阅读对比",
+    "countLabel": "{count, plural, =0 {暂无对比文章} other {共 # 篇对比}}",
+    "emptyState": "暂无对比文章，过段时间再来看看。"
+  },
+  "useCasesHub": {
+    "seoTitle": "UniClipboard 使用场景 — 跨设备剪贴板的实操指南",
+    "seoDescription": "聚焦人们真正会做的几件事：从 Mac 复制粘到 Windows、在 SSH / tmux 里用剪贴板、和同事共享一份加密的剪贴板。每篇都给到具体的快捷键。",
+    "seoKeywords": "UniClipboard 使用场景, Mac Windows 剪贴板指南, SSH tmux 剪贴板, 跨平台剪贴板教程, 跨设备复制粘贴 教程",
+    "ogAlt": "UniClipboard 使用场景 — 跨设备剪贴板实操指南",
+    "breadcrumbHome": "首页",
+    "breadcrumbCurrent": "使用场景",
+    "eyebrow": "使用场景",
+    "title": "大家都拿 UniClipboard 来做什么。",
+    "subtitle": "针对人们真正会用到的工作流，提供具体的步骤——明确给出快捷键，加密的部分始终在话题里。",
+    "categoryLabel": "使用场景",
+    "readMore": "阅读指南",
+    "countLabel": "{count, plural, =0 {暂无指南} other {共 # 篇指南}}",
+    "emptyState": "暂无指南，过段时间再来看看。"
+  },
   "useCases": {
     "macToWindows": {
       "seoTitle": "怎么把 Mac 上复制的内容直接粘贴到 Windows——文本 / 图片 / 文件",

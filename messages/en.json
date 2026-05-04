@@ -270,6 +270,36 @@
   "whitepaper": {
     "backToHome": "Back to home"
   },
+  "compareHub": {
+    "seoTitle": "Compare UniClipboard — open-source clipboard sync vs iCloud, Maccy, and the rest",
+    "seoDescription": "Honest comparisons of UniClipboard against the clipboard managers and sync tools you might already be using — iCloud Universal Clipboard, Maccy, and more. Pick the right tool, not just the one you found first.",
+    "seoKeywords": "uniclipboard alternatives, clipboard manager comparison, iCloud universal clipboard alternative, maccy alternative, cross-platform clipboard sync compare, open source clipboard manager",
+    "ogAlt": "Compare UniClipboard with iCloud, Maccy, and other clipboard tools",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Compare",
+    "eyebrow": "Compare",
+    "title": "How UniClipboard compares.",
+    "subtitle": "Side-by-side write-ups against the clipboard managers and sync tools you might already be using. Honest about gaps; explicit about who each tool is best for.",
+    "categoryLabel": "Compare",
+    "readMore": "Read comparison",
+    "countLabel": "{count, plural, =0 {No comparisons yet} one {# comparison} other {# comparisons}}",
+    "emptyState": "No comparisons published yet. Check back soon."
+  },
+  "useCasesHub": {
+    "seoTitle": "UniClipboard use cases — practical guides for cross-device clipboard workflows",
+    "seoDescription": "Step-by-step guides for the things people actually do with UniClipboard — copy from a Mac to Windows, work across SSH and tmux, share an encrypted clipboard with a teammate. Each guide is keyboard-shortcut concrete.",
+    "seoKeywords": "uniclipboard use cases, mac windows clipboard guide, ssh clipboard tmux, cross-platform clipboard tutorial, copy paste between devices guide",
+    "ogAlt": "UniClipboard use cases — practical cross-device clipboard guides",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Use cases",
+    "eyebrow": "Use cases",
+    "title": "What people use UniClipboard for.",
+    "subtitle": "Concrete walkthroughs for the workflows people actually run — keyboard-shortcut explicit, with the encryption story always in scope.",
+    "categoryLabel": "Use case",
+    "readMore": "Read guide",
+    "countLabel": "{count, plural, =0 {No guides yet} one {# guide} other {# guides}}",
+    "emptyState": "No guides published yet. Check back soon."
+  },
   "useCases": {
     "macToWindows": {
       "seoTitle": "How to copy text, images, and files from a Mac to a Windows PC",

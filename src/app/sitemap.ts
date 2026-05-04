@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 
 import { env } from "@/env.mjs";
 import { routing } from "@/i18n/routing";
+import { articleManifest } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = (env.APP_URL || "https://www.uniclipboard.app").replace(
@@ -12,21 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     { path: "", priority: 1, changeFrequency: "monthly" as const },
     { path: "whitepaper", priority: 0.8, changeFrequency: "yearly" as const },
-    {
-      path: "compare/icloud-universal-clipboard",
+    { path: "compare", priority: 0.85, changeFrequency: "monthly" as const },
+    { path: "use-cases", priority: 0.85, changeFrequency: "monthly" as const },
+    ...articleManifest.map((article) => ({
+      path: `${article.category}/${article.slug}`,
       priority: 0.9,
       changeFrequency: "monthly" as const,
-    },
-    {
-      path: "use-cases/mac-to-windows-clipboard",
-      priority: 0.9,
-      changeFrequency: "monthly" as const,
-    },
-    {
-      path: "compare/maccy",
-      priority: 0.85,
-      changeFrequency: "monthly" as const,
-    },
+    })),
   ];
 
   const sitemap: MetadataRoute.Sitemap = [];

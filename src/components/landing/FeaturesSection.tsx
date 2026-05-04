@@ -7,7 +7,6 @@ import {
   Lock,
   Network,
   RefreshCw,
-  Shield,
   Zap,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -37,7 +36,7 @@ const moreItems: More[] = [
   { icon: RefreshCw, key: "f4" },
   { icon: FileText, key: "f6" },
   { icon: Network, key: "f5" },
-  { icon: Shield, key: "f7" },
+  { icon: Zap, key: "f7" },
   { icon: History, key: "f9" },
 ];
 

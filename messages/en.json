@@ -86,8 +86,8 @@
         "f6Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
         "f5Title": "Multi-device management",
         "f5Desc": "Manage paired devices, presence and per-device sync preferences. Lost a device? Revoke it from any paired one.",
-        "f7Title": "Sensitive-field filtering",
-        "f7Desc": "Skips clipboard items flagged by password managers and the system keychain — your tokens won't sync to other devices.",
+        "f7Title": "Real-time sync",
+        "f7Desc": "Copy and it pushes — no manual trigger, no confirmation. Clipboard stays in sync across every device, automatically.",
         "f9Title": "Tunable history retention",
         "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time."
       }

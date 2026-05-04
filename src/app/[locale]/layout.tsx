@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
@@ -20,14 +21,19 @@ export async function generateMetadata({
   const isDefault = locale === routing.defaultLocale;
   const canonicalUrl = isDefault ? "/" : `/${locale}`;
 
+  const t = await getTranslations({ locale, namespace: "seo" });
+  const title = t("title");
+  const description = t("description");
+  const keywords = t("keywords")
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean);
+
   const ogImage = {
     url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
     width: 1730,
     height: 909,
-    alt:
-      locale === "zh"
-        ? "UniClipboard — 在 Mac 上复制，在 Windows 上粘贴"
-        : "UniClipboard — Copy on your Mac. Paste on your Windows.",
+    alt: t("ogAlt"),
   };
 
   return {
@@ -41,28 +47,39 @@ export async function generateMetadata({
     },
     metadataBase: new URL(siteConfig.url),
     title: {
-      default: siteConfig.title,
-      template: `%s | ${siteConfig.title}`,
+      default: title,
+      template: t("titleTemplate"),
     },
-    description: siteConfig.description,
-    keywords: siteConfig.keywords,
+    description,
+    keywords,
     robots: { index: true, follow: true },
     verification: {
-      google: siteConfig.googleSiteVerificationId,
+      google: siteConfig.verification.google || undefined,
+      ...(siteConfig.verification.yandex && {
+        yandex: siteConfig.verification.yandex,
+      }),
+      other: {
+        ...(siteConfig.verification.bing && {
+          "msvalidate.01": siteConfig.verification.bing,
+        }),
+        ...(siteConfig.verification.baidu && {
+          "baidu-site-verification": siteConfig.verification.baidu,
+        }),
+      },
     },
     openGraph: {
       url: siteConfig.url,
-      title: siteConfig.title,
-      description: siteConfig.description,
-      siteName: siteConfig.title,
+      title,
+      description,
+      siteName: siteConfig.brand,
       locale: locale === "zh" ? "zh_CN" : "en_US",
       images: [ogImage],
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: siteConfig.title,
-      description: siteConfig.description,
+      title,
+      description,
       images: [ogImage],
     },
   };
@@ -81,11 +98,30 @@ const RootLayout = async ({
     notFound();
   }
 
+  const gaId = siteConfig.analytics.gaMeasurementId;
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={cn("min-h-screen font-sans", fonts)}>
         {process.env.NODE_ENV === "development" && (
           <Script src="/react-grab.global.js" strategy="lazyOnload" />
+        )}
+        {gaId && (
+          <>
+            <Script
+              id="ga4-loader"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', { send_page_view: true });
+              `}
+            </Script>
+          </>
         )}
         <NextIntlClientProvider>
           <ThemeProvider attribute="class">{children}</ThemeProvider>

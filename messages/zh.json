@@ -1,4 +1,11 @@
 {
+  "seo": {
+    "title": "UniClipboard — Mac / Windows / Linux 三端开源加密剪贴板同步",
+    "titleTemplate": "%s | UniClipboard",
+    "description": "免费、开源、端到端加密的跨设备剪贴板同步工具。Mac 上复制，Windows / Linux 直接粘——无需账号、无需服务器、无需登录。iCloud 通用剪贴板的跨平台开源替代。",
+    "keywords": "UniClipboard, 剪贴板同步, 剪切板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪切板同步, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪切板, 跨设备复制粘贴",
+    "ogAlt": "UniClipboard — 在 Mac 上复制，在 Windows 上粘贴"
+  },
   "landing": {
     "navigation": {
       "features": "功能",
@@ -256,5 +263,257 @@
   },
   "whitepaper": {
     "backToHome": "返回主页"
+  },
+  "useCases": {
+    "macToWindows": {
+      "seoTitle": "怎么把 Mac 上复制的内容直接粘贴到 Windows——文本 / 图片 / 文件",
+      "seoDescription": "UniClipboard 让你在 Mac 上 ⌘C，到 Windows 上 Ctrl+V 直接粘贴——文本、图片、文件都能过。开源、端到端加密、不需要任何云账号、不用搭服务器。Apple iCloud 通用剪贴板的跨平台替代。",
+      "seoKeywords": "Mac 复制 Windows 粘贴, Mac Windows 剪贴板, Mac 到 Windows 互通, 跨平台剪贴板, Mac PC 剪切板同步, Mac Windows 文件传输, 苹果电脑到 Windows 电脑剪贴板, mac 复制 windows 粘贴",
+      "ogAlt": "Mac 上复制，Windows 上直接粘贴 — UniClipboard 跨平台剪贴板",
+      "breadcrumbHome": "首页",
+      "breadcrumbCategory": "使用场景",
+      "breadcrumbCurrent": "Mac → Windows 剪贴板",
+      "eyebrow": "使用场景 · Mac 到 Windows 剪贴板",
+      "title": "Mac 上复制。Windows 上直接粘。",
+      "subtitle": "不用上传云盘，不用发邮件给自己，不用搭服务器。",
+      "lede": "UniClipboard 是把内容从 Mac 搬到 Windows 最直接的办法——文本、图片、文件都行。在 Mac 上 ⌘C，切到 Windows 用 Ctrl+V 粘出来，就完了。它开源、端到端加密、不需要任何云账号；同一 Wi-Fi 走 P2P 直连，跨网络自动 NAT 打洞，连不通时回退到加密中继。",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "30 秒看清楚。",
+      "tldrItems": [
+        "iCloud 通用剪贴板原生不支持 Mac 和 Windows 互通——Apple 把它做成只在 Apple 设备之间用。",
+        "常见的土办法都有代价：发邮件给自己、上传云盘、聊天软件给自己留言、OneDrive 同步——慢、不安全，或者两者都占。",
+        "UniClipboard 在 Mac 和 Windows 上各装一次，用一个一次性邀请码完成配对。",
+        "配对完成后，系统剪贴板就是共享的：Mac 上 ⌘C，Windows 上 Ctrl+V，没有菜单、没有上传、没有额外步骤。",
+        "内容用 XChaCha20-Poly1305 AEAD 端到端加密，明文永远不离开你自己的设备。",
+        "同一 Wi-Fi 直连 P2P；跨网络自动 NAT 打洞；打洞失败时才回退到加密中继，中继也只看到密文。"
+      ],
+      "section1Eyebrow": "土办法的代价",
+      "section1Title": "你已经在用的那些 workaround，都有税。",
+      "section1Body": "把内容发邮件给自己——经过第三方服务器，要切窗口，二进制内容还可能被处理坏。在 Slack / 微信 / QQ 给自己发——内容存在别人服务器上，图片粘出来经常掉格式。把文件上传到 OneDrive / Google Drive / 百度网盘——文件传输的问题是解决了，但要等同步、还多了一份留在云端的副本。每一种土办法都在让你拿速度换安全，或者用安全换速度。",
+      "section2Eyebrow": "UniClipboard 怎么解决",
+      "section2Title": "同一个快捷键，加密，毫秒级。",
+      "section2Body": "UniClipboard 把 Mac 和 Windows 这两台机器的剪贴板做成共享的一个。Mac 上按 ⌘C，内容进入系统剪贴板；UniClipboard 立刻把加密后的字节推给 Windows；Windows 上 Ctrl+V 粘出来。整个过程没有上传、没有第三方服务器、没有菜单可以开、没有每次复制都要确认的权限弹窗。每台设备各自保留一份可全文搜索的加密历史，老的复制内容随时翻得到。",
+      "tableEyebrow": "几种做法",
+      "tableTitle": "UniClipboard 和那些土办法的差别。",
+      "tableNote": "以下对比基于 2026 年 5 月公开的产品行为整理。",
+      "tableHeader": {
+        "feature": "你在乎的事",
+        "uc": "UniClipboard",
+        "other": "云盘 / 聊天 / 邮件"
+      },
+      "rows": [
+        {
+          "feature": "速度",
+          "uc": "毫秒级——和按快捷键一样快",
+          "other": "几秒到几分钟（上传 + 下载）"
+        },
+        {
+          "feature": "安全",
+          "uc": "端到端加密、开源可审计",
+          "other": "内容会存在第三方服务器上"
+        },
+        {
+          "feature": "是否要登录",
+          "uc": "不需要——公钥配对",
+          "other": "每个服务都要登录"
+        },
+        {
+          "feature": "文件",
+          "uc": "流式传输，我们这边不限大小",
+          "other": "受服务方附件大小限制"
+        },
+        {
+          "feature": "可搜索的历史",
+          "uc": "每台设备一份加密本地索引",
+          "other": "得回到对应的收件箱 / 聊天里翻"
+        },
+        {
+          "feature": "断网能用吗",
+          "uc": "能——同 Wi-Fi 走 P2P",
+          "other": "不能——依赖云服务可达"
+        },
+        {
+          "feature": "跨 Wi-Fi 网络",
+          "uc": "NAT 打洞 + 加密中继",
+          "other": "云服务能访问就行"
+        }
+      ],
+      "switchEyebrow": "怎么装",
+      "switchTitle": "三步。大约五分钟。",
+      "switchSteps": [
+        "去下载页拿 macOS 和 Windows 的 UniClipboard 安装包。两个安装包都签过名——macOS 走苹果公证，Windows 走 Authenticode 代码签名。",
+        "在 Mac 上打开 UniClipboard，生成一个短时效邀请码；在 Windows 上输入这个邀请码完成配对。两台设备只在局域网上交换一次公钥，整个过程不需要邮箱、不需要 Apple ID、不需要手机号。",
+        "之后正常用 ⌘C 在 Mac 上复制，切到 Windows 按 Ctrl+V 粘贴。文本、图片、文件都直接过，没有额外菜单也不会弹任何确认。"
+      ],
+      "verdictEyebrow": "结论",
+      "verdictTitle": "怎么选。",
+      "verdictBody": "如果只是偶尔从 Mac 把一小段文字带到 Windows，给自己发个聊天就够用。除此以外的任何场景——反复复制、图片、文件、不愿意让内容停在第三方服务器、希望像系统剪贴板一样快——UniClipboard 都是更合适的方案。",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "常被问到的几个问题。",
+      "faqItems": [
+        {
+          "q": "粘贴是直接 Ctrl+V，还是要专门的菜单？",
+          "a": "就是普通的 Ctrl+V。UniClipboard 把内容写进了 Windows 的系统剪贴板，所以任何能粘贴的应用都能粘出 UniClipboard 同步过来的内容。"
+        },
+        {
+          "q": "Mac 和 Windows 不在同一个 Wi-Fi 也能用吗？",
+          "a": "能。UniClipboard 会先尝试 NAT 打洞建立直连，打不通时回退到加密中继，整段链路都加密。"
+        },
+        {
+          "q": "文件能传吗，还是只支持文本？",
+          "a": "可以。文件采用流式传输，不需要整个加载到内存。在一台设备上把文件放到剪贴板，另一台设备粘出来即可。"
+        },
+        {
+          "q": "我的剪贴板会经过公网吗？",
+          "a": "看情况。同一 Wi-Fi 下完全是 P2P 直连，不会出网。跨网络时先尝试 NAT 打洞，打不通才回退到加密中继——而中继也只能看到密文。"
+        },
+        {
+          "q": "Windows 10 能用，还是只支持 Windows 11？",
+          "a": "都能。UniClipboard 支持 Windows 10 和 Windows 11（x64）。Mac 这边支持 macOS 12（Monterey）及以上。"
+        },
+        {
+          "q": "反过来呢——Windows 上复制，Mac 上粘？",
+          "a": "可以。剪贴板是双向对称的。Mac 上 ⌘V 粘到的是 Windows 上最近一次复制的内容，反过来也一样。"
+        }
+      ],
+      "ctaEyebrow": "下载 UniClipboard",
+      "ctaTitle": "免费、开源、即装即用。",
+      "ctaBody": "macOS 12+，Windows 10/11。除了第一次配对，别的都不用做。",
+      "ctaPrimary": "查看下载",
+      "ctaSecondary": "阅读技术白皮书",
+      "lastUpdatedLabel": "最后更新",
+      "lastUpdatedDate": "2026-05-04"
+    }
+  },
+  "compare": {
+    "icloud": {
+      "seoTitle": "UniClipboard 对比 iCloud 通用剪贴板 — 跨 Mac / Windows / Linux 的开源替代",
+      "seoDescription": "iCloud 通用剪贴板只能在 Apple 设备之间使用，没有历史记录，不支持 Windows 或 Linux。UniClipboard 是它的开源、端到端加密替代方案——三平台原生、可搜索历史、无需账号、无需服务器。",
+      "seoKeywords": "iCloud 通用剪贴板 替代, iCloud 通用剪贴板 Windows, iCloud 通用剪贴板 Linux, Mac Windows 剪贴板, 跨平台剪切板同步, 开源 iCloud 剪贴板, UniClipboard 对比 iCloud, 跨设备复制粘贴, Mac Windows Linux 剪切板",
+      "ogAlt": "UniClipboard 对比 iCloud 通用剪贴板 — 跨 Mac / Windows / Linux 的开源替代",
+      "breadcrumbHome": "首页",
+      "breadcrumbCompare": "对比",
+      "breadcrumbCurrent": "iCloud 通用剪贴板",
+      "eyebrow": "对比 · UniClipboard 对 iCloud 通用剪贴板",
+      "title": "UniClipboard 对比 iCloud 通用剪贴板",
+      "subtitle": "当你的工作里出现一台 Windows 或 Linux，事情就变了。",
+      "lede": "UniClipboard 是 Apple iCloud 通用剪贴板的开源跨平台替代方案。它在 macOS、Windows、Linux 三个桌面系统上原生运行，端到端加密，支持可搜索的历史记录，配对设备完全不需要任何云账号。iCloud 通用剪贴板则只在 Apple 设备之间同步、没有剪贴板历史、加密实现也不公开。",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "30 秒看完。",
+      "tldrItems": [
+        "iCloud 通用剪贴板只能在 Apple 设备（Mac、iPhone、iPad）之间使用。",
+        "它没有历史记录——你只能粘贴最近一次复制的内容。",
+        "UniClipboard 在 macOS、Windows、Linux 三个平台上原生运行。",
+        "UniClipboard 会在每台设备上保留一份端到端加密、可全文搜索的剪贴板历史。",
+        "两个都是免费的。UniClipboard 采用 AGPL-3.0 开源协议，加密实现可以自己审计。",
+        "iCloud 要求 Apple ID。UniClipboard 不需要任何账号——设备之间通过公钥握手配对。"
+      ],
+      "section1Eyebrow": "iCloud 够用的场景",
+      "section1Title": "什么情况下 iCloud 通用剪贴板已经够用",
+      "section1Body": "如果你的日常工作完全在 Apple 生态里——Mac 加 iPhone 加 iPad——而且你从来不需要回头找几小时前复制过的某段内容，那 iCloud 通用剪贴板是一个零配置的稳妥选择。Apple 把它直接做进了系统，只要你的设备登录同一个 Apple ID、连同一个 Wi-Fi、开着蓝牙、彼此距离在 10 米以内，它就能直接工作。",
+      "section2Eyebrow": "iCloud 不够用的场景",
+      "section2Title": "什么情况下你需要 UniClipboard 取代它",
+      "section2Body": "只要你的工作里出现一台非 Apple 的设备——公司发的 Windows 笔记本、用来跑代码的 Linux 服务器、自己装的台式机——iCloud 通用剪贴板就完全用不了。同样的还有这些场景：你想找到两小时前复制的那段文字、想在家里跨不同 Wi-Fi 房间同步剪贴板、想自己审计加密实现再决定要不要让它接触你的密码。UniClipboard 就是为这些场景而生：开源代码、三平台原生应用、密钥永不离开本机的端到端加密、本地加密历史索引、毫秒级搜索几万条记录。",
+      "tableEyebrow": "并排对比",
+      "tableTitle": "逐项功能对比。",
+      "tableNote": "以下对比基于 2026 年 5 月公开的产品行为整理。",
+      "tableHeader": {
+        "feature": "功能",
+        "uc": "UniClipboard",
+        "icloud": "iCloud 通用剪贴板"
+      },
+      "rows": [
+        {
+          "feature": "支持平台",
+          "uc": "macOS / Windows / Linux 原生",
+          "icloud": "仅 macOS 与 iOS"
+        },
+        {
+          "feature": "跨网络同步",
+          "uc": "P2P + NAT 打洞 + 加密中继回退",
+          "icloud": "仅同一 Wi-Fi 近距离"
+        },
+        {
+          "feature": "剪贴板历史",
+          "uc": "可全文搜索，落盘加密",
+          "icloud": "无历史，只保留最近一次"
+        },
+        {
+          "feature": "加密方式",
+          "uc": "XChaCha20-Poly1305 AEAD，开源",
+          "icloud": "端到端，但闭源"
+        },
+        {
+          "feature": "源码可读",
+          "uc": "AGPL-3.0 开源，可自行审计",
+          "icloud": "闭源"
+        },
+        {
+          "feature": "是否需要账号",
+          "uc": "不需要——公钥配对",
+          "icloud": "需要 Apple ID"
+        },
+        {
+          "feature": "文件传输",
+          "uc": "文本、图片与文件（大文件流式传输）",
+          "icloud": "仅文本与图片"
+        },
+        {
+          "feature": "命令行 / 脚本",
+          "uc": "无头 uniclip CLI，可用于 SSH / tmux / 脚本",
+          "icloud": "不支持"
+        },
+        {
+          "feature": "价格",
+          "uc": "免费",
+          "icloud": "免费"
+        }
+      ],
+      "switchEyebrow": "迁移",
+      "switchTitle": "从 iCloud 通用剪贴板迁过来怎么做。",
+      "switchSteps": [
+        "在每台设备上分别安装 UniClipboard——macOS、Windows、Linux 都有签名的安装包。它和 iCloud 互不冲突，无需关闭 iCloud。",
+        "在其中一台设备上生成一个一次性邀请码，另一台设备输入这个邀请码完成配对。整个过程不需要邮箱、Apple ID 或手机号——只是一次公钥握手。",
+        "继续像以前一样按 ⌘C / Ctrl-C 复制、⌘V / Ctrl-V 粘贴。UniClipboard 是系统剪贴板的延伸，不会替换它。"
+      ],
+      "verdictEyebrow": "结论",
+      "verdictTitle": "怎么选。",
+      "verdictBody": "如果你只用 Apple 设备、不在乎剪贴板历史，iCloud 通用剪贴板就是最简单的答案。除此以外的任何场景——只要你工作里有一台 Windows 或 Linux 机器、想要可搜索的历史、想自己审计加密——UniClipboard 都是更合适的开源跨平台方案。",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "常被问到的几个问题。",
+      "faqItems": [
+        {
+          "q": "可以同时用 UniClipboard 和 iCloud 通用剪贴板吗？",
+          "a": "可以，两者互不冲突。iCloud 仍会在你的 Apple 设备之间同步最近一次复制；UniClipboard 在此之上补上 Windows / Linux 支持、剪贴板历史和跨网络同步。"
+        },
+        {
+          "q": "没有公网 / 没有互联网时还能用吗？",
+          "a": "可以。同一 Wi-Fi 下的设备会直接 P2P 互联，全程不经过中继。即便公网完全断开，只要设备之间能在局域网看见彼此，同步就能继续。"
+        },
+        {
+          "q": "我的剪贴板内容会上传到 UniClipboard 的服务器吗？",
+          "a": "不会。内容在源设备就被加密，密钥常驻系统 Keyring。中继只在直连失败时使用，且只能看到密文。明文不会离开你自己的设备。"
+        },
+        {
+          "q": "和本机剪贴板管理器（Pastebot / Maccy）有什么区别？",
+          "a": "本机管理器只管单台设备的历史。UniClipboard 跨多台设备和不同操作系统同步，且全程端到端加密。"
+        },
+        {
+          "q": "Mac 和 Windows 不在同一个 Wi-Fi，能同步吗？",
+          "a": "能。UniClipboard 会通过 NAT 打洞在两台设备之间建立直连，打洞失败时回退到加密中继，整段链路都加密。"
+        },
+        {
+          "q": "装了 UniClipboard 会影响 iCloud 通用剪贴板吗？",
+          "a": "不会。UniClipboard 不修改 iCloud，也不改变 iCloud 任何设置。安装、使用、卸载都不会影响 iCloud 的行为。"
+        }
+      ],
+      "ctaEyebrow": "下载 UniClipboard",
+      "ctaTitle": "免费、开源、即装即用。",
+      "ctaBody": "macOS 12+，Windows 10/11，Linux x86_64 / ARM64。除了配对一次，别的都不用做。",
+      "ctaPrimary": "查看下载",
+      "ctaSecondary": "阅读技术白皮书",
+      "lastUpdatedLabel": "最后更新",
+      "lastUpdatedDate": "2026-05-04"
+    }
   }
 }

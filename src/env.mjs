@@ -9,8 +9,11 @@ export const env = createEnv({
     // App URL - optional, defaults to localhost
     APP_URL: z.string().url().optional().default("http://localhost:3000"),
 
-    // Google verification - not required
+    // Search engine site verification - all optional
     GOOGLE_SITE_VERIFICATION_ID: z.string().optional(),
+    BING_SITE_VERIFICATION_ID: z.string().optional(),
+    BAIDU_SITE_VERIFICATION_ID: z.string().optional(),
+    YANDEX_SITE_VERIFICATION_ID: z.string().optional(),
 
     // GitHub OAuth - optional for landing page only
     GITHUB_ID: z.string().optional(),
@@ -28,11 +31,16 @@ export const env = createEnv({
   client: {
     // Stripe public key - optional for landing page only
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
+    // Google Analytics 4 measurement ID (e.g. G-XXXXXXXXXX)
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: z.string().optional(),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     APP_URL: process.env.APP_URL,
     GOOGLE_SITE_VERIFICATION_ID: process.env.GOOGLE_SITE_VERIFICATION_ID,
+    BING_SITE_VERIFICATION_ID: process.env.BING_SITE_VERIFICATION_ID,
+    BAIDU_SITE_VERIFICATION_ID: process.env.BAIDU_SITE_VERIFICATION_ID,
+    YANDEX_SITE_VERIFICATION_ID: process.env.YANDEX_SITE_VERIFICATION_ID,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
@@ -42,6 +50,7 @@ export const env = createEnv({
     STRIPE_SUBSCRIPTION_PRICE_ID: process.env.STRIPE_SUBSCRIPTION_PRICE_ID,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   },
   // Treat empty-string env vars (e.g. unset CI secrets passed through `env:`)
   // as undefined so optional URL/string fields don't fail format validation.

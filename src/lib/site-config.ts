@@ -1,17 +1,15 @@
 import { env } from "@/env.mjs";
 
 export const siteConfig = {
-  title: "UniClipboard | Safe & Efficient Universal Clipboard",
-  description:
-    "Secure, fast, and seamless clipboard synchronization across all your devices. Move text and images between devices with end-to-end encryption.",
-  keywords: [
-    "UniClipboard",
-    "clipboard",
-    "cross-platform",
-    "synchronization",
-    "E2E encryption",
-    "productivity",
-  ],
+  brand: "UniClipboard",
   url: env.APP_URL,
-  googleSiteVerificationId: env.GOOGLE_SITE_VERIFICATION_ID || "",
+  verification: {
+    google: env.GOOGLE_SITE_VERIFICATION_ID || "",
+    bing: env.BING_SITE_VERIFICATION_ID || "",
+    baidu: env.BAIDU_SITE_VERIFICATION_ID || "",
+    yandex: env.YANDEX_SITE_VERIFICATION_ID || "",
+  },
+  analytics: {
+    gaMeasurementId: env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "",
+  },
 };

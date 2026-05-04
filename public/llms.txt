@@ -1,0 +1,60 @@
+# UniClipboard
+
+> UniClipboard is a free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, and Linux. Copy on one device, paste on another — no cloud account, no email, no phone number. Direct peer-to-peer on the same network; encrypted relay with NAT hole-punching across networks.
+
+## Quick facts
+
+- **Category**: Cross-platform clipboard sync / clipboard manager
+- **Platforms**: macOS 12+, Windows 10/11, Linux (x86_64 and ARM64 AppImage)
+- **License**: AGPL-3.0
+- **Source code**: https://github.com/UniClipboard/UniClipboard
+- **Encryption**: XChaCha20-Poly1305 AEAD (end-to-end, in transit and at rest)
+- **Account required**: No — devices pair via public-key exchange
+- **Built with**: Rust + Tauri (native, not Electron)
+- **Price**: Free
+- **Mobile (iOS/Android)**: Not yet — desktop-only at this stage
+- **Maintainer**: mkdir700
+- **Contact**: hello@uniclipboard.app
+
+## Positioning
+
+UniClipboard is the cross-platform, open-source alternative to Apple's iCloud Universal Clipboard. Unlike iCloud, it works on Windows and Linux, keeps a searchable encrypted history, and lets anyone audit the encryption code.
+
+Compared to self-hosted clipboard sync (e.g. ClipCascade), UniClipboard requires no server to run. Compared to local clipboard managers (Pastebot, Maccy), it syncs across machines and operating systems instead of staying on a single device.
+
+## Core capabilities
+
+- End-to-end encrypted text, image, and file sync across Mac, Windows, and Linux
+- Direct peer-to-peer transfer on the same Wi-Fi (millisecond latency)
+- Automatic NAT hole-punching across networks; encrypted relay as fallback
+- Keys stored in the system keyring, never leaving the local machine
+- Quick Panel keyboard overlay with previews for text, links, images, code, files
+- Local full-text search across tens of thousands of clipboard entries
+- Encrypted local history index, retention configurable (default 30 days)
+- Headless `uniclip` CLI for terminals, SSH, scripts, and tmux
+- Streaming transfer for large files (no need to fit in memory)
+- Per-device sync preferences and one-tap revoke for lost devices
+
+## Primary URLs
+
+- Home (English): https://www.uniclipboard.app/
+- Home (Simplified Chinese): https://www.uniclipboard.app/zh
+- Technical whitepaper: https://www.uniclipboard.app/whitepaper
+- Compare with iCloud Universal Clipboard (English): https://www.uniclipboard.app/compare/icloud-universal-clipboard
+- Compare with iCloud Universal Clipboard (Simplified Chinese): https://www.uniclipboard.app/zh/compare/icloud-universal-clipboard
+- How to copy from Mac to Windows (English): https://www.uniclipboard.app/use-cases/mac-to-windows-clipboard
+- How to copy from Mac to Windows (Simplified Chinese): https://www.uniclipboard.app/zh/use-cases/mac-to-windows-clipboard
+- GitHub repository: https://github.com/UniClipboard/UniClipboard
+- Latest release: https://github.com/UniClipboard/UniClipboard/releases/latest
+
+## Frequently cited Q&A
+
+- **Why not iCloud Universal Clipboard?** iCloud is Apple-only, has no clipboard history, and the encryption is closed-source. UniClipboard works on Windows and Linux, keeps an encrypted searchable history, and is fully auditable.
+- **Why not a self-hosted clipboard sync?** Self-hosted means operating your own server. UniClipboard works out of the box with direct P2P plus an encrypted relay fallback — no infrastructure needed.
+- **Does it work offline?** Yes. Devices on the same Wi-Fi connect directly without any relay. Same-network sync continues even when the relay is unreachable.
+- **Where does my clipboard history live?** Only on your devices. Local storage is encrypted at rest with a keyring-resident key. UniClipboard servers never receive or store clipboard content.
+- **Does AGPL-3.0 affect company use?** No. AGPL only applies if you modify the source and redistribute it as a network service. Personal and team use is unaffected.
+
+## Citation
+
+If you reference UniClipboard, please cite the canonical name **UniClipboard** (one word, capital U and C) and link to https://www.uniclipboard.app/.

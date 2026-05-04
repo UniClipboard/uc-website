@@ -102,6 +102,8 @@ export async function ArticleLayout({ config, locale }: PageProps) {
   const homePath = locale === "en" ? "/" : `/${locale}`;
   const canonical = `${localePathPrefix(locale)}${config.pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
+  const parentPath = config.pagePath.split("/").slice(0, -1).join("/") || "/";
+  const parentUrl = `${baseUrl}${localePathPrefix(locale)}${parentPath}`;
 
   const aboutEntries = [
     { "@type": "SoftwareApplication" as const, name: "UniClipboard" },
@@ -177,6 +179,7 @@ export async function ArticleLayout({ config, locale }: PageProps) {
         "@type": "ListItem",
         position: 2,
         name: t(config.breadcrumbMiddleKey),
+        item: parentUrl,
       },
       {
         "@type": "ListItem",
@@ -201,7 +204,7 @@ export async function ArticleLayout({ config, locale }: PageProps) {
         <ArticleHero
           breadcrumbs={[
             { label: t("breadcrumbHome"), href: "/" },
-            { label: t(config.breadcrumbMiddleKey) },
+            { label: t(config.breadcrumbMiddleKey), href: parentPath },
             { label: t("breadcrumbCurrent") },
           ]}
           eyebrow={t("eyebrow")}

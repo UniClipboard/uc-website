@@ -17,27 +17,29 @@ import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import type {
   ArticleCategoryValue,
-  ArticleContent,
   ArticleLocale,
+  TemplateArticleContent,
 } from "@/lib/article-content";
 import { siteConfig } from "@/lib/site-config";
 
 const localePathPrefix = (locale: string) =>
   locale === "en" ? "" : `/${locale}`;
 
-const HUB_BASE_PATH: Record<ArticleCategoryValue, string> = {
+type TemplateCategory = Exclude<ArticleCategoryValue, "blog">;
+
+const HUB_BASE_PATH: Record<TemplateCategory, string> = {
   compare: "/compare",
   "use-cases": "/use-cases",
 };
 
-const HUB_NAMESPACE: Record<ArticleCategoryValue, string> = {
+const HUB_NAMESPACE: Record<TemplateCategory, string> = {
   compare: "compareHub",
   "use-cases": "useCasesHub",
 };
 
 export type ArticleEntry = {
   slug: string;
-  category: ArticleCategoryValue;
+  category: TemplateCategory;
   datePublished: string;
 };
 
@@ -46,7 +48,7 @@ const articlePagePath = (entry: ArticleEntry) =>
 
 export async function buildArticleMetadata(
   entry: ArticleEntry,
-  content: ArticleContent,
+  content: TemplateArticleContent,
   locale: string,
 ): Promise<Metadata> {
   const pagePath = articlePagePath(entry);
@@ -99,7 +101,7 @@ export async function ArticleLayout({
   locale,
 }: {
   entry: ArticleEntry;
-  content: ArticleContent;
+  content: TemplateArticleContent;
   locale: ArticleLocale;
 }) {
   const hubT = await getTranslations({

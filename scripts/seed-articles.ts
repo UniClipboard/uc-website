@@ -10,8 +10,8 @@ import postgres from "postgres";
 
 import { articles, articleTranslations } from "../src/db/schema";
 import {
-  type ArticleContent,
   articleContentSchema,
+  type TemplateArticleContent,
 } from "../src/lib/article-content";
 
 loadEnv({ path: ".env.local" });
@@ -66,9 +66,10 @@ type LegacyPayload = {
 
 function transform(
   legacy: LegacyPayload,
-  extras: { about?: string[]; howTo?: ArticleContent["howTo"] },
-): ArticleContent {
+  extras: { about?: string[]; howTo?: TemplateArticleContent["howTo"] },
+): TemplateArticleContent {
   return {
+    contentType: "template",
     seo: {
       title: legacy.seoTitle,
       description: legacy.seoDescription,
@@ -144,7 +145,7 @@ type SeedSpec = {
   enPath: (root: Record<string, unknown>) => LegacyPayload;
   zhPath: (root: Record<string, unknown>) => LegacyPayload;
   about?: string[];
-  howTo?: ArticleContent["howTo"];
+  howTo?: TemplateArticleContent["howTo"];
 };
 
 const pickEn = (root: Record<string, unknown>, path: string[]): LegacyPayload =>

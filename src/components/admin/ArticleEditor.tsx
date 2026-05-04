@@ -2,15 +2,22 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 import {
   ARTICLE_CATEGORIES,
   ARTICLE_LOCALES,
   ARTICLE_STATUSES,
+  type ArticleCategoryValue,
   type ArticleContent,
   type ArticleLocale,
   type ArticleUpsertInput,
+  CATEGORY_CONTENT_TYPE,
+  type MarkdownArticleContent,
+  type TemplateArticleContent,
 } from "@/lib/article-content";
+import { emptyContentForCategory } from "@/lib/empty-article";
 
 type Props = {
   mode: "create" | "edit";
@@ -146,48 +153,88 @@ function ListField({
   );
 }
 
-function ContentForm({
+function SeoSection({
   content,
   onChange,
 }: {
   content: ArticleContent;
-  onChange: (c: ArticleContent) => void;
+  onChange: (seo: ArticleContent["seo"]) => void;
 }) {
-  const update = <K extends keyof ArticleContent>(
+  return (
+    <Section title="SEO / OpenGraph">
+      <Field
+        label="SEO title"
+        value={content.seo.title}
+        onChange={(v) => onChange({ ...content.seo, title: v })}
+      />
+      <Field
+        label="OG alt"
+        value={content.seo.ogAlt}
+        onChange={(v) => onChange({ ...content.seo, ogAlt: v })}
+      />
+      <div className="md:col-span-2">
+        <Field
+          label="SEO description"
+          value={content.seo.description}
+          multiline
+          onChange={(v) => onChange({ ...content.seo, description: v })}
+        />
+      </div>
+      <div className="md:col-span-2">
+        <Field
+          label="SEO keywords (comma-separated)"
+          value={content.seo.keywords}
+          multiline
+          onChange={(v) => onChange({ ...content.seo, keywords: v })}
+        />
+      </div>
+    </Section>
+  );
+}
+
+function MetaSection({
+  content,
+  onChange,
+}: {
+  content: ArticleContent;
+  onChange: (meta: ArticleContent["meta"]) => void;
+}) {
+  return (
+    <Section title="Meta / breadcrumb">
+      <Field
+        label="Breadcrumb (current page label)"
+        value={content.meta.breadcrumbCurrent}
+        onChange={(v) => onChange({ ...content.meta, breadcrumbCurrent: v })}
+      />
+      <Field
+        label="Last updated label"
+        value={content.meta.lastUpdatedLabel}
+        onChange={(v) => onChange({ ...content.meta, lastUpdatedLabel: v })}
+      />
+      <Field
+        label="Last updated date (YYYY-MM-DD)"
+        value={content.meta.lastUpdatedDate}
+        onChange={(v) => onChange({ ...content.meta, lastUpdatedDate: v })}
+      />
+    </Section>
+  );
+}
+
+function TemplateContentForm({
+  content,
+  onChange,
+}: {
+  content: TemplateArticleContent;
+  onChange: (c: TemplateArticleContent) => void;
+}) {
+  const update = <K extends keyof TemplateArticleContent>(
     key: K,
-    value: ArticleContent[K],
+    value: TemplateArticleContent[K],
   ) => onChange({ ...content, [key]: value });
 
   return (
     <div className="flex flex-col gap-5">
-      <Section title="SEO / OpenGraph">
-        <Field
-          label="SEO title"
-          value={content.seo.title}
-          onChange={(v) => update("seo", { ...content.seo, title: v })}
-        />
-        <Field
-          label="OG alt"
-          value={content.seo.ogAlt}
-          onChange={(v) => update("seo", { ...content.seo, ogAlt: v })}
-        />
-        <div className="md:col-span-2">
-          <Field
-            label="SEO description"
-            value={content.seo.description}
-            multiline
-            onChange={(v) => update("seo", { ...content.seo, description: v })}
-          />
-        </div>
-        <div className="md:col-span-2">
-          <Field
-            label="SEO keywords (comma-separated)"
-            value={content.seo.keywords}
-            multiline
-            onChange={(v) => update("seo", { ...content.seo, keywords: v })}
-          />
-        </div>
-      </Section>
+      <SeoSection content={content} onChange={(seo) => update("seo", seo)} />
 
       <Section title="Hero">
         <Field
@@ -218,29 +265,10 @@ function ContentForm({
         </div>
       </Section>
 
-      <Section title="Meta / breadcrumb">
-        <Field
-          label="Breadcrumb (current page label)"
-          value={content.meta.breadcrumbCurrent}
-          onChange={(v) =>
-            update("meta", { ...content.meta, breadcrumbCurrent: v })
-          }
-        />
-        <Field
-          label="Last updated label"
-          value={content.meta.lastUpdatedLabel}
-          onChange={(v) =>
-            update("meta", { ...content.meta, lastUpdatedLabel: v })
-          }
-        />
-        <Field
-          label="Last updated date (YYYY-MM-DD)"
-          value={content.meta.lastUpdatedDate}
-          onChange={(v) =>
-            update("meta", { ...content.meta, lastUpdatedDate: v })
-          }
-        />
-      </Section>
+      <MetaSection
+        content={content}
+        onChange={(meta) => update("meta", meta)}
+      />
 
       <Section title="TL;DR">
         <Field
@@ -664,12 +692,216 @@ function ContentForm({
   );
 }
 
+const markdownPreviewClasses = [
+  "[&_h1]:text-2xl",
+  "[&_h1]:font-semibold",
+  "[&_h1]:my-4",
+  "[&_h2]:text-xl",
+  "[&_h2]:font-semibold",
+  "[&_h2]:mt-6",
+  "[&_h2]:mb-3",
+  "[&_h3]:text-lg",
+  "[&_h3]:font-semibold",
+  "[&_h3]:mt-4",
+  "[&_h3]:mb-2",
+  "[&_p]:my-3",
+  "[&_p]:leading-[1.65]",
+  "[&_a]:underline",
+  "[&_a]:text-foreground",
+  "[&_ul]:list-disc",
+  "[&_ul]:pl-6",
+  "[&_ul]:my-3",
+  "[&_ol]:list-decimal",
+  "[&_ol]:pl-6",
+  "[&_ol]:my-3",
+  "[&_li]:my-1",
+  "[&_code]:bg-bg2",
+  "[&_code]:px-1.5",
+  "[&_code]:py-0.5",
+  "[&_code]:rounded",
+  "[&_code]:font-mono",
+  "[&_code]:text-[12px]",
+  "[&_pre]:bg-bg2",
+  "[&_pre]:border",
+  "[&_pre]:border-border",
+  "[&_pre]:rounded",
+  "[&_pre]:p-4",
+  "[&_pre]:my-4",
+  "[&_pre]:overflow-x-auto",
+  "[&_pre]:text-[12px]",
+  "[&_blockquote]:border-l-2",
+  "[&_blockquote]:border-border",
+  "[&_blockquote]:pl-4",
+  "[&_blockquote]:text-muted-foreground",
+  "[&_blockquote]:my-4",
+  "[&_table]:my-4",
+  "[&_table]:w-full",
+  "[&_table]:border-collapse",
+  "[&_th]:px-3",
+  "[&_th]:py-2",
+  "[&_th]:bg-bg2",
+  "[&_th]:text-left",
+  "[&_th]:border-b",
+  "[&_th]:border-border",
+  "[&_td]:px-3",
+  "[&_td]:py-2",
+  "[&_td]:border-b",
+  "[&_td]:border-border",
+  "[&_hr]:my-6",
+  "[&_hr]:border-border",
+].join(" ");
+
+function MarkdownContentForm({
+  content,
+  onChange,
+}: {
+  content: MarkdownArticleContent;
+  onChange: (c: MarkdownArticleContent) => void;
+}) {
+  const [view, setView] = useState<"edit" | "preview" | "split">("edit");
+  const update = <K extends keyof MarkdownArticleContent>(
+    key: K,
+    value: MarkdownArticleContent[K],
+  ) => onChange({ ...content, [key]: value });
+
+  return (
+    <div className="flex flex-col gap-5">
+      <SeoSection content={content} onChange={(seo) => update("seo", seo)} />
+
+      <Section title="Hero">
+        <div className="md:col-span-2">
+          <Field
+            label="Title (H1)"
+            value={content.hero.title}
+            onChange={(v) => update("hero", { ...content.hero, title: v })}
+          />
+        </div>
+        <div className="md:col-span-2">
+          <Field
+            label="Subtitle (optional)"
+            value={content.hero.subtitle}
+            multiline
+            onChange={(v) => update("hero", { ...content.hero, subtitle: v })}
+          />
+        </div>
+      </Section>
+
+      <MetaSection
+        content={content}
+        onChange={(meta) => update("meta", meta)}
+      />
+
+      <section className="border-border rounded-lg border p-5">
+        <div className="mb-3 flex items-center justify-between">
+          <h3 className="text-foreground text-sm font-semibold">
+            Body (Markdown)
+          </h3>
+          <div className="border-border bg-bg2 inline-flex rounded-md border p-0.5 text-xs">
+            {(["edit", "split", "preview"] as const).map((v) => (
+              <button
+                key={v}
+                type="button"
+                onClick={() => setView(v)}
+                className={`rounded px-3 py-1 transition-colors ${
+                  view === v
+                    ? "bg-background text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        </div>
+        <p className="text-muted-foreground mb-3 text-[11px]">
+          GitHub-Flavored Markdown. Use <code>##</code> for sections,{" "}
+          <code>###</code> for subsections — H1 is reserved for the hero title.
+        </p>
+
+        <div
+          className={
+            view === "split"
+              ? "grid gap-3 md:grid-cols-2"
+              : "flex flex-col gap-3"
+          }
+        >
+          {view !== "preview" && (
+            <textarea
+              value={content.body}
+              onChange={(e) => update("body", e.target.value)}
+              rows={view === "split" ? 28 : 24}
+              spellCheck={false}
+              placeholder={"## Section heading\n\nWrite the post here…"}
+              className="border-border bg-background focus:border-foreground w-full rounded-md border px-3 py-2 font-mono text-[13px] leading-[1.6] outline-none"
+            />
+          )}
+          {view !== "edit" && (
+            <div
+              className={`border-border bg-bg2 overflow-auto rounded-md border px-4 py-3 ${markdownPreviewClasses}`}
+              style={{ maxHeight: view === "split" ? 720 : undefined }}
+            >
+              {content.body.trim() ? (
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {content.body}
+                </ReactMarkdown>
+              ) : (
+                <p className="text-muted-foreground text-xs italic">
+                  Nothing to preview yet.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ContentForm({
+  content,
+  onChange,
+}: {
+  content: ArticleContent;
+  onChange: (c: ArticleContent) => void;
+}) {
+  if (content.contentType === "markdown") {
+    return (
+      <MarkdownContentForm content={content} onChange={(c) => onChange(c)} />
+    );
+  }
+  return (
+    <TemplateContentForm content={content} onChange={(c) => onChange(c)} />
+  );
+}
+
 export function ArticleEditor({ mode, articleId, initial }: Props) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [activeLocale, setActiveLocale] = useState<ArticleLocale>("en");
   const [state, setState] = useState<ArticleUpsertInput>(initial);
+
+  const onCategoryChange = (next: ArticleCategoryValue) => {
+    if (next === state.category) return;
+    const expectedType = CATEGORY_CONTENT_TYPE[next];
+    const currentType = state.translations.en.contentType;
+    if (currentType === expectedType) {
+      setState((s) => ({ ...s, category: next }));
+      return;
+    }
+    const ok = window.confirm(
+      `Switching category from "${state.category}" to "${next}" changes the editor format and will reset both EN and ZH content. Continue?`,
+    );
+    if (!ok) return;
+    setState((s) => ({
+      ...s,
+      category: next,
+      translations: {
+        en: emptyContentForCategory(next),
+        zh: emptyContentForCategory(next),
+      },
+    }));
+  };
 
   const submit = () => {
     setError(null);
@@ -698,6 +930,8 @@ export function ArticleEditor({ mode, articleId, initial }: Props) {
     });
   };
 
+  const contentType = state.translations[activeLocale].contentType;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-4">
@@ -705,6 +939,9 @@ export function ArticleEditor({ mode, articleId, initial }: Props) {
           {mode === "create" ? "New article" : "Edit article"}
         </h1>
         <div className="flex items-center gap-3">
+          <span className="text-muted-foreground bg-bg2 border-border rounded-full border px-3 py-1 font-mono text-[11px] tracking-wide uppercase">
+            {contentType}
+          </span>
           <button
             type="button"
             disabled={pending}
@@ -739,10 +976,7 @@ export function ArticleEditor({ mode, articleId, initial }: Props) {
           <select
             value={state.category}
             onChange={(e) =>
-              setState((s) => ({
-                ...s,
-                category: e.target.value as ArticleUpsertInput["category"],
-              }))
+              onCategoryChange(e.target.value as ArticleCategoryValue)
             }
             className="border-border bg-background focus:border-foreground rounded-md border px-3 py-2 text-sm outline-none"
           >

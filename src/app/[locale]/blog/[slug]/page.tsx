@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
-  ArticleLayout,
-  buildArticleMetadata,
-} from "@/components/article/ArticleLayout";
+  buildMarkdownArticleMetadata,
+  MarkdownArticleLayout,
+} from "@/components/article/MarkdownArticleLayout";
 import { getAllPublishedSlugs, getArticle } from "@/db/articles";
 import type { ArticleLocale } from "@/lib/article-content";
 
-const CATEGORY = "compare" as const;
+const CATEGORY = "blog" as const;
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -29,8 +29,8 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const article = await getArticle(CATEGORY, slug, locale as ArticleLocale);
-  if (!article || article.content.contentType !== "template") return {};
-  return buildArticleMetadata(
+  if (!article || article.content.contentType !== "markdown") return {};
+  return buildMarkdownArticleMetadata(
     {
       slug: article.slug,
       category: CATEGORY,
@@ -41,13 +41,13 @@ export async function generateMetadata({
   );
 }
 
-export default async function CompareArticlePage({ params }: PageProps) {
+export default async function BlogArticlePage({ params }: PageProps) {
   const { locale, slug } = await params;
   const article = await getArticle(CATEGORY, slug, locale as ArticleLocale);
-  if (!article || article.content.contentType !== "template") notFound();
+  if (!article || article.content.contentType !== "markdown") notFound();
 
   return (
-    <ArticleLayout
+    <MarkdownArticleLayout
       entry={{
         slug: article.slug,
         category: CATEGORY,

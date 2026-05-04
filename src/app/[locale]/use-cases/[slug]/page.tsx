@@ -29,11 +29,11 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const article = await getArticle(CATEGORY, slug, locale as ArticleLocale);
-  if (!article) return {};
+  if (!article || article.content.contentType !== "template") return {};
   return buildArticleMetadata(
     {
       slug: article.slug,
-      category: article.category,
+      category: CATEGORY,
       datePublished: article.datePublished,
     },
     article.content,
@@ -44,13 +44,13 @@ export async function generateMetadata({
 export default async function UseCaseArticlePage({ params }: PageProps) {
   const { locale, slug } = await params;
   const article = await getArticle(CATEGORY, slug, locale as ArticleLocale);
-  if (!article) notFound();
+  if (!article || article.content.contentType !== "template") notFound();
 
   return (
     <ArticleLayout
       entry={{
         slug: article.slug,
-        category: article.category,
+        category: CATEGORY,
         datePublished: article.datePublished,
       }}
       content={article.content}

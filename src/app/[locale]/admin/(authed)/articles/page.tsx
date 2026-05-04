@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { DeleteArticleButton } from "@/components/admin/DeleteArticleButton";
+import { NewArticleButton } from "@/components/admin/NewArticleButton";
 import { listAllArticles } from "@/db/articles";
 
 export const metadata = { title: "Articles · Admin" };
@@ -21,12 +22,7 @@ export default async function AdminArticlesPage() {
             and /use-cases/[slug]
           </p>
         </div>
-        <Link
-          href="/admin/articles/new"
-          className="bg-foreground text-background rounded-full px-4 py-2 text-sm font-medium"
-        >
-          New article
-        </Link>
+        <NewArticleButton />
       </div>
 
       {items.length === 0 ? (

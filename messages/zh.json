@@ -279,6 +279,21 @@
     "countLabel": "{count, plural, =0 {暂无对比文章} other {共 # 篇对比}}",
     "emptyState": "暂无对比文章，过段时间再来看看。"
   },
+  "blogHub": {
+    "seoTitle": "UniClipboard 博客 — 关于剪贴板同步、加密和跨设备工作流",
+    "seoDescription": "聚焦 UniClipboard 的实现细节、最近的更新，以及跨设备剪贴板同步背后的权衡。写给愿意看细节的工程师。",
+    "seoKeywords": "UniClipboard 博客, 剪贴板同步原理, 端到端加密剪贴板, 跨平台剪贴板工程, 开源剪贴板更新",
+    "ogAlt": "UniClipboard 博客 — 关于剪贴板同步的工程笔记",
+    "breadcrumbHome": "首页",
+    "breadcrumbCurrent": "博客",
+    "eyebrow": "博客",
+    "title": "团队笔记。",
+    "subtitle": "我们怎么做 UniClipboard、最近在发什么、跨设备剪贴板同步背后的取舍——写给愿意看细节的工程师。",
+    "categoryLabel": "文章",
+    "readMore": "阅读文章",
+    "countLabel": "{count, plural, =0 {暂无文章} other {共 # 篇文章}}",
+    "emptyState": "暂无文章，过段时间再来看看。"
+  },
   "useCasesHub": {
     "seoTitle": "UniClipboard 使用场景 — 跨设备剪贴板的实操指南",
     "seoDescription": "聚焦人们真正会做的几件事：从 Mac 复制粘到 Windows、在 SSH / tmux 里用剪贴板、和同事共享一份加密的剪贴板。每篇都给到具体的快捷键。",

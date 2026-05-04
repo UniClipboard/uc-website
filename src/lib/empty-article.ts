@@ -1,7 +1,14 @@
-import type { ArticleContent } from "./article-content";
+import {
+  type ArticleCategoryValue,
+  type ArticleContent,
+  CATEGORY_CONTENT_TYPE,
+  type MarkdownArticleContent,
+  type TemplateArticleContent,
+} from "./article-content";
 
-export function emptyArticleContent(): ArticleContent {
+export function emptyTemplateContent(): TemplateArticleContent {
   return {
+    contentType: "template",
     seo: { title: "", description: "", keywords: "", ogAlt: "" },
     hero: { eyebrow: "", title: "", subtitle: "", lede: "" },
     meta: {
@@ -33,4 +40,32 @@ export function emptyArticleContent(): ArticleContent {
     },
     about: [],
   };
+}
+
+export function emptyMarkdownContent(): MarkdownArticleContent {
+  return {
+    contentType: "markdown",
+    seo: { title: "", description: "", keywords: "", ogAlt: "" },
+    hero: { title: "", subtitle: "" },
+    meta: {
+      breadcrumbCurrent: "",
+      lastUpdatedLabel: "Last updated",
+      lastUpdatedDate: new Date().toISOString().slice(0, 10),
+    },
+    body: "",
+  };
+}
+
+export function emptyArticleContent(
+  contentType: ArticleContent["contentType"],
+): ArticleContent {
+  return contentType === "markdown"
+    ? emptyMarkdownContent()
+    : emptyTemplateContent();
+}
+
+export function emptyContentForCategory(
+  category: ArticleCategoryValue,
+): ArticleContent {
+  return emptyArticleContent(CATEGORY_CONTENT_TYPE[category]);
 }

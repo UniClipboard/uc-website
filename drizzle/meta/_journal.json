@@ -8,6 +8,13 @@
       "when": 1777901737821,
       "tag": "0000_majestic_power_pack",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777906329556,
+      "tag": "0001_purple_venom",
+      "breakpoints": true
     }
   ]
 }

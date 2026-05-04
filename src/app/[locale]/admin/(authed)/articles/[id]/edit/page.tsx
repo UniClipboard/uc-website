@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { ArticleEditor } from "@/components/admin/ArticleEditor";
 import { getArticleWithAllTranslations } from "@/db/articles";
-import { emptyArticleContent } from "@/lib/empty-article";
+import { emptyContentForCategory } from "@/lib/empty-article";
 
 export const metadata = { title: "Edit article · Admin" };
 
@@ -28,8 +28,12 @@ export default async function EditArticlePage({
         datePublished: article.datePublished,
         status: article.status,
         translations: {
-          en: article.translations.en ?? emptyArticleContent(),
-          zh: article.translations.zh ?? emptyArticleContent(),
+          en:
+            article.translations.en ??
+            emptyContentForCategory(article.category),
+          zh:
+            article.translations.zh ??
+            emptyContentForCategory(article.category),
         },
       }}
     />

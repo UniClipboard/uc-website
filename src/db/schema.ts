@@ -14,6 +14,7 @@ import {
 export const articleCategoryEnum = pgEnum("article_category", [
   "compare",
   "use-cases",
+  "blog",
 ]);
 
 export const articleStatusEnum = pgEnum("article_status", [

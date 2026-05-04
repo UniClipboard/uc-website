@@ -92,8 +92,7 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
   const canonical = `${localePathPrefix(locale)}${config.pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
 
-  const articleHref = (slug: string) =>
-    `${config.pagePath === "/compare" ? "/compare" : "/use-cases"}/${slug}`;
+  const articleHref = (slug: string) => `${config.pagePath}/${slug}`;
 
   const collectionSchema = {
     "@context": "https://schema.org",

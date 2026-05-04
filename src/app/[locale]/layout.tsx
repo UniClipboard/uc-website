@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
@@ -123,9 +124,11 @@ const RootLayout = async ({
             </Script>
           </>
         )}
-        <NextIntlClientProvider>
-          <ThemeProvider attribute="class">{children}</ThemeProvider>
-        </NextIntlClientProvider>
+        <ClerkProvider>
+          <NextIntlClientProvider>
+            <ThemeProvider attribute="class">{children}</ThemeProvider>
+          </NextIntlClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

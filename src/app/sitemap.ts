@@ -1,24 +1,27 @@
 import { MetadataRoute } from "next";
 
+import { getAllPublishedSlugs } from "@/db/articles";
 import { env } from "@/env.mjs";
 import { routing } from "@/i18n/routing";
-import { articleManifest } from "@/lib/articles";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = (env.APP_URL || "https://www.uniclipboard.app").replace(
     /\/$/,
     "",
   );
+
+  const articles = await getAllPublishedSlugs();
 
   const pages = [
     { path: "", priority: 1, changeFrequency: "monthly" as const },
     { path: "whitepaper", priority: 0.8, changeFrequency: "yearly" as const },
     { path: "compare", priority: 0.85, changeFrequency: "monthly" as const },
     { path: "use-cases", priority: 0.85, changeFrequency: "monthly" as const },
-    ...articleManifest.map((article) => ({
+    ...articles.map((article) => ({
       path: `${article.category}/${article.slug}`,
       priority: 0.9,
       changeFrequency: "monthly" as const,
+      lastModified: article.updatedAt,
     })),
   ];
 
@@ -33,7 +36,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       sitemap.push({
         url,
-        lastModified: new Date(),
+        lastModified:
+          "lastModified" in page && page.lastModified
+            ? page.lastModified
+            : new Date(),
         changeFrequency: page.changeFrequency,
         priority: page.priority,
       });

@@ -101,9 +101,9 @@ export async function HeroSection({ release, stars }: Props) {
             <AnimateIn delay={0.32} duration={0.6}>
               <HeroVideo
                 playLabel={t("videoPlay")}
-                pauseLabel={t("videoPause")}
-                durationLabel={t("videoDuration")}
                 videoLabel={t("videoLabel")}
+                openLabel={t("videoOpen")}
+                closeLabel={t("videoClose")}
               />
             </AnimateIn>
           </div>
@@ -151,9 +151,9 @@ export async function HeroSection({ release, stars }: Props) {
           <AnimateIn delay={0.14} duration={0.5}>
             <HeroVideoMobile
               playLabel={t("videoPlay")}
-              pauseLabel={t("videoPause")}
               videoLabel={t("videoLabel")}
-              seekLabel={t("videoSeek")}
+              openLabel={t("videoOpen")}
+              closeLabel={t("videoClose")}
             />
           </AnimateIn>
 

@@ -35,7 +35,9 @@
       "videoPlay": "Play demo",
       "videoPause": "Pause",
       "videoDuration": "00:60",
-      "videoSeek": "Seek"
+      "videoSeek": "Seek",
+      "videoOpen": "Watch demo",
+      "videoClose": "Close video"
     },
     "features": {
       "eyebrow": "Features",

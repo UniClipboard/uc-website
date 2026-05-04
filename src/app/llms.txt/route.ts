@@ -1,4 +1,27 @@
-# UniClipboard
+import { NextResponse } from "next/server";
+
+import {
+  getAllPublishedArticleSummaries,
+  type PublishedArticleSummary,
+} from "@/db/articles";
+import { siteConfig } from "@/lib/site-config";
+
+export const runtime = "nodejs";
+export const revalidate = 3600;
+
+const HUB_PATH = {
+  compare: "/compare",
+  "use-cases": "/use-cases",
+  blog: "/blog",
+} as const;
+
+const HUB_LABEL = {
+  compare: { en: "All comparisons", zh: "All comparisons" },
+  "use-cases": { en: "All use-case guides", zh: "All use-case guides" },
+  blog: { en: "All blog posts", zh: "All blog posts" },
+} as const;
+
+const INTRO = `# UniClipboard
 
 > UniClipboard is a free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, and Linux. Copy on one device, paste on another — no cloud account, no email, no phone number. Direct peer-to-peer on the same network; encrypted relay with NAT hole-punching across networks.
 
@@ -31,29 +54,11 @@ Compared to self-hosted clipboard sync (e.g. ClipCascade), UniClipboard requires
 - Quick Panel keyboard overlay with previews for text, links, images, code, files
 - Local full-text search across tens of thousands of clipboard entries
 - Encrypted local history index, retention configurable (default 30 days)
-- Headless `uniclip` CLI for terminals, SSH, scripts, and tmux
+- Headless \`uniclip\` CLI for terminals, SSH, scripts, and tmux
 - Streaming transfer for large files (no need to fit in memory)
-- Per-device sync preferences and one-tap revoke for lost devices
+- Per-device sync preferences and one-tap revoke for lost devices`;
 
-## Primary URLs
-
-- Home (English): https://www.uniclipboard.app/
-- Home (Simplified Chinese): https://www.uniclipboard.app/zh
-- Technical whitepaper: https://www.uniclipboard.app/whitepaper
-- All comparisons (English): https://www.uniclipboard.app/compare
-- All comparisons (Simplified Chinese): https://www.uniclipboard.app/zh/compare
-- All use-case guides (English): https://www.uniclipboard.app/use-cases
-- All use-case guides (Simplified Chinese): https://www.uniclipboard.app/zh/use-cases
-- Compare with iCloud Universal Clipboard (English): https://www.uniclipboard.app/compare/icloud-universal-clipboard
-- Compare with iCloud Universal Clipboard (Simplified Chinese): https://www.uniclipboard.app/zh/compare/icloud-universal-clipboard
-- How to copy from Mac to Windows (English): https://www.uniclipboard.app/use-cases/mac-to-windows-clipboard
-- How to copy from Mac to Windows (Simplified Chinese): https://www.uniclipboard.app/zh/use-cases/mac-to-windows-clipboard
-- Compare with Maccy (English): https://www.uniclipboard.app/compare/maccy
-- Compare with Maccy (Simplified Chinese): https://www.uniclipboard.app/zh/compare/maccy
-- GitHub repository: https://github.com/UniClipboard/UniClipboard
-- Latest release: https://github.com/UniClipboard/UniClipboard/releases/latest
-
-## Frequently cited Q&A
+const OUTRO = `## Frequently cited Q&A
 
 - **Why not iCloud Universal Clipboard?** iCloud is Apple-only, has no clipboard history, and the encryption is closed-source. UniClipboard works on Windows and Linux, keeps an encrypted searchable history, and is fully auditable.
 - **Why not a self-hosted clipboard sync?** Self-hosted means operating your own server. UniClipboard works out of the box with direct P2P plus an encrypted relay fallback — no infrastructure needed.
@@ -63,4 +68,58 @@ Compared to self-hosted clipboard sync (e.g. ClipCascade), UniClipboard requires
 
 ## Citation
 
-If you reference UniClipboard, please cite the canonical name **UniClipboard** (one word, capital U and C) and link to https://www.uniclipboard.app/.
+If you reference UniClipboard, please cite the canonical name **UniClipboard** (one word, capital U and C) and link to https://www.uniclipboard.app/.`;
+
+function articleLine(
+  baseUrl: string,
+  summary: PublishedArticleSummary,
+  locale: "en" | "zh",
+): string | null {
+  const title = summary.titles[locale];
+  if (!title) return null;
+  const localeLabel = locale === "zh" ? "Simplified Chinese" : "English";
+  const localePrefix = locale === "zh" ? "/zh" : "";
+  const path = `${HUB_PATH[summary.category]}/${summary.slug}`;
+  return `- ${title} (${localeLabel}): ${baseUrl}${localePrefix}${path}`;
+}
+
+export async function GET() {
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
+  const summaries = await getAllPublishedArticleSummaries();
+
+  const lines: string[] = [INTRO, "", "## Primary URLs", ""];
+
+  lines.push(`- Home (English): ${baseUrl}/`);
+  lines.push(`- Home (Simplified Chinese): ${baseUrl}/zh`);
+  lines.push(`- Technical whitepaper: ${baseUrl}/whitepaper`);
+
+  for (const cat of ["compare", "use-cases", "blog"] as const) {
+    lines.push(`- ${HUB_LABEL[cat].en} (English): ${baseUrl}${HUB_PATH[cat]}`);
+    lines.push(
+      `- ${HUB_LABEL[cat].zh} (Simplified Chinese): ${baseUrl}/zh${HUB_PATH[cat]}`,
+    );
+  }
+
+  for (const summary of summaries) {
+    const en = articleLine(baseUrl, summary, "en");
+    const zh = articleLine(baseUrl, summary, "zh");
+    if (en) lines.push(en);
+    if (zh) lines.push(zh);
+  }
+
+  lines.push(
+    "- GitHub repository: https://github.com/UniClipboard/UniClipboard",
+  );
+  lines.push(
+    "- Latest release: https://github.com/UniClipboard/UniClipboard/releases/latest",
+  );
+
+  lines.push("", OUTRO, "");
+
+  return new NextResponse(lines.join("\n"), {
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "public, max-age=600, s-maxage=3600",
+    },
+  });
+}

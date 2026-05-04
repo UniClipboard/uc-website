@@ -120,6 +120,54 @@ async function fetchPublishedByCategoryRaw(
   }));
 }
 
+export type PublishedArticleSummary = {
+  slug: string;
+  category: ArticleCategoryValue;
+  datePublished: string;
+  updatedAt: Date;
+  titles: Partial<Record<ArticleLocale, string>>;
+};
+
+async function fetchAllPublishedArticleSummariesRaw(): Promise<
+  PublishedArticleSummary[]
+> {
+  const rows = await db
+    .select({
+      id: articles.id,
+      slug: articles.slug,
+      category: articles.category,
+      datePublished: articles.datePublished,
+      updatedAt: articles.updatedAt,
+      locale: articleTranslations.locale,
+      payload: articleTranslations.payload,
+    })
+    .from(articles)
+    .innerJoin(
+      articleTranslations,
+      eq(articleTranslations.articleId, articles.id),
+    )
+    .where(eq(articles.status, "published"))
+    .orderBy(desc(articles.datePublished), desc(articles.createdAt));
+
+  const byId = new Map<string, PublishedArticleSummary>();
+  for (const row of rows) {
+    let summary = byId.get(row.id);
+    if (!summary) {
+      summary = {
+        slug: row.slug,
+        category: row.category as ArticleCategoryValue,
+        datePublished: row.datePublished,
+        updatedAt: row.updatedAt,
+        titles: {},
+      };
+      byId.set(row.id, summary);
+    }
+    const content = parseContent(row.payload);
+    summary.titles[row.locale as ArticleLocale] = content.hero.title;
+  }
+  return Array.from(byId.values());
+}
+
 async function fetchAllPublishedSlugsRaw(): Promise<
   Pick<ArticleRecord, "slug" | "category" | "datePublished" | "updatedAt">[]
 > {
@@ -167,6 +215,13 @@ export const getAllPublishedSlugs = () =>
   unstable_cache(() => fetchAllPublishedSlugsRaw(), ["articles", "all-slugs"], {
     tags: [allArticlesCacheTag],
   })();
+
+export const getAllPublishedArticleSummaries = () =>
+  unstable_cache(
+    () => fetchAllPublishedArticleSummariesRaw(),
+    ["articles", "all-summaries"],
+    { tags: [allArticlesCacheTag] },
+  )();
 
 export async function getArticleWithAllTranslations(
   id: string,

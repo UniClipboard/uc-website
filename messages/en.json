@@ -285,6 +285,21 @@
     "countLabel": "{count, plural, =0 {No comparisons yet} one {# comparison} other {# comparisons}}",
     "emptyState": "No comparisons published yet. Check back soon."
   },
+  "blogHub": {
+    "seoTitle": "UniClipboard Blog — notes on clipboard sync, encryption, and cross-device workflows",
+    "seoDescription": "Long-form posts on how UniClipboard works under the hood, what we're shipping, and the tradeoffs behind cross-device clipboard sync. Written for engineers who want the details.",
+    "seoKeywords": "uniclipboard blog, clipboard sync internals, end-to-end encryption clipboard, cross-platform clipboard engineering, open source clipboard updates",
+    "ogAlt": "UniClipboard blog — engineering notes on clipboard sync",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Blog",
+    "eyebrow": "Blog",
+    "title": "Notes from the team.",
+    "subtitle": "How we build UniClipboard, what we're shipping, and the tradeoffs behind cross-device clipboard sync — written for engineers who want the details.",
+    "categoryLabel": "Post",
+    "readMore": "Read post",
+    "countLabel": "{count, plural, =0 {No posts yet} one {# post} other {# posts}}",
+    "emptyState": "No posts published yet. Check back soon."
+  },
   "useCasesHub": {
     "seoTitle": "UniClipboard use cases — practical guides for cross-device clipboard workflows",
     "seoDescription": "Step-by-step guides for the things people actually do with UniClipboard — copy from a Mac to Windows, work across SSH and tmux, share an encrypted clipboard with a teammate. Each guide is keyboard-shortcut concrete.",

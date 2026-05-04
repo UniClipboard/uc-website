@@ -420,53 +420,53 @@
       "tableHeader": {
         "feature": "功能",
         "uc": "UniClipboard",
-        "icloud": "iCloud 通用剪贴板"
+        "other": "iCloud 通用剪贴板"
       },
       "rows": [
         {
           "feature": "支持平台",
           "uc": "macOS / Windows / Linux 原生",
-          "icloud": "仅 macOS 与 iOS"
+          "other": "仅 macOS 与 iOS"
         },
         {
           "feature": "跨网络同步",
           "uc": "P2P + NAT 打洞 + 加密中继回退",
-          "icloud": "仅同一 Wi-Fi 近距离"
+          "other": "仅同一 Wi-Fi 近距离"
         },
         {
           "feature": "剪贴板历史",
           "uc": "可全文搜索，落盘加密",
-          "icloud": "无历史，只保留最近一次"
+          "other": "无历史，只保留最近一次"
         },
         {
           "feature": "加密方式",
           "uc": "XChaCha20-Poly1305 AEAD，开源",
-          "icloud": "端到端，但闭源"
+          "other": "端到端，但闭源"
         },
         {
           "feature": "源码可读",
           "uc": "AGPL-3.0 开源，可自行审计",
-          "icloud": "闭源"
+          "other": "闭源"
         },
         {
           "feature": "是否需要账号",
           "uc": "不需要——公钥配对",
-          "icloud": "需要 Apple ID"
+          "other": "需要 Apple ID"
         },
         {
           "feature": "文件传输",
           "uc": "文本、图片与文件（大文件流式传输）",
-          "icloud": "仅文本与图片"
+          "other": "仅文本与图片"
         },
         {
           "feature": "命令行 / 脚本",
           "uc": "无头 uniclip CLI，可用于 SSH / tmux / 脚本",
-          "icloud": "不支持"
+          "other": "不支持"
         },
         {
           "feature": "价格",
           "uc": "免费",
-          "icloud": "免费"
+          "other": "免费"
         }
       ],
       "switchEyebrow": "迁移",
@@ -510,6 +510,135 @@
       "ctaEyebrow": "下载 UniClipboard",
       "ctaTitle": "免费、开源、即装即用。",
       "ctaBody": "macOS 12+，Windows 10/11，Linux x86_64 / ARM64。除了配对一次，别的都不用做。",
+      "ctaPrimary": "查看下载",
+      "ctaSecondary": "阅读技术白皮书",
+      "lastUpdatedLabel": "最后更新",
+      "lastUpdatedDate": "2026-05-04"
+    },
+    "maccy": {
+      "seoTitle": "UniClipboard 对比 Maccy — 把开源剪贴板管理器扩展到多台设备",
+      "seoDescription": "Maccy 是 macOS 上最受欢迎的开源剪贴板管理器——本地、轻快、专注。UniClipboard 沿用同样的开源态度，再补上 Maccy 不做的那一块：跨 Mac、Windows、Linux 的端到端加密剪贴板同步。两者可以同时装。",
+      "seoKeywords": "Maccy 替代, Maccy 同步, Maccy 跨设备, Maccy Windows, 开源剪贴板管理器 Mac, Mac 剪切板管理器, Maccy 跨平台, UniClipboard 对比 Maccy, Mac Windows 剪贴板",
+      "ogAlt": "UniClipboard 对比 Maccy — 把开源剪贴板管理器扩展到多台设备",
+      "breadcrumbHome": "首页",
+      "breadcrumbCompare": "对比",
+      "breadcrumbCurrent": "Maccy",
+      "eyebrow": "对比 · UniClipboard 对 Maccy",
+      "title": "UniClipboard 对比 Maccy",
+      "subtitle": "Maccy 是为一台 Mac 做的开源剪贴板。UniClipboard 是为你所有设备做的开源剪贴板。",
+      "lede": "Maccy 是 macOS 上很受喜爱的开源剪贴板管理器——刻意只做本地、轻快、克制。UniClipboard 沿用同样的开源态度，并补上 Maccy 故意不碰的那一块：在 macOS、Windows、Linux 之间端到端加密同步剪贴板内容。两者在同一台 Mac 上可以共存——很多人就是同时用着这两个工具。",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "30 秒看完。",
+      "tldrItems": [
+        "Maccy 是单台 Mac 上的本地剪贴板管理器，UniClipboard 把同样的思路延伸到了多设备——同样的开源态度，多了同步。",
+        "Maccy 用 MIT 协议，UniClipboard 用 AGPL-3.0。两个项目都开源了完整代码，也都接受社区贡献。",
+        "Maccy 把历史记录存在它运行的那台 Mac 上。UniClipboard 在每台设备上各自加密保存历史，并把新复制的内容同步到已配对的设备。",
+        "Maccy 在 Mac App Store 和 Homebrew 上都能拿到。UniClipboard 通过签名、公证过的安装包直发（暂未上 Mac App Store）。",
+        "可以两个一起用。Maccy 在 Mac 上继续做它擅长的事，UniClipboard 把 Windows 和 Linux 也接进来。",
+        "如果你日常只用一台 Mac，Maccy 单独用就够了。一旦工作里出现第二台机器，UniClipboard 就是顺势的升级路径。"
+      ],
+      "section1Eyebrow": "Maccy 做得好的地方",
+      "section1Title": "Maccy 擅长什么",
+      "section1Body": "Maccy 是开源圈喜欢的那种工具：体积小、运行快、原生 Swift、该克制的地方很克制。它常驻菜单栏，⌘⇧C 一下就弹出，可以钉常用条目、搜索历史、按内容类型过滤。MIT 协议对想 fork 的人也很友好。如果你只用一台 Mac、不需要跨设备同步，Maccy 真的很难被替代——这种场景下推荐 Maccy 是诚实的回答。",
+      "section2Eyebrow": "UniClipboard 补上的那块",
+      "section2Title": "UniClipboard 在它之上加了什么",
+      "section2Body": "Maccy 故意不做的那件事，是离开 Mac 本机。一旦你的日常加进来一台 Windows 笔记本、Linux 台式机，甚至第二台 Mac，剪贴板历史就会被切成几段。UniClipboard 就是为这个场景而生：用 XChaCha20-Poly1305 AEAD 端到端加密同步剪贴板内容、在 macOS / Windows / Linux 上都有原生应用、不需要任何云账号、同 Wi-Fi 走 P2P，跨网络自动 NAT 打洞，每台设备各自一份加密历史索引。",
+      "tableEyebrow": "并排对比",
+      "tableTitle": "Maccy 和 UniClipboard 的差别。",
+      "tableNote": "对比基于 2026 年 5 月公开的产品行为整理。Maccy 相关事实参照 github.com/p0deje/Maccy 仓库。",
+      "tableHeader": {
+        "feature": "功能",
+        "uc": "UniClipboard",
+        "other": "Maccy"
+      },
+      "rows": [
+        {
+          "feature": "支持平台",
+          "uc": "macOS / Windows / Linux 原生",
+          "other": "仅 macOS"
+        },
+        {
+          "feature": "开源协议",
+          "uc": "AGPL-3.0",
+          "other": "MIT"
+        },
+        {
+          "feature": "跨设备同步",
+          "uc": "已配对设备之间端到端加密同步",
+          "other": "刻意不做——只在单台 Mac 本地"
+        },
+        {
+          "feature": "剪贴板历史",
+          "uc": "每台设备一份加密本地索引，可全文搜索",
+          "other": "单机本地历史，可搜索、可钉、可按类型过滤"
+        },
+        {
+          "feature": "分发方式",
+          "uc": "签名直发安装包（macOS 公证 / Windows Authenticode 签名）",
+          "other": "Mac App Store / Homebrew / 自行从源码构建"
+        },
+        {
+          "feature": "钉条目 / 收藏",
+          "uc": "暂无——已在路线图中",
+          "other": "支持，是核心功能"
+        },
+        {
+          "feature": "是否需要账号",
+          "uc": "不需要——公钥配对",
+          "other": "不需要——纯本地"
+        },
+        {
+          "feature": "加密",
+          "uc": "传输与落盘均使用 XChaCha20-Poly1305 AEAD",
+          "other": "纯本地存储——没有网络传输需要加密"
+        },
+        {
+          "feature": "价格",
+          "uc": "免费",
+          "other": "源码 / Homebrew 免费；Mac App Store 上付费"
+        }
+      ],
+      "switchEyebrow": "怎么装",
+      "switchTitle": "三步。Maccy 不用卸。",
+      "switchSteps": [
+        "Maccy 喜欢就接着用。UniClipboard 不会干扰 Maccy 的历史，也不冲它的快捷键——两者从不同角度观察同一个系统剪贴板，可以干净共存。",
+        "在 Mac 上装 UniClipboard，并在你想同步过去的非 Mac 设备（Windows 或 Linux）上各装一份。安装包都签过名也公证过，不需要邮箱、不需要账号。",
+        "用一个一次性邀请码完成配对。之后任意一台设备上复制的内容都会出现在其它已配对设备上；Maccy 继续在 Mac 上维护它自己的本地历史。"
+      ],
+      "verdictEyebrow": "结论",
+      "verdictTitle": "怎么选。",
+      "verdictBody": "如果你日常只用一台 Mac，Maccy 就是最合适的答案——这话不带条件。当工作里出现第二台机器（Windows、Linux 或另一台 Mac）、希望剪贴板能跟着你走时，再装上 UniClipboard。两者其实并不是竞争关系：Maccy 是本地那一层，UniClipboard 是同步那一层，很多人就是同时用着两个。",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "常被问到的几个问题。",
+      "faqItems": [
+        {
+          "q": "Maccy 和 UniClipboard 可以同时装吗？",
+          "a": "可以。两者观察的是同一个 macOS 系统剪贴板，互不干扰。Maccy 维护它本机的历史，UniClipboard 维护它每台设备各自的加密历史，并把新内容同步给已配对的设备。两者一起用是常见组合。"
+        },
+        {
+          "q": "同步只是 Mac → Windows，还是双向？",
+          "a": "双向。UniClipboard 的剪贴板是对称的：在 Windows 上复制的内容 Mac 这边也能粘出来，反过来一样。Maccy 仍然只记录它运行的那台 Mac 上的复制行为。"
+        },
+        {
+          "q": "历史保留时长怎么对比？",
+          "a": "Maccy 让你设置保留多少条，存在它运行的那台 Mac 上。UniClipboard 在每台设备上各自保留一份加密的本地历史，可配置保留时长（默认 30 天）。两份历史互相独立——Maccy 看不到 UniClipboard 的，反之亦然。"
+        },
+        {
+          "q": "MIT 和 AGPL-3.0 这点协议差异要紧吗？",
+          "a": "对终端用户而言不要紧——两个协议都允许你阅读、修改、再分发源码。AGPL-3.0 只在你魔改 UniClipboard 后把它做成对外的网络服务时才会引入额外义务，个人和团队自用都不受影响。Maccy 的 MIT 协议在嵌入闭源产品时更宽松，但 UniClipboard 是独立桌面应用，这个差异在实际使用里几乎不会触碰到。"
+        },
+        {
+          "q": "UniClipboard 上 Mac App Store 了吗？",
+          "a": "暂时没有。UniClipboard 通过官网提供签名、公证过的安装包直发。Maccy 既在 Mac App Store 付费上架，也提供 Homebrew 和源码安装的免费方式。如果 Mac App Store 渠道对你重要，这一项目前确实是 Maccy 的优势。"
+        },
+        {
+          "q": "在 Mac 上 UniClipboard 会和 Maccy 一样快吗？",
+          "a": "本地剪贴板历史搜索两者相当——都是本地建索引、毫秒级返回。UniClipboard 在同步到其它设备时多走了一步网络，但 Mac 本地的体验仍然是即时的：⌘C 一按系统剪贴板就更新。"
+        }
+      ],
+      "ctaEyebrow": "下载 UniClipboard",
+      "ctaTitle": "你本地剪贴板管理器的跨设备搭档。",
+      "ctaBody": "macOS 12+，Windows 10/11，Linux x86_64 / ARM64。免费、开源、端到端加密。和 Maccy 互不冲突。",
       "ctaPrimary": "查看下载",
       "ctaSecondary": "阅读技术白皮书",
       "lastUpdatedLabel": "最后更新",

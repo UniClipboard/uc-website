@@ -426,53 +426,53 @@
       "tableHeader": {
         "feature": "Feature",
         "uc": "UniClipboard",
-        "icloud": "iCloud Universal Clipboard"
+        "other": "iCloud Universal Clipboard"
       },
       "rows": [
         {
           "feature": "Supported platforms",
           "uc": "macOS, Windows, Linux (native)",
-          "icloud": "macOS and iOS only"
+          "other": "macOS and iOS only"
         },
         {
           "feature": "Cross-network sync",
           "uc": "P2P + NAT hole-punching + encrypted relay fallback",
-          "icloud": "Same Wi-Fi proximity only"
+          "other": "Same Wi-Fi proximity only"
         },
         {
           "feature": "Clipboard history",
           "uc": "Searchable, encrypted at rest",
-          "icloud": "No history — only the latest copy"
+          "other": "No history — only the latest copy"
         },
         {
           "feature": "Encryption",
           "uc": "XChaCha20-Poly1305 AEAD, open source",
-          "icloud": "End-to-end, closed source"
+          "other": "End-to-end, closed source"
         },
         {
           "feature": "Source code",
           "uc": "AGPL-3.0, fully auditable",
-          "icloud": "Proprietary"
+          "other": "Proprietary"
         },
         {
           "feature": "Account required",
           "uc": "None — public-key device pairing",
-          "icloud": "Apple ID required"
+          "other": "Apple ID required"
         },
         {
           "feature": "File transfer",
           "uc": "Text, images, and files (streaming for large files)",
-          "icloud": "Text and images only"
+          "other": "Text and images only"
         },
         {
           "feature": "CLI / scripting",
           "uc": "Headless uniclip CLI for SSH, tmux, scripts",
-          "icloud": "Not supported"
+          "other": "Not supported"
         },
         {
           "feature": "Price",
           "uc": "Free",
-          "icloud": "Free"
+          "other": "Free"
         }
       ],
       "switchEyebrow": "Migrating",
@@ -516,6 +516,135 @@
       "ctaEyebrow": "Get UniClipboard",
       "ctaTitle": "Free, open source, ready to install.",
       "ctaBody": "macOS 12+, Windows 10/11, Linux x86_64 / ARM64. No account, no email, no setup beyond pairing.",
+      "ctaPrimary": "See downloads",
+      "ctaSecondary": "Read the whitepaper",
+      "lastUpdatedLabel": "Last updated",
+      "lastUpdatedDate": "2026-05-04"
+    },
+    "maccy": {
+      "seoTitle": "UniClipboard vs Maccy — open-source clipboard manager with cross-device sync",
+      "seoDescription": "Maccy is the popular open-source clipboard manager for macOS — local, fast, and lovingly maintained. UniClipboard keeps that open-source posture and adds end-to-end encrypted sync to Windows and Linux. Run them side by side.",
+      "seoKeywords": "maccy alternative, maccy clipboard sync, maccy multiple devices, maccy windows, maccy linux, open source clipboard manager mac, cross-platform maccy, UniClipboard vs Maccy, mac windows clipboard manager",
+      "ogAlt": "UniClipboard vs Maccy — open-source clipboard manager with cross-device sync",
+      "breadcrumbHome": "Home",
+      "breadcrumbCompare": "Compare",
+      "breadcrumbCurrent": "Maccy",
+      "eyebrow": "Compare · UniClipboard vs Maccy",
+      "title": "UniClipboard vs Maccy",
+      "subtitle": "Maccy is the open-source clipboard for one Mac. UniClipboard is the open-source clipboard for all your machines.",
+      "lede": "Maccy is a beloved open-source clipboard manager for macOS — local-only by design, fast, and tastefully simple. UniClipboard shares the same open-source ethos and adds what Maccy intentionally does not: end-to-end encrypted sync of clipboard content across macOS, Windows, and Linux. The two tools are happy to coexist on the same Mac, and many people run both.",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "The 30-second answer.",
+      "tldrItems": [
+        "Maccy is a local-only clipboard manager for a single Mac. UniClipboard is the cross-device extension of that idea — same open-source posture, plus sync.",
+        "Maccy is MIT-licensed; UniClipboard is AGPL-3.0. Both ship full source code and accept community contributions.",
+        "Maccy stores history on the Mac it runs on. UniClipboard keeps an end-to-end encrypted history per device and syncs new copies across paired devices.",
+        "Maccy is on the Mac App Store and via Homebrew. UniClipboard is distributed as signed, notarized direct downloads (Mac App Store is not currently supported).",
+        "You can run both side-by-side. Maccy keeps doing what it does on the Mac; UniClipboard adds Windows and Linux to the picture.",
+        "If you only ever use one Mac, Maccy alone is plenty. The moment a second machine joins your workflow, UniClipboard is the upgrade path."
+      ],
+      "section1Eyebrow": "Where Maccy is great",
+      "section1Title": "What Maccy does well",
+      "section1Body": "Maccy is the kind of tool open-source enthusiasts love: small, fast, native Swift, opinionated in the right places. It sits in the menu bar, opens with ⌘⇧C, lets you pin frequent items, search history, and filter by content type. The MIT license is friendly to anyone who wants to fork it. For a single Mac that does not need cross-device sync, Maccy is genuinely hard to beat — and recommending it for that case is the honest answer.",
+      "section2Eyebrow": "Where UniClipboard adds the missing piece",
+      "section2Title": "What UniClipboard adds on top",
+      "section2Body": "The thing Maccy does not do — by design — is leave the Mac. The moment you add a Windows laptop, a Linux desktop, or even a second Mac to your daily setup, the clipboard history splinters. UniClipboard is built for that case: end-to-end encrypted sync of clipboard content with XChaCha20-Poly1305 AEAD, native apps on macOS, Windows, and Linux, no cloud account, P2P on the same Wi-Fi with NAT hole-punching across networks, and a per-device encrypted history index.",
+      "tableEyebrow": "Side-by-side",
+      "tableTitle": "Maccy and UniClipboard compared.",
+      "tableNote": "Comparison reflects publicly documented behaviour as of 2026-05. Maccy facts verified against github.com/p0deje/Maccy.",
+      "tableHeader": {
+        "feature": "Feature",
+        "uc": "UniClipboard",
+        "other": "Maccy"
+      },
+      "rows": [
+        {
+          "feature": "Supported platforms",
+          "uc": "macOS, Windows, Linux (native)",
+          "other": "macOS only"
+        },
+        {
+          "feature": "License",
+          "uc": "AGPL-3.0",
+          "other": "MIT"
+        },
+        {
+          "feature": "Cross-device sync",
+          "uc": "End-to-end encrypted sync across paired devices",
+          "other": "Not by design — local-only on a single Mac"
+        },
+        {
+          "feature": "Clipboard history",
+          "uc": "Encrypted local index, per-device, searchable",
+          "other": "Local history, searchable, with pin and filters"
+        },
+        {
+          "feature": "Distribution",
+          "uc": "Signed direct downloads (notarized macOS, Authenticode Windows)",
+          "other": "Mac App Store, Homebrew, build from source"
+        },
+        {
+          "feature": "Pin / favorite items",
+          "uc": "Not yet — on the roadmap",
+          "other": "Yes — first-class feature"
+        },
+        {
+          "feature": "Account required",
+          "uc": "None — public-key device pairing",
+          "other": "None — local-only"
+        },
+        {
+          "feature": "Encryption",
+          "uc": "XChaCha20-Poly1305 AEAD in transit and at rest",
+          "other": "Local storage only — no network transit to encrypt"
+        },
+        {
+          "feature": "Price",
+          "uc": "Free",
+          "other": "Free from source / Homebrew; paid on the Mac App Store"
+        }
+      ],
+      "switchEyebrow": "Setup",
+      "switchTitle": "Three steps. You can keep Maccy.",
+      "switchSteps": [
+        "Keep Maccy installed if you like it. UniClipboard does not interfere with Maccy's history or its keyboard shortcut — they observe the same system clipboard from different angles and coexist cleanly.",
+        "Install UniClipboard on your Mac and on whichever non-Mac device you want to sync with — Windows or Linux. Each installer is signed and notarized; no account, no email.",
+        "Pair the devices once with a short-lived invitation code. From then on, anything you copy on one device is available on the others, while Maccy continues to maintain its own local history on the Mac."
+      ],
+      "verdictEyebrow": "Verdict",
+      "verdictTitle": "When to pick what.",
+      "verdictBody": "If you only ever use one Mac, Maccy is the right answer — full stop. Pick UniClipboard when a second device joins the picture (Windows, Linux, or another Mac) and you want clipboard content to follow you. The two are not really competitors: Maccy is the local layer; UniClipboard is the sync layer. Many people use both.",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "Frequently asked.",
+      "faqItems": [
+        {
+          "q": "Can I run Maccy and UniClipboard at the same time?",
+          "a": "Yes. They observe the same macOS clipboard and do not interfere with each other. Maccy keeps its local history; UniClipboard keeps its encrypted per-device history and syncs copies to your other devices. Many users run both."
+        },
+        {
+          "q": "Does sync only go from Mac to Windows, or in both directions?",
+          "a": "Both directions. UniClipboard's clipboard is symmetric: a copy on the Windows side is available on the Mac, and vice versa. Maccy continues to record only what happens on the Mac it runs on."
+        },
+        {
+          "q": "How does clipboard history retention compare?",
+          "a": "Maccy lets you configure how many items to keep, stored locally on that Mac. UniClipboard keeps an encrypted local history per device with a configurable retention window (default 30 days). The two histories are independent — Maccy does not see UniClipboard's, and vice versa."
+        },
+        {
+          "q": "Is the license difference between MIT and AGPL-3.0 a problem?",
+          "a": "For end-users, no — both let you read, modify, and share the code. AGPL-3.0 only adds obligations if you modify UniClipboard and run it as a network service for others. Personal and team use is unaffected. Maccy's MIT license is more permissive for embedding in a closed-source product, but UniClipboard is a standalone app, so that distinction rarely matters in practice."
+        },
+        {
+          "q": "Is UniClipboard available on the Mac App Store?",
+          "a": "Not currently. UniClipboard ships as signed, notarized direct downloads from the website. Maccy is on the Mac App Store (paid) and also free from Homebrew or source. If Mac App Store distribution matters to you, that is a real point in Maccy's favour today."
+        },
+        {
+          "q": "Will UniClipboard be as fast as Maccy on a Mac?",
+          "a": "For local clipboard history search the two are comparable — both index locally and search in milliseconds. UniClipboard adds a network step when syncing to other devices, but the local UX on the Mac stays instant: the system clipboard updates as soon as ⌘C fires."
+        }
+      ],
+      "ctaEyebrow": "Get UniClipboard",
+      "ctaTitle": "The cross-device companion to your local clipboard manager.",
+      "ctaBody": "macOS 12+, Windows 10/11, Linux x86_64 / ARM64. Free, open source, end-to-end encrypted. Coexists with Maccy.",
       "ctaPrimary": "See downloads",
       "ctaSecondary": "Read the whitepaper",
       "lastUpdatedLabel": "Last updated",

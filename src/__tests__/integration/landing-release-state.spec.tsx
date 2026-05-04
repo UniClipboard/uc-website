@@ -1,10 +1,19 @@
 import { render, screen } from "@testing-library/react";
 
-import LandingPage from "@/app/[locale]/page";
-import { DownloadSection } from "@/components/landing/DownloadSection";
-
 import enMessages from "../../../messages/en.json";
 import zhMessages from "../../../messages/zh.json";
+
+jest.mock("../../lib/site-config", () => ({
+  siteConfig: {
+    brand: "UniClipboard",
+    url: "http://localhost:3000",
+    verification: { google: "", bing: "", baidu: "", yandex: "" },
+    analytics: { gaMeasurementId: "" },
+  },
+}));
+
+import LandingPage from "@/app/[locale]/page";
+import { DownloadSection } from "@/components/landing/DownloadSection";
 
 jest.mock(
   "@/lib/release-feed/fetch-stable-release",
@@ -30,10 +39,18 @@ const getDownloadDictionary = (locale: "en" | "zh") => {
 };
 
 jest.mock("next-intl/server", () => ({
-  getTranslations: async (namespace: string) => {
-    if (namespace !== "landing.download") return (key: string) => key;
-    const dictionary = getDownloadDictionary(currentLocale);
-    return (key: string) => dictionary[key] ?? key;
+  getTranslations: async (
+    arg: string | { locale?: string; namespace?: string },
+  ) => {
+    const namespace = typeof arg === "string" ? arg : (arg?.namespace ?? "");
+    const passthrough = (key: string) => key;
+    const translator = ((key: string) => {
+      if (namespace !== "landing.download") return key;
+      const dictionary = getDownloadDictionary(currentLocale);
+      return dictionary[key] ?? key;
+    }) as ((key: string) => string) & { raw: (key: string) => unknown };
+    translator.raw = passthrough;
+    return translator;
   },
 }));
 
@@ -54,7 +71,9 @@ describe("landing release state integration", () => {
 
     mockedFetchStableRelease.mockRejectedValue(new Error("socket closed"));
 
-    await expect(LandingPage()).resolves.toBeTruthy();
+    await expect(
+      LandingPage({ params: Promise.resolve({ locale: "en" }) }),
+    ).resolves.toBeTruthy();
     expect(mockedNormalizeStableRelease).not.toHaveBeenCalled();
 
     const section = await DownloadSection({

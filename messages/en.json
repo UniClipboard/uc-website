@@ -252,8 +252,9 @@
       "docs": "README",
       "stackTitle": "Built with",
       "contactTitle": "Contact",
-      "twitter": "X (Twitter)",
-      "authorTwitter": "Author · @mkdir700",
+      "twitter": "X · @uniclipboard",
+      "authorTwitter": "X · @mkdir700",
+      "bilibili": "Bilibili · @mkdir700",
       "email": "hello@uniclipboard.app",
       "copyright": "© 2026 mkdir700",
       "rustNote": "made with Rust 🦀 · AGPL-3.0"

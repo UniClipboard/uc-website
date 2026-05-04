@@ -28,7 +28,8 @@
       "videoLabel": "uniclipboard — demo.mp4",
       "videoPlay": "播放演示",
       "videoPause": "暂停",
-      "videoDuration": "00:60"
+      "videoDuration": "00:60",
+      "videoSeek": "拖动进度"
     },
     "features": {
       "eyebrow": "核心功能",

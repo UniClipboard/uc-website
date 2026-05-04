@@ -22,6 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
       changeFrequency: "monthly" as const,
     },
+    {
+      path: "compare/maccy",
+      priority: 0.85,
+      changeFrequency: "monthly" as const,
+    },
   ];
 
   const sitemap: MetadataRoute.Sitemap = [];

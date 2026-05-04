@@ -7,11 +7,11 @@ import {
 } from "@/components/article/ArticleLayout";
 
 const config: ArticleConfig = {
-  pagePath: "/compare/icloud-universal-clipboard",
-  namespace: "compare.icloud",
+  pagePath: "/compare/maccy",
+  namespace: "compare.maccy",
   breadcrumbMiddleKey: "breadcrumbCompare",
   datePublished: "2026-05-04",
-  about: ["iCloud Universal Clipboard"],
+  about: ["Maccy"],
 };
 
 type PageProps = {
@@ -25,9 +25,9 @@ export async function generateMetadata({
   return buildArticleMetadata(config, locale);
 }
 
-const ComparePage = async ({ params }: PageProps) => {
+const MaccyComparePage = async ({ params }: PageProps) => {
   const { locale } = await params;
   return <ArticleLayout config={config} locale={locale} />;
 };
 
-export default ComparePage;
+export default MaccyComparePage;

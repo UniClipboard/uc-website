@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import type { AnchorHTMLAttributes } from "react";
 
 import { Navigation } from "@/components/landing/Navigation";
 
@@ -10,6 +11,15 @@ jest.mock("next-intl", () => ({
 
 const replace = jest.fn();
 jest.mock("../../i18n/navigation", () => ({
+  Link: ({
+    children,
+    href,
+    ...props
+  }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
   usePathname: () => "/",
   useRouter: () => ({ replace }),
 }));
@@ -64,6 +74,15 @@ describe("Navigation", () => {
     expect(githubLink).toHaveAttribute(
       "href",
       "https://github.com/UniClipboard/UniClipboard",
+    );
+  });
+
+  it("links to the blog hub", () => {
+    render(<Navigation />);
+
+    expect(screen.getByRole("link", { name: "blog" })).toHaveAttribute(
+      "href",
+      "/blog",
     );
   });
 });

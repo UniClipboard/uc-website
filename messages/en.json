@@ -17,6 +17,7 @@
       "features": "Features",
       "how": "How it works",
       "compare": "Compare",
+      "blog": "Blog",
       "download": "Install",
       "faq": "FAQ",
       "github": "GitHub",
@@ -296,6 +297,7 @@
     "title": "Notes from the team.",
     "subtitle": "How we build UniClipboard, what we're shipping, and the tradeoffs behind cross-device clipboard sync — written for engineers who want the details.",
     "categoryLabel": "Post",
+    "tableOfContents": "On this page",
     "readMore": "Read post",
     "countLabel": "{count, plural, =0 {No posts yet} one {# post} other {# posts}}",
     "emptyState": "No posts published yet. Check back soon."

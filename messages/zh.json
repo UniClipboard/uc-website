@@ -11,6 +11,7 @@
       "features": "功能",
       "how": "工作原理",
       "compare": "对比",
+      "blog": "博客",
       "download": "下载",
       "faq": "FAQ",
       "github": "GitHub",
@@ -290,6 +291,7 @@
     "title": "团队笔记。",
     "subtitle": "我们怎么做 UniClipboard、最近在发什么、跨设备剪贴板同步背后的取舍——写给愿意看细节的工程师。",
     "categoryLabel": "文章",
+    "tableOfContents": "本页目录",
     "readMore": "阅读文章",
     "countLabel": "{count, plural, =0 {暂无文章} other {共 # 篇文章}}",
     "emptyState": "暂无文章，过段时间再来看看。"

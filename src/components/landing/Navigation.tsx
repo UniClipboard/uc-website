@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
 export function Navigation() {
   const t = useTranslations("landing.navigation");
@@ -56,9 +56,60 @@ export function Navigation() {
   const navLinks = [
     { href: "#features", label: t("features") },
     { href: "#compare", label: t("compare") },
+    { href: "/blog", label: t("blog") },
     { href: "#download", label: t("download") },
     { href: "#faq", label: t("faq") },
   ];
+
+  const renderNavLink = (
+    link: (typeof navLinks)[number],
+    className: string,
+    onClick?: () => void,
+    showArrow = false,
+  ) =>
+    link.href.startsWith("/") ? (
+      <Link
+        key={link.href}
+        className={className}
+        href={link.href}
+        onClick={onClick}
+      >
+        {link.label}
+        {showArrow && (
+          <span
+            className="text-muted2"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              letterSpacing: "0.05em",
+            }}
+          >
+            ↗
+          </span>
+        )}
+      </Link>
+    ) : (
+      <a
+        key={link.href}
+        className={className}
+        href={link.href}
+        onClick={onClick}
+      >
+        {link.label}
+        {showArrow && (
+          <span
+            className="text-muted2"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              letterSpacing: "0.05em",
+            }}
+          >
+            ↗
+          </span>
+        )}
+      </a>
+    );
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -70,15 +121,9 @@ export function Navigation() {
         </a>
 
         <div className="text-muted-foreground hidden items-center gap-7 text-[13px] md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              className="hover:text-foreground transition-colors"
-              href={link.href}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            renderNavLink(link, "hover:text-foreground transition-colors"),
+          )}
         </div>
 
         <div className="flex items-center gap-2.5">
@@ -166,24 +211,14 @@ export function Navigation() {
         >
           <div className="landing-shell flex h-full flex-col gap-1 py-6">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors"
-              >
-                {link.label}
-                <span
-                  className="text-muted2"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 11,
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  ↗
-                </span>
-              </a>
+              <div key={link.href}>
+                {renderNavLink(
+                  link,
+                  "text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors",
+                  () => setMenuOpen(false),
+                  true,
+                )}
+              </div>
             ))}
 
             <div className="border-border mt-4 flex items-center gap-3 border-t pt-5">

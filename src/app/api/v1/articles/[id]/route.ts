@@ -11,19 +11,14 @@ import {
 import { db } from "@/db/client";
 import { articles, articleTranslations } from "@/db/schema";
 import { requireApiToken } from "@/lib/api-token";
-import { articleUpsertSchema } from "@/lib/article-content";
+import {
+  type ArticleCategoryValue,
+  articleUpsertSchema,
+} from "@/lib/article-content";
 
 export const runtime = "nodejs";
 
 type Ctx = { params: Promise<{ id: string }> };
-
-const ensureBlog = (category: string) => category === "blog";
-
-const notBlogResponse = () =>
-  NextResponse.json(
-    { error: 'This endpoint only operates on category="blog" articles.' },
-    { status: 400 },
-  );
 
 export async function GET(req: NextRequest, ctx: Ctx) {
   try {
@@ -38,7 +33,6 @@ export async function GET(req: NextRequest, ctx: Ctx) {
   if (!article) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
-  if (!ensureBlog(article.category)) return notBlogResponse();
 
   return NextResponse.json(article);
 }
@@ -67,8 +61,6 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
     );
   }
 
-  if (!ensureBlog(parsed.category)) return notBlogResponse();
-
   const existing = await db
     .select()
     .from(articles)
@@ -78,7 +70,7 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
   const previous = existing[0];
-  if (!ensureBlog(previous.category)) return notBlogResponse();
+  const previousCategory = previous.category as ArticleCategoryValue;
 
   const conflict = await db
     .select({ id: articles.id })
@@ -126,9 +118,9 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
       });
   }
 
-  revalidateTag(articleCacheTag("blog", previous.slug));
+  revalidateTag(articleCacheTag(previousCategory, previous.slug));
   revalidateTag(articleCacheTag(parsed.category, parsed.slug));
-  revalidateTag(hubCacheTag("blog"));
+  revalidateTag(hubCacheTag(previousCategory));
   revalidateTag(hubCacheTag(parsed.category));
   revalidateTag(allArticlesCacheTag);
 
@@ -154,12 +146,12 @@ export async function DELETE(req: NextRequest, ctx: Ctx) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
   const article = existing[0];
-  if (!ensureBlog(article.category)) return notBlogResponse();
+  const articleCategory = article.category as ArticleCategoryValue;
 
   await db.delete(articles).where(eq(articles.id, id));
 
-  revalidateTag(articleCacheTag("blog", article.slug));
-  revalidateTag(hubCacheTag("blog"));
+  revalidateTag(articleCacheTag(articleCategory, article.slug));
+  revalidateTag(hubCacheTag(articleCategory));
   revalidateTag(allArticlesCacheTag);
 
   return NextResponse.json({ ok: true });

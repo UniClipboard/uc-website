@@ -1,8 +1,8 @@
+import rehypeShiki from "@shikijs/rehype";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { type ReactNode } from "react";
 import { type Components, MarkdownAsync } from "react-markdown";
-import rehypeShiki from "rehype-shiki";
 import remarkGfm from "remark-gfm";
 
 import { Article, BreadcrumbBar, JsonLd } from "@/components/article/sections";
@@ -209,12 +209,10 @@ const proseClasses = [
   "[&_code]:py-0.5",
   "[&_code]:font-mono",
   "[&_code]:text-[13px]",
-  // Code blocks render with a constant dark surface so the Nord syntax theme
-  // keeps high contrast in both light and dark site themes (same approach as
-  // GitHub / Vercel / Stripe docs).
-  "[&_pre]:bg-[#2e3440]",
+  // Background + token colors come from `@shikijs/rehype` dual themes
+  // (github-light / github-dark) via CSS vars in globals.css.
   "[&_pre]:border",
-  "[&_pre]:border-[#3b4252]",
+  "[&_pre]:border-border",
   "[&_pre]:rounded-lg",
   "[&_pre]:p-5",
   "[&_pre]:my-6",
@@ -344,7 +342,15 @@ export async function MarkdownArticleLayout({
   const renderedMarkdown = await MarkdownAsync({
     children: content.body,
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [[rehypeShiki, { theme: "nord", useBackground: false }]],
+    rehypePlugins: [
+      [
+        rehypeShiki,
+        {
+          themes: { light: "github-light", dark: "github-dark" },
+          defaultColor: false,
+        },
+      ],
+    ],
     components: markdownComponents,
   });
 

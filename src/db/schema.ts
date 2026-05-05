@@ -63,9 +63,26 @@ export const articleTranslations = pgTable(
   ],
 );
 
+export const apiTokens = pgTable(
+  "api_tokens",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tokenHash: text("token_hash").notNull(),
+    label: text("label").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+  },
+  (table) => [uniqueIndex("api_tokens_token_hash_idx").on(table.tokenHash)],
+);
+
 export type Article = typeof articles.$inferSelect;
 export type NewArticle = typeof articles.$inferInsert;
 export type ArticleTranslation = typeof articleTranslations.$inferSelect;
 export type NewArticleTranslation = typeof articleTranslations.$inferInsert;
+export type ApiToken = typeof apiTokens.$inferSelect;
+export type NewApiToken = typeof apiTokens.$inferInsert;
 
 export const updateUpdatedAt = sql`now()`;

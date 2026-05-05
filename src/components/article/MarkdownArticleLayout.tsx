@@ -209,9 +209,12 @@ const proseClasses = [
   "[&_code]:py-0.5",
   "[&_code]:font-mono",
   "[&_code]:text-[13px]",
-  "[&_pre]:bg-bg2",
+  // Code blocks render with a constant dark surface so the Nord syntax theme
+  // keeps high contrast in both light and dark site themes (same approach as
+  // GitHub / Vercel / Stripe docs).
+  "[&_pre]:bg-[#2e3440]",
   "[&_pre]:border",
-  "[&_pre]:border-border",
+  "[&_pre]:border-[#3b4252]",
   "[&_pre]:rounded-lg",
   "[&_pre]:p-5",
   "[&_pre]:my-6",

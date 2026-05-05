@@ -36,6 +36,12 @@ export default async function AdminAuthedLayout({
             >
               Articles
             </Link>
+            <Link
+              href="/admin/tokens"
+              className="hover:text-foreground transition-colors"
+            >
+              API Tokens
+            </Link>
           </nav>
         </div>
         <div className="text-muted-foreground flex items-center gap-3 text-xs">

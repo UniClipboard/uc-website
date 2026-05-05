@@ -58,8 +58,13 @@ const adminMiddleware = clerkMiddleware(async (auth, req: NextRequest) => {
 });
 
 export default function middleware(req: NextRequest, event: NextFetchEvent) {
-  if (isAdminRoute(req.nextUrl.pathname)) {
+  const path = req.nextUrl.pathname;
+  if (isAdminRoute(path)) {
     return adminMiddleware(req, event);
+  }
+  // Token-authenticated API routes (e.g. /api/v1/*) bypass intl rewriting.
+  if (path.startsWith("/api/")) {
+    return NextResponse.next();
   }
   return intlMiddleware(req);
 }

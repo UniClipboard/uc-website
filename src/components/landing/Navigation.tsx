@@ -53,77 +53,42 @@ export function Navigation() {
     router.replace(pathname, { locale: next });
   };
 
-  const navLinks = [
-    { href: "#features", label: t("features") },
-    { href: "#compare", label: t("compare") },
-    { href: "/blog", label: t("blog") },
-    { href: "#download", label: t("download") },
-    { href: "#faq", label: t("faq") },
+  const navItems: { href: string; label: string; matchPrefix: string }[] = [
+    { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
+    { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
+    { href: "/use-cases", label: t("useCases"), matchPrefix: "/use-cases" },
   ];
 
-  const renderNavLink = (
-    link: (typeof navLinks)[number],
-    className: string,
-    onClick?: () => void,
-    showArrow = false,
-  ) =>
-    link.href.startsWith("/") ? (
-      <Link
-        key={link.href}
-        className={className}
-        href={link.href}
-        onClick={onClick}
-      >
-        {link.label}
-        {showArrow && (
-          <span
-            className="text-muted2"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.05em",
-            }}
-          >
-            ↗
-          </span>
-        )}
-      </Link>
-    ) : (
-      <a
-        key={link.href}
-        className={className}
-        href={link.href}
-        onClick={onClick}
-      >
-        {link.label}
-        {showArrow && (
-          <span
-            className="text-muted2"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.05em",
-            }}
-          >
-            ↗
-          </span>
-        )}
-      </a>
-    );
+  const isItemActive = (matchPrefix: string) =>
+    pathname === matchPrefix || pathname.startsWith(`${matchPrefix}/`);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav className="landing-shell flex items-center justify-between py-7">
-        <a href="#top" className="flex items-baseline gap-3">
+        <Link href="/" className="flex items-baseline gap-3">
           <span className="wordmark text-foreground text-[28px]">
             UniClipboard
           </span>
-        </a>
+        </Link>
 
         <div className="text-muted-foreground hidden items-center gap-7 text-[13px] md:flex">
-          {navLinks.map((link) =>
-            renderNavLink(link, "hover:text-foreground transition-colors"),
-          )}
+          {navItems.map((item) => {
+            const active = isItemActive(item.matchPrefix);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  active
+                    ? "text-foreground transition-colors"
+                    : "hover:text-foreground transition-colors"
+                }
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="flex items-center gap-2.5">
@@ -184,12 +149,12 @@ export function Navigation() {
             <Github className="size-4" />
           </a>
 
-          <a
-            href="#download"
-            className="bg-primary text-primary-foreground inline-flex items-center justify-center rounded-lg px-3 py-2 text-[12px] font-medium md:hidden"
+          <Link
+            href="/#download"
+            className="bg-primary text-primary-foreground inline-flex items-center justify-center rounded-lg px-3 py-2 text-[12px] font-medium"
           >
             {t("download")}
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -210,16 +175,30 @@ export function Navigation() {
           aria-modal="true"
         >
           <div className="landing-shell flex h-full flex-col gap-1 py-6">
-            {navLinks.map((link) => (
-              <div key={link.href}>
-                {renderNavLink(
-                  link,
-                  "text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors",
-                  () => setMenuOpen(false),
-                  true,
-                )}
-              </div>
-            ))}
+            {navItems.map((item) => {
+              const active = isItemActive(item.matchPrefix);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className="text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors"
+                >
+                  {item.label}
+                  <span
+                    className="text-muted2"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    ↗
+                  </span>
+                </Link>
+              );
+            })}
 
             <div className="border-border mt-4 flex items-center gap-3 border-t pt-5">
               <div

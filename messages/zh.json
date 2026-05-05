@@ -8,12 +8,10 @@
   },
   "landing": {
     "navigation": {
-      "features": "功能",
-      "how": "工作原理",
-      "compare": "对比",
       "blog": "博客",
+      "compare": "对比",
+      "useCases": "使用场景",
       "download": "下载",
-      "faq": "FAQ",
       "github": "GitHub",
       "menu": "菜单",
       "menuClose": "关闭菜单",
@@ -261,9 +259,6 @@
       "copyright": "© 2026 mkdir700",
       "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
-  },
-  "whitepaper": {
-    "backToHome": "返回主页"
   },
   "compareHub": {
     "seoTitle": "UniClipboard 对比 — 开源剪贴板同步对比 iCloud / Maccy / 其它",

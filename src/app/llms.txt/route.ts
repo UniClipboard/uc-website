@@ -91,7 +91,7 @@ export async function GET() {
 
   lines.push(`- Home (English): ${baseUrl}/`);
   lines.push(`- Home (Simplified Chinese): ${baseUrl}/zh`);
-  lines.push(`- Technical whitepaper: ${baseUrl}/whitepaper`);
+  lines.push(`- Technical whitepaper: ${baseUrl}/blog/whitepaper`);
 
   for (const cat of ["compare", "use-cases", "blog"] as const) {
     lines.push(`- ${HUB_LABEL[cat].en} (English): ${baseUrl}${HUB_PATH[cat]}`);

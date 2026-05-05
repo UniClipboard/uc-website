@@ -266,7 +266,7 @@ export async function ArticleLayout({
           title={content.cta.title}
           body={content.cta.body}
           primary={{ label: content.cta.primary, href: "/#download" }}
-          secondary={{ label: content.cta.secondary, href: "/whitepaper" }}
+          secondary={{ label: content.cta.secondary, href: "/blog/whitepaper" }}
         />
       </Article>
       <Footer />

@@ -184,7 +184,7 @@ export function HeroDownloadCta({
           ·
         </span>
         <Link
-          href="/whitepaper"
+          href="/blog/whitepaper"
           className="hover:text-foreground underline-offset-4 transition-colors hover:underline"
         >
           {labels.secondaryHow}

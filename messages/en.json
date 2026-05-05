@@ -14,12 +14,10 @@
   },
   "landing": {
     "navigation": {
-      "features": "Features",
-      "how": "How it works",
-      "compare": "Compare",
       "blog": "Blog",
+      "compare": "Compare",
+      "useCases": "Use cases",
       "download": "Install",
-      "faq": "FAQ",
       "github": "GitHub",
       "menu": "Menu",
       "menuClose": "Close menu",
@@ -267,9 +265,6 @@
       "copyright": "© 2026 mkdir700",
       "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
-  },
-  "whitepaper": {
-    "backToHome": "Back to home"
   },
   "compareHub": {
     "seoTitle": "Compare UniClipboard — open-source clipboard sync vs iCloud, Maccy, and the rest",

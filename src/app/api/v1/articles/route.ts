@@ -10,11 +10,16 @@ import {
 import { db } from "@/db/client";
 import { articles, articleTranslations } from "@/db/schema";
 import { requireApiToken } from "@/lib/api-token";
-import { articleUpsertSchema } from "@/lib/article-content";
+import {
+  ARTICLE_CATEGORIES,
+  type ArticleCategoryValue,
+  articleUpsertSchema,
+} from "@/lib/article-content";
 
 export const runtime = "nodejs";
 
-const blogOnly = (category: string) => category === "blog";
+const isCategory = (value: string | null): value is ArticleCategoryValue =>
+  value !== null && (ARTICLE_CATEGORIES as readonly string[]).includes(value);
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,13 +39,6 @@ export async function POST(req: NextRequest) {
         error: "Invalid payload",
         details: e instanceof Error ? e.message : String(e),
       },
-      { status: 400 },
-    );
-  }
-
-  if (!blogOnly(parsed.category)) {
-    return NextResponse.json(
-      { error: 'Only category="blog" is supported via this endpoint.' },
       { status: 400 },
     );
   }
@@ -96,11 +94,23 @@ export async function GET(req: NextRequest) {
     throw e;
   }
 
-  const rows = await db
-    .select()
-    .from(articles)
-    .where(eq(articles.category, "blog"))
-    .orderBy(desc(articles.updatedAt));
+  const categoryParam = req.nextUrl.searchParams.get("category");
+  if (categoryParam !== null && !isCategory(categoryParam)) {
+    return NextResponse.json(
+      {
+        error: `Invalid category. Expected one of: ${ARTICLE_CATEGORIES.join(", ")}`,
+      },
+      { status: 400 },
+    );
+  }
+
+  const rows = categoryParam
+    ? await db
+        .select()
+        .from(articles)
+        .where(eq(articles.category, categoryParam))
+        .orderBy(desc(articles.updatedAt))
+    : await db.select().from(articles).orderBy(desc(articles.updatedAt));
 
   return NextResponse.json({ articles: rows });
 }

@@ -23,6 +23,28 @@ The skill needs two environment variables. Prompt the user for them if they're m
 
 If `UC_API_TOKEN` is missing, tell the user to sign in to `${UC_API_BASE}/admin/tokens` and click "New token", then export it.
 
+### Token persistence (mandatory)
+
+**Whenever the user provides a `UC_API_TOKEN` (or `UC_API_BASE`) value in chat — even if they don't say "save it" — persist it immediately to `.env.local` in the repo root before doing anything else.** This is non-negotiable for two reasons:
+
+1. The user shouldn't have to paste the token again in the next session.
+2. The token is sitting in conversation history; getting it into a gitignored file is a mitigation, not a leak vector.
+
+Persistence protocol:
+
+1. **Verify the destination is gitignored.** Run `grep -E '^\.env(\*|$|\..*\.local|/)' .gitignore` and confirm a pattern like `.env*.local` or `.env.local` matches. If `.env.local` is *not* gitignored, **stop** and tell the user — don't write the token. (For a Next.js project this is the project-root `.gitignore`; the file path is fixed.)
+2. **Append, don't overwrite.** Read the current `.env.local`. If `UC_API_TOKEN=` already exists with the same value, do nothing. If it exists with a different value, update that single line in place. Otherwise append a new line. Never rewrite the whole file blindly — it likely contains other secrets (DB URLs, Clerk keys, etc).
+3. **Same protocol for `UC_API_BASE`** when the user names a target environment (or when only one is plausible — e.g. they say "ship it live", default to prod; "test locally", default to `http://localhost:3000`).
+4. **Confirm in one short line** that the value was persisted (e.g. "Saved `UC_API_TOKEN` to `.env.local`"). Do not echo the token value in the confirmation, or anywhere else after persistence.
+5. **On every subsequent skill invocation**, read these two values from `.env.local` first:
+   ```bash
+   set -a; [ -f .env.local ] && . ./.env.local; set +a
+   ```
+   Only fall back to prompting the user if the file is missing the variable. If the user explicitly provides a new token mid-session (e.g. token was rotated), repeat the persistence step (step 2 — update in place).
+6. **Never display the token in any tool output, message, file, commit, or PR.** When you need to show a command that uses it, use `$UC_API_TOKEN` (the shell variable), never the literal value. When committing related code, double-check the diff for accidental token leakage.
+
+If `.env.local` does not exist yet, you may create it (it's the standard Next.js dev secrets file). The user has already accepted that pattern — don't ask permission separately.
+
 ## Categories and content types
 
 Each category maps to one content type, enforced by Zod on the server. `translations.en.contentType` and `translations.zh.contentType` must match the category's expected value.

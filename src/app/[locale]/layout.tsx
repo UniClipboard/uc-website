@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
@@ -126,6 +127,7 @@ const RootLayout = async ({
         <NextIntlClientProvider>
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </NextIntlClientProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

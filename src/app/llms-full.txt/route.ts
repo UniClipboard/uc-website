@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { listAllArticles } from "@/db/articles";
+import { getAllReleases } from "@/db/releases";
 import {
   ARTICLE_CATEGORIES,
   type ArticleCategoryValue,
@@ -147,7 +148,10 @@ function renderArticleBody(content: ArticleContent): string {
 
 export async function GET() {
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const articles = await listAllArticles();
+  const [articles, releases] = await Promise.all([
+    listAllArticles(),
+    getAllReleases().catch(() => []),
+  ]);
   const published = articles
     .filter((a) => a.status === "published")
     .sort((a, b) => b.datePublished.localeCompare(a.datePublished));
@@ -182,6 +186,27 @@ export async function GET() {
         lines.push(`> **Description**: ${content.seo.description}`);
         lines.push("");
         lines.push(renderArticleBody(content));
+        lines.push("");
+      }
+    }
+  }
+
+  if (releases.length > 0) {
+    lines.push(`# Changelog`, "");
+    for (const release of releases) {
+      for (const locale of ["en", "zh"] as const) {
+        const notes = locale === "zh" ? release.notesZh : release.notesEn;
+        if (!notes) continue;
+        const localePrefix = locale === "zh" ? "/zh" : "";
+        const url = `${baseUrl}${localePrefix}/changelog/${release.version}`;
+        const pubDate = release.pubDate.toISOString().slice(0, 10);
+        lines.push("---", "");
+        lines.push(`> **Source**: ${url}`);
+        lines.push(`> **Locale**: ${LOCALE_LABEL[locale]}`);
+        lines.push(`> **Version**: v${release.version}`);
+        lines.push(`> **Released**: ${pubDate}`);
+        lines.push("");
+        lines.push(notes);
         lines.push("");
       }
     }

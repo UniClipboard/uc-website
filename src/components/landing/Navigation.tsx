@@ -57,6 +57,7 @@ export function Navigation() {
     { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
     { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
     { href: "/use-cases", label: t("useCases"), matchPrefix: "/use-cases" },
+    { href: "/changelog", label: t("changelog"), matchPrefix: "/changelog" },
   ];
 
   const isItemActive = (matchPrefix: string) =>

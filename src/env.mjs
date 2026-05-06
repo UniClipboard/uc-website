@@ -20,6 +20,9 @@ export const env = createEnv({
 
     // Admin allowlist - comma-separated email addresses
     ADMIN_EMAILS: z.string().optional(),
+
+    // Cron secret for /api/cron/* (Vercel sets `Authorization: Bearer <secret>`)
+    CRON_SECRET: z.string().optional(),
   },
   client: {
     // Google Analytics 4 measurement ID (e.g. G-XXXXXXXXXX)
@@ -39,6 +42,7 @@ export const env = createEnv({
     YANDEX_SITE_VERIFICATION_ID: process.env.YANDEX_SITE_VERIFICATION_ID,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     ADMIN_EMAILS: process.env.ADMIN_EMAILS,
+    CRON_SECRET: process.env.CRON_SECRET,
     NEXT_PUBLIC_GA_MEASUREMENT_ID: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,

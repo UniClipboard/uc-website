@@ -79,6 +79,29 @@ export const apiTokens = pgTable(
   (table) => [uniqueIndex("api_tokens_token_hash_idx").on(table.tokenHash)],
 );
 
+export const releases = pgTable(
+  "releases",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    version: text("version").notNull(),
+    pubDate: timestamp("pub_date", { withTimezone: true }).notNull(),
+    notesEn: text("notes_en").notNull(),
+    notesZh: text("notes_zh").notNull(),
+    platforms: jsonb("platforms").notNull(),
+    rawPayload: jsonb("raw_payload").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("releases_version_idx").on(table.version),
+    index("releases_pub_date_idx").on(table.pubDate),
+  ],
+);
+
 export const founders = pgTable(
   "founders",
   {
@@ -106,5 +129,7 @@ export type ApiToken = typeof apiTokens.$inferSelect;
 export type NewApiToken = typeof apiTokens.$inferInsert;
 export type Founder = typeof founders.$inferSelect;
 export type NewFounder = typeof founders.$inferInsert;
+export type Release = typeof releases.$inferSelect;
+export type NewRelease = typeof releases.$inferInsert;
 
 export const updateUpdatedAt = sql`now()`;

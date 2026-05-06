@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 
 import { getAllPublishedSlugs } from "@/db/articles";
+import { getAllReleaseVersions } from "@/db/releases";
 import { env } from "@/env.mjs";
 import { routing } from "@/i18n/routing";
 
@@ -10,18 +11,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "",
   );
 
-  const articles = await getAllPublishedSlugs();
+  const [articles, releaseVersions] = await Promise.all([
+    getAllPublishedSlugs(),
+    getAllReleaseVersions().catch(() => []),
+  ]);
 
   const pages = [
     { path: "", priority: 1, changeFrequency: "monthly" as const },
     { path: "compare", priority: 0.85, changeFrequency: "monthly" as const },
     { path: "use-cases", priority: 0.85, changeFrequency: "monthly" as const },
     { path: "blog", priority: 0.85, changeFrequency: "weekly" as const },
+    { path: "changelog", priority: 0.8, changeFrequency: "weekly" as const },
     ...articles.map((article) => ({
       path: `${article.category}/${article.slug}`,
       priority: 0.9,
       changeFrequency: "monthly" as const,
       lastModified: article.updatedAt,
+    })),
+    ...releaseVersions.map((release) => ({
+      path: `changelog/${release.version}`,
+      priority: 0.7,
+      changeFrequency: "monthly" as const,
+      lastModified: release.updatedAt,
     })),
   ];
 

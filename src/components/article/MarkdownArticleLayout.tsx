@@ -272,21 +272,31 @@ export async function MarkdownArticleLayout({
   const pageUrl = `${baseUrl}${canonical}`;
   const parentPath = HUB_BASE_PATH[entry.category] ?? "/blog";
   const parentUrl = `${baseUrl}${localePathPrefix(locale)}${parentPath}`;
+  const ogImage = `${baseUrl}${locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg"}`;
+  const logoUrl = `${baseUrl}/favicon/apple-touch-icon.png`;
+  const keywords = content.seo.keywords
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean);
 
   const blogPostingSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: content.seo.title,
     description: content.seo.description,
+    image: ogImage,
     inLanguage: locale === "zh" ? "zh-CN" : "en",
     datePublished: entry.datePublished,
     dateModified: content.meta.lastUpdatedDate,
     mainEntityOfPage: pageUrl,
+    url: pageUrl,
+    keywords,
     author: { "@type": "Organization", name: siteConfig.brand, url: baseUrl },
     publisher: {
       "@type": "Organization",
       name: siteConfig.brand,
       url: baseUrl,
+      logo: { "@type": "ImageObject", url: logoUrl },
     },
   };
 

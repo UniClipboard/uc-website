@@ -104,12 +104,32 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
     isPartOf: { "@type": "WebSite", name: siteConfig.brand, url: baseUrl },
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: articles.map((article, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        url: `${baseUrl}${localePathPrefix(locale)}${articleHref(article.slug)}`,
-        name: article.content.hero.title,
-      })),
+      numberOfItems: articles.length,
+      itemListElement: articles.map((article, i) => {
+        const itemUrl = `${baseUrl}${localePathPrefix(locale)}${articleHref(article.slug)}`;
+        const description =
+          article.content.hero.subtitle?.trim() ||
+          article.content.seo.description;
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          url: itemUrl,
+          name: article.content.hero.title,
+          item: {
+            "@type":
+              article.content.contentType === "markdown"
+                ? "BlogPosting"
+                : "Article",
+            "@id": itemUrl,
+            url: itemUrl,
+            headline: article.content.hero.title,
+            description,
+            inLanguage: locale === "zh" ? "zh-CN" : "en",
+            datePublished: article.datePublished,
+            dateModified: new Date(article.updatedAt).toISOString(),
+          },
+        };
+      }),
     },
   };
 

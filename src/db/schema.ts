@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import {
   index,
+  integer,
   jsonb,
   pgEnum,
   pgTable,
@@ -78,11 +79,32 @@ export const apiTokens = pgTable(
   (table) => [uniqueIndex("api_tokens_token_hash_idx").on(table.tokenHash)],
 );
 
+export const founders = pgTable(
+  "founders",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    name: text("name").notNull(),
+    platform: text("platform").notNull(),
+    joinedAt: text("joined_at").notNull(),
+    note: text("note"),
+    displayOrder: integer("display_order").notNull().default(0),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [index("founders_display_order_idx").on(table.displayOrder)],
+);
+
 export type Article = typeof articles.$inferSelect;
 export type NewArticle = typeof articles.$inferInsert;
 export type ArticleTranslation = typeof articleTranslations.$inferSelect;
 export type NewArticleTranslation = typeof articleTranslations.$inferInsert;
 export type ApiToken = typeof apiTokens.$inferSelect;
 export type NewApiToken = typeof apiTokens.$inferInsert;
+export type Founder = typeof founders.$inferSelect;
+export type NewFounder = typeof founders.$inferInsert;
 
 export const updateUpdatedAt = sql`now()`;

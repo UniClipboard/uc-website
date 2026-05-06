@@ -59,16 +59,25 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     namespace: "landing.howItWorks",
   });
 
-  const baseUrl = siteConfig.url;
+  const baseUrl = siteConfig.url.replace(/\/$/, "");
   const pageUrl = locale === "en" ? `${baseUrl}/` : `${baseUrl}/${locale}`;
+  const ogImage = `${baseUrl}${locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg"}`;
+  const logoUrl = `${baseUrl}/favicon/apple-touch-icon.png`;
+  const softwareDescription =
+    locale === "zh"
+      ? "免费、开源、端到端加密的跨平台通用剪贴板。在 macOS、Windows、Linux 之间复制粘贴文本、图片和文件,无需账号、无需服务器。"
+      : "Free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, and Linux. Copy on one device and paste on another with no account and no server.";
 
   const softwareSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "UniClipboard",
+    description: softwareDescription,
     applicationCategory: "ProductivityApplication",
     operatingSystem: "macOS, Windows, Linux",
-    url: "https://www.uniclipboard.app",
+    url: baseUrl,
+    image: ogImage,
+    inLanguage: locale === "zh" ? "zh-CN" : "en",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -78,22 +87,41 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     license: "https://www.gnu.org/licenses/agpl-3.0.html",
     downloadUrl: "https://github.com/UniClipboard/UniClipboard/releases/latest",
     sameAs: ["https://github.com/UniClipboard/UniClipboard"],
-    ...(stars !== null && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "5",
-        ratingCount: String(stars),
-        bestRating: "5",
-        worstRating: "1",
-      },
-    }),
+    ...(stars !== null && stars > 0
+      ? {
+          interactionStatistic: {
+            "@type": "InteractionCounter",
+            interactionType: { "@type": "LikeAction" },
+            userInteractionCount: stars,
+            name: "GitHub stars",
+          },
+        }
+      : {}),
   };
 
   const orgSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "UniClipboard",
-    url: "https://www.uniclipboard.app",
+    url: baseUrl,
+    logo: logoUrl,
+    description: softwareDescription,
+    sameAs: ["https://github.com/UniClipboard/UniClipboard"],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "hello@uniclipboard.app",
+      contactType: "customer support",
+      availableLanguage: ["English", "Chinese"],
+    },
+  };
+
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "UniClipboard",
+    url: baseUrl,
+    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    publisher: { "@type": "Organization", name: "UniClipboard", url: baseUrl },
   };
 
   const faqSchema = {
@@ -146,6 +174,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             orgSchema,
+            webSiteSchema,
             softwareSchema,
             faqSchema,
             howToSchema,

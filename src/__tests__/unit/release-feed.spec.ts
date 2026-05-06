@@ -64,8 +64,51 @@ describe("release feed schema", () => {
         "Windows x86_64":
           "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
         "macOS ARM64":
-          "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+          "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_aarch64.dmg",
       },
+    });
+  });
+
+  it("rewrites macOS .app.tar.gz urls to the dmg sibling for both arches", () => {
+    const result = parseStableReleasePayload({
+      version: "0.6.0",
+      pub_date: "2026-05-02T17:35:00Z",
+      platforms: {
+        "darwin-aarch64": {
+          url: "https://release.uniclipboard.app/artifacts/v0.6.0/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+        },
+        "darwin-x86_64": {
+          url: "https://release.uniclipboard.app/artifacts/v0.6.0/UniClipboard_x86_64-apple-darwin.app.tar.gz",
+        },
+      },
+    });
+
+    if (!result.ok) {
+      throw new Error("Expected upstream schema parse to succeed");
+    }
+    expect(result.data.downloads).toEqual({
+      "macOS ARM64":
+        "https://release.uniclipboard.app/artifacts/v0.6.0/UniClipboard_0.6.0_aarch64.dmg",
+      "macOS x86_64":
+        "https://release.uniclipboard.app/artifacts/v0.6.0/UniClipboard_0.6.0_x64.dmg",
+    });
+  });
+
+  it("leaves non-tarball macOS urls untouched", () => {
+    const result = parseStableReleasePayload({
+      metadata: { version: "0.6.0" },
+      downloads: {
+        "macOS ARM64":
+          "https://release.uniclipboard.app/artifacts/v0.6.0/UniClipboard_0.6.0_aarch64.dmg",
+      },
+    });
+
+    if (!result.ok) {
+      throw new Error("Expected schema parse to succeed");
+    }
+    expect(result.data.downloads).toEqual({
+      "macOS ARM64":
+        "https://release.uniclipboard.app/artifacts/v0.6.0/UniClipboard_0.6.0_aarch64.dmg",
     });
   });
 
@@ -271,7 +314,7 @@ describe("release feed host filtering", () => {
       },
       {
         platform: "macOS ARM64",
-        url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+        url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_aarch64.dmg",
       },
     ]);
   });

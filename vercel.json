@@ -3,7 +3,7 @@
   "crons": [
     {
       "path": "/api/cron/sync-releases",
-      "schedule": "0,30 * * * *"
+      "schedule": "0 3 * * *"
     }
   ]
 }

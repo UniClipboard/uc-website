@@ -57,6 +57,33 @@ const adminMiddleware = clerkMiddleware(async (auth, req: NextRequest) => {
   return NextResponse.rewrite(url);
 });
 
+// next-intl ships responses with `Cache-Control: private` and a `NEXT_LOCALE`
+// Set-Cookie, which makes both Vercel Edge and Cloudflare bypass the cache.
+// For public content pages the locale is already encoded in the URL, so the
+// cookie is redundant — strip it and rewrite Cache-Control so the CDN can
+// serve these pages. CF still bypasses cache when a logged-in user presents
+// auth cookies, so this stays safe for /admin.
+function applyPublicCdnCache(res: NextResponse): NextResponse {
+  res.headers.delete("set-cookie");
+  if (res.status >= 200 && res.status < 300) {
+    res.headers.set(
+      "cache-control",
+      "public, s-maxage=300, stale-while-revalidate=600",
+    );
+  } else if (res.status >= 300 && res.status < 400) {
+    // Locale-detection redirects vary by Accept-Language
+    res.headers.set("cache-control", "public, s-maxage=60");
+    const vary = res.headers.get("vary") ?? "";
+    if (!/accept-language/i.test(vary)) {
+      res.headers.set(
+        "vary",
+        vary ? `${vary}, Accept-Language` : "Accept-Language",
+      );
+    }
+  }
+  return res;
+}
+
 export default function middleware(req: NextRequest, event: NextFetchEvent) {
   const path = req.nextUrl.pathname;
   if (isAdminRoute(path)) {
@@ -66,7 +93,11 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
   if (path.startsWith("/api/")) {
     return NextResponse.next();
   }
-  return intlMiddleware(req);
+  const res = intlMiddleware(req);
+  if (req.method === "GET" || req.method === "HEAD") {
+    return applyPublicCdnCache(res);
+  }
+  return res;
 }
 
 export const config = {

@@ -1,9 +1,5 @@
-import rehypeShiki from "@shikijs/rehype";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { type ReactNode } from "react";
-import { type Components, MarkdownAsync } from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 import { Article, BreadcrumbBar, JsonLd } from "@/components/article/sections";
 import { AnimateIn } from "@/components/landing/AnimateIn";
@@ -14,6 +10,7 @@ import type {
   ArticleLocale,
   MarkdownArticleContent,
 } from "@/lib/article-content";
+import { renderArticleMarkdown } from "@/lib/article-markdown";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
@@ -34,83 +31,8 @@ export type MarkdownArticleEntry = {
   datePublished: string;
 };
 
-type TocItem = {
-  id: string;
-  title: string;
-};
-
 const articlePagePath = (entry: MarkdownArticleEntry) =>
   `${HUB_BASE_PATH[entry.category] ?? "/blog"}/${entry.slug}`;
-
-const headingPattern = /^ {0,3}##(?!#)\s+(.+?)(?:\s+#+)?\s*$/;
-const fencePattern = /^ {0,3}(`{3,}|~{3,})/;
-
-const plainTextFromMarkdown = (value: string) =>
-  value
-    .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/[`*_~]/g, "")
-    .replace(/<[^>]+>/g, "")
-    .replace(/\\([\\`*_[\]{}()#+\-.!|>])/g, "$1")
-    .trim();
-
-const slugifyHeading = (value: string) =>
-  value
-    .toLowerCase()
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
-    .replace(/^-+|-+$/g, "") || "section";
-
-const uniqueHeadingId = (title: string, seen: Map<string, number>) => {
-  const base = slugifyHeading(title);
-  const nextCount = (seen.get(base) ?? 0) + 1;
-  seen.set(base, nextCount);
-  return nextCount === 1 ? base : `${base}-${nextCount}`;
-};
-
-const extractTableOfContents = (markdown: string): TocItem[] => {
-  const seen = new Map<string, number>();
-  const toc: TocItem[] = [];
-  let fenceMarker: "`" | "~" | null = null;
-
-  for (const line of markdown.split(/\r?\n/)) {
-    const fenceMatch = line.match(fencePattern);
-    if (fenceMatch) {
-      const marker = fenceMatch[1][0] as "`" | "~";
-      if (!fenceMarker) {
-        fenceMarker = marker;
-      } else if (fenceMarker === marker) {
-        fenceMarker = null;
-      }
-      continue;
-    }
-
-    if (fenceMarker) continue;
-
-    const headingMatch = line.match(headingPattern);
-    if (!headingMatch) continue;
-
-    const title = plainTextFromMarkdown(headingMatch[1]);
-    if (!title) continue;
-
-    toc.push({ id: uniqueHeadingId(title, seen), title });
-  }
-
-  return toc;
-};
-
-const textFromReactNode = (node: ReactNode): string => {
-  if (typeof node === "string" || typeof node === "number") {
-    return String(node);
-  }
-
-  if (Array.isArray(node)) {
-    return node.map(textFromReactNode).join("");
-  }
-
-  return "";
-};
 
 export async function buildMarkdownArticleMetadata(
   entry: MarkdownArticleEntry,
@@ -325,44 +247,14 @@ export async function MarkdownArticleLayout({
     ],
   };
 
-  const toc = extractTableOfContents(content.body);
+  const { html: renderedHtml, toc } = await renderArticleMarkdown(
+    entry.category,
+    entry.slug,
+    locale,
+    content.meta.lastUpdatedDate,
+    content.body,
+  );
   const hasToc = toc.length > 0;
-  let renderedH2Index = 0;
-  const markdownComponents: Components = {
-    h2: ({ className, children, ...props }) => {
-      const tocItem = toc[renderedH2Index];
-      renderedH2Index += 1;
-      const fallbackId = uniqueHeadingId(
-        textFromReactNode(children),
-        new Map<string, number>(),
-      );
-
-      return (
-        <h2
-          id={tocItem?.id ?? fallbackId}
-          className={cn("scroll-mt-28", className)}
-          {...props}
-        >
-          {children}
-        </h2>
-      );
-    },
-  };
-
-  const renderedMarkdown = await MarkdownAsync({
-    children: content.body,
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [
-      [
-        rehypeShiki,
-        {
-          themes: { light: "github-light", dark: "github-dark" },
-          defaultColor: false,
-        },
-      ],
-    ],
-    components: markdownComponents,
-  });
 
   return (
     <>
@@ -431,9 +323,10 @@ export async function MarkdownArticleLayout({
                   : "mx-auto max-w-[760px]",
               )}
             >
-              <div className={cn("min-w-0", proseClasses)}>
-                {renderedMarkdown}
-              </div>
+              <div
+                className={cn("min-w-0", proseClasses)}
+                dangerouslySetInnerHTML={{ __html: renderedHtml }}
+              />
               {hasToc && (
                 <aside className="order-first lg:sticky lg:top-24 lg:order-none">
                   <nav

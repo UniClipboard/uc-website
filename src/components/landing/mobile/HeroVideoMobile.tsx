@@ -1,6 +1,7 @@
 "use client";
 
 import { Play } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 import { HeroVideoModal } from "../HeroVideoModal";
@@ -45,14 +46,15 @@ export function HeroVideoMobile({
             "0 18px 38px -18px rgba(10,10,10,0.28), 0 0 0 1px rgba(10,10,10,0.08)",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={POSTER_SRC}
           alt=""
           aria-hidden
-          loading="eager"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
+          className="object-cover"
         />
 
         <div

@@ -76,31 +76,81 @@ function normalizeUpstreamPlatformLabel(platform: string): string {
   }
 }
 
+// Upstream stable.json points macOS at the Tauri auto-updater bundle
+// (UniClipboard_<arch>-apple-darwin.app.tar.gz). For end-user downloads on the
+// website we want the .dmg sibling published alongside it
+// (UniClipboard_<version>_<arch>.dmg).
+function preferMacosDmgUrl(url: string, version: string): string {
+  const aarch64Suffix = "UniClipboard_aarch64-apple-darwin.app.tar.gz";
+  const x86Suffix = "UniClipboard_x86_64-apple-darwin.app.tar.gz";
+  if (url.endsWith(aarch64Suffix)) {
+    return (
+      url.slice(0, -aarch64Suffix.length) +
+      `UniClipboard_${version}_aarch64.dmg`
+    );
+  }
+  if (url.endsWith(x86Suffix)) {
+    return url.slice(0, -x86Suffix.length) + `UniClipboard_${version}_x64.dmg`;
+  }
+  return url;
+}
+
+function rewriteMacosDownloadsToDmg(
+  downloads: Record<string, string | { url: string; checksum?: string }>,
+  version: string,
+): Record<string, string | { url: string; checksum?: string }> {
+  return Object.fromEntries(
+    Object.entries(downloads).map(([platform, entry]) => {
+      if (!platform.startsWith("macOS")) return [platform, entry];
+      if (typeof entry === "string") {
+        return [platform, preferMacosDmgUrl(entry, version)];
+      }
+      return [
+        platform,
+        { ...entry, url: preferMacosDmgUrl(entry.url, version) },
+      ];
+    }),
+  );
+}
+
 export function parseStableReleasePayload(
   input: unknown,
 ): ParseStableFeedResult {
   const parsed = stableReleasePayloadSchema.safeParse(input);
 
   if (parsed.success) {
-    return { ok: true, data: parsed.data };
+    return {
+      ok: true,
+      data: {
+        ...parsed.data,
+        downloads: rewriteMacosDownloadsToDmg(
+          parsed.data.downloads,
+          parsed.data.metadata.version,
+        ),
+      },
+    };
   }
 
   const upstreamParsed = upstreamStableReleasePayloadSchema.safeParse(input);
   if (upstreamParsed.success) {
+    const version = upstreamParsed.data.version;
     return {
       ok: true,
       data: {
         metadata: {
-          version: upstreamParsed.data.version,
+          version,
           publishedAt: upstreamParsed.data.pub_date,
           notes: upstreamParsed.data.notes,
         },
         downloads: Object.fromEntries(
           Object.entries(upstreamParsed.data.platforms).map(
-            ([platform, entry]) => [
-              normalizeUpstreamPlatformLabel(platform),
-              entry.url,
-            ],
+            ([platform, entry]) => {
+              const label = normalizeUpstreamPlatformLabel(platform);
+              const url = label.startsWith("macOS")
+                ? preferMacosDmgUrl(entry.url, version)
+                : entry.url;
+              return [label, url];
+            },
           ),
         ),
       },

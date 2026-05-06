@@ -4,6 +4,7 @@ import {
   getAllPublishedArticleSummaries,
   type PublishedArticleSummary,
 } from "@/db/articles";
+import { getAllReleaseVersions } from "@/db/releases";
 import { siteConfig } from "@/lib/site-config";
 
 export const runtime = "nodejs";
@@ -85,13 +86,18 @@ function articleLine(
 
 export async function GET() {
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const summaries = await getAllPublishedArticleSummaries();
+  const [summaries, releaseVersions] = await Promise.all([
+    getAllPublishedArticleSummaries(),
+    getAllReleaseVersions().catch(() => []),
+  ]);
 
   const lines: string[] = [INTRO, "", "## Primary URLs", ""];
 
   lines.push(`- Home (English): ${baseUrl}/`);
   lines.push(`- Home (Simplified Chinese): ${baseUrl}/zh`);
   lines.push(`- Technical whitepaper: ${baseUrl}/blog/whitepaper`);
+  lines.push(`- Changelog (English): ${baseUrl}/changelog`);
+  lines.push(`- Changelog (Simplified Chinese): ${baseUrl}/zh/changelog`);
   lines.push(`- Full content dump for LLMs: ${baseUrl}/llms-full.txt`);
 
   for (const cat of ["compare", "use-cases", "blog"] as const) {
@@ -106,6 +112,15 @@ export async function GET() {
     const zh = articleLine(baseUrl, summary, "zh");
     if (en) lines.push(en);
     if (zh) lines.push(zh);
+  }
+
+  for (const release of releaseVersions) {
+    lines.push(
+      `- Release notes v${release.version} (English): ${baseUrl}/changelog/${release.version}`,
+    );
+    lines.push(
+      `- Release notes v${release.version} (Simplified Chinese): ${baseUrl}/zh/changelog/${release.version}`,
+    );
   }
 
   lines.push(

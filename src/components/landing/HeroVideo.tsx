@@ -1,6 +1,7 @@
 "use client";
 
 import { Play } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 import { HeroVideoModal } from "./HeroVideoModal";
@@ -65,14 +66,15 @@ export function HeroVideo({
           transform: hover ? "translateY(-3px)" : "translateY(0)",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={POSTER_SRC}
           alt=""
           aria-hidden
-          loading="eager"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          fetchPriority="high"
+          sizes="(min-width: 1080px) 1080px, (min-width: 768px) 90vw, 100vw"
+          className="object-cover"
         />
 
         <div

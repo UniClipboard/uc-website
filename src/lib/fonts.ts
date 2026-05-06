@@ -1,5 +1,3 @@
-import "@fontsource-variable/noto-sans-sc";
-
 import {
   Cormorant_Garamond,
   Inter_Tight,

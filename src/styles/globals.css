@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -30,9 +29,9 @@
   --color-ink2: var(--ink2);
   --color-muted2: var(--muted2);
   --color-hair2: var(--hair2);
-  --font-sans: var(--font-sans), "Noto Sans SC Variable", ui-sans-serif,
-    -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", system-ui, sans-serif;
+  --font-sans: var(--font-sans), ui-sans-serif, -apple-system,
+    BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans CJK SC", system-ui, sans-serif;
   --font-mono: var(--font-mono), "SF Mono", ui-monospace, Menlo, Consolas,
     monospace;
   --font-serif: var(--font-serif), "Times New Roman", serif;

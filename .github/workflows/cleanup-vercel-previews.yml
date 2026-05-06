@@ -1,0 +1,64 @@
+name: Cleanup Vercel previews
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch name to purge previews for"
+        required: true
+
+jobs:
+  purge:
+    # Skip fork PRs: their head.ref could collide with an internal branch
+    # name and we never deploy fork previews anyway.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete preview deployments for branch
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          BRANCH: ${{ github.event.pull_request.head.ref || inputs.branch }}
+        run: |
+          set -euo pipefail
+          if [ -z "$BRANCH" ]; then
+            echo "No branch resolved; nothing to do."
+            exit 0
+          fi
+          echo "Purging Vercel previews for branch: $BRANCH"
+
+          base="https://api.vercel.com"
+          auth="Authorization: Bearer $VERCEL_TOKEN"
+          query="projectId=$VERCEL_PROJECT_ID&teamId=$VERCEL_TEAM_ID&limit=100&target=preview"
+
+          deleted=0
+          failed=0
+          until=""
+          while :; do
+            url="$base/v6/deployments?$query"
+            [ -n "$until" ] && url="$url&until=$until"
+            page="$(curl -sSf -H "$auth" "$url")"
+
+            ids="$(echo "$page" | jq -r --arg b "$BRANCH" \
+              '.deployments[] | select((.meta.githubCommitRef // "") == $b) | .uid')"
+
+            for id in $ids; do
+              if curl -sSf -X DELETE -H "$auth" \
+                "$base/v13/deployments/$id?teamId=$VERCEL_TEAM_ID" >/dev/null; then
+                echo "  deleted $id"
+                deleted=$((deleted + 1))
+              else
+                echo "  FAILED  $id"
+                failed=$((failed + 1))
+              fi
+            done
+
+            until="$(echo "$page" | jq -r '.pagination.next // empty')"
+            [ -z "$until" ] && break
+          done
+
+          echo "Done. deleted=$deleted failed=$failed"
+          [ "$failed" -eq 0 ]

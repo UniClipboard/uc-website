@@ -1,12 +1,24 @@
 "use client";
 
 import { Github, Menu, X } from "lucide-react";
+import { useLinkStatus } from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+
+function NavLinkPending() {
+  const { pending } = useLinkStatus();
+  if (!pending) return null;
+  return (
+    <span
+      aria-hidden
+      className="ml-1.5 inline-block size-1.5 animate-pulse rounded-full bg-current align-middle"
+    />
+  );
+}
 
 export function Navigation() {
   const t = useTranslations("landing.navigation");
@@ -87,6 +99,7 @@ export function Navigation() {
                 aria-current={active ? "page" : undefined}
               >
                 {item.label}
+                <NavLinkPending />
               </Link>
             );
           })}
@@ -186,7 +199,10 @@ export function Navigation() {
                   aria-current={active ? "page" : undefined}
                   className="text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors"
                 >
-                  {item.label}
+                  <span className="inline-flex items-center">
+                    {item.label}
+                    <NavLinkPending />
+                  </span>
                   <span
                     className="text-muted2"
                     style={{

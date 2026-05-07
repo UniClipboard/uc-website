@@ -12,6 +12,25 @@
     "keywords": "UniClipboard, universal clipboard, clipboard sync, cross-platform clipboard, Mac Windows clipboard, Linux clipboard sync, open source clipboard, end-to-end encrypted clipboard, iCloud universal clipboard alternative, clipboard manager, copy paste between devices",
     "ogAlt": "UniClipboard — Copy on your Mac. Paste on your Windows."
   },
+  "og": {
+    "home": {
+      "eyebrow": "UNIVERSAL CLIPBOARD",
+      "title": "Copy on your Mac. Paste on your Windows.",
+      "subtitle": "Open-source, end-to-end encrypted clipboard sync for Mac, Windows & Linux.",
+      "alt": "UniClipboard — Open-source encrypted clipboard sync for Mac, Windows & Linux"
+    },
+    "download": {
+      "eyebrow": "DOWNLOAD",
+      "title": "Get UniClipboard for every platform",
+      "subtitle": "Signed installers, Homebrew, and Snap. Free and open-source.",
+      "alt": "Download UniClipboard for Mac, Windows, and Linux"
+    },
+    "blog": {
+      "eyebrow": "BLOG",
+      "subtitle": "UniClipboard",
+      "alt": "UniClipboard blog post"
+    }
+  },
   "landing": {
     "navigation": {
       "blog": "Blog",

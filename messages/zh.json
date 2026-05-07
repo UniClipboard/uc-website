@@ -6,6 +6,25 @@
     "keywords": "UniClipboard, 剪贴板同步, 剪切板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪切板同步, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪切板, 跨设备复制粘贴",
     "ogAlt": "UniClipboard — 在 Mac 上复制，在 Windows 上粘贴"
   },
+  "og": {
+    "home": {
+      "eyebrow": "通用剪贴板",
+      "title": "Mac 上复制，Windows 上直接粘。",
+      "subtitle": "跨 Mac、Windows 与 Linux 的开源、端到端加密剪贴板同步。",
+      "alt": "UniClipboard — Mac、Windows 和 Linux 的开源加密剪贴板同步"
+    },
+    "download": {
+      "eyebrow": "下载",
+      "title": "为每个平台获取 UniClipboard",
+      "subtitle": "签名安装包、Homebrew 与 Snap。免费且开源。",
+      "alt": "下载 UniClipboard,支持 Mac、Windows 与 Linux"
+    },
+    "blog": {
+      "eyebrow": "博客",
+      "subtitle": "UniClipboard",
+      "alt": "UniClipboard 博客文章"
+    }
+  },
   "landing": {
     "navigation": {
       "blog": "博客",

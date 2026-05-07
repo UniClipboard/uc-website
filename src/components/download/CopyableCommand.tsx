@@ -47,7 +47,7 @@ export function CopyableCommand({
 
   return (
     <div
-      className="bg-bg2 group/cmd relative flex items-start gap-2 rounded-[10px] px-3 py-2.5"
+      className="bg-bg2 group/cmd relative flex items-start gap-1.5 rounded-[10px] px-2.5 py-2 md:gap-2 md:px-3 md:py-2.5"
       style={{ border: "1px solid var(--hair2)" }}
     >
       {prompt && (
@@ -62,7 +62,7 @@ export function CopyableCommand({
       <code
         className={
           layout === "nowrap"
-            ? "text-foreground min-w-0 flex-1 overflow-x-auto whitespace-nowrap"
+            ? "text-foreground min-w-0 flex-1 overflow-x-auto whitespace-nowrap [-webkit-overflow-scrolling:touch]"
             : "text-foreground block min-w-0 flex-1 [overflow-wrap:anywhere] whitespace-pre-wrap"
         }
         style={{
@@ -79,7 +79,7 @@ export function CopyableCommand({
         onClick={onCopy}
         aria-label={copied ? copiedLabel : copyLabel}
         title={copied ? copiedLabel : copyLabel}
-        className="text-muted-foreground hover:text-foreground hover:bg-foreground/5 inline-flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-[7px] transition-colors"
+        className="text-muted-foreground hover:text-foreground hover:bg-foreground/5 inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-[7px] transition-colors md:size-7"
       >
         {copied ? (
           <Check size={14} className="text-emerald-500" />

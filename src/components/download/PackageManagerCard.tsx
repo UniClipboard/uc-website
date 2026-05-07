@@ -45,7 +45,7 @@ export function PackageManagerCard({
 }: PackageManagerCardProps) {
   return (
     <div
-      className="border-border bg-card flex h-full flex-col gap-4 rounded-[16px] border p-5 md:p-6"
+      className="border-border bg-card flex h-full flex-col gap-3.5 rounded-[16px] border p-4 md:gap-4 md:p-6"
       style={{ boxShadow: "0 16px 40px -28px rgba(0,0,0,0.16)" }}
     >
       <div className="flex items-center gap-3">
@@ -68,7 +68,7 @@ export function PackageManagerCard({
             {title}
           </div>
           <div
-            className="text-muted2 mt-0.5"
+            className="text-muted2 mt-0.5 truncate"
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 11,
@@ -81,10 +81,7 @@ export function PackageManagerCard({
         </div>
       </div>
 
-      <p
-        className="text-muted-foreground flex-1"
-        style={{ fontSize: 13.5, lineHeight: 1.55 }}
-      >
+      <p className="text-muted-foreground flex-1 text-[13px] leading-[1.55] md:text-[13.5px]">
         {subtitle}
       </p>
 

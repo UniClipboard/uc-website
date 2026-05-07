@@ -87,12 +87,12 @@ export function DownloadFocus({
 
   return (
     <div
-      className="bg-card border-border rounded-[18px] border p-[22px]"
+      className="bg-card border-border rounded-[18px] border p-4 md:p-[22px]"
       style={{ boxShadow: "0 24px 60px -32px rgba(0,0,0,0.18)" }}
     >
       <div
         role="tablist"
-        className="bg-bg2 mb-[18px] flex gap-1 rounded-[12px] p-1"
+        className="bg-bg2 mb-4 flex gap-1 rounded-[12px] p-1 md:mb-[18px]"
         style={{ border: "1px solid var(--hair2)" }}
       >
         {groups.map((g) => {
@@ -104,7 +104,7 @@ export function DownloadFocus({
               role="tab"
               aria-selected={isActive}
               onClick={() => setActiveTab(g.os)}
-              className="inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-[9px] px-3 py-2.5 transition-colors"
+              className="inline-flex min-w-0 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] px-2 py-2 transition-colors md:gap-2 md:px-3 md:py-2.5"
               style={{
                 background: isActive ? "var(--card)" : "transparent",
                 border: isActive
@@ -118,22 +118,32 @@ export function DownloadFocus({
               }}
             >
               <Glyph os={g.os} size={14} />
-              <span>{g.label}</span>
+              <span className="truncate">{g.label}</span>
               {isRecommended && (
-                <span
-                  className="ml-0.5 rounded px-1.5 py-0.5"
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 9,
-                    color: isActive ? "var(--muted)" : "var(--muted2)",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    border: "1px solid var(--hair2)",
-                    background: "var(--bg2)",
-                  }}
-                >
-                  {labels.recommended}
-                </span>
+                <>
+                  <span
+                    aria-label={labels.recommended}
+                    className="inline-block size-1.5 shrink-0 rounded-full md:hidden"
+                    style={{
+                      background: "#3DA47A",
+                      boxShadow: "0 0 0 2px rgba(61,164,122,0.18)",
+                    }}
+                  />
+                  <span
+                    className="ml-0.5 hidden rounded px-1.5 py-0.5 md:inline-block"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 9,
+                      color: isActive ? "var(--muted)" : "var(--muted2)",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      border: "1px solid var(--hair2)",
+                      background: "var(--bg2)",
+                    }}
+                  >
+                    {labels.recommended}
+                  </span>
+                </>
               )}
             </button>
           );
@@ -154,7 +164,7 @@ export function DownloadFocus({
                 <div
                   key={`empty-placeholder-${i}`}
                   aria-hidden
-                  className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5"
+                  className="flex items-center gap-3 rounded-[12px] px-3 py-3 md:gap-3.5 md:px-4 md:py-3.5"
                   style={{
                     visibility: "hidden",
                     border: "1px solid transparent",
@@ -163,8 +173,8 @@ export function DownloadFocus({
                   <div className="size-9 shrink-0 rounded-[9px]" />
                   <div className="min-w-0 flex-1">
                     <div
+                      className="text-[15px] md:text-base"
                       style={{
-                        fontSize: 16,
                         fontWeight: 600,
                         lineHeight: 1.2,
                       }}
@@ -206,7 +216,7 @@ export function DownloadFocus({
                 onMouseLeave={() => setHoveredIdx(null)}
                 onFocus={() => setHoveredIdx(i)}
                 onBlur={() => setHoveredIdx(null)}
-                className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5 transition-[transform,background-color,color,border-color] duration-200 hover:-translate-y-[1px]"
+                className="flex items-center gap-3 rounded-[12px] px-3 py-3 transition-[transform,background-color,color,border-color] duration-200 hover:-translate-y-[1px] md:gap-3.5 md:px-4 md:py-3.5"
                 style={{
                   background: bg,
                   color: fg,
@@ -226,8 +236,8 @@ export function DownloadFocus({
                 </div>
                 <div className="min-w-0 flex-1">
                   <div
+                    className="text-[15px] md:text-base"
                     style={{
-                      fontSize: 16,
                       fontWeight: 600,
                       letterSpacing: "-0.01em",
                       lineHeight: 1.2,
@@ -280,7 +290,7 @@ export function DownloadFocus({
             <div
               key={`placeholder-${i}`}
               aria-hidden
-              className="flex items-center gap-3.5 rounded-[12px] px-4 py-3.5"
+              className="flex items-center gap-3 rounded-[12px] px-3 py-3 md:gap-3.5 md:px-4 md:py-3.5"
               style={{
                 visibility: "hidden",
                 border: "1px solid transparent",
@@ -289,8 +299,8 @@ export function DownloadFocus({
               <div className="size-9 shrink-0 rounded-[9px]" />
               <div className="min-w-0 flex-1">
                 <div
+                  className="text-[15px] md:text-base"
                   style={{
-                    fontSize: 16,
                     fontWeight: 600,
                     lineHeight: 1.2,
                   }}
@@ -307,11 +317,11 @@ export function DownloadFocus({
       </div>
 
       <div
-        className="mt-[18px] flex items-center justify-between gap-4 pt-3.5"
+        className="mt-4 flex items-center justify-between gap-3 pt-3.5 md:mt-[18px]"
         style={{ borderTop: "1px solid var(--hair2)" }}
       >
         <span
-          className="text-muted2"
+          className="text-muted2 shrink-0"
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: 10,
@@ -325,15 +335,15 @@ export function DownloadFocus({
           href={fallbackUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
+          className="text-muted-foreground hover:text-foreground inline-flex min-w-0 items-center gap-1 transition-colors"
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: 11,
             letterSpacing: "0.04em",
           }}
         >
-          {labels.fallback}
-          <ArrowUpRight size={12} />
+          <span className="truncate">{labels.fallback}</span>
+          <ArrowUpRight size={12} className="shrink-0" />
         </a>
       </div>
     </div>

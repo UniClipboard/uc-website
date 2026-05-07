@@ -290,7 +290,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
       <Navigation />
       <main>
         {/* Hero */}
-        <section className="border-border bg-background border-b pt-28 pb-14 md:pt-36 md:pb-20">
+        <section className="border-border bg-background border-b pt-24 pb-12 md:pt-36 md:pb-20">
           <div className="landing-shell">
             <BreadcrumbBar
               items={[
@@ -318,15 +318,15 @@ export default async function DownloadPage({ params }: LocaleParam) {
             </AnimateIn>
             <AnimateIn delay={0.1} duration={0.5}>
               <p
-                className="text-muted-foreground"
-                style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 720 }}
+                className="text-muted-foreground text-[15.5px] leading-[1.55] md:text-[18px]"
+                style={{ maxWidth: 720 }}
               >
                 {t("hero.subtitle")}
               </p>
             </AnimateIn>
 
             <AnimateIn delay={0.18} duration={0.5}>
-              <div className="border-border bg-bg2/50 mt-9 flex flex-col gap-5 rounded-[14px] border p-6 md:flex-row md:items-center md:justify-between md:p-7">
+              <div className="border-border bg-bg2/50 mt-7 flex flex-col gap-4 rounded-[14px] border p-5 md:mt-9 md:flex-row md:items-center md:justify-between md:gap-5 md:p-7">
                 <div className="flex flex-col gap-2.5">
                   <span
                     className="text-muted2"
@@ -402,7 +402,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                   href={release.fallbackReleaseUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground border-border bg-card hover:bg-foreground/5 inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 transition-colors"
+                  className="text-foreground border-border bg-card hover:bg-foreground/5 inline-flex w-fit shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 transition-colors"
                   style={{ fontSize: 13, fontWeight: 500 }}
                 >
                   {t("hero.openLatest")}
@@ -416,7 +416,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Direct downloads */}
         <section
           id="direct"
-          className="border-border bg-bg2 relative border-b py-[72px] md:py-[100px]"
+          className="border-border bg-bg2 relative border-b py-14 md:py-[100px]"
         >
           <div
             aria-hidden
@@ -427,7 +427,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
             }}
           />
           <div className="landing-shell relative">
-            <div className="grid items-start gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
+            <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_1.1fr] md:gap-16">
               <div>
                 <AnimateIn variant="fade-in" duration={0.5}>
                   <p className="landing-kicker">{t("direct.eyebrow")}</p>
@@ -482,10 +482,10 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Package managers */}
         <section
           id="package-managers"
-          className="border-border bg-background border-b py-[72px] md:py-[100px]"
+          className="border-border bg-background border-b py-14 md:py-[100px]"
         >
           <div className="landing-shell">
-            <div className="mb-10 max-w-[680px]">
+            <div className="mb-8 max-w-[680px] md:mb-10">
               <AnimateIn variant="fade-in" duration={0.5}>
                 <p className="landing-kicker">{t("pkg.eyebrow")}</p>
               </AnimateIn>
@@ -512,7 +512,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 </p>
               </AnimateIn>
             </div>
-            <div className="grid gap-5 md:grid-cols-2 md:gap-6">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
               <AnimateIn delay={0.14} duration={0.55} className="h-full">
                 <PackageManagerCard
                   os="mac"
@@ -548,10 +548,10 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* System requirements */}
         <section
           id="system-requirements"
-          className="border-border bg-bg2 border-b py-[72px] md:py-[100px]"
+          className="border-border bg-bg2 border-b py-14 md:py-[100px]"
         >
           <div className="landing-shell">
-            <div className="mb-10 max-w-[680px]">
+            <div className="mb-8 max-w-[680px] md:mb-10">
               <AnimateIn variant="fade-in" duration={0.5}>
                 <p className="landing-kicker">{t("sysreq.eyebrow")}</p>
               </AnimateIn>
@@ -665,7 +665,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 {/* Mobile cards */}
                 <div className="divide-border divide-y md:hidden">
                   {sysReqRows.map((row) => (
-                    <div key={row.platform} className="px-5 py-5">
+                    <div key={row.platform} className="px-4 py-4">
                       <div
                         className="text-foreground"
                         style={{
@@ -677,15 +677,81 @@ export default async function DownloadPage({ params }: LocaleParam) {
                       >
                         {row.platform}
                       </div>
-                      <dl className="mt-3 grid grid-cols-[110px_1fr] gap-x-3 gap-y-2 text-[13px]">
-                        <dt className="text-muted2">{t("sysreq.colMinOS")}</dt>
-                        <dd className="text-foreground">{row.minOS}</dd>
-                        <dt className="text-muted2">{t("sysreq.colArch")}</dt>
-                        <dd className="text-muted-foreground">{row.arch}</dd>
-                        <dt className="text-muted2">{t("sysreq.colMemory")}</dt>
-                        <dd className="text-muted-foreground">{row.memory}</dd>
-                        <dt className="text-muted2">{t("sysreq.colDisk")}</dt>
-                        <dd className="text-muted-foreground">{row.disk}</dd>
+                      <dl className="mt-3 space-y-2.5 text-[13px]">
+                        <div className="flex flex-col gap-0.5">
+                          <dt
+                            className="text-muted2"
+                            style={{
+                              fontFamily: "var(--font-mono)",
+                              fontSize: 10.5,
+                              letterSpacing: "0.06em",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            {t("sysreq.colMinOS")}
+                          </dt>
+                          <dd className="text-foreground">{row.minOS}</dd>
+                        </div>
+                        <div className="flex flex-col gap-0.5">
+                          <dt
+                            className="text-muted2"
+                            style={{
+                              fontFamily: "var(--font-mono)",
+                              fontSize: 10.5,
+                              letterSpacing: "0.06em",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            {t("sysreq.colArch")}
+                          </dt>
+                          <dd className="text-muted-foreground">{row.arch}</dd>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="flex flex-col gap-0.5">
+                            <dt
+                              className="text-muted2"
+                              style={{
+                                fontFamily: "var(--font-mono)",
+                                fontSize: 10.5,
+                                letterSpacing: "0.06em",
+                                textTransform: "uppercase",
+                              }}
+                            >
+                              {t("sysreq.colMemory")}
+                            </dt>
+                            <dd
+                              className="text-muted-foreground"
+                              style={{
+                                fontFamily: "var(--font-mono)",
+                                fontSize: 12,
+                              }}
+                            >
+                              {row.memory}
+                            </dd>
+                          </div>
+                          <div className="flex flex-col gap-0.5">
+                            <dt
+                              className="text-muted2"
+                              style={{
+                                fontFamily: "var(--font-mono)",
+                                fontSize: 10.5,
+                                letterSpacing: "0.06em",
+                                textTransform: "uppercase",
+                              }}
+                            >
+                              {t("sysreq.colDisk")}
+                            </dt>
+                            <dd
+                              className="text-muted-foreground"
+                              style={{
+                                fontFamily: "var(--font-mono)",
+                                fontSize: 12,
+                              }}
+                            >
+                              {row.disk}
+                            </dd>
+                          </div>
+                        </div>
                       </dl>
                     </div>
                   ))}
@@ -698,10 +764,10 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Verify */}
         <section
           id="verify"
-          className="border-border bg-background border-b py-[72px] md:py-[100px]"
+          className="border-border bg-background border-b py-14 md:py-[100px]"
         >
           <div className="landing-shell">
-            <div className="mb-10 max-w-[680px]">
+            <div className="mb-8 max-w-[680px] md:mb-10">
               <AnimateIn variant="fade-in" duration={0.5}>
                 <p className="landing-kicker">{t("verify.eyebrow")}</p>
               </AnimateIn>
@@ -728,7 +794,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 </p>
               </AnimateIn>
             </div>
-            <div className="grid gap-5 lg:grid-cols-3 lg:gap-6">
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-6">
               {verifyItems.map((item, i) => (
                 <AnimateIn
                   key={item.platform}
@@ -736,7 +802,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                   duration={0.55}
                   className="h-full"
                 >
-                  <div className="border-border bg-card flex h-full flex-col rounded-[14px] border p-5 md:p-6">
+                  <div className="border-border bg-card flex h-full flex-col rounded-[14px] border p-4 md:p-6">
                     <div
                       className="text-muted2"
                       style={{
@@ -775,10 +841,10 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Older versions */}
         <section
           id="older"
-          className="border-border bg-bg2 border-b py-[64px] md:py-[88px]"
+          className="border-border bg-bg2 border-b py-12 md:py-[88px]"
         >
           <div className="landing-shell">
-            <div className="border-border bg-card flex flex-col gap-5 rounded-[14px] border p-6 md:flex-row md:items-center md:justify-between md:p-8">
+            <div className="border-border bg-card flex flex-col gap-4 rounded-[14px] border p-5 md:flex-row md:items-center md:justify-between md:gap-5 md:p-8">
               <div className="max-w-[520px]">
                 <p className="landing-kicker">{t("older.eyebrow")}</p>
                 <h2
@@ -827,9 +893,9 @@ export default async function DownloadPage({ params }: LocaleParam) {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="bg-background py-[72px] md:py-[100px]">
+        <section id="faq" className="bg-background py-14 md:py-[100px]">
           <div className="landing-shell">
-            <div className="mb-10 max-w-[680px]">
+            <div className="mb-8 max-w-[680px] md:mb-10">
               <AnimateIn variant="fade-in" duration={0.5}>
                 <p className="landing-kicker">{t("faq.eyebrow")}</p>
               </AnimateIn>
@@ -851,12 +917,11 @@ export default async function DownloadPage({ params }: LocaleParam) {
               {faqItems.map((item, i) => (
                 <details
                   key={i}
-                  className="group bg-card open:bg-bg2/40 px-5 py-4 first:rounded-t-[14px] last:rounded-b-[14px] md:px-7 md:py-5"
+                  className="group bg-card open:bg-bg2/40 px-4 py-4 first:rounded-t-[14px] last:rounded-b-[14px] md:px-7 md:py-5"
                 >
                   <summary
-                    className="text-foreground flex cursor-pointer list-none items-start justify-between gap-4"
+                    className="text-foreground flex cursor-pointer list-none items-start justify-between gap-3 text-[14.5px] md:gap-4 md:text-[15.5px]"
                     style={{
-                      fontSize: 15.5,
                       fontWeight: 600,
                       letterSpacing: "-0.01em",
                     }}
@@ -864,7 +929,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                     <span>{item.q}</span>
                     <span
                       aria-hidden
-                      className="text-muted2 mt-1 shrink-0 transition-transform group-open:rotate-45"
+                      className="text-muted2 mt-0.5 shrink-0 transition-transform group-open:rotate-45 md:mt-1"
                       style={{
                         fontFamily: "var(--font-mono)",
                         fontSize: 18,
@@ -874,10 +939,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                       +
                     </span>
                   </summary>
-                  <p
-                    className="text-muted-foreground mt-3"
-                    style={{ fontSize: 14.5, lineHeight: 1.65 }}
-                  >
+                  <p className="text-muted-foreground mt-3 text-[13.5px] leading-[1.65] md:text-[14.5px]">
                     {item.a}
                   </p>
                 </details>

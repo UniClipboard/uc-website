@@ -164,7 +164,7 @@ export function Navigation() {
           </a>
 
           <Link
-            href="/#download"
+            href="/download"
             className="bg-primary text-primary-foreground inline-flex items-center justify-center rounded-lg px-3 py-2 text-[12px] font-medium"
           >
             {t("download")}

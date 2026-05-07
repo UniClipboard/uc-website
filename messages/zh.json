@@ -261,6 +261,162 @@
       "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
   },
+  "downloadPage": {
+    "seoTitle": "下载 UniClipboard — macOS / Windows / Linux 安装包 + Homebrew & Snap",
+    "seoDescription": "下载最新签名的 UniClipboard：macOS、Windows、Linux 都有原生包。Mac 可用 Homebrew，Linux 可用 Snap，也支持直链安装包。免费、开源、端到端加密。",
+    "seoKeywords": "UniClipboard 下载, 安装 UniClipboard, brew install uniclipboard, snap install uniclipboard, UniClipboard mac, UniClipboard windows, UniClipboard linux, AppImage 剪贴板",
+    "ogAlt": "下载 UniClipboard for macOS / Windows / Linux",
+    "breadcrumbHome": "首页",
+    "breadcrumbCurrent": "下载",
+    "hero": {
+      "eyebrow": "获取 UniClipboard",
+      "title": "下载 UniClipboard。",
+      "subtitle": "每台设备装一次，配对之后剪贴板就跟着你走。挑你的设备，或者用下面的包管理器一行命令搞定。",
+      "versionLabel": "最新稳定版",
+      "publishedLabel": "发布于",
+      "stableTag": "stable",
+      "unavailableValue": "暂不可用",
+      "badgeFree": "免费 & 开源",
+      "badgeEncrypted": "端到端加密",
+      "badgeSignedMac": "macOS 公证签名",
+      "badgeSignedWin": "Authenticode 签名",
+      "openLatest": "在 GitHub 查看 release"
+    },
+    "direct": {
+      "eyebrow": "直链下载",
+      "title": "选你的平台。",
+      "description": "每个安装包都已签名，标注了所需的最低系统版本。我们会高亮当前识别到的平台，但其他选项也都一键可达。",
+      "degradedNotice": "release 元数据暂不可用，可以用底部的 GitHub releases 链接作为兜底。",
+      "noDownloads": "暂无可下载的版本。",
+      "fallback": "在 GitHub 查看全部 releases",
+      "downloadAction": "下载",
+      "recommended": "已识别",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": "AppImage · x86_64",
+      "minOSLinuxArm": "AppImage · ARM64"
+    },
+    "pkg": {
+      "eyebrow": "包管理器",
+      "title": "或者一行命令装完。",
+      "description": "习惯终端？macOS 用 Homebrew，Linux 用 Snap。后续更新会沿着你最初安装的渠道走。",
+      "copy": "复制命令",
+      "copied": "已复制",
+      "brew": {
+        "title": "Homebrew Cask",
+        "manager": "macOS · Homebrew",
+        "subtitle": "装的就是公证签名过的 .app，跟直链下载完全一致。brew upgrade 就能拿到新版本。",
+        "command": "brew install --cask uniclipboard/tap/uniclipboard",
+        "note": "需要 Homebrew 4+",
+        "docsLabel": "GitHub 上的 Tap",
+        "docsHref": "https://github.com/UniClipboard/homebrew-tap"
+      },
+      "snap": {
+        "title": "Snap Store",
+        "manager": "Linux · Snap",
+        "subtitle": "后台自动更新，运行在沙箱内。Ubuntu、Fedora、Manjaro，以及任何装了 snapd 的发行版都可用。",
+        "command": "sudo snap install uniclipboard",
+        "note": "需要 snapd",
+        "docsLabel": "前往 Snap Store",
+        "docsHref": "https://snapcraft.io/uniclipboard"
+      }
+    },
+    "sysreq": {
+      "eyebrow": "系统要求",
+      "title": "运行所需的环境。",
+      "description": "UniClipboard 是个轻量原生应用，空闲时几乎不占 CPU，只在你复制内容时才会和网络交互。",
+      "colPlatform": "平台",
+      "colMinOS": "最低系统",
+      "colArch": "支持架构",
+      "colMemory": "内存",
+      "colDisk": "占用",
+      "rows": [
+        {
+          "platform": "macOS",
+          "minOS": "macOS 12 Monterey 或更新",
+          "arch": "Apple Silicon (arm64)、Intel (x86_64)",
+          "memory": "空闲约 60 MB",
+          "disk": "约 80 MB"
+        },
+        {
+          "platform": "Windows",
+          "minOS": "Windows 10（19041+）或 Windows 11",
+          "arch": "x86_64",
+          "memory": "空闲约 70 MB",
+          "disk": "约 90 MB"
+        },
+        {
+          "platform": "Linux",
+          "minOS": "glibc 2.31+（Ubuntu 20.04 / Debian 11 / Fedora 35 等）",
+          "arch": "x86_64、ARM64（AppImage）",
+          "memory": "空闲约 65 MB",
+          "disk": "约 85 MB"
+        }
+      ]
+    },
+    "verify": {
+      "eyebrow": "校验下载",
+      "title": "信任，但请验证。",
+      "description": "每个版本在发布前都会签名。你可以在本地确认安装包是否被篡改——下面的步骤拿到文件之后就能离线完成。",
+      "items": [
+        {
+          "platform": "macOS",
+          "body": "安装包都经过 Apple 公证。可以右键 .dmg 选「打开」，或运行下方命令检查开发者签名。",
+          "command": "spctl -a -vvv -t install ~/Downloads/UniClipboard.dmg"
+        },
+        {
+          "platform": "Windows",
+          "body": ".exe 走的是 Authenticode 签名。右键文件 → 属性 → 数字签名，可以查看完整证书链。",
+          "command": "Get-AuthenticodeSignature .\\UniClipboard-Setup.exe"
+        },
+        {
+          "platform": "Linux",
+          "body": "GitHub release 页里每个 AppImage 都附了 SHA256 校验文件。把 .sha256 一并下下来后用下方命令验证。",
+          "command": "sha256sum -c UniClipboard-x86_64.AppImage.sha256"
+        }
+      ]
+    },
+    "older": {
+      "eyebrow": "想找老版本？",
+      "title": "每个版本都留着。",
+      "description": "我们从不删除历史版本。在更新日志里看 release notes，或者直接到 GitHub release 页拿你需要的安装包。",
+      "changelogCta": "查看更新日志",
+      "allReleasesCta": "GitHub 全部 releases"
+    },
+    "faq": {
+      "eyebrow": "安装疑难",
+      "title": "常见问题。",
+      "items": [
+        {
+          "q": "macOS 提示「UniClipboard.app 已损坏，无法打开」？",
+          "a": "这是 Gatekeeper 在公证检查之前给文件打了 quarantine 属性导致的。先把 app 拖进 /Applications，然后执行一次 xattr -dr com.apple.quarantine /Applications/UniClipboard.app。后续通过应用内更新装的版本不会再遇到这个提示。"
+        },
+        {
+          "q": "Windows SmartScreen 提示「未识别的应用」？",
+          "a": "新版本即使有签名，SmartScreen 也需要时间为这个 exact 二进制建立信誉。点「更多信息」→「仍要运行」即可。随着安装量上升，几天内提示就会消失。"
+        },
+        {
+          "q": "Linux 上怎么运行 AppImage？",
+          "a": "下载后给文件加可执行权限：chmod +x UniClipboard-x86_64.AppImage，然后双击或在终端里跑就行。想集成到应用启动器，可以装 AppImageLauncher 或 appimaged。"
+        },
+        {
+          "q": "Snap 包需要 --classic 模式吗？",
+          "a": "不需要。snap 跑在标准 confinement 下，只申请它真正用得到的接口（network、home、password-manager-service）。可以用 snap connections uniclipboard 自查权限。"
+        },
+        {
+          "q": "怎么卸载 Homebrew 安装的版本？",
+          "a": "执行 brew uninstall --cask uniclipboard。如果连 tap 也想清掉，再来一条 brew untap uniclipboard/tap。本地剪贴板历史在你的 home 目录下，这两条命令不会动它——想完全清空可以删 ~/Library/Application Support/UniClipboard。"
+        }
+      ]
+    }
+  },
   "compareHub": {
     "seoTitle": "UniClipboard 对比 — 开源剪贴板同步对比 iCloud / Maccy / 其它",
     "seoDescription": "把 UniClipboard 和你可能正在用的那些剪贴板管理器、同步工具一一摆在一起：iCloud 通用剪贴板、Maccy 等等。挑出适合自己的那一个，而不是先看到的那一个。",
@@ -600,7 +756,7 @@
         "Maccy 是单台 Mac 上的本地剪贴板管理器，UniClipboard 把同样的思路延伸到了多设备——同样的开源态度，多了同步。",
         "Maccy 用 MIT 协议，UniClipboard 用 AGPL-3.0。两个项目都开源了完整代码，也都接受社区贡献。",
         "Maccy 把历史记录存在它运行的那台 Mac 上。UniClipboard 在每台设备上各自加密保存历史，并把新复制的内容同步到已配对的设备。",
-        "Maccy 在 Mac App Store 和 Homebrew 上都能拿到。UniClipboard 通过签名、公证过的安装包直发（暂未上 Mac App Store）。",
+        "Maccy 在 Mac App Store 和 Homebrew 上都能拿到。UniClipboard 通过签名、公证过的安装包直发，并提供 Homebrew cask（暂未上 Mac App Store）。",
         "可以两个一起用。Maccy 在 Mac 上继续做它擅长的事，UniClipboard 把 Windows 和 Linux 也接进来。",
         "如果你日常只用一台 Mac，Maccy 单独用就够了。一旦工作里出现第二台机器，UniClipboard 就是顺势的升级路径。"
       ],
@@ -641,7 +797,7 @@
         },
         {
           "feature": "分发方式",
-          "uc": "签名直发安装包（macOS 公证 / Windows Authenticode 签名）",
+          "uc": "签名直发安装包 + Homebrew cask（mac）+ Snap（linux）",
           "other": "Mac App Store / Homebrew / 自行从源码构建"
         },
         {
@@ -696,7 +852,7 @@
         },
         {
           "q": "UniClipboard 上 Mac App Store 了吗？",
-          "a": "暂时没有。UniClipboard 通过官网提供签名、公证过的安装包直发。Maccy 既在 Mac App Store 付费上架，也提供 Homebrew 和源码安装的免费方式。如果 Mac App Store 渠道对你重要，这一项目前确实是 Maccy 的优势。"
+          "a": "暂时没有。UniClipboard 通过官网提供签名、公证过的安装包直发，也支持 Homebrew cask：brew install --cask uniclipboard/tap/uniclipboard。Maccy 既在 Mac App Store 付费上架，也提供 Homebrew 和源码安装的免费方式。如果你特别在意 Mac App Store 这一渠道，这一项目前仍然是 Maccy 的优势。"
         },
         {
           "q": "在 Mac 上 UniClipboard 会和 Maccy 一样快吗？",

@@ -267,6 +267,162 @@
       "rustNote": "made with Rust 🦀 · AGPL-3.0"
     }
   },
+  "downloadPage": {
+    "seoTitle": "Download UniClipboard — macOS, Windows, Linux installers + Homebrew & Snap",
+    "seoDescription": "Download the latest signed UniClipboard release for macOS, Windows, and Linux. Install with Homebrew on Mac, Snap on Linux, or grab the direct installer. Free, open source, end-to-end encrypted.",
+    "seoKeywords": "uniclipboard download, install uniclipboard, brew install uniclipboard, snap install uniclipboard, uniclipboard mac, uniclipboard windows, uniclipboard linux, appimage clipboard sync",
+    "ogAlt": "Download UniClipboard for macOS, Windows, and Linux",
+    "breadcrumbHome": "Home",
+    "breadcrumbCurrent": "Download",
+    "hero": {
+      "eyebrow": "Get UniClipboard",
+      "title": "Download UniClipboard.",
+      "subtitle": "One install per device — pair them once and your clipboard follows you. Pick the installer that matches your machine, or use a package manager below.",
+      "versionLabel": "Latest stable",
+      "publishedLabel": "Published",
+      "stableTag": "stable",
+      "unavailableValue": "Unavailable",
+      "badgeFree": "Free & open source",
+      "badgeEncrypted": "End-to-end encrypted",
+      "badgeSignedMac": "Notarized on macOS",
+      "badgeSignedWin": "Authenticode signed",
+      "openLatest": "Open release on GitHub"
+    },
+    "direct": {
+      "eyebrow": "Direct downloads",
+      "title": "Pick your platform.",
+      "description": "Each installer is signed and ships with the minimum OS it requires. We highlight the platform we detect for you, but every option is one click away.",
+      "degradedNotice": "Release details are temporarily unavailable. Use the GitHub releases page below as a fallback.",
+      "noDownloads": "No downloads available yet.",
+      "fallback": "All releases on GitHub",
+      "downloadAction": "Download",
+      "recommended": "Detected",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": "AppImage · x86_64",
+      "minOSLinuxArm": "AppImage · ARM64"
+    },
+    "pkg": {
+      "eyebrow": "Package managers",
+      "title": "Or install with one command.",
+      "description": "Prefer the terminal? Install with Homebrew on macOS or Snap on Linux. Updates flow through the same channel you installed from.",
+      "copy": "Copy command",
+      "copied": "Copied",
+      "brew": {
+        "title": "Homebrew Cask",
+        "manager": "macOS · Homebrew",
+        "subtitle": "Installs the same notarized .app you would download directly. brew upgrade picks up new releases.",
+        "command": "brew install --cask uniclipboard/tap/uniclipboard",
+        "note": "Requires Homebrew 4+",
+        "docsLabel": "Tap on GitHub",
+        "docsHref": "https://github.com/UniClipboard/homebrew-tap"
+      },
+      "snap": {
+        "title": "Snap Store",
+        "manager": "Linux · Snap",
+        "subtitle": "Auto-updates in the background and runs in confined sandbox. Works on Ubuntu, Fedora, Manjaro, and any distro with snapd installed.",
+        "command": "sudo snap install uniclipboard",
+        "note": "snapd required",
+        "docsLabel": "View on Snap Store",
+        "docsHref": "https://snapcraft.io/uniclipboard"
+      }
+    },
+    "sysreq": {
+      "eyebrow": "System requirements",
+      "title": "What you need to run it.",
+      "description": "UniClipboard is a small native app. It uses very little CPU at idle and only talks to the network when you copy something.",
+      "colPlatform": "Platform",
+      "colMinOS": "Minimum OS",
+      "colArch": "Architectures",
+      "colMemory": "Memory",
+      "colDisk": "Disk",
+      "rows": [
+        {
+          "platform": "macOS",
+          "minOS": "macOS 12 Monterey or newer",
+          "arch": "Apple Silicon (arm64), Intel (x86_64)",
+          "memory": "≈ 60 MB at idle",
+          "disk": "≈ 80 MB"
+        },
+        {
+          "platform": "Windows",
+          "minOS": "Windows 10 (build 19041+) or Windows 11",
+          "arch": "x86_64",
+          "memory": "≈ 70 MB at idle",
+          "disk": "≈ 90 MB"
+        },
+        {
+          "platform": "Linux",
+          "minOS": "glibc 2.31+ (Ubuntu 20.04, Debian 11, Fedora 35, equivalent)",
+          "arch": "x86_64, ARM64 (AppImage)",
+          "memory": "≈ 65 MB at idle",
+          "disk": "≈ 85 MB"
+        }
+      ]
+    },
+    "verify": {
+      "eyebrow": "Verify the download",
+      "title": "Trust, but verify.",
+      "description": "Every release is signed before it ships. You can confirm authenticity locally before installing — none of the steps below need an internet connection after you have the file.",
+      "items": [
+        {
+          "platform": "macOS",
+          "body": "Installers are notarized by Apple. Right-click the .dmg and choose Open, or run the command below to inspect the developer signature.",
+          "command": "spctl -a -vvv -t install ~/Downloads/UniClipboard.dmg"
+        },
+        {
+          "platform": "Windows",
+          "body": "The .exe is Authenticode signed. Right-click the file → Properties → Digital Signatures to inspect the certificate chain.",
+          "command": "Get-AuthenticodeSignature .\\UniClipboard-Setup.exe"
+        },
+        {
+          "platform": "Linux",
+          "body": "Each AppImage is published with a SHA256 checksum on the GitHub release page. Download the .sha256 file alongside the AppImage and verify it.",
+          "command": "sha256sum -c UniClipboard-x86_64.AppImage.sha256"
+        }
+      ]
+    },
+    "older": {
+      "eyebrow": "Looking for an older build?",
+      "title": "Every release, archived.",
+      "description": "We never delete past versions. Browse the timeline for release notes, or jump straight to the GitHub release page to grab any installer you need.",
+      "changelogCta": "Browse the changelog",
+      "allReleasesCta": "All releases on GitHub"
+    },
+    "faq": {
+      "eyebrow": "Install troubleshooting",
+      "title": "Common questions.",
+      "items": [
+        {
+          "q": "macOS says \"UniClipboard.app is damaged and can't be opened\".",
+          "a": "This shows up when Gatekeeper's quarantine attribute is set on the downloaded file before notarization is checked. Drag the app to /Applications, then run xattr -dr com.apple.quarantine /Applications/UniClipboard.app once. Future updates installed via the in-app updater do not need this step."
+        },
+        {
+          "q": "Windows SmartScreen warns \"unrecognized app\".",
+          "a": "If the build is brand-new, SmartScreen has not yet built reputation for that exact binary even though it is signed. Click \"More info\" → \"Run anyway\". The warning disappears within a few days for each release as install counts grow."
+        },
+        {
+          "q": "How do I run an AppImage on Linux?",
+          "a": "After downloading, mark the file executable with chmod +x UniClipboard-x86_64.AppImage and double-click it, or run it from the terminal. To register it in your application launcher, use AppImageLauncher or appimaged."
+        },
+        {
+          "q": "Does the Snap package need --classic confinement?",
+          "a": "No. The snap runs in standard confinement — it only requests the interfaces it actually needs (network, home, password-manager-service). You can audit them with snap connections uniclipboard."
+        },
+        {
+          "q": "How do I uninstall the Homebrew cask?",
+          "a": "Run brew uninstall --cask uniclipboard. To also remove the tap entirely, follow up with brew untap uniclipboard/tap. Your local clipboard history lives in your home directory and is not removed by these commands — delete ~/Library/Application Support/UniClipboard if you want a clean slate."
+        }
+      ]
+    }
+  },
   "compareHub": {
     "seoTitle": "Compare UniClipboard — open-source clipboard sync vs iCloud, Maccy, and the rest",
     "seoDescription": "Honest comparisons of UniClipboard against the clipboard managers and sync tools you might already be using — iCloud Universal Clipboard, Maccy, and more. Pick the right tool, not just the one you found first.",
@@ -606,7 +762,7 @@
         "Maccy is a local-only clipboard manager for a single Mac. UniClipboard is the cross-device extension of that idea — same open-source posture, plus sync.",
         "Maccy is MIT-licensed; UniClipboard is AGPL-3.0. Both ship full source code and accept community contributions.",
         "Maccy stores history on the Mac it runs on. UniClipboard keeps an end-to-end encrypted history per device and syncs new copies across paired devices.",
-        "Maccy is on the Mac App Store and via Homebrew. UniClipboard is distributed as signed, notarized direct downloads (Mac App Store is not currently supported).",
+        "Maccy is on the Mac App Store and via Homebrew. UniClipboard is distributed as signed, notarized direct downloads and via a Homebrew cask (Mac App Store is not currently supported).",
         "You can run both side-by-side. Maccy keeps doing what it does on the Mac; UniClipboard adds Windows and Linux to the picture.",
         "If you only ever use one Mac, Maccy alone is plenty. The moment a second machine joins your workflow, UniClipboard is the upgrade path."
       ],
@@ -647,7 +803,7 @@
         },
         {
           "feature": "Distribution",
-          "uc": "Signed direct downloads (notarized macOS, Authenticode Windows)",
+          "uc": "Signed direct downloads + Homebrew cask (mac) + Snap (linux)",
           "other": "Mac App Store, Homebrew, build from source"
         },
         {
@@ -702,7 +858,7 @@
         },
         {
           "q": "Is UniClipboard available on the Mac App Store?",
-          "a": "Not currently. UniClipboard ships as signed, notarized direct downloads from the website. Maccy is on the Mac App Store (paid) and also free from Homebrew or source. If Mac App Store distribution matters to you, that is a real point in Maccy's favour today."
+          "a": "Not currently. UniClipboard ships as signed, notarized direct downloads from the website, and as a Homebrew cask via brew install --cask uniclipboard/tap/uniclipboard. Maccy is on the Mac App Store (paid) and also free from Homebrew or source. If Mac App Store distribution specifically matters to you, that is still a real point in Maccy's favour today."
         },
         {
           "q": "Will UniClipboard be as fast as Maccy on a Mac?",

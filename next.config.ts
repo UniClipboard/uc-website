@@ -6,6 +6,7 @@ const STATIC_ASSET_PATTERN =
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  serverExternalPackages: ["@takumi-rs/core"],
   images: {
     remotePatterns: [
       {

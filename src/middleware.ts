@@ -59,27 +59,20 @@ const adminMiddleware = clerkMiddleware(async (auth, req: NextRequest) => {
 
 // next-intl ships responses with `Cache-Control: private` and a `NEXT_LOCALE`
 // Set-Cookie, which makes both Vercel Edge and Cloudflare bypass the cache.
-// For public content pages the locale is already encoded in the URL, so the
-// cookie is redundant — strip it and rewrite Cache-Control so the CDN can
-// serve these pages. CF still bypasses cache when a logged-in user presents
-// auth cookies, so this stays safe for /admin.
+// For 2xx public content pages the locale is already encoded in the URL, so
+// the cookie is redundant — strip it and rewrite Cache-Control so the CDN can
+// serve these pages. For 3xx redirects we MUST keep Set-Cookie because that
+// is how next-intl persists a user's locale selection; stripping it sends
+// users with a non-default Accept-Language back to their detected locale on
+// every navigation. CDNs refuse to cache Set-Cookie responses anyway, so we
+// just bypass cache for redirects.
 function applyPublicCdnCache(res: NextResponse): NextResponse {
-  res.headers.delete("set-cookie");
   if (res.status >= 200 && res.status < 300) {
+    res.headers.delete("set-cookie");
     res.headers.set(
       "cache-control",
       "public, s-maxage=300, stale-while-revalidate=600",
     );
-  } else if (res.status >= 300 && res.status < 400) {
-    // Locale-detection redirects vary by Accept-Language
-    res.headers.set("cache-control", "public, s-maxage=60");
-    const vary = res.headers.get("vary") ?? "";
-    if (!/accept-language/i.test(vary)) {
-      res.headers.set(
-        "vary",
-        vary ? `${vary}, Accept-Language` : "Accept-Language",
-      );
-    }
   }
   return res;
 }

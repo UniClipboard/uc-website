@@ -16,6 +16,8 @@ type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
+export const revalidate = 1800;
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {

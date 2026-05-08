@@ -37,6 +37,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/docs",
+        destination: "https://uc-docs.vercel.app/docs",
+      },
+      {
+        source: "/docs/:path*",
+        destination: "https://uc-docs.vercel.app/docs/:path*",
+      },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

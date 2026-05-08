@@ -94,5 +94,5 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|_vercel|.*\\..*).*)", "/(api|trpc)(.*)"],
+  matcher: ["/((?!_next|_vercel|docs|.*\\..*).*)", "/(api|trpc)(.*)"],
 };

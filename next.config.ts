@@ -4,6 +4,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const STATIC_ASSET_PATTERN =
   "/:path*\\.(jpg|jpeg|png|webp|avif|svg|ico|woff|woff2)";
 
+const DOCS_ORIGIN =
+  process.env.DOCS_ORIGIN ??
+  (process.env.VERCEL_ENV === "preview"
+    ? "https://preview.docs.uniclipboard.app"
+    : "https://docs.uniclipboard.app");
+
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   serverExternalPackages: ["@takumi-rs/core"],
@@ -41,11 +47,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/docs",
-        destination: "https://uc-docs.vercel.app/docs",
+        destination: `${DOCS_ORIGIN}/docs`,
       },
       {
         source: "/docs/:path*",
-        destination: "https://uc-docs.vercel.app/docs/:path*",
+        destination: `${DOCS_ORIGIN}/docs/:path*`,
       },
     ];
   },

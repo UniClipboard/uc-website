@@ -4,7 +4,7 @@ import { FaqAccordion, type FaqItem } from "./FaqAccordion";
 
 export async function FaqSection() {
   const t = await getTranslations("landing.faq");
-  const items: FaqItem[] = [1, 2, 3, 4, 5, 6].map((i) => {
+  const items: FaqItem[] = [1, 2, 3, 4, 5, 6, 7].map((i) => {
     const item: FaqItem = {
       q: t(`item${i}.q`),
       a: t(`item${i}.a`),

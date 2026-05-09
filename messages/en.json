@@ -46,10 +46,10 @@
       "themeDark": "Dark"
     },
     "hero": {
-      "eyebrow": "Open source · End-to-end encrypted · Native on three platforms",
+      "eyebrow": "Open source · End-to-end encrypted · History included · Three native platforms",
       "title": "Copy on your Mac.",
       "titleLine2": "Paste on your Windows.",
-      "description": "Free, open source, and end-to-end encrypted — text, images, and files flow seamlessly between your Mac, Windows, and Linux machines. Direct on the same Wi-Fi, NAT hole-punching across networks. No account ever.",
+      "description": "Free, open source, end-to-end encrypted. Pair your devices once — then text, images, and files flow between Mac, Windows, and Linux like they're on the same machine. No account, no QR-code ritual, no sending things to yourself.",
       "descriptionMobile": "End-to-end encrypted sync for text, images, and files across Mac, Windows, and Linux. No account.",
       "mobileBadge": "Mobile coming soon",
       "secondaryCta": "Technical whitepaper",
@@ -266,6 +266,10 @@
       "item6": {
         "q": "Will AGPL-3.0 affect me using it inside a company?",
         "a": "No. AGPL only kicks in if you modify the source and then redistribute it as a network service. Installing it for personal or team use is no different from any other free app — you don't have to open-source any of your company's code."
+      },
+      "item7": {
+        "q": "How is this different from KDE Connect or Mouse Without Borders?",
+        "a": "KDE Connect and Mouse Without Borders are great, but they're KVM-style tools — they share your mouse, keyboard, files, and notifications too, and they typically need devices on the same LAN (or Tailscale on top). UniClipboard is clipboard-only, works across the public internet without a VPN, and ships with searchable history. If you just want copy-here-paste-there with nothing else moving, this is for you."
       }
     },
     "footer": {

@@ -127,7 +127,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [1, 2, 3, 4, 5, 6].map((i) => ({
+    mainEntity: [1, 2, 3, 4, 5, 6, 7].map((i) => ({
       "@type": "Question",
       name: tFaq(`item${i}.q`),
       acceptedAnswer: {

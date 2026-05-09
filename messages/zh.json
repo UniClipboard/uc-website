@@ -40,10 +40,10 @@
       "themeDark": "深色"
     },
     "hero": {
-      "eyebrow": "开源 · 端到端加密 · 三平台原生",
+      "eyebrow": "开源 · 端到端加密 · 历史也同步 · 三平台原生",
       "title": "Mac 上复制的，",
       "titleLine2": "Windows 上直接粘。",
-      "description": "免费、开源、端到端加密——文本、图片和文件在你的 Mac、Windows、Linux 之间顺畅流动。同一 Wi-Fi 直连，跨网络自动打洞，全程不需要账号。",
+      "description": "免费、开源、端到端加密。设备配一次对——之后文本、图片、文件在 Mac、Windows、Linux 之间流转，就像在同一台机器上。不用账号，不用每次扫码，也不用发给自己。",
       "descriptionMobile": "端到端加密，文本、图片、文件跨设备同步。开源、免费、无需账号。",
       "mobileBadge": "移动端开发中",
       "secondaryCta": "技术白皮书",
@@ -260,6 +260,10 @@
       "item6": {
         "q": "AGPL-3.0 会影响我在公司里用吗？",
         "a": "不会。AGPL 约束的是「修改源码后再以网络服务的形式分发」的场景。直接安装、自用、给团队用，跟普通免费软件没区别——不需要开源你公司任何代码。"
+      },
+      "item7": {
+        "q": "和 KDE Connect、Mouse Without Borders 比有什么不一样？",
+        "a": "KDE Connect 和 Mouse Without Borders 都是好工具，但它们属于 KVM 那一类——会一起把鼠标、键盘、文件、通知都共享过去，而且通常要在同一局域网（或者再叠一层 Tailscale）。UniClipboard 只做剪贴板，走公网也能用、不需要 VPN，自带可搜索的历史。如果你想要的就只是「这边复制那边粘」，没别的东西被搬来搬去——这一个就够了。"
       }
     },
     "footer": {

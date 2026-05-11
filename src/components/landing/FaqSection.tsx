@@ -1,9 +1,13 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+
+import { getDocsHref } from "@/lib/docs-href";
 
 import { FaqAccordion, type FaqItem } from "./FaqAccordion";
 
 export async function FaqSection() {
   const t = await getTranslations("landing.faq");
+  const locale = await getLocale();
+  const docsHref = getDocsHref(locale);
   const items: FaqItem[] = [1, 2, 3, 4, 5, 6, 7].map((i) => {
     const item: FaqItem = {
       q: t(`item${i}.q`),
@@ -37,6 +41,15 @@ export async function FaqSection() {
             >
               {t("title")}
             </h2>
+            <p className="text-muted-foreground mt-2 text-[14px] leading-relaxed">
+              {t("docsHelpLede")}{" "}
+              <a
+                href={docsHref}
+                className="text-foreground underline decoration-[var(--muted2)] underline-offset-[5px] transition-colors hover:decoration-current"
+              >
+                {t("docsHelpCta")}
+              </a>
+            </p>
           </div>
           <FaqAccordion items={items} />
         </div>

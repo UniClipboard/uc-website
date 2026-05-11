@@ -30,6 +30,7 @@
       "blog": "博客",
       "compare": "对比",
       "useCases": "使用场景",
+      "docs": "文档",
       "changelog": "更新日志",
       "download": "下载",
       "github": "GitHub",
@@ -235,6 +236,8 @@
     "faq": {
       "eyebrow": "FAQ",
       "title": "你可能想问的几件事。",
+      "docsHelpLede": "没在这里找到答案？",
+      "docsHelpCta": "查看完整文档 →",
       "item1": {
         "q": "为什么不直接用 iCloud 通用剪贴板？",
         "a": "如果你只用 Apple 设备、不需要剪切板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
@@ -273,7 +276,7 @@
       "repo": "仓库",
       "issues": "Issues",
       "releases": "Releases",
-      "docs": "README",
+      "docs": "文档",
       "stackTitle": "技术栈",
       "contactTitle": "联系",
       "twitter": "X · @uniclipboard",

@@ -36,6 +36,7 @@
       "blog": "Blog",
       "compare": "Compare",
       "useCases": "Use cases",
+      "docs": "Docs",
       "changelog": "Changelog",
       "download": "Install",
       "github": "GitHub",
@@ -241,6 +242,8 @@
     "faq": {
       "eyebrow": "FAQ",
       "title": "Things you'll probably ask.",
+      "docsHelpLede": "Didn't find your answer here?",
+      "docsHelpCta": "Read the docs →",
       "item1": {
         "q": "Why not just iCloud Universal Clipboard?",
         "a": "If you only use Apple devices, don't need history, and fully trust Apple's closed-source E2E encryption — iCloud is fine. The moment you add a Windows or Linux machine, want a searchable history, or want to verify the encryption yourself, you need something else."
@@ -279,7 +282,7 @@
       "repo": "Repository",
       "issues": "Issues",
       "releases": "Releases",
-      "docs": "README",
+      "docs": "Docs",
       "stackTitle": "Built with",
       "contactTitle": "Contact",
       "twitter": "X · @uniclipboard",

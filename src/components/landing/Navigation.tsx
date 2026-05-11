@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { getDocsHref } from "@/lib/docs-href";
 
 function NavLinkPending() {
   const { pending } = useLinkStatus();
@@ -65,10 +66,21 @@ export function Navigation() {
     router.replace(pathname, { locale: next });
   };
 
-  const navItems: { href: string; label: string; matchPrefix: string }[] = [
+  const navItems: {
+    href: string;
+    label: string;
+    matchPrefix: string;
+    external?: boolean;
+  }[] = [
     { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
     { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
     { href: "/use-cases", label: t("useCases"), matchPrefix: "/use-cases" },
+    {
+      href: getDocsHref(locale),
+      label: t("docs"),
+      matchPrefix: "/docs",
+      external: true,
+    },
     { href: "/changelog", label: t("changelog"), matchPrefix: "/changelog" },
   ];
 
@@ -87,15 +99,26 @@ export function Navigation() {
         <div className="text-muted-foreground hidden items-center gap-7 text-[13px] md:flex">
           {navItems.map((item) => {
             const active = isItemActive(item.matchPrefix);
+            const className = active
+              ? "text-foreground transition-colors"
+              : "hover:text-foreground transition-colors";
+            if (item.external) {
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={className}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            }
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={
-                  active
-                    ? "text-foreground transition-colors"
-                    : "hover:text-foreground transition-colors"
-                }
+                className={className}
                 aria-current={active ? "page" : undefined}
               >
                 {item.label}
@@ -191,28 +214,49 @@ export function Navigation() {
           <div className="landing-shell flex h-full flex-col gap-1 py-6">
             {navItems.map((item) => {
               const active = isItemActive(item.matchPrefix);
+              const itemClass =
+                "text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors";
+              const chevron = (
+                <span
+                  className="text-muted2"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  ↗
+                </span>
+              );
+              if (item.external) {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className={itemClass}
+                  >
+                    <span className="inline-flex items-center">
+                      {item.label}
+                    </span>
+                    {chevron}
+                  </a>
+                );
+              }
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
                   aria-current={active ? "page" : undefined}
-                  className="text-foreground hover:bg-foreground/5 flex items-center justify-between rounded-lg px-3 py-3.5 text-[16px] font-medium transition-colors"
+                  className={itemClass}
                 >
                   <span className="inline-flex items-center">
                     {item.label}
                     <NavLinkPending />
                   </span>
-                  <span
-                    className="text-muted2"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    ↗
-                  </span>
+                  {chevron}
                 </Link>
               );
             })}

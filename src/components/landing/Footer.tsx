@@ -1,5 +1,7 @@
 import { Clipboard, Mail } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+
+import { getDocsHref } from "@/lib/docs-href";
 
 function XGlyph({ size = 12 }: { size?: number }) {
   return (
@@ -37,6 +39,8 @@ function BilibiliGlyph({ size = 13 }: { size?: number }) {
 
 export async function Footer() {
   const t = await getTranslations("landing.footer");
+  const locale = await getLocale();
+  const docsHref = getDocsHref(locale);
 
   return (
     <footer
@@ -94,25 +98,30 @@ export async function Footer() {
                 {
                   href: "https://github.com/UniClipboard/UniClipboard",
                   label: t("repo"),
+                  external: true,
                 },
                 {
                   href: "https://github.com/UniClipboard/UniClipboard/issues",
                   label: t("issues"),
+                  external: true,
                 },
                 {
                   href: "https://github.com/UniClipboard/UniClipboard/releases",
                   label: t("releases"),
+                  external: true,
                 },
                 {
-                  href: "https://github.com/UniClipboard/UniClipboard#readme",
+                  href: docsHref,
                   label: t("docs"),
+                  external: false,
                 },
               ].map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(l.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="inline-flex min-h-8 items-center"
                   style={{
                     color: "var(--footer-fg)",

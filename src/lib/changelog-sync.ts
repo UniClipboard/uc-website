@@ -36,13 +36,14 @@ async function upsertRelease(parsed: ParsedRelease): Promise<SyncResult> {
       notesEn: releases.notesEn,
       notesZh: releases.notesZh,
       pubDate: releases.pubDate,
+      manualOverride: releases.manualOverride,
     })
     .from(releases)
     .where(eq(releases.version, parsed.version))
     .limit(1);
 
   const row = existing[0];
-  const payload = {
+  const fullPayload = {
     version: parsed.version,
     pubDate: parsed.pubDate,
     notesEn: parsed.notesEn,
@@ -52,22 +53,33 @@ async function upsertRelease(parsed: ParsedRelease): Promise<SyncResult> {
   };
 
   if (!row) {
-    await db.insert(releases).values(payload);
+    await db.insert(releases).values(fullPayload);
     return { status: "inserted", version: parsed.version };
   }
 
-  const isUnchanged =
-    row.notesEn === parsed.notesEn &&
-    row.notesZh === parsed.notesZh &&
-    row.pubDate.getTime() === parsed.pubDate.getTime();
+  // Admin-edited notes win: never overwrite them via sync. Platforms,
+  // pub_date, and raw payload still refresh so download links stay current.
+  const writable = row.manualOverride
+    ? {
+        version: parsed.version,
+        pubDate: parsed.pubDate,
+        platforms: parsed.platforms,
+        rawPayload: parsed.raw,
+      }
+    : fullPayload;
 
-  if (isUnchanged) {
+  const notesUnchanged = row.manualOverride
+    ? true
+    : row.notesEn === parsed.notesEn && row.notesZh === parsed.notesZh;
+  const pubDateUnchanged = row.pubDate.getTime() === parsed.pubDate.getTime();
+
+  if (notesUnchanged && pubDateUnchanged) {
     return { status: "unchanged", version: parsed.version };
   }
 
   await db
     .update(releases)
-    .set({ ...payload, updatedAt: new Date() })
+    .set({ ...writable, updatedAt: new Date() })
     .where(eq(releases.id, row.id));
   return { status: "updated", version: parsed.version };
 }

@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import {
+  boolean,
   index,
   integer,
   jsonb,
@@ -89,6 +90,7 @@ export const releases = pgTable(
     notesZh: text("notes_zh").notNull(),
     platforms: jsonb("platforms").notNull(),
     rawPayload: jsonb("raw_payload").notNull(),
+    manualOverride: boolean("manual_override").notNull().default(false),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),

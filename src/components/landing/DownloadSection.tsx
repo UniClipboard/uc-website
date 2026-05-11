@@ -5,6 +5,7 @@ import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-releas
 
 import { AnimateIn } from "./AnimateIn";
 import { DownloadFocus } from "./DownloadFocus";
+import { ShareLinkButton } from "./ShareLinkButton";
 
 type DownloadSectionProps = {
   release: StableReleaseViewModel;
@@ -350,20 +351,29 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
                 {publishedAtLabel}
               </p>
 
-              <a
-                href={release.fallbackReleaseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground border-border bg-bg2 hover:bg-foreground/5 mt-5 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 transition-colors"
-                style={{
-                  fontSize: 12.5,
-                  fontWeight: 500,
-                  letterSpacing: "-0.005em",
-                }}
-              >
-                {t("openRelease")}
-                <ArrowUpRight size={13} />
-              </a>
+              <div className="mt-5 flex flex-col items-center gap-2.5">
+                <a
+                  href={release.fallbackReleaseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground border-border bg-bg2 hover:bg-foreground/5 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 transition-colors"
+                  style={{
+                    fontSize: 12.5,
+                    fontWeight: 500,
+                    letterSpacing: "-0.005em",
+                  }}
+                >
+                  {t("openRelease")}
+                  <ArrowUpRight size={13} />
+                </a>
+                <ShareLinkButton
+                  labels={{
+                    idle: t("shareLinkIdle"),
+                    copied: t("shareLinkCopied"),
+                    shareTitle: t("shareLinkTitle"),
+                  }}
+                />
+              </div>
             </div>
           </AnimateIn>
         </div>

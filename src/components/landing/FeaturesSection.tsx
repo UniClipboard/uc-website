@@ -3,10 +3,10 @@ import {
   Command,
   FileText,
   Globe,
-  History,
   Lock,
   Network,
   RefreshCw,
+  Smartphone,
   Zap,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -33,11 +33,11 @@ const heroes: Hero[] = [
 type More = { icon: LucideIcon; key: string };
 const moreItems: More[] = [
   { icon: Command, key: "f1" },
+  { icon: Smartphone, key: "f10" },
   { icon: RefreshCw, key: "f4" },
   { icon: FileText, key: "f6" },
   { icon: Network, key: "f5" },
   { icon: Zap, key: "f7" },
-  { icon: History, key: "f9" },
 ];
 
 function HeroBlock({

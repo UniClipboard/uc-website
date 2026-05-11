@@ -512,7 +512,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 </p>
               </AnimateIn>
             </div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
               <AnimateIn delay={0.14} duration={0.55} className="h-full">
                 <PackageManagerCard
                   os="mac"
@@ -528,6 +528,20 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 />
               </AnimateIn>
               <AnimateIn delay={0.2} duration={0.55} className="h-full">
+                <PackageManagerCard
+                  os="linux"
+                  manager={t("pkg.dnf.manager")}
+                  title={t("pkg.dnf.title")}
+                  subtitle={t("pkg.dnf.subtitle")}
+                  command={t("pkg.dnf.command")}
+                  note={t("pkg.dnf.note")}
+                  docsLabel={t("pkg.dnf.docsLabel")}
+                  docsHref={t("pkg.dnf.docsHref")}
+                  copyLabel={t("pkg.copy")}
+                  copiedLabel={t("pkg.copied")}
+                />
+              </AnimateIn>
+              <AnimateIn delay={0.26} duration={0.55} className="h-full">
                 <PackageManagerCard
                   os="linux"
                   manager={t("pkg.snap.manager")}

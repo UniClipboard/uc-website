@@ -6,18 +6,18 @@
     "getStartedButton": "Get started"
   },
   "seo": {
-    "title": "UniClipboard — Open-source encrypted clipboard sync for Mac, Windows & Linux",
+    "title": "UniClipboard — Open-source encrypted clipboard across Mac, Windows, Linux, iPhone & Android",
     "titleTemplate": "%s | UniClipboard",
-    "description": "Free, open-source, end-to-end encrypted universal clipboard. Copy on your Mac, paste on Windows or Linux — no cloud account, no server, no setup. The cross-platform alternative to iCloud Universal Clipboard.",
-    "keywords": "UniClipboard, universal clipboard, clipboard sync, cross-platform clipboard, Mac Windows clipboard, Linux clipboard sync, open source clipboard, end-to-end encrypted clipboard, iCloud universal clipboard alternative, clipboard manager, copy paste between devices",
-    "ogAlt": "UniClipboard — Copy on your Mac. Paste on your Windows."
+    "description": "The open-source, end-to-end encrypted universal clipboard. Mac, Windows, Linux, iPhone, Android — one clipboard, no cloud account, no server in the middle. The cross-platform alternative to iCloud Universal Clipboard.",
+    "keywords": "UniClipboard, universal clipboard, clipboard sync, cross-platform clipboard, Mac Windows clipboard, Linux clipboard sync, iPhone clipboard, Android clipboard, mobile clipboard sync, open source clipboard, end-to-end encrypted clipboard, iCloud universal clipboard alternative, clipboard manager, copy paste between devices",
+    "ogAlt": "UniClipboard — one clipboard for every device you own"
   },
   "og": {
     "home": {
       "eyebrow": "UNIVERSAL CLIPBOARD",
-      "title": "Copy on your Mac. Paste on your Windows.",
-      "subtitle": "Open-source, end-to-end encrypted clipboard sync for Mac, Windows & Linux.",
-      "alt": "UniClipboard — Open-source encrypted clipboard sync for Mac, Windows & Linux"
+      "title": "One clipboard. Every device you own.",
+      "subtitle": "Open-source, end-to-end encrypted. Mac, Windows, Linux, iPhone, Android.",
+      "alt": "UniClipboard — one clipboard for every device you own"
     },
     "download": {
       "eyebrow": "DOWNLOAD",
@@ -47,12 +47,12 @@
       "themeDark": "Dark"
     },
     "hero": {
-      "eyebrow": "Open source · End-to-end encrypted · History included · Three native platforms",
-      "title": "Copy on your Mac.",
-      "titleLine2": "Paste on your Windows.",
-      "description": "Free, open source, end-to-end encrypted. Pair your devices once — then text, images, and files flow between Mac, Windows, and Linux like they're on the same machine. No account, no QR-code ritual, no sending things to yourself.",
-      "descriptionMobile": "End-to-end encrypted sync for text, images, and files across Mac, Windows, and Linux. No account.",
-      "mobileBadge": "Mobile coming soon",
+      "eyebrow": "Open source · End-to-end encrypted · 5 platforms · No account",
+      "title": "One clipboard.",
+      "titleLine2": "Every device you own.",
+      "description": "UniClipboard is the open-source, end-to-end encrypted clipboard that syncs text, images, and files across Mac, Windows, Linux, iPhone, and Android. No cloud account, no server in the middle.",
+      "descriptionMobile": "One clipboard across all your devices. Open source, end-to-end encrypted, no account.",
+      "mobileBadge": "How does it work on my phone? →",
       "secondaryCta": "Technical whitepaper",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -83,15 +83,15 @@
         "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself."
       },
       "h2": {
-        "eyebrow": "02 — Cross-platform · cross-network",
-        "title": "Not just LAN. Not bound to one network.",
-        "lede": "First-class on Windows, macOS, and Linux — built on Rust + Tauri, not an Electron wrapper. Direct on the same Wi-Fi; NAT hole-punching across networks; encrypted relay as a fallback.",
-        "b1Title": "Three native platforms",
-        "b1Desc": "Rust + Tauri — fast launch, low footprint, integrates with the OS.",
-        "b2Title": "Direct first",
-        "b2Desc": "Devices on the same network connect peer-to-peer with millisecond latency.",
-        "b3Title": "Relay fallback",
-        "b3Desc": "Across home/office/internet — automatic hole-punching, encrypted relay if it fails."
+        "eyebrow": "02 — Five platforms · open protocol",
+        "title": "Five platforms. Any network.",
+        "lede": "Three desktops built on Rust + Tauri. iPhone joins through the system Shortcuts app, Android through any SyncClipboard client — both over SyncClipboard's open HTTP protocol. Same Wi-Fi P2P, NAT hole-punching across networks, LAN-only available when you need it.",
+        "b1Title": "Three desktops",
+        "b1Desc": "Built on Rust + Tauri — fast launch, low footprint, menu-bar and tray integrated.",
+        "b2Title": "iPhone & Android via open protocol",
+        "b2Desc": "Desktop apps implement SyncClipboard's (MIT) HTTP protocol — iPhone joins via the built-in Shortcuts app, Android via any SyncClipboard-compatible client. Paste a config from your desktop and you're in.",
+        "b3Title": "Direct · hole-punch · LAN-only",
+        "b3Desc": "P2P on the same Wi-Fi, NAT hole-punching across networks, encrypted relay as fallback. Flip LAN-only Mode to drop the relay entirely."
       },
       "h3": {
         "eyebrow": "03 — Power-user friendly",
@@ -111,12 +111,14 @@
         "f4Desc": "Reconnects automatically after Wi-Fi switches, sleep/wake, and brief disconnects. No re-pairing.",
         "f6Title": "Text, images & files",
         "f6Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
-        "f5Title": "Multi-device management",
-        "f5Desc": "Manage paired devices, presence and per-device sync preferences. Lost a device? Revoke it from any paired one.",
+        "f5Title": "Per-device sync gates",
+        "f5Desc": "Choose, per paired device, whether it sends, receives, and which content types — text, images, files — are allowed through. Lost a device? Revoke it from any paired one.",
         "f7Title": "Real-time sync",
         "f7Desc": "Copy and it pushes — no manual trigger, no confirmation. Clipboard stays in sync across every device, automatically.",
         "f9Title": "Tunable history retention",
-        "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time."
+        "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time.",
+        "f10Title": "Mobile via open protocol",
+        "f10Desc": "Desktop apps implement SyncClipboard's (MIT) open protocol — iPhone joins via the system Shortcuts app, Android joins via any SyncClipboard client. Paste a config from your desktop and you're in — local-network only, no proprietary mobile app."
       }
     },
     "comparison": {
@@ -137,9 +139,9 @@
       },
       "rows": {
         "crossPlatform": {
-          "label": "macOS / Windows / Linux",
+          "label": "macOS / Windows / Linux (+ mobile on LAN)",
           "labelMobile": "Cross-platform",
-          "uc": "All three, native",
+          "uc": "Desktops native + mobile LAN",
           "icloud": "Apple only",
           "selfhost": "Depends",
           "manager": "Single platform"
@@ -177,9 +179,9 @@
           "manager": "No account"
         },
         "transport": {
-          "label": "Direct on Wi-Fi, relay across networks",
+          "label": "Direct on Wi-Fi, relay across networks, optional LAN-only",
           "labelMobile": "Direct + relay",
-          "uc": "P2P + relay",
+          "uc": "P2P + relay · LAN-only switch",
           "icloud": "Proximity only",
           "selfhost": "Server-only typically",
           "manager": "Local only"
@@ -209,12 +211,15 @@
       "eyebrow": "Download the latest release",
       "title": "Pick your platform.",
       "description": "We've detected your platform. Pick a different one below if you need to. Each installer comes with the OS requirement so you know before you download.",
-      "descriptionMobile": "UniClipboard is desktop-only. Open this page on Mac, Windows, or Linux to install.",
+      "descriptionMobile": "The desktop apps install on Mac, Windows, and Linux. Send this link to your desktop and pick it up there.",
       "versionLabel": "Version",
       "publishedLabel": "Published",
       "channelLabel": "Channel",
       "channelStable": "stable",
       "openRelease": "Open latest release",
+      "shareLinkIdle": "Send link to desktop",
+      "shareLinkCopied": "Link copied",
+      "shareLinkTitle": "UniClipboard — universal clipboard",
       "fallback": "All releases",
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
@@ -236,8 +241,8 @@
       "ctaLinuxArm": "Linux · ARM64",
       "minOSMac": "macOS 12+",
       "minOSWin": "Windows 10/11",
-      "minOSLinuxX64": "AppImage · x86_64",
-      "minOSLinuxArm": "AppImage · ARM64"
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64"
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -254,7 +259,7 @@
       },
       "item3": {
         "q": "Does it work fully offline / LAN-only?",
-        "a": "Yes. Devices on the same Wi-Fi connect directly without going through the relay. Even if the relay is unreachable, devices on the same network keep syncing."
+        "a": "Yes. Devices on the same Wi-Fi connect directly without going through the relay. There's also an explicit LAN-only Mode in Network settings that keeps every paired peer on local-network discovery and direct connections — the relay and other public services are turned off entirely while it's on."
       },
       "item4": {
         "q": "Where does my clipboard history actually live?",
@@ -262,9 +267,9 @@
       },
       "item5": {
         "q": "Do you support mobile (iOS / Android)?",
-        "a": "Not yet. The current release focuses on getting Windows, macOS and Linux right. Mobile is on the roadmap, but OS-level clipboard permissions and background-execution limits need to be solved first — we'll ship it when it's ready, not before.",
-        "waitlistCta": "Want to know first? Join the mobile waitlist →",
-        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=Notify%20me%20when%20mobile%20is%20available."
+        "a": "Yes, on the local network — through an open protocol. The desktop apps implement the HTTP protocol from SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT). iPhone joins via the built-in Shortcuts app with a short config from your desktop; Android joins via any of the SyncClipboard project's Android clients the same way. No cloud account on either side, content stays on LAN. We deliberately don't ship a proprietary mobile app — leaning on an open protocol and an existing client ecosystem is more stable than yet another new app in the store. A first-party native app stays on the roadmap if/when a clean implementation path opens up.",
+        "waitlistCta": "Want to know when the native app lands? Join the mobile waitlist →",
+        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=Notify%20me%20when%20the%20native%20mobile%20app%20is%20available."
       },
       "item6": {
         "q": "Will AGPL-3.0 affect me using it inside a company?",
@@ -332,13 +337,13 @@
       "archAppimage": "x64",
       "minOSMac": "macOS 12+",
       "minOSWin": "Windows 10/11",
-      "minOSLinuxX64": "AppImage · x86_64",
-      "minOSLinuxArm": "AppImage · ARM64"
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64"
     },
     "pkg": {
       "eyebrow": "Package managers",
       "title": "Or install with one command.",
-      "description": "Prefer the terminal? Install with Homebrew on macOS or Snap on Linux. Updates flow through the same channel you installed from.",
+      "description": "Prefer the terminal? Install with Homebrew on macOS, dnf on Fedora, or Snap on any Linux with snapd. Updates flow through the same channel you installed from.",
       "copy": "Copy command",
       "copied": "Copied",
       "brew": {
@@ -350,10 +355,19 @@
         "docsLabel": "Tap on GitHub",
         "docsHref": "https://github.com/UniClipboard/homebrew-tap"
       },
+      "dnf": {
+        "title": "Fedora COPR",
+        "manager": "Linux · Fedora",
+        "subtitle": "Installs the same signed .rpm from our COPR channel. Enable the repo once, then dnf upgrade picks up new releases.",
+        "command": "sudo dnf copr enable uniclipboard/uniclipboard && sudo dnf install uniclipboard",
+        "note": "Fedora 38+ / RHEL 9+",
+        "docsLabel": "View on COPR",
+        "docsHref": "https://copr.fedorainfracloud.org/coprs/uniclipboard/uniclipboard/"
+      },
       "snap": {
         "title": "Snap Store",
         "manager": "Linux · Snap",
-        "subtitle": "Auto-updates in the background and runs in confined sandbox. Works on Ubuntu, Fedora, Manjaro, and any distro with snapd installed.",
+        "subtitle": "Auto-updates in the background and runs in strict confinement — only the interfaces it actually needs. Works on Ubuntu, Debian, Manjaro, and any distro with snapd installed.",
         "command": "sudo snap install uniclipboard",
         "note": "snapd required",
         "docsLabel": "View on Snap Store",
@@ -387,7 +401,7 @@
         {
           "platform": "Linux",
           "minOS": "glibc 2.31+ (Ubuntu 20.04, Debian 11, Fedora 35, equivalent)",
-          "arch": "x86_64, ARM64 (AppImage)",
+          "arch": "x86_64, ARM64 (.deb / .rpm / AppImage)",
           "memory": "≈ 65 MB at idle",
           "disk": "≈ 85 MB"
         }
@@ -410,8 +424,8 @@
         },
         {
           "platform": "Linux",
-          "body": "Each AppImage is published with a SHA256 checksum on the GitHub release page. Download the .sha256 file alongside the AppImage and verify it.",
-          "command": "sha256sum -c UniClipboard-x86_64.AppImage.sha256"
+          "body": "Every .deb, .rpm, and .AppImage on the GitHub release page is published with a matching .sig signature file. Download the .sig alongside the installer and verify it with the public key published in the repository's README.",
+          "command": "minisign -Vm UniClipboard_amd64.deb -P RWQ... # see README for the public key"
         }
       ]
     },

@@ -135,14 +135,13 @@ export async function HeroSection({ release, stars }: Props) {
           />
 
           <div className="mt-7 flex flex-col items-center text-center">
-            <button
-              type="button"
-              disabled
+            <a
+              href="#faq-mobile"
               aria-label={t("mobileBadge")}
-              className="bg-primary/55 text-primary-foreground mb-5 flex w-full cursor-not-allowed items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium select-none"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 mb-5 flex w-full items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium transition-colors"
             >
               {t("mobileBadge")}
-            </button>
+            </a>
 
             <HeroTrustBar stars={stars} labels={trustLabels} />
           </div>

@@ -1,17 +1,17 @@
 {
   "seo": {
-    "title": "UniClipboard — Mac / Windows / Linux 三端开源加密剪贴板同步",
+    "title": "UniClipboard — 跨 Mac / Windows / Linux / iPhone / Android 的开源加密剪贴板",
     "titleTemplate": "%s | UniClipboard",
-    "description": "免费、开源、端到端加密的跨设备剪贴板同步工具。Mac 上复制，Windows / Linux 直接粘——无需账号、无需服务器、无需登录。iCloud 通用剪贴板的跨平台开源替代。",
-    "keywords": "UniClipboard, 剪贴板同步, 剪切板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪切板同步, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪切板, 跨设备复制粘贴",
-    "ogAlt": "UniClipboard — 在 Mac 上复制，在 Windows 上粘贴"
+    "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone、Android 之间实时同步——无需账号，也不经过任何第三方服务器。iCloud 通用剪贴板的跨平台开源替代。",
+    "keywords": "UniClipboard, 剪贴板同步, 剪切板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪切板同步, iPhone 剪贴板同步, Android 剪贴板同步, 手机电脑剪贴板, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪切板, 跨设备复制粘贴",
+    "ogAlt": "UniClipboard — 你的剪贴板，在所有设备上"
   },
   "og": {
     "home": {
       "eyebrow": "通用剪贴板",
-      "title": "Mac 上复制，Windows 上直接粘。",
-      "subtitle": "跨 Mac、Windows 与 Linux 的开源、端到端加密剪贴板同步。",
-      "alt": "UniClipboard — Mac、Windows 和 Linux 的开源加密剪贴板同步"
+      "title": "你的剪贴板，在所有设备上。",
+      "subtitle": "开源、端到端加密。Mac、Windows、Linux、iPhone、Android。",
+      "alt": "UniClipboard — 你的剪贴板，在所有设备上"
     },
     "download": {
       "eyebrow": "下载",
@@ -41,12 +41,12 @@
       "themeDark": "深色"
     },
     "hero": {
-      "eyebrow": "开源 · 端到端加密 · 历史也同步 · 三平台原生",
-      "title": "Mac 上复制的，",
-      "titleLine2": "Windows 上直接粘。",
-      "description": "免费、开源、端到端加密。设备配一次对——之后文本、图片、文件在 Mac、Windows、Linux 之间流转，就像在同一台机器上。不用账号，不用每次扫码，也不用发给自己。",
-      "descriptionMobile": "端到端加密，文本、图片、文件跨设备同步。开源、免费、无需账号。",
-      "mobileBadge": "移动端开发中",
+      "eyebrow": "开源 · 端到端加密 · 五端同步 · 无需账号",
+      "title": "你的剪贴板，",
+      "titleLine2": "在所有设备上。",
+      "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone 与 Android 之间实时同步——无需账号，也不经过任何第三方服务器。",
+      "descriptionMobile": "你的剪贴板，在所有设备上。开源、端到端加密，无需账号。",
+      "mobileBadge": "了解手机如何接入 →",
       "secondaryCta": "技术白皮书",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -77,15 +77,15 @@
         "b3Desc": "AGPL-3.0 开源。加密实现你可以自己读、自己验证。"
       },
       "h2": {
-        "eyebrow": "02 — 跨平台 · 跨网络",
-        "title": "不止于 LAN，也不限于单一网络。",
-        "lede": "Windows、macOS、Linux 全平台原生支持，基于 Rust + Tauri 构建——不是 Electron 套壳。同一 Wi-Fi 实时直连；跨网络自动 NAT 打洞，连不通时回退到加密中继。",
-        "b1Title": "三平台原生",
-        "b1Desc": "Rust + Tauri，启动快、占用低，跟系统融为一体。",
-        "b2Title": "直连优先",
-        "b2Desc": "同网络的设备走 P2P，不绕中继，毫秒级延迟。",
-        "b3Title": "跨网络也能用",
-        "b3Desc": "跨家庭、办公室、互联网时自动打洞，失败时回退到加密中继。"
+        "eyebrow": "02 — 五端互通 · 开放协议",
+        "title": "五端互通，任意网络。",
+        "lede": "桌面三端基于 Rust + Tauri 构建。通过 SyncClipboard 的开放协议，iPhone 走系统「快捷指令」、Android 用 SyncClipboard 的客户端接入。同 Wi-Fi 直连、跨网络 NAT 打洞、可一键切到 LAN-only。",
+        "b1Title": "桌面三端",
+        "b1Desc": "Rust + Tauri 构建，启动快、占用低，集成进系统菜单栏与托盘。",
+        "b2Title": "iPhone & Android 走开放协议",
+        "b2Desc": "桌面端实现 SyncClipboard（MIT 开源）的 HTTP 协议——iPhone 通过系统「快捷指令」接入，Android 用 SyncClipboard 的任意客户端接入，桌面端给一段配置贴过去就完了。",
+        "b3Title": "直连 · 打洞 · LAN-only 可切",
+        "b3Desc": "同 Wi-Fi 走 P2P，跨网络自动 NAT 打洞，加密中继兜底。一键打开 LAN-only 可以彻底关掉中继，只用本地网络。"
       },
       "h3": {
         "eyebrow": "03 — 重度用户友好",
@@ -105,12 +105,14 @@
         "f4Desc": "Wi-Fi 切换、休眠唤醒、短暂掉线后自动重连，无需重新配对。",
         "f6Title": "文本、图片与文件",
         "f6Desc": "一台复制，另一台粘贴。大文件采用流式传输，不必整个加载到内存。",
-        "f5Title": "多设备管理",
-        "f5Desc": "管理已配对设备、在线状态，单独配置每台的同步偏好。设备丢了？任意已配对设备一键吊销。",
+        "f5Title": "按设备控制同步",
+        "f5Desc": "每台已配对设备都能单独决定是否发送、是否接收，以及允许哪些内容类型（文本 / 图片 / 文件）。设备丢了？任意已配对设备一键吊销。",
         "f7Title": "实时同步",
         "f7Desc": "复制即推送，无需手动触发或确认。剪切板内容在所有设备间自动保持一致。",
         "f9Title": "可控的历史保留",
-        "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。"
+        "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。",
+        "f10Title": "移动端走开放协议",
+        "f10Desc": "桌面端兼容 SyncClipboard（MIT 开源）的开放协议——iPhone 通过系统「快捷指令」接入，Android 用 SyncClipboard 的客户端接入。在桌面端复制一段配置贴过去就完了，内容只在局域网内流转。"
       }
     },
     "comparison": {
@@ -131,9 +133,9 @@
       },
       "rows": {
         "crossPlatform": {
-          "label": "支持 macOS / Windows / Linux",
+          "label": "macOS / Windows / Linux（移动端走局域网）",
           "labelMobile": "跨平台",
-          "uc": "三平台原生",
+          "uc": "桌面原生 + 移动局域网",
           "icloud": "仅 Apple",
           "selfhost": "看实现",
           "manager": "通常单平台"
@@ -171,9 +173,9 @@
           "manager": "无账号"
         },
         "transport": {
-          "label": "同 Wi-Fi 直连，跨网中继回退",
+          "label": "同 Wi-Fi 直连，跨网中继回退，可强制 LAN-only",
           "labelMobile": "跨网络",
-          "uc": "P2P + 中继",
+          "uc": "P2P + 中继 · 可切 LAN-only",
           "icloud": "仅近场",
           "selfhost": "通常仅服务器",
           "manager": "纯本地"
@@ -203,12 +205,15 @@
       "eyebrow": "下载最新版本",
       "title": "选择你的平台。",
       "description": "我们已经为你识别了平台。如果不对，可以在下面切换。每个安装包都附了系统要求，方便你下载前确认。",
-      "descriptionMobile": "UniClipboard 是桌面应用，请在 Mac、Windows 或 Linux 上打开本页下载。",
+      "descriptionMobile": "UniClipboard 桌面端要在 Mac、Windows 或 Linux 上装。把这个链接发到桌面，到时候再来一次。",
       "versionLabel": "版本",
       "publishedLabel": "发布时间",
       "channelLabel": "通道",
       "channelStable": "stable",
       "openRelease": "查看发布页",
+      "shareLinkIdle": "把链接发到桌面",
+      "shareLinkCopied": "链接已复制",
+      "shareLinkTitle": "UniClipboard — 跨平台剪贴板",
       "fallback": "所有版本",
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
@@ -230,8 +235,8 @@
       "ctaLinuxArm": "Linux · ARM64",
       "minOSMac": "macOS 12+",
       "minOSWin": "Windows 10/11",
-      "minOSLinuxX64": "AppImage · x86_64",
-      "minOSLinuxArm": "AppImage · ARM64"
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64"
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -248,7 +253,7 @@
       },
       "item3": {
         "q": "可以纯离线 / 只在局域网内工作吗？",
-        "a": "可以。同一 Wi-Fi 下的设备会直接互联，不经过中继。即便中继不可达，同网络的设备之间也能继续同步。"
+        "a": "可以。同一 Wi-Fi 下的设备会直接互联，不经过中继。「网络」设置里还有显式的 LAN-only Mode 开关——打开后所有已配对设备都只走局域网发现和直连，中继及其它公网服务整体关闭。"
       },
       "item4": {
         "q": "剪切板历史到底存在哪里？",
@@ -256,9 +261,9 @@
       },
       "item5": {
         "q": "支持移动端（iOS / Android）吗？",
-        "a": "暂不支持。当前版本专注做好 Windows、macOS、Linux 三个桌面平台。移动端在我们的规划之中，但系统层面的剪切板权限和后台运行限制需要先妥善解决——我们会在准备好之后再发布，而不是赶着上线。",
-        "waitlistCta": "想第一时间知道？加入移动端 waitlist →",
-        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=%E5%B8%8C%E6%9C%9B%E5%9C%A8%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8F%AF%E7%94%A8%E6%97%B6%E5%BE%97%E5%88%B0%E9%80%9A%E7%9F%A5%E3%80%82"
+        "a": "局域网内可以用，而且走的是开放协议。桌面端兼容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT 开源）的 HTTP 协议——iPhone 用系统「快捷指令」+ 桌面端给的一段配置接入；Android 用 SyncClipboard 项目里任意一个 Android 客户端接入，流程是一样的。两边都不需要云账号，内容只在局域网内流转。我们刻意不另起炉灶做自家移动 App——开放协议加上已有的客户端生态，比再扔一个新 App 进 Store 更稳。原生 App 如果有清晰的实现路径会上路线图，但不会赶着上。",
+        "waitlistCta": "想知道原生 App 什么时候发？加入移动端 waitlist →",
+        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=%E5%B8%8C%E6%9C%9B%E5%9C%A8%E5%8E%9F%E7%94%9F%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8F%AF%E7%94%A8%E6%97%B6%E5%BE%97%E5%88%B0%E9%80%9A%E7%9F%A5%E3%80%82"
       },
       "item6": {
         "q": "AGPL-3.0 会影响我在公司里用吗？",
@@ -326,13 +331,13 @@
       "archAppimage": "x64",
       "minOSMac": "macOS 12+",
       "minOSWin": "Windows 10/11",
-      "minOSLinuxX64": "AppImage · x86_64",
-      "minOSLinuxArm": "AppImage · ARM64"
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64"
     },
     "pkg": {
       "eyebrow": "包管理器",
       "title": "或者一行命令装完。",
-      "description": "习惯终端？macOS 用 Homebrew，Linux 用 Snap。后续更新会沿着你最初安装的渠道走。",
+      "description": "习惯终端？macOS 用 Homebrew，Fedora 用 dnf（COPR），其它 Linux 用 Snap。后续更新都会沿着你最初安装的渠道走。",
       "copy": "复制命令",
       "copied": "已复制",
       "brew": {
@@ -344,10 +349,19 @@
         "docsLabel": "GitHub 上的 Tap",
         "docsHref": "https://github.com/UniClipboard/homebrew-tap"
       },
+      "dnf": {
+        "title": "Fedora COPR",
+        "manager": "Linux · Fedora",
+        "subtitle": "走我们维护的 COPR 频道，安装的是带签名的 .rpm。开启一次仓库，之后 dnf upgrade 就能拿到新版本。",
+        "command": "sudo dnf copr enable uniclipboard/uniclipboard && sudo dnf install uniclipboard",
+        "note": "Fedora 38+ / RHEL 9+",
+        "docsLabel": "查看 COPR 仓库",
+        "docsHref": "https://copr.fedorainfracloud.org/coprs/uniclipboard/uniclipboard/"
+      },
       "snap": {
         "title": "Snap Store",
         "manager": "Linux · Snap",
-        "subtitle": "后台自动更新，运行在沙箱内。Ubuntu、Fedora、Manjaro，以及任何装了 snapd 的发行版都可用。",
+        "subtitle": "后台自动更新，运行在 strict confinement 沙箱内——只申请它真正用得到的接口。Ubuntu、Debian、Manjaro 等任何装了 snapd 的发行版都可用。",
         "command": "sudo snap install uniclipboard",
         "note": "需要 snapd",
         "docsLabel": "前往 Snap Store",
@@ -381,7 +395,7 @@
         {
           "platform": "Linux",
           "minOS": "glibc 2.31+（Ubuntu 20.04 / Debian 11 / Fedora 35 等）",
-          "arch": "x86_64、ARM64（AppImage）",
+          "arch": "x86_64、ARM64（.deb / .rpm / AppImage）",
           "memory": "空闲约 65 MB",
           "disk": "约 85 MB"
         }
@@ -404,8 +418,8 @@
         },
         {
           "platform": "Linux",
-          "body": "GitHub release 页里每个 AppImage 都附了 SHA256 校验文件。把 .sha256 一并下下来后用下方命令验证。",
-          "command": "sha256sum -c UniClipboard-x86_64.AppImage.sha256"
+          "body": "GitHub release 页里每个 .deb / .rpm / .AppImage 都附了对应的 .sig 签名文件。把 .sig 一并下下来，用仓库 README 公布的公钥验证即可。",
+          "command": "minisign -Vm UniClipboard_amd64.deb -P RWQ... # 公钥见 README"
         }
       ]
     },

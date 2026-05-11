@@ -51,7 +51,14 @@ export async function FaqSection() {
               </a>
             </p>
           </div>
-          <FaqAccordion items={items} />
+          <div className="relative">
+            <span
+              id="faq-mobile"
+              aria-hidden
+              className="pointer-events-none absolute -top-24"
+            />
+            <FaqAccordion items={items} />
+          </div>
         </div>
       </div>
     </section>

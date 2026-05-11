@@ -34,6 +34,21 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
     return () => ro.disconnect();
   }, [items]);
 
+  useEffect(() => {
+    const HASH_TO_INDEX: Record<string, number> = {
+      "#faq-mobile": 4,
+    };
+    const sync = () => {
+      const target = HASH_TO_INDEX[window.location.hash];
+      if (typeof target === "number" && target < items.length) {
+        setOpen(target);
+      }
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [items.length]);
+
   return (
     <div className="border-border border-t" style={{ minHeight }}>
       {items.map((it, i) => {

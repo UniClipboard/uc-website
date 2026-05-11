@@ -136,7 +136,7 @@ export async function HeroSection({ release, stars }: Props) {
 
           <div className="mt-7 flex flex-col items-center text-center">
             <a
-              href="#features"
+              href="#faq-mobile"
               aria-label={t("mobileBadge")}
               className="bg-primary text-primary-foreground hover:bg-primary/90 mb-5 flex w-full items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium transition-colors"
             >

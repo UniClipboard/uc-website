@@ -188,7 +188,7 @@ export function Navigation() {
 
           <Link
             href="/download"
-            className="bg-primary text-primary-foreground inline-flex items-center justify-center rounded-lg px-3 py-2 text-[12px] font-medium"
+            className="bg-primary text-primary-foreground hidden items-center justify-center rounded-lg px-3 py-2 text-[12px] font-medium md:inline-flex"
           >
             {t("download")}
           </Link>

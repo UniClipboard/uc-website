@@ -37,6 +37,12 @@ export default async function AdminAuthedLayout({
               Articles
             </Link>
             <Link
+              href="/admin/changelog"
+              className="hover:text-foreground transition-colors"
+            >
+              Changelog
+            </Link>
+            <Link
               href="/admin/tokens"
               className="hover:text-foreground transition-colors"
             >

@@ -13,6 +13,7 @@ export type ReleaseRecord = {
   notesEn: string;
   notesZh: string;
   platforms: Record<string, { url: string; signature?: string }>;
+  manualOverride: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -56,6 +57,7 @@ const toWire = (row: typeof releases.$inferSelect): ReleaseRecordWire => ({
   notesEn: row.notesEn,
   notesZh: row.notesZh,
   platforms: platformsAsRecord(row.platforms),
+  manualOverride: row.manualOverride,
   createdAt: row.createdAt.toISOString(),
   updatedAt: row.updatedAt.toISOString(),
 });

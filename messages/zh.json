@@ -3,7 +3,7 @@
     "title": "UniClipboard — 跨 Mac / Windows / Linux / iPhone / Android 的开源加密剪贴板",
     "titleTemplate": "%s | UniClipboard",
     "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone、Android 之间实时同步——无需账号，也不经过任何第三方服务器。iCloud 通用剪贴板的跨平台开源替代。",
-    "keywords": "UniClipboard, 剪贴板同步, 剪切板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪切板同步, iPhone 剪贴板同步, Android 剪贴板同步, 手机电脑剪贴板, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪切板, 跨设备复制粘贴",
+    "keywords": "UniClipboard, 剪贴板同步, 剪贴板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪贴板同步, iPhone 剪贴板同步, Android 剪贴板同步, 手机电脑剪贴板, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪贴板, 跨设备复制粘贴",
     "ogAlt": "UniClipboard — 你的剪贴板，在所有设备上"
   },
   "og": {
@@ -42,10 +42,10 @@
     },
     "hero": {
       "eyebrow": "开源 · 端到端加密 · 五端同步 · 无需账号",
-      "title": "你的剪贴板，",
-      "titleLine2": "在所有设备上。",
+      "title": "多台设备",
+      "titleLine2": "一个剪贴板",
       "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone 与 Android 之间实时同步——无需账号，也不经过任何第三方服务器。",
-      "descriptionMobile": "你的剪贴板，在所有设备上。开源、端到端加密，无需账号。",
+      "descriptionMobile": "实时同步你的剪贴板到其他设备。",
       "mobileBadge": "了解手机如何接入 →",
       "secondaryCta": "技术白皮书",
       "starsSuffix": "on GitHub",
@@ -62,7 +62,7 @@
     },
     "features": {
       "eyebrow": "核心功能",
-      "title": "用起来跟系统剪切板一样——但跨平台、可搜索、可审计。",
+      "title": "用起来跟系统剪贴板一样——但跨平台、可搜索、可审计。",
       "moreEyebrow": "更多功能",
       "moreTitle": "你可能还想要这些。",
       "h1": {
@@ -100,7 +100,7 @@
       },
       "more": {
         "f1Title": "熟悉的快捷键",
-        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴——肌肉记忆零成本。它是系统剪切板的延伸，不是又一个要切换的 App。",
+        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴——肌肉记忆零成本。它是系统剪贴板的延伸，不是又一个要切换的 App。",
         "f4Title": "自动恢复",
         "f4Desc": "Wi-Fi 切换、休眠唤醒、短暂掉线后自动重连，无需重新配对。",
         "f6Title": "文本、图片与文件",
@@ -108,7 +108,7 @@
         "f5Title": "按设备控制同步",
         "f5Desc": "每台已配对设备都能单独决定是否发送、是否接收，以及允许哪些内容类型（文本 / 图片 / 文件）。设备丢了？任意已配对设备一键吊销。",
         "f7Title": "实时同步",
-        "f7Desc": "复制即推送，无需手动触发或确认。剪切板内容在所有设备间自动保持一致。",
+        "f7Desc": "复制即推送，无需手动触发或确认。剪贴板内容在所有设备间自动保持一致。",
         "f9Title": "可控的历史保留",
         "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。",
         "f10Title": "移动端走开放协议",
@@ -123,7 +123,7 @@
         "uc": "UniClipboard",
         "icloud": "iCloud 通用剪贴板",
         "selfhost": "自托管 (ClipCascade 等)",
-        "manager": "本机剪切板管理器 (Pastebot / Maccy)"
+        "manager": "本机剪贴板管理器 (Pastebot / Maccy)"
       },
       "toolsShort": {
         "uc": "UC",
@@ -245,10 +245,10 @@
       "docsHelpCta": "查看完整文档 →",
       "item1": {
         "q": "为什么不直接用 iCloud 通用剪贴板？",
-        "a": "如果你只用 Apple 设备、不需要剪切板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
+        "a": "如果你只用 Apple 设备、不需要剪贴板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
       },
       "item2": {
-        "q": "为什么不用自托管的剪切板同步（例如 ClipCascade）？",
+        "q": "为什么不用自托管的剪贴板同步（例如 ClipCascade）？",
         "a": "自托管意味着你得自己运维一台服务器。UniClipboard 开箱即用——P2P 直连为主，加密中继只作兜底。你完全不用维护任何基础设施。"
       },
       "item3": {
@@ -256,8 +256,8 @@
         "a": "可以。同一 Wi-Fi 下的设备会直接互联，不经过中继。「网络」设置里还有显式的 LAN-only Mode 开关——打开后所有已配对设备都只走局域网发现和直连，中继及其它公网服务整体关闭。"
       },
       "item4": {
-        "q": "剪切板历史到底存在哪里？",
-        "a": "只存在你自己的设备上。本地数据在磁盘上加密保存，密钥放在系统 Keyring 内，永不离开本机。任何 UniClipboard 的服务器都不会接收或存储剪切板内容。"
+        "q": "剪贴板历史到底存在哪里？",
+        "a": "只存在你自己的设备上。本地数据在磁盘上加密保存，密钥放在系统 Keyring 内，永不离开本机。任何 UniClipboard 的服务器都不会接收或存储剪贴板内容。"
       },
       "item5": {
         "q": "支持移动端（iOS / Android）吗？",
@@ -276,7 +276,7 @@
     },
     "footer": {
       "thanksTitle": "致谢",
-      "thanksDesc": "跨设备剪切板同步——端到端加密、开源可审计。数据只在你自己的设备之间流动，不经过任何云账号。",
+      "thanksDesc": "跨设备剪贴板同步——端到端加密、开源可审计。数据只在你自己的设备之间流动，不经过任何云账号。",
       "linksTitle": "链接",
       "repo": "仓库",
       "issues": "Issues",
@@ -531,7 +531,7 @@
     "macToWindows": {
       "seoTitle": "怎么把 Mac 上复制的内容直接粘贴到 Windows——文本 / 图片 / 文件",
       "seoDescription": "UniClipboard 让你在 Mac 上 ⌘C，到 Windows 上 Ctrl+V 直接粘贴——文本、图片、文件都能过。开源、端到端加密、不需要任何云账号、不用搭服务器。Apple iCloud 通用剪贴板的跨平台替代。",
-      "seoKeywords": "Mac 复制 Windows 粘贴, Mac Windows 剪贴板, Mac 到 Windows 互通, 跨平台剪贴板, Mac PC 剪切板同步, Mac Windows 文件传输, 苹果电脑到 Windows 电脑剪贴板, mac 复制 windows 粘贴",
+      "seoKeywords": "Mac 复制 Windows 粘贴, Mac Windows 剪贴板, Mac 到 Windows 互通, 跨平台剪贴板, Mac PC 剪贴板同步, Mac Windows 文件传输, 苹果电脑到 Windows 电脑剪贴板, mac 复制 windows 粘贴",
       "ogAlt": "Mac 上复制，Windows 上直接粘贴 — UniClipboard 跨平台剪贴板",
       "breadcrumbHome": "首页",
       "breadcrumbCategory": "使用场景",
@@ -652,7 +652,7 @@
     "icloud": {
       "seoTitle": "UniClipboard 对比 iCloud 通用剪贴板 — 跨 Mac / Windows / Linux 的开源替代",
       "seoDescription": "iCloud 通用剪贴板只能在 Apple 设备之间使用，没有历史记录，不支持 Windows 或 Linux。UniClipboard 是它的开源、端到端加密替代方案——三平台原生、可搜索历史、无需账号、无需服务器。",
-      "seoKeywords": "iCloud 通用剪贴板 替代, iCloud 通用剪贴板 Windows, iCloud 通用剪贴板 Linux, Mac Windows 剪贴板, 跨平台剪切板同步, 开源 iCloud 剪贴板, UniClipboard 对比 iCloud, 跨设备复制粘贴, Mac Windows Linux 剪切板",
+      "seoKeywords": "iCloud 通用剪贴板 替代, iCloud 通用剪贴板 Windows, iCloud 通用剪贴板 Linux, Mac Windows 剪贴板, 跨平台剪贴板同步, 开源 iCloud 剪贴板, UniClipboard 对比 iCloud, 跨设备复制粘贴, Mac Windows Linux 剪贴板",
       "ogAlt": "UniClipboard 对比 iCloud 通用剪贴板 — 跨 Mac / Windows / Linux 的开源替代",
       "breadcrumbHome": "首页",
       "breadcrumbCompare": "对比",
@@ -781,7 +781,7 @@
     "maccy": {
       "seoTitle": "UniClipboard 对比 Maccy — 把开源剪贴板管理器扩展到多台设备",
       "seoDescription": "Maccy 是 macOS 上最受欢迎的开源剪贴板管理器——本地、轻快、专注。UniClipboard 沿用同样的开源态度，再补上 Maccy 不做的那一块：跨 Mac、Windows、Linux 的端到端加密剪贴板同步。两者可以同时装。",
-      "seoKeywords": "Maccy 替代, Maccy 同步, Maccy 跨设备, Maccy Windows, 开源剪贴板管理器 Mac, Mac 剪切板管理器, Maccy 跨平台, UniClipboard 对比 Maccy, Mac Windows 剪贴板",
+      "seoKeywords": "Maccy 替代, Maccy 同步, Maccy 跨设备, Maccy Windows, 开源剪贴板管理器 Mac, Mac 剪贴板管理器, Maccy 跨平台, UniClipboard 对比 Maccy, Mac Windows 剪贴板",
       "ogAlt": "UniClipboard 对比 Maccy — 把开源剪贴板管理器扩展到多台设备",
       "breadcrumbHome": "首页",
       "breadcrumbCompare": "对比",

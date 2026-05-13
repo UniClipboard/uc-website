@@ -46,9 +46,9 @@ export async function HeroSection({ release, stars }: Props) {
       />
 
       {/* Desktop / tablet */}
-      <div className="hidden pt-[120px] pb-[96px] md:block">
+      <div className="hidden pt-[152px] pb-[128px] md:block lg:pt-[168px] lg:pb-[144px]">
         <div className="landing-shell">
-          <div className="mx-auto mb-14 flex max-w-[820px] flex-col items-center text-center">
+          <div className="mx-auto mb-16 flex max-w-[820px] flex-col items-center text-center">
             <h1
               className="text-foreground my-5"
               style={{
@@ -97,11 +97,11 @@ export async function HeroSection({ release, stars }: Props) {
       </div>
 
       {/* Mobile */}
-      <div className="pt-[88px] pb-[56px] md:hidden">
+      <div className="pt-[108px] pb-[80px] md:hidden">
         <div className="landing-shell">
           <div className="flex flex-col items-center text-center">
             <h1
-              className="text-foreground mt-2 mb-4"
+              className="text-foreground mt-3 mb-5"
               style={{
                 fontSize: "clamp(2rem, 9vw, 2.6rem)",
                 lineHeight: 1.05,
@@ -134,7 +134,7 @@ export async function HeroSection({ release, stars }: Props) {
             closeLabel={t("videoClose")}
           />
 
-          <div className="mt-7 flex flex-col items-center text-center">
+          <div className="mt-8 flex flex-col items-center text-center">
             <a
               href="#faq-mobile"
               aria-label={t("mobileBadge")}

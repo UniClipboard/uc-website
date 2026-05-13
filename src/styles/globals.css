@@ -29,11 +29,12 @@
   --color-ink2: var(--ink2);
   --color-muted2: var(--muted2);
   --color-hair2: var(--hair2);
-  --font-sans: var(--font-sans), ui-sans-serif, -apple-system,
-    BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-    "Noto Sans CJK SC", system-ui, sans-serif;
-  --font-mono: var(--font-mono), "SF Mono", ui-monospace, Menlo, Consolas,
-    monospace;
+  --font-sans:
+    var(--font-sans), ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    system-ui, sans-serif;
+  --font-mono:
+    var(--font-mono), "SF Mono", ui-monospace, Menlo, Consolas, monospace;
   --font-serif: var(--font-serif), "Times New Roman", serif;
 }
 
@@ -68,23 +69,6 @@
   --footer-fg-muted: rgba(255, 255, 255, 0.55);
   --footer-fg-faint: rgba(255, 255, 255, 0.4);
   --footer-hair: rgba(255, 255, 255, 0.08);
-  /* Hero spotlight — tinted radial glow fading down from the top-center.
-     Uses a slight cool/violet tint so it's visible against #fafaf8. */
-  --hero-spotlight: radial-gradient(
-      ellipse 70% 55% at 50% 8%,
-      rgba(99, 102, 241, 0.1) 0%,
-      rgba(99, 102, 241, 0) 60%
-    ),
-    radial-gradient(
-      ellipse 60% 45% at 50% 8%,
-      rgba(255, 255, 255, 0.7) 0%,
-      rgba(255, 255, 255, 0) 70%
-    ),
-    radial-gradient(
-      ellipse 120% 80% at 50% 110%,
-      rgba(10, 10, 10, 0.06) 0%,
-      rgba(10, 10, 10, 0) 65%
-    );
 }
 
 .dark {
@@ -115,22 +99,6 @@
   --footer-fg-muted: rgba(255, 255, 255, 0.55);
   --footer-fg-faint: rgba(255, 255, 255, 0.38);
   --footer-hair: rgba(255, 255, 255, 0.1);
-  /* Hero spotlight — visible white glow on dark background, with subtle violet tint */
-  --hero-spotlight: radial-gradient(
-      ellipse 60% 50% at 50% 8%,
-      rgba(255, 255, 255, 0.18) 0%,
-      rgba(255, 255, 255, 0) 60%
-    ),
-    radial-gradient(
-      ellipse 80% 60% at 50% 8%,
-      rgba(139, 124, 255, 0.08) 0%,
-      rgba(139, 124, 255, 0) 65%
-    ),
-    radial-gradient(
-      ellipse 100% 70% at 50% 120%,
-      rgba(255, 255, 255, 0.04) 0%,
-      rgba(255, 255, 255, 0) 65%
-    );
 }
 
 @layer base {
@@ -207,4 +175,3 @@
   color: var(--shiki-dark);
   background-color: var(--shiki-dark-bg);
 }
-

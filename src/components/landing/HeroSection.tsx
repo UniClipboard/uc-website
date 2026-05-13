@@ -39,12 +39,6 @@ export async function HeroSection({ release, stars }: Props) {
 
   return (
     <section id="top" className="relative isolate overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{ background: "var(--hero-spotlight)" }}
-      />
-
       {/* Desktop / tablet */}
       <div className="hidden pt-[152px] pb-[128px] md:block lg:pt-[168px] lg:pb-[144px]">
         <div className="landing-shell">

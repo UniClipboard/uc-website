@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 
-import FloatingLines from "@/components/FloatingLines";
 import { ComparisonSection } from "@/components/landing/ComparisonSection";
 import { DownloadSection } from "@/components/landing/DownloadSection";
 import { FaqSection } from "@/components/landing/FaqSection";
@@ -162,34 +161,12 @@ const LandingPage = async ({ params }: LandingPageProps) => {
   return (
     <>
       <Navigation />
-      <main className="relative isolate overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[620px] opacity-[0.18] md:h-[820px] dark:opacity-[0.32]"
-          style={{
-            maskImage:
-              "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",
-          }}
-        >
-          <FloatingLines
-            animationSpeed={0.45}
-            enabledWaves={["top", "middle", "bottom"]}
-            interactive={false}
-            lineCount={[4, 6, 4]}
-            lineDistance={[8, 7, 8]}
-            linesGradient={["#FFFFFF", "#EFEFEC", "#B8B8B0", "#6B6B65"]}
-            parallax={false}
-          />
-        </div>
-        <div className="relative z-10">
-          <HeroSection release={stableRelease} stars={stars} />
-          <FeaturesSection />
-          <ComparisonSection />
-          <DownloadSection release={stableRelease} />
-          <FaqSection />
-        </div>
+      <main>
+        <HeroSection release={stableRelease} stars={stars} />
+        <FeaturesSection />
+        <ComparisonSection />
+        <DownloadSection release={stableRelease} />
+        <FaqSection />
       </main>
       <Footer />
       <script

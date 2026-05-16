@@ -63,7 +63,6 @@
     "shiki": "^4.0.2",
     "tailwind-merge": "^3.3.1",
     "takumi-js": "^1.1.2",
-    "three": "^0.167.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
     "zod": "^4.1.12"
@@ -80,7 +79,6 @@
     "@types/node": "^24.7.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.167.0",
     "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",

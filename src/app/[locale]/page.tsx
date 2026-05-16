@@ -165,7 +165,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
       <main className="relative isolate overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[620px] opacity-[0.28] invert md:h-[820px] dark:opacity-[0.32] dark:invert-0"
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[620px] opacity-[0.18] md:h-[820px] dark:opacity-[0.32]"
           style={{
             maskImage:
               "linear-gradient(to bottom, black 0%, black 55%, transparent 100%)",

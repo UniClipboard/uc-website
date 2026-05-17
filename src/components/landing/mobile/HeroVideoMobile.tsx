@@ -4,13 +4,17 @@ import { Play } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-import { HeroVideoModal } from "../HeroVideoModal";
+import { HeroVideoModal, type HeroVideoSource } from "../HeroVideoModal";
 
 type Props = {
   playLabel: string;
   videoLabel: string;
   openLabel: string;
   closeLabel: string;
+  youtubeLabel: string;
+  bilibiliLabel: string;
+  fallbackHint: string;
+  defaultSource: HeroVideoSource;
 };
 
 const VIDEO_SRC = "/video/demo.mp4";
@@ -21,6 +25,10 @@ export function HeroVideoMobile({
   videoLabel,
   openLabel,
   closeLabel,
+  youtubeLabel,
+  bilibiliLabel,
+  fallbackHint,
+  defaultSource,
 }: Props) {
   const [open, setOpen] = useState(false);
 
@@ -95,9 +103,13 @@ export function HeroVideoMobile({
       <HeroVideoModal
         open={open}
         onClose={() => setOpen(false)}
-        src={VIDEO_SRC}
+        defaultSource={defaultSource}
+        mp4Src={VIDEO_SRC}
         videoLabel={videoLabel}
         closeLabel={closeLabel}
+        youtubeLabel={youtubeLabel}
+        bilibiliLabel={bilibiliLabel}
+        fallbackHint={fallbackHint}
       />
     </div>
   );

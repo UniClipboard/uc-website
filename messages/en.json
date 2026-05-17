@@ -64,7 +64,10 @@
       "videoDuration": "00:60",
       "videoSeek": "Seek",
       "videoOpen": "Watch demo",
-      "videoClose": "Close video"
+      "videoClose": "Close video",
+      "videoSourceYoutube": "YouTube",
+      "videoSourceBilibili": "Bilibili",
+      "videoFallbackHint": "Embedded player unavailable — playing local copy."
     },
     "features": {
       "eyebrow": "Features",

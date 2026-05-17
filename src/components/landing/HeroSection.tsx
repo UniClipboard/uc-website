@@ -1,10 +1,12 @@
 import { getTranslations } from "next-intl/server";
 
+import { isChinaIp } from "@/lib/geo/country";
 import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-release";
 
 import { HeroDownloadCta } from "./HeroDownloadCta";
 import { HeroTrustBar } from "./HeroTrustBar";
 import { HeroVideo } from "./HeroVideo";
+import type { HeroVideoSource } from "./HeroVideoModal";
 import { HeroVideoMobile } from "./mobile/HeroVideoMobile";
 
 type Props = {
@@ -15,6 +17,9 @@ type Props = {
 export async function HeroSection({ release, stars }: Props) {
   const t = await getTranslations("landing.hero");
   const tDl = await getTranslations("landing.download");
+  const defaultVideoSource: HeroVideoSource = (await isChinaIp())
+    ? "bilibili"
+    : "youtube";
 
   const downloadLabels = {
     primaryGeneric: tDl("ctaPrimaryGeneric"),
@@ -91,6 +96,10 @@ export async function HeroSection({ release, stars }: Props) {
               videoLabel={t("videoLabel")}
               openLabel={t("videoOpen")}
               closeLabel={t("videoClose")}
+              youtubeLabel={t("videoSourceYoutube")}
+              bilibiliLabel={t("videoSourceBilibili")}
+              fallbackHint={t("videoFallbackHint")}
+              defaultSource={defaultVideoSource}
             />
           </div>
         </div>
@@ -132,6 +141,10 @@ export async function HeroSection({ release, stars }: Props) {
             videoLabel={t("videoLabel")}
             openLabel={t("videoOpen")}
             closeLabel={t("videoClose")}
+            youtubeLabel={t("videoSourceYoutube")}
+            bilibiliLabel={t("videoSourceBilibili")}
+            fallbackHint={t("videoFallbackHint")}
+            defaultSource={defaultVideoSource}
           />
 
           <div className="mt-8 flex flex-col items-center text-center">

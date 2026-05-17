@@ -58,7 +58,10 @@
       "videoDuration": "00:60",
       "videoSeek": "拖动进度",
       "videoOpen": "观看演示",
-      "videoClose": "关闭视频"
+      "videoClose": "关闭视频",
+      "videoSourceYoutube": "YouTube",
+      "videoSourceBilibili": "哔哩哔哩",
+      "videoFallbackHint": "在线播放源不可用，已切换到本地视频。"
     },
     "features": {
       "eyebrow": "核心功能",

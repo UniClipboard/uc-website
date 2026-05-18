@@ -14,9 +14,10 @@ export async function FaqSection() {
       a: t(`item${i}.a`),
     };
     if (i === 5) {
+      const localePathPrefix = locale === "en" ? "" : `/${locale}`;
       item.cta = {
-        label: t("item5.waitlistCta"),
-        href: t("item5.waitlistMailto"),
+        label: t("item5.downloadCta"),
+        href: `${localePathPrefix}/download`,
       };
     }
     return item;

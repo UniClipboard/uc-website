@@ -10,6 +10,7 @@ import { DownloadFocus } from "@/components/landing/DownloadFocus";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { Link } from "@/i18n/navigation";
+import { buildMobileGroups } from "@/lib/mobile-releases";
 import {
   FALLBACK_RELEASE_URL,
   fetchStableRelease,
@@ -204,6 +205,14 @@ export default async function DownloadPage({ params }: LocaleParam) {
     });
   }
 
+  const mobileGroups = buildMobileGroups({
+    platformIOS: t("direct.platformIOS"),
+    platformAndroid: t("direct.platformAndroid"),
+    iosBetaBadge: t("direct.iosBetaBadge"),
+    androidMinOS: t("direct.androidMinOS"),
+    androidExtLabel: t("direct.androidExtLabel"),
+  });
+
   const groups = [
     {
       os: "mac" as const,
@@ -220,6 +229,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
       label: t("direct.platformLinux"),
       items: groupedItems.linux,
     },
+    ...mobileGroups,
   ];
 
   const versionLabel =
@@ -245,7 +255,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
     name: "UniClipboard",
     description: t("seoDescription"),
     applicationCategory: "ProductivityApplication",
-    operatingSystem: "macOS, Windows, Linux",
+    operatingSystem: "macOS, Windows, Linux, iOS, Android",
     url: pageUrl,
     image: ogImage,
     inLanguage: locale === "zh" ? "zh-CN" : "en",
@@ -472,6 +482,20 @@ export default async function DownloadPage({ params }: LocaleParam) {
                     downloadAction: t("direct.downloadAction"),
                     recommended: t("direct.recommended"),
                     noDownloads: t("direct.noDownloads"),
+                  }}
+                  iosSignup={{
+                    labels: {
+                      description: t("direct.iosSignup.description"),
+                      emailPlaceholder: t("direct.iosSignup.emailPlaceholder"),
+                      submit: t("direct.iosSignup.submit"),
+                      submitting: t("direct.iosSignup.submitting"),
+                      successTitle: t("direct.iosSignup.successTitle"),
+                      successDetail: t("direct.iosSignup.successDetail"),
+                      errorInvalid: t("direct.iosSignup.errorInvalid"),
+                      errorServer: t("direct.iosSignup.errorServer"),
+                      privacy: t("direct.iosSignup.privacy"),
+                    },
+                    locale,
                   }}
                 />
               </AnimateIn>

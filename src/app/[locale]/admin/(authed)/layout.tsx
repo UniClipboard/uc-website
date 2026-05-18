@@ -54,6 +54,12 @@ export default async function AdminAuthedLayout({
             >
               Founders
             </Link>
+            <Link
+              href="/admin/ios-beta"
+              className="hover:text-foreground transition-colors"
+            >
+              iOS Beta
+            </Link>
           </nav>
         </div>
         <div className="text-muted-foreground flex items-center gap-3 text-xs">

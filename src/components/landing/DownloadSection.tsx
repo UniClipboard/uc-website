@@ -1,10 +1,17 @@
-import { ArrowUpRight, Monitor } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { ArrowDown, ArrowUpRight, Monitor } from "lucide-react";
+import { getLocale, getTranslations } from "next-intl/server";
 
+import {
+  ANDROID_RELEASE,
+  buildMobileGroups,
+  getAndroidPrimaryDownloadUrl,
+} from "@/lib/mobile-releases";
 import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-release";
 
 import { AnimateIn } from "./AnimateIn";
 import { DownloadFocus } from "./DownloadFocus";
+import { IosBetaSignupForm } from "./IosBetaSignupForm";
+import { PlatformGlyph } from "./PlatformGlyphs";
 import { ShareLinkButton } from "./ShareLinkButton";
 
 type DownloadSectionProps = {
@@ -85,8 +92,27 @@ function fmtPublished(iso: string, unavailable: string): string {
 
 export async function DownloadSection({ release }: DownloadSectionProps) {
   const t = await getTranslations("landing.download");
+  const locale = await getLocale();
 
   const unavailable = t("unavailableValue");
+  const iosSignupLabels = {
+    description: t("iosSignup.description"),
+    emailPlaceholder: t("iosSignup.emailPlaceholder"),
+    submit: t("iosSignup.submit"),
+    submitting: t("iosSignup.submitting"),
+    successTitle: t("iosSignup.successTitle"),
+    successDetail: t("iosSignup.successDetail"),
+    errorInvalid: t("iosSignup.errorInvalid"),
+    errorServer: t("iosSignup.errorServer"),
+    privacy: t("iosSignup.privacy"),
+  };
+
+  const androidPrimaryUrl = getAndroidPrimaryDownloadUrl();
+  const androidPrimary =
+    ANDROID_RELEASE.items.find((item) => item.recommended) ??
+    ANDROID_RELEASE.items[0];
+  const androidPrimaryArch = androidPrimary?.arch ?? "";
+
   const archLabels = {
     arm: t("archArm"),
     intel: t("archIntel"),
@@ -120,6 +146,14 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
     });
   }
 
+  const mobileGroups = buildMobileGroups({
+    platformIOS: t("platformIOS"),
+    platformAndroid: t("platformAndroid"),
+    iosBetaBadge: t("iosBetaBadge"),
+    androidMinOS: t("androidMinOS"),
+    androidExtLabel: t("androidExtLabel"),
+  });
+
   const groups = [
     { os: "mac" as const, label: t("platformMacOS"), items: groupedItems.mac },
     {
@@ -132,6 +166,7 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
       label: t("platformLinux"),
       items: groupedItems.linux,
     },
+    ...mobileGroups,
   ];
 
   const versionLabel =
@@ -264,6 +299,7 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
                 recommended: t("recommended"),
                 noDownloads: t("noDownloads"),
               }}
+              iosSignup={{ labels: iosSignupLabels, locale }}
             />
           </AnimateIn>
         </div>
@@ -304,78 +340,189 @@ export async function DownloadSection({ release }: DownloadSectionProps) {
             </AnimateIn>
           )}
 
-          <AnimateIn delay={0.16} duration={0.6}>
-            <div className="border-border bg-card rounded-[14px] border px-5 py-7 text-center">
-              <div className="bg-bg2 mx-auto mb-4 inline-flex size-11 items-center justify-center rounded-full">
-                <Monitor
-                  className="text-muted-foreground size-5"
-                  strokeWidth={1.6}
-                />
+          <div className="flex flex-col gap-3.5">
+            {/* iOS — email signup */}
+            <AnimateIn delay={0.16} duration={0.6}>
+              <div className="border-border bg-card rounded-[14px] border p-5">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="bg-bg2 text-foreground inline-flex size-9 shrink-0 items-center justify-center rounded-full">
+                    <PlatformGlyph os="ios" size={16} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div
+                      className="text-foreground"
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 600,
+                        letterSpacing: "-0.005em",
+                      }}
+                    >
+                      {t("platformIOS")}
+                    </div>
+                    <div
+                      className="text-muted2 mt-0.5 inline-flex items-center gap-1.5"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10.5,
+                        letterSpacing: "0.06em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        className="inline-block size-1.5 rounded-full"
+                        style={{
+                          background: "#E0A23A",
+                          boxShadow: "0 0 0 2px rgba(224,162,58,0.18)",
+                        }}
+                      />
+                      {t("iosBetaBadge")}
+                    </div>
+                  </div>
+                </div>
+                <IosBetaSignupForm labels={iosSignupLabels} locale={locale} />
               </div>
+            </AnimateIn>
 
-              <div
-                className="text-foreground inline-flex items-center gap-2"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  letterSpacing: "-0.005em",
-                }}
-              >
-                v{versionLabel}
-                <span
-                  aria-hidden
-                  className="inline-block size-1.5 rounded-full"
-                  style={{
-                    background: "#3DA47A",
-                    boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
-                    animation: "uc-dot-pulse 2s ease-in-out infinite",
-                  }}
-                />
-                <span
-                  className="text-muted2"
-                  style={{ fontWeight: 500, letterSpacing: "0.04em" }}
-                >
-                  {t("channelStable")}
-                </span>
-              </div>
-
-              <p
-                className="text-muted-foreground mt-1"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.03em",
-                }}
-              >
-                {publishedAtLabel}
-              </p>
-
-              <div className="mt-5 flex flex-col items-center gap-2.5">
+            {/* Android — direct APK */}
+            <AnimateIn delay={0.2} duration={0.6}>
+              <div className="border-border bg-card rounded-[14px] border p-5">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="bg-bg2 text-foreground inline-flex size-9 shrink-0 items-center justify-center rounded-full">
+                    <PlatformGlyph os="android" size={16} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div
+                      className="text-foreground"
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 600,
+                        letterSpacing: "-0.005em",
+                      }}
+                    >
+                      {t("platformAndroid")}
+                    </div>
+                    <div
+                      className="text-muted2 mt-0.5"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      v{ANDROID_RELEASE.version} · {t("androidMinOS")} ·{" "}
+                      {t("androidExtLabel")}
+                    </div>
+                  </div>
+                </div>
                 <a
-                  href={release.fallbackReleaseUrl}
+                  href={androidPrimaryUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground border-border bg-bg2 hover:bg-foreground/5 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-2 transition-colors"
+                  className="bg-foreground text-background inline-flex w-full items-center justify-center gap-2 rounded-[10px] px-4 py-3 transition-opacity hover:opacity-90"
                   style={{
-                    fontSize: 12.5,
-                    fontWeight: 500,
+                    fontSize: 14.5,
+                    fontWeight: 600,
                     letterSpacing: "-0.005em",
                   }}
                 >
-                  {t("openRelease")}
-                  <ArrowUpRight size={13} />
+                  <span>
+                    {t("downloadAction")} {androidPrimaryArch}
+                  </span>
+                  <ArrowDown size={15} strokeWidth={2} />
                 </a>
-                <ShareLinkButton
-                  labels={{
-                    idle: t("shareLinkIdle"),
-                    copied: t("shareLinkCopied"),
-                    shareTitle: t("shareLinkTitle"),
+                <a
+                  href={ANDROID_RELEASE.releasePageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground mt-2.5 inline-flex w-full items-center justify-center gap-1 transition-colors"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    letterSpacing: "0.04em",
                   }}
-                />
+                >
+                  <span>{t("mobileAndroidAllArchs")}</span>
+                  <ArrowUpRight size={12} />
+                </a>
               </div>
-            </div>
-          </AnimateIn>
+            </AnimateIn>
+
+            {/* Desktop — version + send link to desktop */}
+            <AnimateIn delay={0.24} duration={0.6}>
+              <div className="border-border bg-card rounded-[14px] border p-5">
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="bg-bg2 text-muted-foreground inline-flex size-9 shrink-0 items-center justify-center rounded-full">
+                    <Monitor size={16} strokeWidth={1.7} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div
+                      className="text-foreground"
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 600,
+                        letterSpacing: "-0.005em",
+                      }}
+                    >
+                      {t("mobileDesktopPlatforms")}
+                    </div>
+                    <div
+                      className="text-muted2 mt-0.5 inline-flex items-center gap-1.5"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      <span>v{versionLabel}</span>
+                      <span
+                        aria-hidden
+                        className="inline-block size-1.5 rounded-full"
+                        style={{
+                          background: "#3DA47A",
+                          boxShadow: "0 0 0 2px rgba(61,164,122,0.18)",
+                        }}
+                      />
+                      <span style={{ textTransform: "uppercase" }}>
+                        {t("channelStable")}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <p
+                  className="text-muted-foreground mb-3"
+                  style={{ fontSize: 12.5, lineHeight: 1.55 }}
+                >
+                  {t("mobileDesktopHint")}
+                </p>
+                <div className="flex flex-col gap-2">
+                  <ShareLinkButton
+                    labels={{
+                      idle: t("shareLinkIdle"),
+                      copied: t("shareLinkCopied"),
+                      shareTitle: t("shareLinkTitle"),
+                    }}
+                  />
+                  <a
+                    href={release.fallbackReleaseUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-foreground inline-flex items-center justify-center gap-1 transition-colors"
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 11,
+                      letterSpacing: "0.04em",
+                    }}
+                  >
+                    <span>
+                      {t("openRelease")} · {publishedAtLabel}
+                    </span>
+                    <ArrowUpRight size={12} />
+                  </a>
+                </div>
+              </div>
+            </AnimateIn>
+          </div>
         </div>
       </div>
     </section>

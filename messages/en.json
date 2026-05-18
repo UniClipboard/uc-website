@@ -53,6 +53,8 @@
       "description": "UniClipboard is the open-source, end-to-end encrypted clipboard that syncs text, images, and files across Mac, Windows, Linux, iPhone, and Android. No cloud account, no server in the middle.",
       "descriptionMobile": "One clipboard across all your devices. Open source, end-to-end encrypted, no account.",
       "mobileBadge": "How does it work on my phone? →",
+      "mobileBadgeIOS": "Apply for the iOS Beta →",
+      "mobileBadgeAndroid": "Download Android",
       "secondaryCta": "Technical whitepaper",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -86,13 +88,13 @@
         "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself."
       },
       "h2": {
-        "eyebrow": "02 — Five platforms · open protocol",
+        "eyebrow": "02 — Five-platform coverage · open-protocol fallback",
         "title": "Five platforms. Any network.",
-        "lede": "Three desktops built on Rust + Tauri. iPhone joins through the system Shortcuts app, Android through any SyncClipboard client — both over SyncClipboard's open HTTP protocol. Same Wi-Fi P2P, NAT hole-punching across networks, LAN-only available when you need it.",
+        "lede": "Three desktops on Rust + Tauri. iOS in TestFlight Public Beta, Android native app shipped. The SyncClipboard open protocol stays as a fallback for anyone who'd rather not install a native app. Same Wi-Fi P2P, NAT hole-punching across networks, LAN-only when you need it.",
         "b1Title": "Three desktops",
         "b1Desc": "Built on Rust + Tauri — fast launch, low footprint, menu-bar and tray integrated.",
-        "b2Title": "iPhone & Android via open protocol",
-        "b2Desc": "Desktop apps implement SyncClipboard's (MIT) HTTP protocol — iPhone joins via the built-in Shortcuts app, Android via any SyncClipboard-compatible client. Paste a config from your desktop and you're in.",
+        "b2Title": "iOS & Android native apps",
+        "b2Desc": "iOS Public Beta joins via TestFlight's public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol still works for anyone who'd rather not install a native app.",
         "b3Title": "Direct · hole-punch · LAN-only",
         "b3Desc": "P2P on the same Wi-Fi, NAT hole-punching across networks, encrypted relay as fallback. Flip LAN-only Mode to drop the relay entirely."
       },
@@ -108,7 +110,7 @@
         "b3Desc": "GUI features, one command — runs headlessly for terminals, SSH, scripts, and tmux workflows."
       },
       "more": {
-        "f1Title": "Native shortcuts",
+        "f1Title": "Familiar shortcuts",
         "f1Desc": "⌘C / Ctrl-C to copy, ⌘V / Ctrl-V to paste — no muscle-memory taxes. An extension of the system clipboard, not another app.",
         "f4Title": "Self-healing",
         "f4Desc": "Reconnects automatically after Wi-Fi switches, sleep/wake, and brief disconnects. No re-pairing.",
@@ -120,8 +122,8 @@
         "f7Desc": "Copy and it pushes — no manual trigger, no confirmation. Clipboard stays in sync across every device, automatically.",
         "f9Title": "Tunable history retention",
         "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time.",
-        "f10Title": "Mobile via open protocol",
-        "f10Desc": "Desktop apps implement SyncClipboard's (MIT) open protocol — iPhone joins via the system Shortcuts app, Android joins via any SyncClipboard client. Paste a config from your desktop and you're in — local-network only, no proprietary mobile app."
+        "f10Title": "iOS & Android native apps",
+        "f10Desc": "iOS Public Beta is on TestFlight via public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol (iPhone Shortcuts, Android clients) stays as a fallback for anyone who'd rather not install a native app."
       }
     },
     "comparison": {
@@ -142,9 +144,9 @@
       },
       "rows": {
         "crossPlatform": {
-          "label": "macOS / Windows / Linux (+ mobile on LAN)",
+          "label": "macOS / Windows / Linux / iOS / Android",
           "labelMobile": "Cross-platform",
-          "uc": "Desktops native + mobile LAN",
+          "uc": "Desktop + mobile, all 5",
           "icloud": "Apple only",
           "selfhost": "Depends",
           "manager": "Single platform"
@@ -214,7 +216,10 @@
       "eyebrow": "Download the latest release",
       "title": "Pick your platform.",
       "description": "We've detected your platform. Pick a different one below if you need to. Each installer comes with the OS requirement so you know before you download.",
-      "descriptionMobile": "The desktop apps install on Mac, Windows, and Linux. Send this link to your desktop and pick it up there.",
+      "descriptionMobile": "iPhone goes through TestFlight, Android installs the APK directly, and desktop has signed installers for Mac, Windows, and Linux.",
+      "mobileAndroidAllArchs": "See all architectures",
+      "mobileDesktopPlatforms": "Mac · Windows · Linux",
+      "mobileDesktopHint": "Desktop installers run on a computer. Send the link to your desktop and continue there.",
       "versionLabel": "Version",
       "publishedLabel": "Published",
       "channelLabel": "Channel",
@@ -245,7 +250,23 @@
       "minOSMac": "macOS 12+",
       "minOSWin": "Windows 10/11",
       "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
-      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64"
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "iosBetaBadge": "Public Beta · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk",
+      "iosSignup": {
+        "description": "The iOS beta lives on TestFlight, and I add testers manually. Drop your email and I'll get you into the group.",
+        "emailPlaceholder": "your@email.com",
+        "submit": "Apply",
+        "submitting": "Submitting…",
+        "successTitle": "Got it — invite pending",
+        "successDetail": "I'll send a TestFlight invite to __EMAIL__. Watch for Apple's email.",
+        "errorInvalid": "That doesn't look like a valid email.",
+        "errorServer": "Submission failed. Please try again shortly.",
+        "privacy": "Only used to send the TestFlight invite. Nothing else."
+      }
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -270,9 +291,8 @@
       },
       "item5": {
         "q": "Do you support mobile (iOS / Android)?",
-        "a": "Yes, on the local network — through an open protocol. The desktop apps implement the HTTP protocol from SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT). iPhone joins via the built-in Shortcuts app with a short config from your desktop; Android joins via any of the SyncClipboard project's Android clients the same way. No cloud account on either side, content stays on LAN. We deliberately don't ship a proprietary mobile app — leaning on an open protocol and an existing client ecosystem is more stable than yet another new app in the store. A first-party native app stays on the roadmap if/when a clean implementation path opens up.",
-        "waitlistCta": "Want to know when the native app lands? Join the mobile waitlist →",
-        "waitlistMailto": "mailto:hello@uniclipboard.app?subject=Mobile%20waitlist&body=Notify%20me%20when%20the%20native%20mobile%20app%20is%20available."
+        "a": "Yes — there are native apps for both. iOS is in Public Beta on TestFlight (open invite), and Android ships as a signed APK direct download — both available on the download page. The original SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) open-protocol path is still supported: iPhone via the built-in Shortcuts app with a short config from your desktop, Android via any of SyncClipboard's clients — no cloud account, content stays on LAN. If you'd rather not install a native app, that path still works.",
+        "downloadCta": "Get the iOS beta and Android APK on the download page →"
       },
       "item6": {
         "q": "Will AGPL-3.0 affect me using it inside a company?",
@@ -334,6 +354,8 @@
       "platformMacOS": "macOS",
       "platformWindows": "Windows",
       "platformLinux": "Linux",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
       "archArm": "Apple Silicon",
       "archIntel": "Intel",
       "archX64": "x64",
@@ -341,7 +363,21 @@
       "minOSMac": "macOS 12+",
       "minOSWin": "Windows 10/11",
       "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
-      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64"
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "iosBetaBadge": "Public Beta · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk",
+      "iosSignup": {
+        "description": "The iOS beta lives on TestFlight, and I add testers manually. Drop your email and I'll get you into the group.",
+        "emailPlaceholder": "your@email.com",
+        "submit": "Apply",
+        "submitting": "Submitting…",
+        "successTitle": "Got it — invite pending",
+        "successDetail": "I'll send a TestFlight invite to __EMAIL__. Watch for Apple's email.",
+        "errorInvalid": "That doesn't look like a valid email.",
+        "errorServer": "Submission failed. Please try again shortly.",
+        "privacy": "Only used to send the TestFlight invite. Nothing else."
+      }
     },
     "pkg": {
       "eyebrow": "Package managers",
@@ -380,7 +416,7 @@
     "sysreq": {
       "eyebrow": "System requirements",
       "title": "What you need to run it.",
-      "description": "UniClipboard is a small native app. It uses very little CPU at idle and only talks to the network when you copy something.",
+      "description": "UniClipboard is a small desktop app. It uses very little CPU at idle and only talks to the network when you copy something.",
       "colPlatform": "Platform",
       "colMinOS": "Minimum OS",
       "colArch": "Architectures",
@@ -407,6 +443,20 @@
           "arch": "x86_64, ARM64 (.deb / .rpm / AppImage)",
           "memory": "≈ 65 MB at idle",
           "disk": "≈ 85 MB"
+        },
+        {
+          "platform": "iOS",
+          "minOS": "iOS 16 or newer (TestFlight Public Beta)",
+          "arch": "iPhone / iPad (Apple Silicon)",
+          "memory": "—",
+          "disk": "≈ 30 MB"
+        },
+        {
+          "platform": "Android",
+          "minOS": "Android 8.0 (API 26) or newer",
+          "arch": "arm64-v8a, armeabi-v7a, x86_64, universal",
+          "memory": "—",
+          "disk": "≈ 25 MB"
         }
       ]
     },
@@ -660,7 +710,7 @@
   "compare": {
     "icloud": {
       "seoTitle": "UniClipboard vs iCloud Universal Clipboard — open-source alternative for Mac, Windows & Linux",
-      "seoDescription": "iCloud Universal Clipboard only works between Apple devices and has no clipboard history. UniClipboard is the open-source, end-to-end encrypted alternative that runs natively on macOS, Windows, and Linux — with searchable history, no account, and no server.",
+      "seoDescription": "iCloud Universal Clipboard only works between Apple devices and has no clipboard history. UniClipboard is the open-source, end-to-end encrypted alternative that covers macOS, Windows, and Linux — with searchable history, no account, and no server.",
       "seoKeywords": "iCloud universal clipboard alternative, iCloud universal clipboard windows, iCloud universal clipboard linux, copy from mac to windows, cross-platform clipboard sync, open source iCloud clipboard, clipboard sync mac windows, UniClipboard vs iCloud",
       "ogAlt": "UniClipboard vs iCloud Universal Clipboard — open-source alternative for Mac, Windows & Linux",
       "breadcrumbHome": "Home",
@@ -669,13 +719,13 @@
       "eyebrow": "Compare · UniClipboard vs iCloud Universal Clipboard",
       "title": "UniClipboard vs iCloud Universal Clipboard",
       "subtitle": "Why people switch the moment a Windows or Linux machine joins the workflow.",
-      "lede": "UniClipboard is the open-source, cross-platform alternative to Apple's iCloud Universal Clipboard. It runs natively on macOS, Windows, and Linux, keeps a searchable end-to-end encrypted history, and pairs devices without any cloud account. iCloud Universal Clipboard, by contrast, only syncs between Apple devices, has no clipboard history, and its encryption is closed-source.",
+      "lede": "UniClipboard is the open-source, cross-platform alternative to Apple's iCloud Universal Clipboard. It ships signed desktop apps for macOS, Windows, and Linux (built on Rust + Tauri), keeps a searchable end-to-end encrypted history, and pairs devices without any cloud account. iCloud Universal Clipboard, by contrast, only syncs between Apple devices, has no clipboard history, and its encryption is closed-source.",
       "tldrEyebrow": "TL;DR",
       "tldrTitle": "The 30-second answer.",
       "tldrItems": [
         "iCloud Universal Clipboard only works between Apple devices (Mac, iPhone, iPad).",
         "It has no clipboard history — you only get the most recent copy.",
-        "UniClipboard works natively on macOS, Windows, and Linux.",
+        "UniClipboard ships desktop apps for macOS, Windows, and Linux.",
         "UniClipboard keeps a searchable, end-to-end encrypted clipboard history on every device.",
         "Both products are free. UniClipboard is open source under AGPL-3.0 and the encryption is auditable.",
         "iCloud requires an Apple ID. UniClipboard requires no account — devices pair via public-key exchange."
@@ -685,7 +735,7 @@
       "section1Body": "If your daily workflow lives entirely inside the Apple ecosystem — Mac plus iPhone plus iPad — and you never need to find something you copied an hour ago, iCloud Universal Clipboard is a solid zero-configuration option. Apple ships it with the operating system. It Just Works as long as your devices are signed into the same Apple ID, on the same Wi-Fi, with Bluetooth enabled, and within roughly ten metres of each other.",
       "section2Eyebrow": "Where iCloud breaks down",
       "section2Title": "When you need UniClipboard instead",
-      "section2Body": "The moment a non-Apple device enters the picture — a Windows laptop for work, a Linux server for development, a desktop you built yourself — iCloud Universal Clipboard is no longer an option. The same is true if you want to find that snippet you copied two hours ago, copy text between rooms over different Wi-Fi networks, or audit the encryption yourself before trusting it with a password. UniClipboard is built for these cases: open-source code, native apps on all three desktop platforms, end-to-end encryption with keys that never leave your devices, and an encrypted local history index searchable in milliseconds.",
+      "section2Body": "The moment a non-Apple device enters the picture — a Windows laptop for work, a Linux server for development, a desktop you built yourself — iCloud Universal Clipboard is no longer an option. The same is true if you want to find that snippet you copied two hours ago, copy text between rooms over different Wi-Fi networks, or audit the encryption yourself before trusting it with a password. UniClipboard is built for these cases: open-source code, signed desktop apps for macOS, Windows, and Linux (Rust + Tauri), end-to-end encryption with keys that never leave your devices, and an encrypted local history index searchable in milliseconds.",
       "tableEyebrow": "Side-by-side",
       "tableTitle": "Feature-by-feature comparison.",
       "tableNote": "Comparison reflects publicly documented behaviour as of 2026-05.",
@@ -750,7 +800,7 @@
       ],
       "verdictEyebrow": "Verdict",
       "verdictTitle": "When to choose what.",
-      "verdictBody": "If you only own Apple devices and don't care about clipboard history, iCloud Universal Clipboard is the easiest answer. For everyone else — anyone with a Windows or Linux machine in the workflow, anyone who wants searchable history, anyone who wants to audit the encryption code — UniClipboard is the open-source alternative built natively for all three desktop platforms.",
+      "verdictBody": "If you only own Apple devices and don't care about clipboard history, iCloud Universal Clipboard is the easiest answer. For everyone else — anyone with a Windows or Linux machine in the workflow, anyone who wants searchable history, anyone who wants to audit the encryption code — UniClipboard is the open-source alternative built for all three desktop platforms.",
       "faqEyebrow": "FAQ",
       "faqTitle": "Frequently asked.",
       "faqItems": [
@@ -814,7 +864,7 @@
       "section1Body": "Maccy is the kind of tool open-source enthusiasts love: small, fast, native Swift, opinionated in the right places. It sits in the menu bar, opens with ⌘⇧C, lets you pin frequent items, search history, and filter by content type. The MIT license is friendly to anyone who wants to fork it. For a single Mac that does not need cross-device sync, Maccy is genuinely hard to beat — and recommending it for that case is the honest answer.",
       "section2Eyebrow": "Where UniClipboard adds the missing piece",
       "section2Title": "What UniClipboard adds on top",
-      "section2Body": "The thing Maccy does not do — by design — is leave the Mac. The moment you add a Windows laptop, a Linux desktop, or even a second Mac to your daily setup, the clipboard history splinters. UniClipboard is built for that case: end-to-end encrypted sync of clipboard content with XChaCha20-Poly1305 AEAD, native apps on macOS, Windows, and Linux, no cloud account, P2P on the same Wi-Fi with NAT hole-punching across networks, and a per-device encrypted history index.",
+      "section2Body": "The thing Maccy does not do — by design — is leave the Mac. The moment you add a Windows laptop, a Linux desktop, or even a second Mac to your daily setup, the clipboard history splinters. UniClipboard is built for that case: end-to-end encrypted sync of clipboard content with XChaCha20-Poly1305 AEAD, desktop apps for macOS, Windows, and Linux, no cloud account, P2P on the same Wi-Fi with NAT hole-punching across networks, and a per-device encrypted history index.",
       "tableEyebrow": "Side-by-side",
       "tableTitle": "Maccy and UniClipboard compared.",
       "tableNote": "Comparison reflects publicly documented behaviour as of 2026-05. Maccy facts verified against github.com/p0deje/Maccy.",

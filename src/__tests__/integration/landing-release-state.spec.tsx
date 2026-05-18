@@ -35,10 +35,27 @@ let currentLocale: "en" | "zh" = "en";
 const getDownloadDictionary = (locale: "en" | "zh") => {
   const messages = locale === "en" ? enMessages : zhMessages;
 
-  return messages.landing.download as Record<string, string>;
+  return messages.landing.download as unknown as Record<string, unknown>;
+};
+
+const resolveDotPath = (
+  dictionary: Record<string, unknown>,
+  key: string,
+): string => {
+  const parts = key.split(".");
+  let cursor: unknown = dictionary;
+  for (const part of parts) {
+    if (cursor && typeof cursor === "object" && part in (cursor as object)) {
+      cursor = (cursor as Record<string, unknown>)[part];
+    } else {
+      return key;
+    }
+  }
+  return typeof cursor === "string" ? cursor : key;
 };
 
 jest.mock("next-intl/server", () => ({
+  getLocale: async () => currentLocale,
   getTranslations: async (
     arg: string | { locale?: string; namespace?: string },
   ) => {
@@ -46,8 +63,7 @@ jest.mock("next-intl/server", () => ({
     const passthrough = (key: string) => key;
     const translator = ((key: string) => {
       if (namespace !== "landing.download") return key;
-      const dictionary = getDownloadDictionary(currentLocale);
-      return dictionary[key] ?? key;
+      return resolveDotPath(getDownloadDictionary(currentLocale), key);
     }) as ((key: string) => string) & { raw: (key: string) => unknown };
     translator.raw = passthrough;
     return translator;
@@ -92,7 +108,7 @@ describe("landing release state integration", () => {
     render(section);
 
     expect(
-      screen.getAllByText(dictionary.degradedNotice).length,
+      screen.getAllByText(dictionary.degradedNotice as string).length,
     ).toBeGreaterThan(0);
     const releaseLinks = screen
       .getAllByRole("link")
@@ -129,7 +145,7 @@ describe("landing release state integration", () => {
     render(section);
 
     expect(
-      screen.getAllByText(zhDictionary.degradedNotice).length,
+      screen.getAllByText(zhDictionary.degradedNotice as string).length,
     ).toBeGreaterThan(0);
     const releaseLinks = screen
       .getAllByRole("link")

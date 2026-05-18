@@ -123,6 +123,25 @@ export const founders = pgTable(
   (table) => [index("founders_display_order_idx").on(table.displayOrder)],
 );
 
+export const iosBetaSignups = pgTable(
+  "ios_beta_signups",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    email: text("email").notNull(),
+    locale: text("locale"),
+    userAgent: text("user_agent"),
+    note: text("note"),
+    invitedAt: timestamp("invited_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("ios_beta_signups_email_idx").on(table.email),
+    index("ios_beta_signups_created_at_idx").on(table.createdAt),
+  ],
+);
+
 export type Article = typeof articles.$inferSelect;
 export type NewArticle = typeof articles.$inferInsert;
 export type ArticleTranslation = typeof articleTranslations.$inferSelect;
@@ -133,5 +152,7 @@ export type Founder = typeof founders.$inferSelect;
 export type NewFounder = typeof founders.$inferInsert;
 export type Release = typeof releases.$inferSelect;
 export type NewRelease = typeof releases.$inferInsert;
+export type IosBetaSignup = typeof iosBetaSignups.$inferSelect;
+export type NewIosBetaSignup = typeof iosBetaSignups.$inferInsert;
 
 export const updateUpdatedAt = sql`now()`;

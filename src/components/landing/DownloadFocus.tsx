@@ -3,17 +3,28 @@
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import {
+  IosBetaSignupForm,
+  type IosBetaSignupLabels,
+} from "./IosBetaSignupForm";
+import { PlatformGlyph as Glyph } from "./PlatformGlyphs";
+
 type Item = {
   arch: string;
   ext: string;
   url: string;
   minOS: string;
+  recommended?: boolean;
+  actionLabel?: string;
+  disabled?: boolean;
+  external?: boolean;
 };
 
 type Group = {
-  os: "mac" | "win" | "linux";
+  os: "mac" | "win" | "linux" | "ios" | "android";
   label: string;
   items: Item[];
+  betaLabel?: string;
 };
 
 export type DownloadFocusProps = {
@@ -26,43 +37,28 @@ export type DownloadFocusProps = {
     recommended: string;
     noDownloads: string;
   };
+  iosSignup?: {
+    labels: IosBetaSignupLabels;
+    locale?: string;
+  };
 };
-
-function GlyphMac({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-    </svg>
-  );
-}
-function GlyphWin({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M3 4.5l8-1.1V11H3V4.5zm9-1.2l9-1.3V11h-9V3.3zM3 12h8v7.6L3 18.5V12zm9 0h9v9.5l-9-1.3V12z" />
-    </svg>
-  );
-}
-function GlyphLinux({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C9 2 8 4 8 7c0 .9 0 2-.5 3-.6 1-1.5 1.8-1.5 3 0 .8.4 1.5 1 2-.7.5-2 1.5-2 3 0 1.5 1 2 1 3 0 1.5-1 2-1 3h13c0-1-1-1.5-1-3 0-1 1-1.5 1-3 0-1.5-1.3-2.5-2-3 .6-.5 1-1.2 1-2 0-1.2-.9-2-1.5-3-.5-1-.5-2.1-.5-3 0-3-1-5-4-5z" />
-    </svg>
-  );
-}
-
-function Glyph({ os, size }: { os: Group["os"]; size?: number }) {
-  if (os === "mac") return <GlyphMac size={size} />;
-  if (os === "win") return <GlyphWin size={size} />;
-  return <GlyphLinux size={size} />;
-}
 
 function detectOS(): Group["os"] {
   if (typeof navigator === "undefined") return "mac";
   const ua = (navigator.userAgent || "").toLowerCase();
   const plat = (navigator.platform || "").toLowerCase();
+  if (/iphone|ipad|ipod/.test(ua) || /iphone|ipad|ipod/.test(plat))
+    return "ios";
+  if (/android/.test(ua)) return "android";
   if (/win/.test(plat) || /windows/.test(ua)) return "win";
   if (/linux/.test(plat) || /linux/.test(ua)) return "linux";
   return "mac";
+}
+
+function allEqual(values: string[]): string | null {
+  if (values.length === 0) return null;
+  const first = values[0];
+  return values.every((v) => v === first) ? first : null;
 }
 
 export function DownloadFocus({
@@ -70,29 +66,44 @@ export function DownloadFocus({
   version,
   fallbackUrl,
   labels,
+  iosSignup,
 }: DownloadFocusProps) {
   const [primaryOS, setPrimaryOS] = useState<Group["os"]>("mac");
   const [activeTab, setActiveTab] = useState<Group["os"]>("mac");
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const os = detectOS();
-    setPrimaryOS(os);
-    setActiveTab(os);
-  }, []);
+    const hasGroup = groups.some((g) => g.os === os);
+    if (hasGroup) {
+      setPrimaryOS(os);
+      setActiveTab(os);
+    } else {
+      setPrimaryOS("mac");
+      setActiveTab("mac");
+    }
+  }, [groups]);
 
   const activeGroup = groups.find((g) => g.os === activeTab) ?? groups[0];
+  const isIosSignup = activeGroup.os === "ios" && Boolean(iosSignup);
   const maxItemCount = Math.max(...groups.map((g) => g.items.length), 1);
   const placeholderCount = Math.max(0, maxItemCount - activeGroup.items.length);
 
+  const sharedMinOS = allEqual(
+    activeGroup.items.map((it) => it.minOS).filter(Boolean),
+  );
+  const sharedExt = allEqual(
+    activeGroup.items.map((it) => it.ext).filter(Boolean),
+  );
+
   return (
     <div
-      className="bg-card border-border rounded-[18px] border p-4 md:p-[22px]"
+      className="bg-card border-border rounded-[18px] border p-4 md:p-5"
       style={{ boxShadow: "0 24px 60px -32px rgba(0,0,0,0.18)" }}
     >
+      {/* Platform tabs */}
       <div
         role="tablist"
-        className="bg-bg2 mb-4 flex gap-1 rounded-[12px] p-1 md:mb-[18px]"
+        className="bg-bg2 mb-3.5 flex gap-0.5 rounded-[12px] p-0.5"
         style={{ border: "1px solid var(--hair2)" }}
       >
         {groups.map((g) => {
@@ -104,7 +115,7 @@ export function DownloadFocus({
               role="tab"
               aria-selected={isActive}
               onClick={() => setActiveTab(g.os)}
-              className="inline-flex min-w-0 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-[9px] px-2 py-2 transition-colors md:gap-2 md:px-3 md:py-2.5"
+              className="relative inline-flex min-w-0 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-[10px] px-2 py-1.5 transition-colors md:px-2.5 md:py-2"
               style={{
                 background: isActive ? "var(--card)" : "transparent",
                 border: isActive
@@ -117,45 +128,106 @@ export function DownloadFocus({
                 boxShadow: isActive ? "0 1px 2px rgba(0,0,0,0.04)" : "none",
               }}
             >
-              <Glyph os={g.os} size={14} />
+              <Glyph os={g.os} size={13} />
               <span className="truncate">{g.label}</span>
               {isRecommended && (
-                <>
-                  <span
-                    aria-label={labels.recommended}
-                    className="inline-block size-1.5 shrink-0 rounded-full md:hidden"
-                    style={{
-                      background: "#3DA47A",
-                      boxShadow: "0 0 0 2px rgba(61,164,122,0.18)",
-                    }}
-                  />
-                  <span
-                    className="ml-0.5 hidden rounded px-1.5 py-0.5 md:inline-block"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 9,
-                      color: isActive ? "var(--muted)" : "var(--muted2)",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      border: "1px solid var(--hair2)",
-                      background: "var(--bg2)",
-                    }}
-                  >
-                    {labels.recommended}
-                  </span>
-                </>
+                <span
+                  aria-label={labels.recommended}
+                  className="inline-block size-1.5 shrink-0 rounded-full"
+                  style={{
+                    background: "#3DA47A",
+                    boxShadow: "0 0 0 2px rgba(61,164,122,0.18)",
+                  }}
+                />
               )}
             </button>
           );
         })}
       </div>
 
-      <div className="flex flex-col gap-2.5">
-        {activeGroup.items.length === 0 ? (
+      {/* Shared meta strip: version · minOS · ext (when shared) + optional beta */}
+      {(() => {
+        const showVersion = !isIosSignup;
+        const showSharedMinOS = !isIosSignup && Boolean(sharedMinOS);
+        const showSharedExt = !isIosSignup && Boolean(sharedExt);
+        const hasAny =
+          showVersion ||
+          showSharedMinOS ||
+          showSharedExt ||
+          activeGroup.betaLabel;
+        if (!hasAny) return null;
+        return (
+          <div
+            className="mb-3 flex flex-wrap items-center gap-x-2.5 gap-y-1.5"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "var(--muted)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            {showVersion && (
+              <span style={{ color: "var(--ink2)" }}>v{version}</span>
+            )}
+            {showSharedMinOS && (
+              <>
+                {showVersion && (
+                  <span aria-hidden style={{ opacity: 0.4 }}>
+                    ·
+                  </span>
+                )}
+                <span>{sharedMinOS}</span>
+              </>
+            )}
+            {showSharedExt && (
+              <>
+                {(showVersion || showSharedMinOS) && (
+                  <span aria-hidden style={{ opacity: 0.4 }}>
+                    ·
+                  </span>
+                )}
+                <span>{sharedExt}</span>
+              </>
+            )}
+            {activeGroup.betaLabel && (
+              <span
+                className="ml-auto inline-flex items-center gap-1.5 rounded-full px-2 py-0.5"
+                style={{
+                  fontSize: 10,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  border: "1px solid var(--hair2)",
+                  background: "var(--bg2)",
+                  color: "var(--muted)",
+                }}
+              >
+                <span
+                  aria-hidden
+                  className="inline-block size-1.5 rounded-full"
+                  style={{
+                    background: "#E0A23A",
+                    boxShadow: "0 0 0 2px rgba(224,162,58,0.18)",
+                  }}
+                />
+                {activeGroup.betaLabel}
+              </span>
+            )}
+          </div>
+        );
+      })()}
+
+      {/* Rows */}
+      <div className="flex flex-col gap-1">
+        {isIosSignup ? (
+          <IosBetaSignupForm
+            labels={iosSignup!.labels}
+            locale={iosSignup!.locale}
+          />
+        ) : activeGroup.items.length === 0 ? (
           <>
             <div
-              className="text-muted-foreground rounded-[12px] px-4 py-5 text-center"
-              style={{ border: "1px dashed var(--border)" }}
+              className="text-muted-foreground rounded-[10px] px-4 py-5 text-center"
+              style={{ border: "1px dashed var(--border)", fontSize: 13 }}
             >
               {labels.noDownloads}
             </div>
@@ -164,123 +236,105 @@ export function DownloadFocus({
                 <div
                   key={`empty-placeholder-${i}`}
                   aria-hidden
-                  className="flex items-center gap-3 rounded-[12px] px-3 py-3 md:gap-3.5 md:px-4 md:py-3.5"
-                  style={{
-                    visibility: "hidden",
-                    border: "1px solid transparent",
-                  }}
-                >
-                  <div className="size-9 shrink-0 rounded-[9px]" />
-                  <div className="min-w-0 flex-1">
-                    <div
-                      className="text-[15px] md:text-base"
-                      style={{
-                        fontWeight: 600,
-                        lineHeight: 1.2,
-                      }}
-                    >
-                      &nbsp;
-                    </div>
-                    <div
-                      className="mt-1"
-                      style={{ fontSize: 11, lineHeight: 1.4 }}
-                    >
-                      &nbsp;
-                    </div>
-                  </div>
-                  <div className="size-[30px] shrink-0 rounded-[8px]" />
-                </div>
+                  className="min-h-[48px]"
+                  style={{ visibility: "hidden" }}
+                />
               ),
             )}
           </>
         ) : (
           activeGroup.items.map((it, i) => {
-            const isPrimary = hoveredIdx === i;
-            const fg = isPrimary ? "var(--background)" : "var(--foreground)";
-            const bg = isPrimary ? "var(--foreground)" : "transparent";
-            const border = isPrimary ? "var(--foreground)" : "var(--border)";
-            const subFg = isPrimary
-              ? "color-mix(in srgb, var(--background) 60%, transparent)"
-              : "var(--muted)";
-            const tagBorder = isPrimary
-              ? "color-mix(in srgb, var(--background) 18%, transparent)"
-              : "var(--hair2)";
-            const iconBg = isPrimary
-              ? "color-mix(in srgb, var(--background) 10%, transparent)"
-              : "var(--bg2)";
+            const title = it.actionLabel ?? it.arch;
+            const showRowMinOS = !sharedMinOS && Boolean(it.minOS);
+            const showRowExt = !sharedExt && Boolean(it.ext);
+            const isExternal = it.external ?? false;
+            const isDisabled = it.disabled || !it.url;
+
+            const rowClass =
+              "group flex min-h-[48px] items-center gap-2.5 rounded-[10px] px-2.5 py-2 transition-colors";
+            const interactiveClass = isDisabled
+              ? "cursor-not-allowed opacity-55"
+              : "hover:bg-bg2";
+
+            const inner = (
+              <>
+                <span
+                  aria-hidden
+                  className="inline-block size-1.5 shrink-0 rounded-full"
+                  style={{
+                    background: it.recommended ? "#3DA47A" : "transparent",
+                    boxShadow: it.recommended
+                      ? "0 0 0 2px rgba(61,164,122,0.18)"
+                      : "none",
+                  }}
+                />
+                <div className="min-w-0 flex-1">
+                  <div
+                    className="text-foreground truncate"
+                    style={{
+                      fontSize: 14.5,
+                      fontWeight: it.recommended ? 600 : 500,
+                      letterSpacing: "-0.005em",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {title}
+                  </div>
+                  {(showRowMinOS || showRowExt) && (
+                    <div
+                      className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5"
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10.5,
+                        color: "var(--muted)",
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      {showRowMinOS && <span>{it.minOS}</span>}
+                      {showRowMinOS && showRowExt && (
+                        <span aria-hidden style={{ opacity: 0.4 }}>
+                          ·
+                        </span>
+                      )}
+                      {showRowExt && <span>{it.ext}</span>}
+                    </div>
+                  )}
+                </div>
+                <span
+                  className="text-muted-foreground group-hover:text-foreground inline-flex shrink-0 items-center justify-center transition-colors"
+                  aria-hidden
+                >
+                  {isExternal ? (
+                    <ArrowUpRight size={15} strokeWidth={1.75} />
+                  ) : (
+                    <ArrowDown size={15} strokeWidth={1.75} />
+                  )}
+                </span>
+              </>
+            );
+
+            if (isDisabled) {
+              return (
+                <div
+                  key={`${it.arch}-${i}`}
+                  aria-disabled
+                  className={`${rowClass} ${interactiveClass}`}
+                >
+                  {inner}
+                </div>
+              );
+            }
+
             return (
               <a
                 key={`${it.arch}-${i}`}
                 href={it.url}
-                onMouseEnter={() => setHoveredIdx(i)}
-                onMouseLeave={() => setHoveredIdx(null)}
-                onFocus={() => setHoveredIdx(i)}
-                onBlur={() => setHoveredIdx(null)}
-                className="flex items-center gap-3 rounded-[12px] px-3 py-3 transition-[transform,background-color,color,border-color] duration-200 hover:-translate-y-[1px] md:gap-3.5 md:px-4 md:py-3.5"
-                style={{
-                  background: bg,
-                  color: fg,
-                  border: `1px solid ${border}`,
-                  textDecoration: "none",
-                }}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                className={`${rowClass} ${interactiveClass}`}
+                style={{ textDecoration: "none" }}
               >
-                <div
-                  className="flex size-9 shrink-0 items-center justify-center rounded-[9px]"
-                  style={{
-                    background: iconBg,
-                    border: isPrimary ? "none" : "1px solid var(--hair2)",
-                    color: fg,
-                  }}
-                >
-                  <Glyph os={activeGroup.os} size={18} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div
-                    className="text-[15px] md:text-base"
-                    style={{
-                      fontWeight: 600,
-                      letterSpacing: "-0.01em",
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {labels.downloadAction} {it.arch}
-                  </div>
-                  <div
-                    className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1"
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: subFg,
-                      letterSpacing: "0.04em",
-                    }}
-                  >
-                    <span>v{version}</span>
-                    {it.minOS && (
-                      <>
-                        <span aria-hidden>·</span>
-                        <span>{it.minOS}</span>
-                      </>
-                    )}
-                    <span
-                      className="rounded px-1.5 py-px"
-                      style={{
-                        border: `1px solid ${tagBorder}`,
-                        fontSize: 10,
-                      }}
-                    >
-                      {it.ext}
-                    </span>
-                  </div>
-                </div>
-                <div
-                  className="inline-flex size-[30px] shrink-0 items-center justify-center rounded-[8px]"
-                  style={{
-                    background: iconBg,
-                    border: isPrimary ? "none" : "1px solid var(--hair2)",
-                  }}
-                >
-                  <ArrowDown size={14} color={fg as string} />
-                </div>
+                {inner}
               </a>
             );
           })
@@ -290,62 +344,34 @@ export function DownloadFocus({
             <div
               key={`placeholder-${i}`}
               aria-hidden
-              className="flex items-center gap-3 rounded-[12px] px-3 py-3 md:gap-3.5 md:px-4 md:py-3.5"
-              style={{
-                visibility: "hidden",
-                border: "1px solid transparent",
-              }}
-            >
-              <div className="size-9 shrink-0 rounded-[9px]" />
-              <div className="min-w-0 flex-1">
-                <div
-                  className="text-[15px] md:text-base"
-                  style={{
-                    fontWeight: 600,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  &nbsp;
-                </div>
-                <div className="mt-1" style={{ fontSize: 11, lineHeight: 1.4 }}>
-                  &nbsp;
-                </div>
-              </div>
-              <div className="size-[30px] shrink-0 rounded-[8px]" />
-            </div>
+              className="min-h-[48px]"
+              style={{ visibility: "hidden" }}
+            />
           ))}
       </div>
 
-      <div
-        className="mt-4 flex items-center justify-between gap-3 pt-3.5 md:mt-[18px]"
-        style={{ borderTop: "1px solid var(--hair2)" }}
-      >
-        <span
-          className="text-muted2 shrink-0"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 10,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-          }}
+      {/* Footer: fallback link only (hidden when iOS signup form is shown) */}
+      {!isIosSignup && (
+        <div
+          className="mt-3.5 flex items-center justify-end pt-3"
+          style={{ borderTop: "1px solid var(--hair2)" }}
         >
-          {activeGroup.label} · {activeGroup.items.length}
-        </span>
-        <a
-          href={fallbackUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-muted-foreground hover:text-foreground inline-flex min-w-0 items-center gap-1 transition-colors"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 11,
-            letterSpacing: "0.04em",
-          }}
-        >
-          <span className="truncate">{labels.fallback}</span>
-          <ArrowUpRight size={12} className="shrink-0" />
-        </a>
-      </div>
+          <a
+            href={fallbackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              letterSpacing: "0.04em",
+            }}
+          >
+            <span>{labels.fallback}</span>
+            <ArrowUpRight size={12} className="shrink-0" />
+          </a>
+        </div>
+      )}
     </div>
   );
 }

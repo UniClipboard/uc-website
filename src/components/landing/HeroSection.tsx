@@ -1,12 +1,14 @@
 import { getTranslations } from "next-intl/server";
 
 import { isChinaIp } from "@/lib/geo/country";
+import { getAndroidPrimaryDownloadUrl } from "@/lib/mobile-releases";
 import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-release";
 
 import { HeroDownloadCta } from "./HeroDownloadCta";
 import { HeroTrustBar } from "./HeroTrustBar";
 import { HeroVideo } from "./HeroVideo";
 import type { HeroVideoSource } from "./HeroVideoModal";
+import { HeroMobileCta } from "./mobile/HeroMobileCta";
 import { HeroVideoMobile } from "./mobile/HeroVideoMobile";
 
 type Props = {
@@ -148,13 +150,14 @@ export async function HeroSection({ release, stars }: Props) {
           />
 
           <div className="mt-8 flex flex-col items-center text-center">
-            <a
-              href="#faq-mobile"
-              aria-label={t("mobileBadge")}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 mb-5 flex w-full items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium transition-colors"
-            >
-              {t("mobileBadge")}
-            </a>
+            <HeroMobileCta
+              defaultLabel={t("mobileBadge")}
+              defaultHref="#faq-mobile"
+              iosLabel={t("mobileBadgeIOS")}
+              iosHref="#download"
+              androidLabel={t("mobileBadgeAndroid")}
+              androidUrl={getAndroidPrimaryDownloadUrl()}
+            />
 
             <HeroTrustBar stars={stars} labels={trustLabels} />
           </div>

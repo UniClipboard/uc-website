@@ -158,7 +158,7 @@ export function HeroDownloadCta({
           : "flex flex-col items-center gap-3.5"
       }
     >
-      <a href={hasMatch ? resolved!.url : "#download"} className={buttonClass}>
+      <a href="#download" className={buttonClass}>
         <span suppressHydrationWarning>
           {hasMatch
             ? `${labels.primaryWith} ${resolved!.platformLabel}`

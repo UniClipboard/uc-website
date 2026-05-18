@@ -48,7 +48,7 @@
       "descriptionMobile": "实时同步你的剪贴板到其他设备。",
       "mobileBadge": "了解手机如何接入 →",
       "mobileBadgeIOS": "申请加入 iOS 内测 →",
-      "mobileBadgeAndroid": "下载 Android v1.0.11",
+      "mobileBadgeAndroid": "下载 Android",
       "secondaryCta": "技术白皮书",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -88,7 +88,7 @@
         "b1Title": "桌面三端",
         "b1Desc": "Rust + Tauri 构建，启动快、占用低，集成进系统菜单栏与托盘。",
         "b2Title": "iOS & Android 原生 App",
-        "b2Desc": "iOS Public Beta 通过 TestFlight 公开邀请加入,Android v1.0.11 提供签名 APK 直链。SyncClipboard 开放协议仍作为不想装原生 App 用户的备选。",
+        "b2Desc": "iOS Public Beta 通过 TestFlight 公开邀请加入,Android 提供签名 APK 直链。SyncClipboard 开放协议仍作为不想装原生 App 用户的备选。",
         "b3Title": "直连 · 打洞 · LAN-only 可切",
         "b3Desc": "同 Wi-Fi 走 P2P，跨网络自动 NAT 打洞，加密中继兜底。一键打开 LAN-only 可以彻底关掉中继，只用本地网络。"
       },
@@ -117,7 +117,7 @@
         "f9Title": "可控的历史保留",
         "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。",
         "f10Title": "iOS & Android 原生 App",
-        "f10Desc": "iOS 通过 TestFlight 公开邀请加入 Public Beta;Android v1.0.11 提供签名 APK 直链下载。SyncClipboard 开放协议(iPhone「快捷指令」+ Android 客户端)仍作为不想装原生 App 用户的备选。"
+        "f10Desc": "iOS 通过 TestFlight 公开邀请加入 Public Beta;Android 提供签名 APK 直链下载。SyncClipboard 开放协议(iPhone「快捷指令」+ Android 客户端)仍作为不想装原生 App 用户的备选。"
       }
     },
     "comparison": {
@@ -285,8 +285,8 @@
       },
       "item5": {
         "q": "支持移动端（iOS / Android）吗？",
-        "a": "都有原生 App。iOS Public Beta 在 TestFlight 公开邀请，Android v1.0.11 提供签名 APK 直链——下载页里都能拿到。原本兼容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT 开源）开放协议的路线仍然保留：iPhone 走系统「快捷指令」+ 桌面端给的一段配置，Android 用 SyncClipboard 项目里任意一个客户端，两边都不需要云账号，内容只在局域网内流转——如果你不想装原生 App，这条路依然走得通。",
-        "downloadCta": "去下载页拿 iOS Beta 和 Android v1.0.11 →"
+        "a": "都有原生 App。iOS Public Beta 在 TestFlight 公开邀请，Android 提供签名 APK 直链——下载页里都能拿到。原本兼容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT 开源）开放协议的路线仍然保留：iPhone 走系统「快捷指令」+ 桌面端给的一段配置，Android 用 SyncClipboard 项目里任意一个客户端，两边都不需要云账号，内容只在局域网内流转——如果你不想装原生 App，这条路依然走得通。",
+        "downloadCta": "去下载页拿 iOS Beta 和 Android APK →"
       },
       "item6": {
         "q": "AGPL-3.0 会影响我在公司里用吗？",

@@ -54,7 +54,7 @@
       "descriptionMobile": "One clipboard across all your devices. Open source, end-to-end encrypted, no account.",
       "mobileBadge": "How does it work on my phone? →",
       "mobileBadgeIOS": "Apply for the iOS Beta →",
-      "mobileBadgeAndroid": "Download Android v1.0.11",
+      "mobileBadgeAndroid": "Download Android",
       "secondaryCta": "Technical whitepaper",
       "starsSuffix": "on GitHub",
       "starsFallback": "GitHub",
@@ -94,7 +94,7 @@
         "b1Title": "Three desktops",
         "b1Desc": "Built on Rust + Tauri — fast launch, low footprint, menu-bar and tray integrated.",
         "b2Title": "iOS & Android native apps",
-        "b2Desc": "iOS Public Beta joins via TestFlight's public invite; Android v1.0.11 ships as a signed APK direct download. The SyncClipboard open protocol still works for anyone who'd rather not install a native app.",
+        "b2Desc": "iOS Public Beta joins via TestFlight's public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol still works for anyone who'd rather not install a native app.",
         "b3Title": "Direct · hole-punch · LAN-only",
         "b3Desc": "P2P on the same Wi-Fi, NAT hole-punching across networks, encrypted relay as fallback. Flip LAN-only Mode to drop the relay entirely."
       },
@@ -123,7 +123,7 @@
         "f9Title": "Tunable history retention",
         "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time.",
         "f10Title": "iOS & Android native apps",
-        "f10Desc": "iOS Public Beta is on TestFlight via public invite; Android v1.0.11 ships as a signed APK direct download. The SyncClipboard open protocol (iPhone Shortcuts, Android clients) stays as a fallback for anyone who'd rather not install a native app."
+        "f10Desc": "iOS Public Beta is on TestFlight via public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol (iPhone Shortcuts, Android clients) stays as a fallback for anyone who'd rather not install a native app."
       }
     },
     "comparison": {
@@ -291,8 +291,8 @@
       },
       "item5": {
         "q": "Do you support mobile (iOS / Android)?",
-        "a": "Yes — there are native apps for both. iOS is in Public Beta on TestFlight (open invite), and Android v1.0.11 ships as a signed APK direct download — both available on the download page. The original SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) open-protocol path is still supported: iPhone via the built-in Shortcuts app with a short config from your desktop, Android via any of SyncClipboard's clients — no cloud account, content stays on LAN. If you'd rather not install a native app, that path still works.",
-        "downloadCta": "Get the iOS beta and Android v1.0.11 on the download page →"
+        "a": "Yes — there are native apps for both. iOS is in Public Beta on TestFlight (open invite), and Android ships as a signed APK direct download — both available on the download page. The original SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) open-protocol path is still supported: iPhone via the built-in Shortcuts app with a short config from your desktop, Android via any of SyncClipboard's clients — no cloud account, content stays on LAN. If you'd rather not install a native app, that path still works.",
+        "downloadCta": "Get the iOS beta and Android APK on the download page →"
       },
       "item6": {
         "q": "Will AGPL-3.0 affect me using it inside a company?",

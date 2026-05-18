@@ -4,9 +4,11 @@ import { getTranslations } from "next-intl/server";
 
 import { BreadcrumbBar, JsonLd } from "@/components/article/sections";
 import { CopyableCommand } from "@/components/download/CopyableCommand";
-import { PackageManagerCard } from "@/components/download/PackageManagerCard";
+import {
+  type PlatformBlock,
+  PlatformBlocks,
+} from "@/components/download/PlatformBlocks";
 import { AnimateIn } from "@/components/landing/AnimateIn";
-import { DownloadFocus } from "@/components/landing/DownloadFocus";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { Link } from "@/i18n/navigation";
@@ -211,25 +213,50 @@ export default async function DownloadPage({ params }: LocaleParam) {
     iosBetaBadge: t("direct.iosBetaBadge"),
     androidMinOS: t("direct.androidMinOS"),
     androidExtLabel: t("direct.androidExtLabel"),
+    androidHintArm64: t("direct.androidHintArm64"),
+    androidHintArmV7: t("direct.androidHintArmV7"),
+    androidHintX64: t("direct.androidHintX64"),
+    androidHintUniversal: t("direct.androidHintUniversal"),
   });
 
-  const groups = [
+  const iosMobileGroup = mobileGroups.find((g) => g.os === "ios");
+  const androidMobileGroup = mobileGroups.find((g) => g.os === "android");
+
+  const platformBlocks: PlatformBlock[] = [
     {
-      os: "mac" as const,
+      os: "mac",
       label: t("direct.platformMacOS"),
+      description: t("direct.blockMacDescription"),
       items: groupedItems.mac,
     },
     {
-      os: "win" as const,
+      os: "win",
       label: t("direct.platformWindows"),
+      description: t("direct.blockWinDescription"),
       items: groupedItems.win,
     },
     {
-      os: "linux" as const,
+      os: "linux",
       label: t("direct.platformLinux"),
-      items: groupedItems.linux,
+      description: t("direct.blockLinuxDescription"),
+      items: groupedItems.linux.map((it) => ({ ...it, external: false })),
+      installCommand: t("direct.linuxInstallCommand"),
+      scriptSourceLabel: t("direct.linuxScriptSourceLabel"),
+      scriptSourceUrl: t("direct.linuxScriptSourceUrl"),
     },
-    ...mobileGroups,
+    {
+      os: "android",
+      label: t("direct.platformAndroid"),
+      description: t("direct.blockAndroidDescription"),
+      items: androidMobileGroup?.items ?? [],
+    },
+    {
+      os: "ios",
+      label: t("direct.platformIOS"),
+      description: t("direct.blockIosDescription"),
+      betaLabel: iosMobileGroup?.betaLabel,
+      items: [],
+    },
   ];
 
   const versionLabel =
@@ -426,92 +453,12 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Direct downloads */}
         <section
           id="direct"
-          className="border-border bg-bg2 relative border-b py-14 md:py-[100px]"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(60% 50% at 70% 50%, var(--border) 0%, transparent 70%)",
-            }}
-          />
-          <div className="landing-shell relative">
-            <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-[1fr_1.1fr] md:gap-16">
-              <div>
-                <AnimateIn variant="fade-in" duration={0.5}>
-                  <p className="landing-kicker">{t("direct.eyebrow")}</p>
-                </AnimateIn>
-                <AnimateIn delay={0.06} duration={0.6}>
-                  <h2
-                    className="text-foreground mt-3.5 mb-[18px]"
-                    style={{
-                      fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-                      fontWeight: 600,
-                      letterSpacing: "-0.025em",
-                      lineHeight: 1.1,
-                      textWrap: "balance",
-                    }}
-                  >
-                    {t("direct.title")}
-                  </h2>
-                </AnimateIn>
-                <AnimateIn delay={0.12} duration={0.5}>
-                  <p
-                    className="text-muted-foreground"
-                    style={{ fontSize: 15.5, lineHeight: 1.6, maxWidth: 460 }}
-                  >
-                    {t("direct.description")}
-                  </p>
-                </AnimateIn>
-                {isDegraded && (
-                  <AnimateIn delay={0.18} duration={0.5}>
-                    <p className="text-muted-foreground border-border bg-card mt-5 inline-flex rounded-full border px-3 py-1.5 text-sm">
-                      {t("direct.degradedNotice")}
-                    </p>
-                  </AnimateIn>
-                )}
-              </div>
-              <AnimateIn delay={0.14} duration={0.6}>
-                <DownloadFocus
-                  groups={groups}
-                  version={versionLabel}
-                  fallbackUrl={release.fallbackReleaseUrl}
-                  labels={{
-                    fallback: t("direct.fallback"),
-                    downloadAction: t("direct.downloadAction"),
-                    recommended: t("direct.recommended"),
-                    noDownloads: t("direct.noDownloads"),
-                  }}
-                  iosSignup={{
-                    labels: {
-                      description: t("direct.iosSignup.description"),
-                      emailPlaceholder: t("direct.iosSignup.emailPlaceholder"),
-                      submit: t("direct.iosSignup.submit"),
-                      submitting: t("direct.iosSignup.submitting"),
-                      successTitle: t("direct.iosSignup.successTitle"),
-                      successDetail: t("direct.iosSignup.successDetail"),
-                      errorInvalid: t("direct.iosSignup.errorInvalid"),
-                      errorServer: t("direct.iosSignup.errorServer"),
-                      privacy: t("direct.iosSignup.privacy"),
-                    },
-                    locale,
-                  }}
-                />
-              </AnimateIn>
-            </div>
-          </div>
-        </section>
-
-        {/* Package managers */}
-        <section
-          id="package-managers"
-          className="border-border bg-background border-b py-14 md:py-[100px]"
+          className="border-border bg-bg2 border-b py-14 md:py-[100px]"
         >
           <div className="landing-shell">
             <div className="mb-8 max-w-[680px] md:mb-10">
               <AnimateIn variant="fade-in" duration={0.5}>
-                <p className="landing-kicker">{t("pkg.eyebrow")}</p>
+                <p className="landing-kicker">{t("direct.eyebrow")}</p>
               </AnimateIn>
               <AnimateIn delay={0.06} duration={0.6}>
                 <h2
@@ -524,7 +471,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                     textWrap: "balance",
                   }}
                 >
-                  {t("pkg.title")}
+                  {t("direct.title")}
                 </h2>
               </AnimateIn>
               <AnimateIn delay={0.1} duration={0.5}>
@@ -532,61 +479,54 @@ export default async function DownloadPage({ params }: LocaleParam) {
                   className="text-muted-foreground"
                   style={{ fontSize: 15.5, lineHeight: 1.6 }}
                 >
-                  {t("pkg.description")}
+                  {t("direct.description")}
                 </p>
               </AnimateIn>
+              {isDegraded && (
+                <AnimateIn delay={0.16} duration={0.5}>
+                  <p className="text-muted-foreground border-border bg-card mt-5 inline-flex rounded-full border px-3 py-1.5 text-sm">
+                    {t("direct.degradedNotice")}
+                  </p>
+                </AnimateIn>
+              )}
             </div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-3">
-              <AnimateIn delay={0.14} duration={0.55} className="h-full">
-                <PackageManagerCard
-                  os="mac"
-                  manager={t("pkg.brew.manager")}
-                  title={t("pkg.brew.title")}
-                  subtitle={t("pkg.brew.subtitle")}
-                  command={t("pkg.brew.command")}
-                  note={t("pkg.brew.note")}
-                  docsLabel={t("pkg.brew.docsLabel")}
-                  docsHref={t("pkg.brew.docsHref")}
-                  copyLabel={t("pkg.copy")}
-                  copiedLabel={t("pkg.copied")}
-                />
-              </AnimateIn>
-              <AnimateIn delay={0.2} duration={0.55} className="h-full">
-                <PackageManagerCard
-                  os="linux"
-                  manager={t("pkg.dnf.manager")}
-                  title={t("pkg.dnf.title")}
-                  subtitle={t("pkg.dnf.subtitle")}
-                  command={t("pkg.dnf.command")}
-                  note={t("pkg.dnf.note")}
-                  docsLabel={t("pkg.dnf.docsLabel")}
-                  docsHref={t("pkg.dnf.docsHref")}
-                  copyLabel={t("pkg.copy")}
-                  copiedLabel={t("pkg.copied")}
-                />
-              </AnimateIn>
-              <AnimateIn delay={0.26} duration={0.55} className="h-full">
-                <PackageManagerCard
-                  os="linux"
-                  manager={t("pkg.snap.manager")}
-                  title={t("pkg.snap.title")}
-                  subtitle={t("pkg.snap.subtitle")}
-                  command={t("pkg.snap.command")}
-                  note={t("pkg.snap.note")}
-                  docsLabel={t("pkg.snap.docsLabel")}
-                  docsHref={t("pkg.snap.docsHref")}
-                  copyLabel={t("pkg.copy")}
-                  copiedLabel={t("pkg.copied")}
-                />
-              </AnimateIn>
-            </div>
+            <AnimateIn delay={0.14} duration={0.55}>
+              <PlatformBlocks
+                blocks={platformBlocks}
+                version={versionLabel}
+                fallbackUrl={release.fallbackReleaseUrl}
+                labels={{
+                  detected: t("direct.detectedBadge"),
+                  downloadAction: t("direct.downloadAction"),
+                  noDownloads: t("direct.noDownloads"),
+                  copy: t("pkg.copy"),
+                  copied: t("pkg.copied"),
+                  fallback: t("direct.fallback"),
+                  versionPrefix: t("hero.versionLabel"),
+                }}
+                iosSignup={{
+                  labels: {
+                    description: t("direct.iosSignup.description"),
+                    emailPlaceholder: t("direct.iosSignup.emailPlaceholder"),
+                    submit: t("direct.iosSignup.submit"),
+                    submitting: t("direct.iosSignup.submitting"),
+                    successTitle: t("direct.iosSignup.successTitle"),
+                    successDetail: t("direct.iosSignup.successDetail"),
+                    errorInvalid: t("direct.iosSignup.errorInvalid"),
+                    errorServer: t("direct.iosSignup.errorServer"),
+                    privacy: t("direct.iosSignup.privacy"),
+                  },
+                  locale,
+                }}
+              />
+            </AnimateIn>
           </div>
         </section>
 
         {/* System requirements */}
         <section
           id="system-requirements"
-          className="border-border bg-bg2 border-b py-14 md:py-[100px]"
+          className="border-border bg-background border-b py-14 md:py-[100px]"
         >
           <div className="landing-shell">
             <div className="mb-8 max-w-[680px] md:mb-10">
@@ -802,7 +742,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Verify */}
         <section
           id="verify"
-          className="border-border bg-background border-b py-14 md:py-[100px]"
+          className="border-border bg-bg2 border-b py-14 md:py-[100px]"
         >
           <div className="landing-shell">
             <div className="mb-8 max-w-[680px] md:mb-10">
@@ -879,7 +819,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
         {/* Older versions */}
         <section
           id="older"
-          className="border-border bg-bg2 border-b py-12 md:py-[88px]"
+          className="border-border bg-background border-b py-12 md:py-[88px]"
         >
           <div className="landing-shell">
             <div className="border-border bg-card flex flex-col gap-4 rounded-[14px] border p-5 md:flex-row md:items-center md:justify-between md:gap-5 md:p-8">
@@ -931,7 +871,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="bg-background py-14 md:py-[100px]">
+        <section id="faq" className="bg-bg2 py-14 md:py-[100px]">
           <div className="landing-shell">
             <div className="mb-8 max-w-[680px] md:mb-10">
               <AnimateIn variant="fade-in" duration={0.5}>

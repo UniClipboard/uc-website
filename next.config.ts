@@ -55,6 +55,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/install.sh",
+        destination:
+          "https://cdn.jsdelivr.net/gh/UniClipboard/UniClipboard@main/scripts/install.sh",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

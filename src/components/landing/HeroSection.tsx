@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 
 import { isChinaIp } from "@/lib/geo/country";
 import { getAndroidPrimaryDownloadUrl } from "@/lib/mobile-releases";
-import type { StableReleaseViewModel } from "@/lib/release-feed/normalize-release";
 
 import { HeroDownloadCta } from "./HeroDownloadCta";
 import { HeroTrustBar } from "./HeroTrustBar";
@@ -12,11 +11,10 @@ import { HeroMobileCta } from "./mobile/HeroMobileCta";
 import { HeroVideoMobile } from "./mobile/HeroVideoMobile";
 
 type Props = {
-  release: StableReleaseViewModel;
   stars: number | null;
 };
 
-export async function HeroSection({ release, stars }: Props) {
+export async function HeroSection({ stars }: Props) {
   const t = await getTranslations("landing.hero");
   const tDl = await getTranslations("landing.download");
   const defaultVideoSource: HeroVideoSource = (await isChinaIp())
@@ -24,17 +22,9 @@ export async function HeroSection({ release, stars }: Props) {
     : "youtube";
 
   const downloadLabels = {
-    primaryGeneric: tDl("ctaPrimaryGeneric"),
-    primaryWith: tDl("ctaPrimaryWith"),
+    primary: tDl("ctaPrimaryGeneric"),
     secondaryHow: t("secondaryCta"),
     otherPlatforms: tDl("ctaOtherPlatforms"),
-    arm: tDl("archArm"),
-    intel: tDl("archIntel"),
-    x64: tDl("archX64"),
-    linuxX64: tDl("ctaLinuxX64"),
-    linuxArm: tDl("ctaLinuxArm"),
-    windows: tDl("platformWindows"),
-    mac: tDl("platformMacOS"),
   };
 
   const trustLabels = {
@@ -83,10 +73,7 @@ export async function HeroSection({ release, stars }: Props) {
             </p>
 
             <div className="mb-6">
-              <HeroDownloadCta
-                downloads={release.downloads}
-                labels={downloadLabels}
-              />
+              <HeroDownloadCta labels={downloadLabels} />
             </div>
 
             <HeroTrustBar stars={stars} labels={trustLabels} />
@@ -154,7 +141,7 @@ export async function HeroSection({ release, stars }: Props) {
               defaultLabel={t("mobileBadge")}
               defaultHref="#faq-mobile"
               iosLabel={t("mobileBadgeIOS")}
-              iosHref="#download"
+              iosHref="/download"
               androidLabel={t("mobileBadgeAndroid")}
               androidUrl={getAndroidPrimaryDownloadUrl()}
             />

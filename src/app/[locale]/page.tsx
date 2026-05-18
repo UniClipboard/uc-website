@@ -1,9 +1,9 @@
 import { getTranslations } from "next-intl/server";
 
 import { ComparisonSection } from "@/components/landing/ComparisonSection";
-import { DownloadSection } from "@/components/landing/DownloadSection";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
+import { FinalDownloadCta } from "@/components/landing/FinalDownloadCta";
 import { Footer } from "@/components/landing/Footer";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { Navigation } from "@/components/landing/Navigation";
@@ -162,11 +162,11 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     <>
       <Navigation />
       <main>
-        <HeroSection release={stableRelease} stars={stars} />
+        <HeroSection stars={stars} />
         <FeaturesSection />
         <ComparisonSection />
-        <DownloadSection release={stableRelease} />
         <FaqSection />
+        <FinalDownloadCta release={stableRelease} />
       </main>
       <Footer />
       <script

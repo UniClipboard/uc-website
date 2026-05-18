@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { Link } from "@/i18n/navigation";
+
 type DetectedTarget = "ios" | "android" | "default";
 
 type Props = {
@@ -52,6 +54,16 @@ export function HeroMobileCta({
 
   const baseClass =
     "bg-primary text-primary-foreground mb-5 flex w-full items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium transition-colors hover:bg-primary/90";
+
+  const isInternalRoute = href.startsWith("/");
+
+  if (isInternalRoute) {
+    return (
+      <Link href={href} aria-label={label} className={baseClass}>
+        <span suppressHydrationWarning>{label}</span>
+      </Link>
+    );
+  }
 
   return (
     <a

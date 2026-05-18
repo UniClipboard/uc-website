@@ -236,7 +236,7 @@
       "degradedNotice": "版本详情暂时不可用。",
       "metadataUnavailable": "元数据不可用",
       "unavailableValue": "不可用",
-      "ctaPrimaryGeneric": "立即安装",
+      "ctaPrimaryGeneric": "立即下载",
       "ctaPrimaryWith": "下载",
       "ctaOtherPlatforms": "其它平台",
       "ctaLinuxX64": "Linux · x64",
@@ -296,6 +296,14 @@
         "q": "和 KDE Connect、Mouse Without Borders 比有什么不一样？",
         "a": "KDE Connect 和 Mouse Without Borders 都是好工具，但它们属于 KVM 那一类——会一起把鼠标、键盘、文件、通知都共享过去，而且通常要在同一局域网（或者再叠一层 Tailscale）。UniClipboard 只做剪贴板，走公网也能用、不需要 VPN，自带可搜索的历史。如果你想要的就只是「这边复制那边粘」，没别的东西被搬来搬去——这一个就够了。"
       }
+    },
+    "finalCta": {
+      "title": "复制在这边，粘贴在那边。",
+      "subtitle": "免费、开源、端到端加密。每台设备装一次，剪贴板自动跟着你走。",
+      "primary": "下载 UniClipboard",
+      "secondary": "在 GitHub 上看源码",
+      "platformsLine": "macOS · Windows · Linux · iOS · Android",
+      "versionPrefix": "最新版"
     },
     "footer": {
       "thanksTitle": "致谢",
@@ -361,6 +369,19 @@
       "iosBetaBadge": "Public Beta · TestFlight",
       "androidMinOS": "Android 8+",
       "androidExtLabel": ".apk",
+      "androidHintArm64": "现代 64 位安卓手机，性能最好、体积较小。不确定就选这个。",
+      "androidHintArmV7": "仅老式 32 位安卓手机需要。",
+      "androidHintX64": "安卓模拟器或少数 Intel 架构设备。",
+      "androidHintUniversal": "含全部架构，体积最大但兼容性最好。",
+      "blockMacDescription": "已签名并经苹果公证，支持 macOS 12 Monterey 及以上。",
+      "blockWinDescription": "Authenticode 签名安装包，支持 Windows 10 / 11。",
+      "blockLinuxDescription": "自动识别 glibc 与 CPU 架构，安装到 ~/.local。",
+      "blockIosDescription": "iOS App 处于 TestFlight Public Beta，在下方留邮箱申请加入。",
+      "blockAndroidDescription": "签名 APK，可直接在任意现代安卓手机上侧载安装。",
+      "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
+      "linuxScriptSourceLabel": "查看脚本源码",
+      "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
+      "detectedBadge": "已识别",
       "iosSignup": {
         "description": "iOS 公测在 TestFlight，我手动控制邀请名额。留个邮箱，我会尽快把你加进分组。",
         "emailPlaceholder": "your@email.com",
@@ -374,38 +395,8 @@
       }
     },
     "pkg": {
-      "eyebrow": "包管理器",
-      "title": "或者一行命令装完。",
-      "description": "习惯终端？macOS 用 Homebrew，Fedora 用 dnf（COPR），其它 Linux 用 Snap。后续更新都会沿着你最初安装的渠道走。",
       "copy": "复制命令",
-      "copied": "已复制",
-      "brew": {
-        "title": "Homebrew Cask",
-        "manager": "macOS · Homebrew",
-        "subtitle": "装的就是公证签名过的 .app，跟直链下载完全一致。brew upgrade 就能拿到新版本。",
-        "command": "brew install --cask uniclipboard/tap/uniclipboard",
-        "note": "需要 Homebrew 4+",
-        "docsLabel": "GitHub 上的 Tap",
-        "docsHref": "https://github.com/UniClipboard/homebrew-tap"
-      },
-      "dnf": {
-        "title": "Fedora COPR",
-        "manager": "Linux · Fedora",
-        "subtitle": "走我们维护的 COPR 频道，安装的是带签名的 .rpm。开启一次仓库，之后 dnf upgrade 就能拿到新版本。",
-        "command": "sudo dnf copr enable uniclipboard/uniclipboard && sudo dnf install uniclipboard",
-        "note": "Fedora 38+ / RHEL 9+",
-        "docsLabel": "查看 COPR 仓库",
-        "docsHref": "https://copr.fedorainfracloud.org/coprs/uniclipboard/uniclipboard/"
-      },
-      "snap": {
-        "title": "Snap Store",
-        "manager": "Linux · Snap",
-        "subtitle": "后台自动更新，运行在 strict confinement 沙箱内——只申请它真正用得到的接口。Ubuntu、Debian、Manjaro 等任何装了 snapd 的发行版都可用。",
-        "command": "sudo snap install uniclipboard",
-        "note": "需要 snapd",
-        "docsLabel": "前往 Snap Store",
-        "docsHref": "https://snapcraft.io/uniclipboard"
-      }
+      "copied": "已复制"
     },
     "sysreq": {
       "eyebrow": "系统要求",

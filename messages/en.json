@@ -242,7 +242,7 @@
       "degradedNotice": "Release details are temporarily unavailable.",
       "metadataUnavailable": "Metadata unavailable",
       "unavailableValue": "Unavailable",
-      "ctaPrimaryGeneric": "Install",
+      "ctaPrimaryGeneric": "Download now",
       "ctaPrimaryWith": "Download for",
       "ctaOtherPlatforms": "Other platforms",
       "ctaLinuxX64": "Linux · x64",
@@ -302,6 +302,14 @@
         "q": "How is this different from KDE Connect or Mouse Without Borders?",
         "a": "KDE Connect and Mouse Without Borders are great, but they're KVM-style tools — they share your mouse, keyboard, files, and notifications too, and they typically need devices on the same LAN (or Tailscale on top). UniClipboard is clipboard-only, works across the public internet without a VPN, and ships with searchable history. If you just want copy-here-paste-there with nothing else moving, this is for you."
       }
+    },
+    "finalCta": {
+      "title": "Code, write, design — paste anywhere.",
+      "subtitle": "Free, open source, end-to-end encrypted. Install once per device and your clipboard just follows you.",
+      "primary": "Download UniClipboard",
+      "secondary": "View source on GitHub",
+      "platformsLine": "macOS · Windows · Linux · iOS · Android",
+      "versionPrefix": "Latest"
     },
     "footer": {
       "thanksTitle": "Thanks",
@@ -367,6 +375,19 @@
       "iosBetaBadge": "Public Beta · TestFlight",
       "androidMinOS": "Android 8+",
       "androidExtLabel": ".apk",
+      "androidHintArm64": "Modern 64-bit Android phones — best performance, smallest size. Pick this one if you're unsure.",
+      "androidHintArmV7": "Only for older 32-bit Android phones.",
+      "androidHintX64": "Android emulators or rare Intel-based devices.",
+      "androidHintUniversal": "Bundles all architectures — largest file, but installs anywhere.",
+      "blockMacDescription": "Signed and notarized for macOS 12 Monterey and later.",
+      "blockWinDescription": "Authenticode-signed installer for Windows 10 and 11.",
+      "blockLinuxDescription": "Auto-detects glibc and architecture, installs to ~/.local.",
+      "blockIosDescription": "iOS app is in Public Beta on TestFlight — request access below.",
+      "blockAndroidDescription": "Signed APK. Sideload directly on any modern Android phone.",
+      "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
+      "linuxScriptSourceLabel": "Read the script",
+      "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
+      "detectedBadge": "Detected",
       "iosSignup": {
         "description": "The iOS beta lives on TestFlight, and I add testers manually. Drop your email and I'll get you into the group.",
         "emailPlaceholder": "your@email.com",
@@ -380,38 +401,8 @@
       }
     },
     "pkg": {
-      "eyebrow": "Package managers",
-      "title": "Or install with one command.",
-      "description": "Prefer the terminal? Install with Homebrew on macOS, dnf on Fedora, or Snap on any Linux with snapd. Updates flow through the same channel you installed from.",
       "copy": "Copy command",
-      "copied": "Copied",
-      "brew": {
-        "title": "Homebrew Cask",
-        "manager": "macOS · Homebrew",
-        "subtitle": "Installs the same notarized .app you would download directly. brew upgrade picks up new releases.",
-        "command": "brew install --cask uniclipboard/tap/uniclipboard",
-        "note": "Requires Homebrew 4+",
-        "docsLabel": "Tap on GitHub",
-        "docsHref": "https://github.com/UniClipboard/homebrew-tap"
-      },
-      "dnf": {
-        "title": "Fedora COPR",
-        "manager": "Linux · Fedora",
-        "subtitle": "Installs the same signed .rpm from our COPR channel. Enable the repo once, then dnf upgrade picks up new releases.",
-        "command": "sudo dnf copr enable uniclipboard/uniclipboard && sudo dnf install uniclipboard",
-        "note": "Fedora 38+ / RHEL 9+",
-        "docsLabel": "View on COPR",
-        "docsHref": "https://copr.fedorainfracloud.org/coprs/uniclipboard/uniclipboard/"
-      },
-      "snap": {
-        "title": "Snap Store",
-        "manager": "Linux · Snap",
-        "subtitle": "Auto-updates in the background and runs in strict confinement — only the interfaces it actually needs. Works on Ubuntu, Debian, Manjaro, and any distro with snapd installed.",
-        "command": "sudo snap install uniclipboard",
-        "note": "snapd required",
-        "docsLabel": "View on Snap Store",
-        "docsHref": "https://snapcraft.io/uniclipboard"
-      }
+      "copied": "Copied"
     },
     "sysreq": {
       "eyebrow": "System requirements",

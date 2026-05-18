@@ -137,7 +137,7 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html {
+  html:has(:target) {
     scroll-behavior: smooth;
   }
   body {

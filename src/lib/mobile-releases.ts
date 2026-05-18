@@ -67,6 +67,7 @@ export type MobileGroupItem = {
   actionLabel?: string;
   disabled?: boolean;
   external?: boolean;
+  hint?: string;
 };
 
 export type MobileGroup = {
@@ -82,11 +83,22 @@ export type MobileGroupLabels = {
   iosBetaBadge: string;
   androidMinOS: string;
   androidExtLabel: string;
+  androidHintArm64?: string;
+  androidHintArmV7?: string;
+  androidHintX64?: string;
+  androidHintUniversal?: string;
+};
+
+const ANDROID_HINT_KEYS: Record<string, keyof MobileGroupLabels> = {
+  "arm64-v8a": "androidHintArm64",
+  "armeabi-v7a": "androidHintArmV7",
+  x86_64: "androidHintX64",
+  universal: "androidHintUniversal",
 };
 
 export function buildMobileGroups(labels: MobileGroupLabels): MobileGroup[] {
-  // iOS tab carries no download items — the DownloadFocus card renders an
-  // email signup form for it (gated by the `iosSignup` prop).
+  // iOS group carries no download items — consumers render an email signup
+  // form for it instead of a list of installers.
   const iosGroup: MobileGroup = {
     os: "ios",
     label: labels.platformIOS,
@@ -97,14 +109,19 @@ export function buildMobileGroups(labels: MobileGroupLabels): MobileGroup[] {
   const androidGroup: MobileGroup = {
     os: "android",
     label: labels.platformAndroid,
-    items: ANDROID_RELEASE.items.map((it) => ({
-      arch: it.arch,
-      ext: labels.androidExtLabel,
-      url: it.url,
-      minOS: labels.androidMinOS,
-      recommended: it.recommended,
-      external: true,
-    })),
+    items: ANDROID_RELEASE.items.map((it) => {
+      const hintKey = ANDROID_HINT_KEYS[it.arch];
+      const hint = hintKey ? labels[hintKey] : undefined;
+      return {
+        arch: it.arch,
+        ext: labels.androidExtLabel,
+        url: it.url,
+        minOS: labels.androidMinOS,
+        recommended: it.recommended,
+        external: true,
+        hint: typeof hint === "string" ? hint : undefined,
+      };
+    }),
   };
 
   return [iosGroup, androidGroup];

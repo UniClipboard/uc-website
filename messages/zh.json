@@ -82,8 +82,8 @@
         "b3Desc": "AGPL-3.0 开源。加密实现你可以自己读、自己验证。"
       },
       "h2": {
-        "eyebrow": "02 — 五端原生 · 开放协议兜底",
-        "title": "五端原生，任意网络。",
+        "eyebrow": "02 — 五端覆盖 · 开放协议兜底",
+        "title": "五端覆盖，任意网络。",
         "lede": "桌面三端基于 Rust + Tauri；iOS Public Beta 在 TestFlight 公测、Android 原生 App 已正式发布。需要时 SyncClipboard 开放协议仍作为备选。同 Wi-Fi 直连、跨网络 NAT 打洞、可一键切到 LAN-only。",
         "b1Title": "桌面三端",
         "b1Desc": "Rust + Tauri 构建，启动快、占用低，集成进系统菜单栏与托盘。",
@@ -140,7 +140,7 @@
         "crossPlatform": {
           "label": "macOS / Windows / Linux / iOS / Android",
           "labelMobile": "跨平台",
-          "uc": "五端原生 App",
+          "uc": "桌面 + 移动 5 端",
           "icloud": "仅 Apple",
           "selfhost": "看实现",
           "manager": "通常单平台"
@@ -317,7 +317,7 @@
   },
   "downloadPage": {
     "seoTitle": "下载 UniClipboard — macOS / Windows / Linux 安装包 + Homebrew & Snap",
-    "seoDescription": "下载最新签名的 UniClipboard：macOS、Windows、Linux 都有原生包。Mac 可用 Homebrew，Linux 可用 Snap，也支持直链安装包。免费、开源、端到端加密。",
+    "seoDescription": "下载最新签名的 UniClipboard：macOS、Windows、Linux 都提供签名安装包。Mac 可用 Homebrew，Linux 可用 Snap，也支持直链安装包。免费、开源、端到端加密。",
     "seoKeywords": "UniClipboard 下载, 安装 UniClipboard, brew install uniclipboard, snap install uniclipboard, UniClipboard mac, UniClipboard windows, UniClipboard linux, AppImage 剪贴板",
     "ogAlt": "下载 UniClipboard for macOS / Windows / Linux",
     "breadcrumbHome": "首页",
@@ -410,7 +410,7 @@
     "sysreq": {
       "eyebrow": "系统要求",
       "title": "运行所需的环境。",
-      "description": "UniClipboard 是个轻量原生应用，空闲时几乎不占 CPU，只在你复制内容时才会和网络交互。",
+      "description": "UniClipboard 是个轻量桌面应用，空闲时几乎不占 CPU，只在你复制内容时才会和网络交互。",
       "colPlatform": "平台",
       "colMinOS": "最低系统",
       "colArch": "支持架构",
@@ -704,7 +704,7 @@
   "compare": {
     "icloud": {
       "seoTitle": "UniClipboard 对比 iCloud 通用剪贴板 — 跨 Mac / Windows / Linux 的开源替代",
-      "seoDescription": "iCloud 通用剪贴板只能在 Apple 设备之间使用，没有历史记录，不支持 Windows 或 Linux。UniClipboard 是它的开源、端到端加密替代方案——三平台原生、可搜索历史、无需账号、无需服务器。",
+      "seoDescription": "iCloud 通用剪贴板只能在 Apple 设备之间使用，没有历史记录，不支持 Windows 或 Linux。UniClipboard 是它的开源、端到端加密替代方案——覆盖 macOS / Windows / Linux 三个桌面平台，可搜索历史、无需账号、无需服务器。",
       "seoKeywords": "iCloud 通用剪贴板 替代, iCloud 通用剪贴板 Windows, iCloud 通用剪贴板 Linux, Mac Windows 剪贴板, 跨平台剪贴板同步, 开源 iCloud 剪贴板, UniClipboard 对比 iCloud, 跨设备复制粘贴, Mac Windows Linux 剪贴板",
       "ogAlt": "UniClipboard 对比 iCloud 通用剪贴板 — 跨 Mac / Windows / Linux 的开源替代",
       "breadcrumbHome": "首页",
@@ -713,13 +713,13 @@
       "eyebrow": "对比 · UniClipboard 对 iCloud 通用剪贴板",
       "title": "UniClipboard 对比 iCloud 通用剪贴板",
       "subtitle": "当你的工作里出现一台 Windows 或 Linux，事情就变了。",
-      "lede": "UniClipboard 是 Apple iCloud 通用剪贴板的开源跨平台替代方案。它在 macOS、Windows、Linux 三个桌面系统上原生运行，端到端加密，支持可搜索的历史记录，配对设备完全不需要任何云账号。iCloud 通用剪贴板则只在 Apple 设备之间同步、没有剪贴板历史、加密实现也不公开。",
+      "lede": "UniClipboard 是 Apple iCloud 通用剪贴板的开源跨平台替代方案。它在 macOS、Windows、Linux 三个桌面系统上都能跑（桌面端基于 Rust + Tauri），端到端加密，支持可搜索的历史记录，配对设备完全不需要任何云账号。iCloud 通用剪贴板则只在 Apple 设备之间同步、没有剪贴板历史、加密实现也不公开。",
       "tldrEyebrow": "TL;DR",
       "tldrTitle": "30 秒看完。",
       "tldrItems": [
         "iCloud 通用剪贴板只能在 Apple 设备（Mac、iPhone、iPad）之间使用。",
         "它没有历史记录——你只能粘贴最近一次复制的内容。",
-        "UniClipboard 在 macOS、Windows、Linux 三个平台上原生运行。",
+        "UniClipboard 覆盖 macOS、Windows、Linux 三个桌面平台。",
         "UniClipboard 会在每台设备上保留一份端到端加密、可全文搜索的剪贴板历史。",
         "两个都是免费的。UniClipboard 采用 AGPL-3.0 开源协议，加密实现可以自己审计。",
         "iCloud 要求 Apple ID。UniClipboard 不需要任何账号——设备之间通过公钥握手配对。"
@@ -729,7 +729,7 @@
       "section1Body": "如果你的日常工作完全在 Apple 生态里——Mac 加 iPhone 加 iPad——而且你从来不需要回头找几小时前复制过的某段内容，那 iCloud 通用剪贴板是一个零配置的稳妥选择。Apple 把它直接做进了系统，只要你的设备登录同一个 Apple ID、连同一个 Wi-Fi、开着蓝牙、彼此距离在 10 米以内，它就能直接工作。",
       "section2Eyebrow": "iCloud 不够用的场景",
       "section2Title": "什么情况下你需要 UniClipboard 取代它",
-      "section2Body": "只要你的工作里出现一台非 Apple 的设备——公司发的 Windows 笔记本、用来跑代码的 Linux 服务器、自己装的台式机——iCloud 通用剪贴板就完全用不了。同样的还有这些场景：你想找到两小时前复制的那段文字、想在家里跨不同 Wi-Fi 房间同步剪贴板、想自己审计加密实现再决定要不要让它接触你的密码。UniClipboard 就是为这些场景而生：开源代码、三平台原生应用、密钥永不离开本机的端到端加密、本地加密历史索引、毫秒级搜索几万条记录。",
+      "section2Body": "只要你的工作里出现一台非 Apple 的设备——公司发的 Windows 笔记本、用来跑代码的 Linux 服务器、自己装的台式机——iCloud 通用剪贴板就完全用不了。同样的还有这些场景：你想找到两小时前复制的那段文字、想在家里跨不同 Wi-Fi 房间同步剪贴板、想自己审计加密实现再决定要不要让它接触你的密码。UniClipboard 就是为这些场景而生：开源代码、三平台桌面应用（Rust + Tauri）、密钥永不离开本机的端到端加密、本地加密历史索引、毫秒级搜索几万条记录。",
       "tableEyebrow": "并排对比",
       "tableTitle": "逐项功能对比。",
       "tableNote": "以下对比基于 2026 年 5 月公开的产品行为整理。",
@@ -741,7 +741,7 @@
       "rows": [
         {
           "feature": "支持平台",
-          "uc": "macOS / Windows / Linux 原生",
+          "uc": "macOS / Windows / Linux 全平台",
           "other": "仅 macOS 与 iOS"
         },
         {
@@ -858,7 +858,7 @@
       "section1Body": "Maccy 是开源圈喜欢的那种工具：体积小、运行快、原生 Swift、该克制的地方很克制。它常驻菜单栏，⌘⇧C 一下就弹出，可以钉常用条目、搜索历史、按内容类型过滤。MIT 协议对想 fork 的人也很友好。如果你只用一台 Mac、不需要跨设备同步，Maccy 真的很难被替代——这种场景下推荐 Maccy 是诚实的回答。",
       "section2Eyebrow": "UniClipboard 补上的那块",
       "section2Title": "UniClipboard 在它之上加了什么",
-      "section2Body": "Maccy 故意不做的那件事，是离开 Mac 本机。一旦你的日常加进来一台 Windows 笔记本、Linux 台式机，甚至第二台 Mac，剪贴板历史就会被切成几段。UniClipboard 就是为这个场景而生：用 XChaCha20-Poly1305 AEAD 端到端加密同步剪贴板内容、在 macOS / Windows / Linux 上都有原生应用、不需要任何云账号、同 Wi-Fi 走 P2P，跨网络自动 NAT 打洞，每台设备各自一份加密历史索引。",
+      "section2Body": "Maccy 故意不做的那件事，是离开 Mac 本机。一旦你的日常加进来一台 Windows 笔记本、Linux 台式机，甚至第二台 Mac，剪贴板历史就会被切成几段。UniClipboard 就是为这个场景而生：用 XChaCha20-Poly1305 AEAD 端到端加密同步剪贴板内容、在 macOS / Windows / Linux 上都有桌面应用、不需要任何云账号、同 Wi-Fi 走 P2P，跨网络自动 NAT 打洞，每台设备各自一份加密历史索引。",
       "tableEyebrow": "并排对比",
       "tableTitle": "Maccy 和 UniClipboard 的差别。",
       "tableNote": "对比基于 2026 年 5 月公开的产品行为整理。Maccy 相关事实参照 github.com/p0deje/Maccy 仓库。",
@@ -870,7 +870,7 @@
       "rows": [
         {
           "feature": "支持平台",
-          "uc": "macOS / Windows / Linux 原生",
+          "uc": "macOS / Windows / Linux 全平台",
           "other": "仅 macOS"
         },
         {

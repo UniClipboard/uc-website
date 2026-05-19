@@ -1,9 +1,18 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 import { requireAdmin } from "@/lib/admin-auth";
-import { listIosBetaSignups } from "@/lib/ios-beta-signups";
+import {
+  listIosBetaSignups,
+  setIosBetaSignupsInvited,
+} from "@/lib/ios-beta-signups";
 
 export const runtime = "nodejs";
+
+const bulkSchema = z.object({
+  ids: z.array(z.string().uuid()).min(1).max(500),
+  invited: z.boolean(),
+});
 
 function csvEscape(value: string): string {
   if (/[",\n\r]/.test(value)) {
@@ -65,4 +74,30 @@ export async function GET(req: NextRequest) {
       createdAt: row.createdAt.toISOString(),
     })),
   });
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    await requireAdmin();
+  } catch (e) {
+    if (e instanceof Response) return e;
+    throw e;
+  }
+
+  let parsed;
+  try {
+    const body = await req.json();
+    parsed = bulkSchema.parse(body);
+  } catch (e) {
+    return NextResponse.json(
+      {
+        error: "Invalid payload",
+        details: e instanceof Error ? e.message : String(e),
+      },
+      { status: 400 },
+    );
+  }
+
+  const updated = await setIosBetaSignupsInvited(parsed.ids, parsed.invited);
+  return NextResponse.json({ updated: updated.length });
 }

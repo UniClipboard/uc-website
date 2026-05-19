@@ -1,4 +1,4 @@
-import { desc, sql } from "drizzle-orm";
+import { desc, eq, inArray, sql } from "drizzle-orm";
 
 import { db } from "@/db/client";
 import { iosBetaSignups } from "@/db/schema";
@@ -53,4 +53,28 @@ export async function countIosBetaSignups(): Promise<number> {
     .select({ count: sql<number>`count(*)::int` })
     .from(iosBetaSignups);
   return row?.count ?? 0;
+}
+
+export async function setIosBetaSignupInvited(
+  id: string,
+  invited: boolean,
+): Promise<IosBetaSignupRow | null> {
+  const [row] = await db
+    .update(iosBetaSignups)
+    .set({ invitedAt: invited ? new Date() : null })
+    .where(eq(iosBetaSignups.id, id))
+    .returning();
+  return row ?? null;
+}
+
+export async function setIosBetaSignupsInvited(
+  ids: string[],
+  invited: boolean,
+): Promise<IosBetaSignupRow[]> {
+  if (ids.length === 0) return [];
+  return db
+    .update(iosBetaSignups)
+    .set({ invitedAt: invited ? new Date() : null })
+    .where(inArray(iosBetaSignups.id, ids))
+    .returning();
 }

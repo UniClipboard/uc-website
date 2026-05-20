@@ -12,7 +12,7 @@ import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { Link } from "@/i18n/navigation";
-import { buildMobileGroups } from "@/lib/mobile-releases";
+import { buildMobileGroups, IOS_TESTFLIGHT_URL } from "@/lib/mobile-releases";
 import {
   FALLBACK_RELEASE_URL,
   fetchStableRelease,
@@ -504,19 +504,16 @@ export default async function DownloadPage({ params }: LocaleParam) {
                   fallback: t("direct.fallback"),
                   versionPrefix: t("hero.versionLabel"),
                 }}
-                iosSignup={{
+                iosTestFlight={{
                   labels: {
-                    description: t("direct.iosSignup.description"),
-                    emailPlaceholder: t("direct.iosSignup.emailPlaceholder"),
-                    submit: t("direct.iosSignup.submit"),
-                    submitting: t("direct.iosSignup.submitting"),
-                    successTitle: t("direct.iosSignup.successTitle"),
-                    successDetail: t("direct.iosSignup.successDetail"),
-                    errorInvalid: t("direct.iosSignup.errorInvalid"),
-                    errorServer: t("direct.iosSignup.errorServer"),
-                    privacy: t("direct.iosSignup.privacy"),
+                    description: t("direct.iosTestFlight.description"),
+                    joinCta: t("direct.iosTestFlight.joinCta"),
+                    joinHint: t("direct.iosTestFlight.joinHint"),
+                    shareLabel: t("direct.iosTestFlight.shareLabel"),
+                    copy: t("direct.iosTestFlight.copy"),
+                    copied: t("direct.iosTestFlight.copied"),
                   },
-                  locale,
+                  url: IOS_TESTFLIGHT_URL,
                 }}
               />
             </AnimateIn>

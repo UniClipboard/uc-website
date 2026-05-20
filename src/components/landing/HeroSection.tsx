@@ -1,7 +1,10 @@
 import { getTranslations } from "next-intl/server";
 
 import { isChinaIp } from "@/lib/geo/country";
-import { getAndroidPrimaryDownloadUrl } from "@/lib/mobile-releases";
+import {
+  getAndroidPrimaryDownloadUrl,
+  IOS_TESTFLIGHT_URL,
+} from "@/lib/mobile-releases";
 
 import { HeroDownloadCta } from "./HeroDownloadCta";
 import { HeroTrustBar } from "./HeroTrustBar";
@@ -141,7 +144,7 @@ export async function HeroSection({ stars }: Props) {
               defaultLabel={t("mobileBadge")}
               defaultHref="#faq-mobile"
               iosLabel={t("mobileBadgeIOS")}
-              iosHref="/download"
+              iosHref={IOS_TESTFLIGHT_URL}
               androidLabel={t("mobileBadgeAndroid")}
               androidUrl={getAndroidPrimaryDownloadUrl()}
             />

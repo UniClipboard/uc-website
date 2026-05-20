@@ -46,6 +46,7 @@ export function HeroMobileCta({
   if (target === "ios") {
     label = iosLabel;
     href = iosHref;
+    external = !iosHref.startsWith("/") && !iosHref.startsWith("#");
   } else if (target === "android") {
     label = androidLabel;
     href = androidUrl;

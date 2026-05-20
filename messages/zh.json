@@ -47,7 +47,7 @@
       "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone 与 Android 之间实时同步——无需账号，也不经过任何第三方服务器。",
       "descriptionMobile": "实时同步你的剪贴板到其他设备。",
       "mobileBadge": "了解手机如何接入 →",
-      "mobileBadgeIOS": "申请加入 iOS 内测 →",
+      "mobileBadgeIOS": "在 TestFlight 加入 iOS 公测 →",
       "mobileBadgeAndroid": "下载 Android",
       "secondaryCta": "技术白皮书",
       "starsSuffix": "on GitHub",
@@ -249,18 +249,7 @@
       "platformAndroid": "Android",
       "iosBetaBadge": "Public Beta · TestFlight",
       "androidMinOS": "Android 8+",
-      "androidExtLabel": ".apk",
-      "iosSignup": {
-        "description": "iOS 公测在 TestFlight，我手动控制邀请名额。留个邮箱，我会尽快把你加进分组。",
-        "emailPlaceholder": "your@email.com",
-        "submit": "申请加入",
-        "submitting": "提交中…",
-        "successTitle": "已收到，等待邀请",
-        "successDetail": "我会通过 __EMAIL__ 发 TestFlight 邀请，请留意苹果的邮件。",
-        "errorInvalid": "邮箱格式不正确",
-        "errorServer": "提交失败，请稍后再试",
-        "privacy": "邮箱仅用于发 TestFlight 邀请，不会用于其他用途"
-      }
+      "androidExtLabel": ".apk"
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -376,22 +365,19 @@
       "blockMacDescription": "已签名并经苹果公证，支持 macOS 12 Monterey 及以上。",
       "blockWinDescription": "Authenticode 签名安装包，支持 Windows 10 / 11。",
       "blockLinuxDescription": "自动识别 glibc 与 CPU 架构，安装到 ~/.local。",
-      "blockIosDescription": "iOS App 处于 TestFlight Public Beta，在下方留邮箱申请加入。",
+      "blockIosDescription": "iOS App 处于 TestFlight Public Beta，用 iPhone 或 iPad 打开下方邀请链接即可加入。",
       "blockAndroidDescription": "签名 APK，可直接在任意现代安卓手机上侧载安装。",
       "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
       "linuxScriptSourceLabel": "查看脚本源码",
       "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
       "detectedBadge": "已识别",
-      "iosSignup": {
-        "description": "iOS 公测在 TestFlight，我手动控制邀请名额。留个邮箱，我会尽快把你加进分组。",
-        "emailPlaceholder": "your@email.com",
-        "submit": "申请加入",
-        "submitting": "提交中…",
-        "successTitle": "已收到，等待邀请",
-        "successDetail": "我会通过 __EMAIL__ 发 TestFlight 邀请，请留意苹果的邮件。",
-        "errorInvalid": "邮箱格式不正确",
-        "errorServer": "提交失败，请稍后再试",
-        "privacy": "邮箱仅用于发 TestFlight 邀请，不会用于其他用途"
+      "iosTestFlight": {
+        "description": "iOS 公测已在 TestFlight 开放，无需申请。用 iPhone 或 iPad 打开下方邀请链接，TestFlight 会自动安装最新构建。",
+        "joinCta": "在 TestFlight 中加入公测",
+        "joinHint": "如果没装过 TestFlight，请先在 App Store 安装苹果官方的 TestFlight。",
+        "shareLabel": "在电脑上看？复制链接发到手机",
+        "copy": "复制链接",
+        "copied": "已复制"
       }
     },
     "pkg": {

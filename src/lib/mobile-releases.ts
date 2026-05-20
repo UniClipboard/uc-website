@@ -1,6 +1,7 @@
-// iOS 公测通过邮箱申请，由维护者手动邀请进 TestFlight。
-// 用户在下载区域 iOS 标签里提交邮箱，POST /api/v1/ios-beta-signups。
-// 管理后台：/admin/ios-beta
+// iOS 公测走公开的 TestFlight 邀请链接，用户直接在 iPhone / iPad 上打开即可加入。
+// 历史邮箱申请数据仍由 /admin/ios-beta 管理。
+
+export const IOS_TESTFLIGHT_URL = "https://testflight.apple.com/join/nyNQ8dQe";
 
 export type MobileReleaseChannel = "beta" | "stable";
 

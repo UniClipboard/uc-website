@@ -53,7 +53,7 @@
       "description": "UniClipboard is the open-source, end-to-end encrypted clipboard that syncs text, images, and files across Mac, Windows, Linux, iPhone, and Android. No cloud account, no server in the middle.",
       "descriptionMobile": "One clipboard across all your devices. Open source, end-to-end encrypted, no account.",
       "mobileBadge": "How does it work on my phone? →",
-      "mobileBadgeIOS": "Apply for the iOS Beta →",
+      "mobileBadgeIOS": "Join the iOS Beta on TestFlight →",
       "mobileBadgeAndroid": "Download Android",
       "secondaryCta": "Technical whitepaper",
       "starsSuffix": "on GitHub",
@@ -255,18 +255,7 @@
       "platformAndroid": "Android",
       "iosBetaBadge": "Public Beta · TestFlight",
       "androidMinOS": "Android 8+",
-      "androidExtLabel": ".apk",
-      "iosSignup": {
-        "description": "The iOS beta lives on TestFlight, and I add testers manually. Drop your email and I'll get you into the group.",
-        "emailPlaceholder": "your@email.com",
-        "submit": "Apply",
-        "submitting": "Submitting…",
-        "successTitle": "Got it — invite pending",
-        "successDetail": "I'll send a TestFlight invite to __EMAIL__. Watch for Apple's email.",
-        "errorInvalid": "That doesn't look like a valid email.",
-        "errorServer": "Submission failed. Please try again shortly.",
-        "privacy": "Only used to send the TestFlight invite. Nothing else."
-      }
+      "androidExtLabel": ".apk"
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -382,22 +371,19 @@
       "blockMacDescription": "Signed and notarized for macOS 12 Monterey and later.",
       "blockWinDescription": "Authenticode-signed installer for Windows 10 and 11.",
       "blockLinuxDescription": "Auto-detects glibc and architecture, installs to ~/.local.",
-      "blockIosDescription": "iOS app is in Public Beta on TestFlight — request access below.",
+      "blockIosDescription": "iOS app is in Public Beta on TestFlight — open the invite link below on your iPhone or iPad.",
       "blockAndroidDescription": "Signed APK. Sideload directly on any modern Android phone.",
       "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
       "linuxScriptSourceLabel": "Read the script",
       "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
       "detectedBadge": "Detected",
-      "iosSignup": {
-        "description": "The iOS beta lives on TestFlight, and I add testers manually. Drop your email and I'll get you into the group.",
-        "emailPlaceholder": "your@email.com",
-        "submit": "Apply",
-        "submitting": "Submitting…",
-        "successTitle": "Got it — invite pending",
-        "successDetail": "I'll send a TestFlight invite to __EMAIL__. Watch for Apple's email.",
-        "errorInvalid": "That doesn't look like a valid email.",
-        "errorServer": "Submission failed. Please try again shortly.",
-        "privacy": "Only used to send the TestFlight invite. Nothing else."
+      "iosTestFlight": {
+        "description": "The iOS beta is open on TestFlight — no application needed. Open the invite link on your iPhone or iPad and TestFlight will install the latest build.",
+        "joinCta": "Join the TestFlight beta",
+        "joinHint": "Install Apple's TestFlight app from the App Store first if you don't have it.",
+        "shareLabel": "On a desktop? Copy the link to your phone",
+        "copy": "Copy link",
+        "copied": "Copied"
       }
     },
     "pkg": {

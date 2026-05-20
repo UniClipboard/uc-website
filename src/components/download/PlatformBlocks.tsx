@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 
 import { CopyableCommand } from "@/components/download/CopyableCommand";
 import {
-  IosBetaSignupForm,
-  type IosBetaSignupLabels,
-} from "@/components/landing/IosBetaSignupForm";
+  IosTestFlightCta,
+  type IosTestFlightLabels,
+} from "@/components/landing/IosTestFlightCta";
 import { PlatformGlyph as Glyph } from "@/components/landing/PlatformGlyphs";
 
 export type PlatformBlockItem = {
@@ -46,9 +46,9 @@ export type PlatformBlocksProps = {
   labels: PlatformBlocksLabels;
   version: string;
   fallbackUrl: string;
-  iosSignup?: {
-    labels: IosBetaSignupLabels;
-    locale?: string;
+  iosTestFlight?: {
+    labels: IosTestFlightLabels;
+    url: string;
   };
 };
 
@@ -72,7 +72,7 @@ export function PlatformBlocks({
   labels,
   version,
   fallbackUrl,
-  iosSignup,
+  iosTestFlight,
 }: PlatformBlocksProps) {
   const [active, setActive] = useState<PlatformBlock["os"]>(
     blocks[0]?.os ?? "mac",
@@ -134,7 +134,7 @@ export function PlatformBlocks({
             isDetected={detected === activeBlock.os}
             version={version}
             fallbackUrl={fallbackUrl}
-            iosSignup={iosSignup}
+            iosTestFlight={iosTestFlight}
           />
         </div>
       </div>
@@ -222,14 +222,14 @@ function Panel({
   isDetected,
   version,
   fallbackUrl,
-  iosSignup,
+  iosTestFlight,
 }: {
   block: PlatformBlock;
   labels: PlatformBlocksLabels;
   isDetected: boolean;
   version: string;
   fallbackUrl: string;
-  iosSignup?: PlatformBlocksProps["iosSignup"];
+  iosTestFlight?: PlatformBlocksProps["iosTestFlight"];
 }) {
   return (
     <div className="flex h-full flex-col p-7 md:p-12">
@@ -306,10 +306,10 @@ function Panel({
       </header>
 
       <div className="flex-1">
-        {block.os === "ios" && iosSignup ? (
-          <IosBetaSignupForm
-            labels={iosSignup.labels}
-            locale={iosSignup.locale}
+        {block.os === "ios" && iosTestFlight ? (
+          <IosTestFlightCta
+            labels={iosTestFlight.labels}
+            url={iosTestFlight.url}
           />
         ) : block.os === "linux" ? (
           <LinuxBody block={block} labels={labels} />

@@ -123,7 +123,13 @@
         "f9Title": "Tunable history retention",
         "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time.",
         "f10Title": "iOS & Android native apps",
-        "f10Desc": "iOS Public Beta is on TestFlight via public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol (iPhone Shortcuts, Android clients) stays as a fallback for anyone who'd rather not install a native app."
+        "f10Desc": "iOS Public Beta is on TestFlight via public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol (iPhone Shortcuts, Android clients) stays as a fallback for anyone who'd rather not install a native app.",
+        "f11Title": "Formatting stays intact",
+        "f11Desc": "Rich text and HTML come back in their original format instead of being flattened to plain text — and it stays faithful across platforms: Windows rich text, non-English URLs on Linux, and UTF-8 all arrive intact.",
+        "f12Title": "Visible sync status",
+        "f12Desc": "Every entry shows which device it came from and whether it reached each paired device — and anything that didn't make it can be re-sent in one tap.",
+        "f13Title": "Make it yours",
+        "f13Desc": "Configure light and dark themes independently, customize accent, background, and foreground colors, or just follow the system."
       }
     },
     "comparison": {

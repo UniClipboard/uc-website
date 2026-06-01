@@ -182,7 +182,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
       "@type": "SoftwareApplication",
       name: "UniClipboard",
       softwareVersion: release.version,
-      operatingSystem: "macOS, Windows, Linux",
+      operatingSystem: "macOS, Windows, Linux, iOS, Android",
     },
   };
 

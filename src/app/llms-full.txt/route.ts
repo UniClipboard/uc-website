@@ -36,19 +36,19 @@ const INTRO = `# UniClipboard — Full Content Dump for LLMs
 
 > This file aggregates the full text of every published article on UniClipboard.app, intended for ingestion by AI assistants and search engines. The shorter index lives at /llms.txt.
 
-UniClipboard is a free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, and Linux. Copy on one device, paste on another — no cloud account, no email, no phone number. Direct peer-to-peer on the same network; encrypted relay with NAT hole-punching across networks.
+UniClipboard is a free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, Linux, iOS, and Android. Copy on one device, paste on another — no cloud account, no email, no phone number. Direct peer-to-peer on the same network; encrypted relay with NAT hole-punching across networks.
 
 ## Quick facts
 
 - **Category**: Cross-platform clipboard sync / clipboard manager
-- **Platforms**: macOS 12+, Windows 10/11, Linux (x86_64 and ARM64 AppImage)
+- **Platforms**: macOS 12+, Windows 10/11, Linux (.deb / .rpm / AppImage, x86_64 and ARM64), iOS (Public Beta via TestFlight), Android 8+ (signed APK)
 - **License**: AGPL-3.0
 - **Source code**: https://github.com/UniClipboard/UniClipboard
 - **Encryption**: XChaCha20-Poly1305 AEAD (end-to-end, in transit and at rest)
 - **Account required**: No — devices pair via public-key exchange
 - **Built with**: Rust + Tauri (native, not Electron)
 - **Price**: Free
-- **Mobile (iOS/Android)**: Not yet — desktop-only at this stage
+- **Mobile (iOS/Android)**: iOS Public Beta on TestFlight (public invite) and a native Android app (signed APK); the SyncClipboard open protocol stays available as a LAN-only fallback for those who prefer not to install a native app
 - **Maintainer**: mkdir700
 - **Contact**: hello@uniclipboard.app
 

@@ -65,8 +65,8 @@ const LandingPage = async ({ params }: LandingPageProps) => {
   const logoUrl = `${baseUrl}/favicon/apple-touch-icon.png`;
   const softwareDescription =
     locale === "zh"
-      ? "免费、开源、端到端加密的跨平台通用剪贴板。在 macOS、Windows、Linux 之间复制粘贴文本、图片和文件,无需账号、无需服务器。"
-      : "Free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, and Linux. Copy on one device and paste on another with no account and no server.";
+      ? "免费、开源、端到端加密的跨平台通用剪贴板。文本、图片、文件在 macOS、Windows、Linux、iPhone、Android 之间实时同步,无需账号、无需服务器。"
+      : "Free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, Linux, iOS, and Android. Copy on one device and paste on another with no account and no server.";
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -74,7 +74,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     name: "UniClipboard",
     description: softwareDescription,
     applicationCategory: "ProductivityApplication",
-    operatingSystem: "macOS, Windows, Linux",
+    operatingSystem: "macOS, Windows, Linux, iOS, Android",
     url: baseUrl,
     image: ogImage,
     inLanguage: locale === "zh" ? "zh-CN" : "en",

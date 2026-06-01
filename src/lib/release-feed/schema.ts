@@ -67,6 +67,8 @@ function normalizeUpstreamPlatformLabel(platform: string): string {
       return "macOS x86_64";
     case "windows-x86_64":
       return "Windows x86_64";
+    case "windows-aarch64":
+      return "Windows ARM64";
     case "linux-x86_64":
       return "Linux x86_64";
     case "linux-aarch64":

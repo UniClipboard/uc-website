@@ -1,12 +1,15 @@
 import type { LucideIcon } from "lucide-react";
 import {
+  CheckCheck,
   Command,
   FileText,
   Globe,
   Lock,
   Network,
+  Palette,
   RefreshCw,
   Smartphone,
+  Type,
   Zap,
 } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -38,6 +41,9 @@ const moreItems: More[] = [
   { icon: FileText, key: "f6" },
   { icon: Network, key: "f5" },
   { icon: Zap, key: "f7" },
+  { icon: Type, key: "f11" },
+  { icon: CheckCheck, key: "f12" },
+  { icon: Palette, key: "f13" },
 ];
 
 function HeroBlock({

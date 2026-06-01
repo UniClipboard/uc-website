@@ -117,7 +117,13 @@
         "f9Title": "可控的历史保留",
         "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。",
         "f10Title": "iOS & Android 原生 App",
-        "f10Desc": "iOS 通过 TestFlight 公开邀请加入 Public Beta;Android 提供签名 APK 直链下载。SyncClipboard 开放协议(iPhone「快捷指令」+ Android 客户端)仍作为不想装原生 App 用户的备选。"
+        "f10Desc": "iOS 通过 TestFlight 公开邀请加入 Public Beta;Android 提供签名 APK 直链下载。SyncClipboard 开放协议(iPhone「快捷指令」+ Android 客户端)仍作为不想装原生 App 用户的备选。",
+        "f11Title": "格式不降级",
+        "f11Desc": "富文本和 HTML 按原格式还原，不会被压成纯文本。跨平台同样保真——Windows 富文本、Linux 非英文 URL、UTF-8 文本都原样送达。",
+        "f12Title": "同步状态一目了然",
+        "f12Desc": "每条记录都显示来源设备，以及在各台配对设备上的同步状态;未送达的内容可以一键重发。",
+        "f13Title": "可定制的外观",
+        "f13Desc": "浅色与深色主题可分别预设，强调色、背景色、前景色都能自定义，也可以直接跟随系统。"
       }
     },
     "comparison": {

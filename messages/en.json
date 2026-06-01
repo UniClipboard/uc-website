@@ -290,6 +290,10 @@
       "item7": {
         "q": "How is this different from KDE Connect or Mouse Without Borders?",
         "a": "KDE Connect and Mouse Without Borders are great, but they're KVM-style tools — they share your mouse, keyboard, files, and notifications too, and they typically need devices on the same LAN (or Tailscale on top). UniClipboard is clipboard-only, works across the public internet without a VPN, and ships with searchable history. If you just want copy-here-paste-there with nothing else moving, this is for you."
+      },
+      "item8": {
+        "q": "Can I self-host it — run my own server or relay?",
+        "a": "You don't have to — by default UniClipboard is peer-to-peer and only falls back to an encrypted relay when a direct connection fails, so there's nothing to operate. But if you want more control, the advanced paths are there: point it at your own relay node (with a built-in connectivity test), run UniClipboard as a headless server node (it ships with Docker and Caddy configs for deploying to a VPS), and expose mobile sync over a full public URL via your own server or a secure proxy for cross-network phone access."
       }
     },
     "finalCta": {

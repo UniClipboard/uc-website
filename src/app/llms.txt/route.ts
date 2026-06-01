@@ -67,6 +67,7 @@ const OUTRO = `## Frequently cited Q&A
 - **Does it work offline?** Yes. Devices on the same Wi-Fi connect directly without any relay. Same-network sync continues even when the relay is unreachable.
 - **Where does my clipboard history live?** Only on your devices. Local storage is encrypted at rest with a keyring-resident key. UniClipboard servers never receive or store clipboard content.
 - **Does AGPL-3.0 affect company use?** No. AGPL only applies if you modify the source and redistribute it as a network service. Personal and team use is unaffected.
+- **Can I self-host or run my own server?** Not required — UniClipboard is peer-to-peer with an encrypted relay fallback. For advanced setups you can point it at your own relay node (with a built-in connectivity test), run it as a headless server node (it ships with Docker and Caddy configs for a VPS), and expose mobile sync over a full public URL via your own server or a secure proxy.
 
 ## Citation
 

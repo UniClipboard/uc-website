@@ -280,6 +280,9 @@ describe("release feed host filtering", () => {
         "windows-x86_64": {
           url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
         },
+        "windows-aarch64": {
+          url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_arm64-setup.exe",
+        },
         "darwin-aarch64": {
           url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_aarch64-apple-darwin.app.tar.gz",
         },
@@ -311,6 +314,10 @@ describe("release feed host filtering", () => {
       {
         platform: "Windows x86_64",
         url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_x64-setup.exe",
+      },
+      {
+        platform: "Windows ARM64",
+        url: "https://release.uniclipboard.app/artifacts/v0.2.3/UniClipboard_0.2.3_arm64-setup.exe",
       },
       {
         platform: "macOS ARM64",

@@ -8,7 +8,7 @@ export async function FaqSection() {
   const t = await getTranslations("landing.faq");
   const locale = await getLocale();
   const docsHref = getDocsHref(locale);
-  const items: FaqItem[] = [1, 2, 3, 4, 5, 6, 7].map((i) => {
+  const items: FaqItem[] = [1, 2, 3, 4, 5, 6, 7, 8].map((i) => {
     const item: FaqItem = {
       q: t(`item${i}.q`),
       a: t(`item${i}.a`),

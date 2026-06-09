@@ -26,7 +26,7 @@ const rows: RowConfig[] = [
       uc: "yes",
       icloud: "partial",
       selfhost: "partial",
-      manager: "neutral",
+      manager: "no",
     },
   },
   {
@@ -48,7 +48,7 @@ const rows: RowConfig[] = [
       uc: "yes",
       icloud: "no",
       selfhost: "partial",
-      manager: "yes",
+      manager: "no",
     },
   },
   {
@@ -57,7 +57,7 @@ const rows: RowConfig[] = [
       uc: "yes",
       icloud: "partial",
       selfhost: "partial",
-      manager: "neutral",
+      manager: "partial",
     },
   },
   {

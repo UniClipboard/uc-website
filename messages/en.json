@@ -73,11 +73,11 @@
     },
     "features": {
       "eyebrow": "Features",
-      "title": "Feels like the OS clipboard — but cross-platform, searchable, auditable.",
+      "title": "Your system clipboard — now cross-platform, searchable, and end-to-end encrypted.",
       "moreEyebrow": "More",
       "moreTitle": "Other things you might want.",
       "h1": {
-        "eyebrow": "01 — Privacy first",
+        "eyebrow": "02 — Privacy first",
         "title": "The relay only sees ciphertext.",
         "lede": "Content is encrypted at the source and decrypted only on your devices. Keys live in the system keyring and never leave your machine. Open source, auditable.",
         "b1Title": "End-to-end encrypted",
@@ -88,20 +88,20 @@
         "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself."
       },
       "h2": {
-        "eyebrow": "02 — Five-platform coverage · open-protocol fallback",
-        "title": "Five platforms. Any network.",
-        "lede": "Three desktops on Rust + Tauri. iOS in TestFlight Public Beta, Android native app shipped. The SyncClipboard open protocol stays as a fallback for anyone who'd rather not install a native app. Same Wi-Fi P2P, NAT hole-punching across networks, LAN-only when you need it.",
+        "eyebrow": "01 — Five platforms",
+        "title": "Copy once, paste on all five.",
+        "lede": "Three desktops on Rust + Tauri. iOS in TestFlight Public Beta, Android native app shipped. Same-Wi-Fi P2P, NAT hole-punching across networks, LAN-only when you need it.",
         "b1Title": "Three desktops",
         "b1Desc": "Built on Rust + Tauri — fast launch, low footprint, menu-bar and tray integrated.",
         "b2Title": "iOS & Android native apps",
-        "b2Desc": "iOS Public Beta joins via TestFlight's public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol still works for anyone who'd rather not install a native app.",
+        "b2Desc": "iOS Public Beta via TestFlight's open invite; Android ships as a signed APK direct download. Rather not install a native app? The SyncClipboard open protocol still works.",
         "b3Title": "Direct · hole-punch · LAN-only",
         "b3Desc": "P2P on the same Wi-Fi, NAT hole-punching across networks, encrypted relay as fallback. Flip LAN-only Mode to drop the relay entirely."
       },
       "h3": {
         "eyebrow": "03 — Power-user friendly",
         "title": "Quick Panel, full-text search, CLI — all included.",
-        "lede": "A keyboard-shortcut overlay to preview history; millisecond search across tens of thousands of items; a headless CLI for terminals, SSH, and tmux. Deeper than its surface lets on.",
+        "lede": "A shortcut overlay to preview history, millisecond search across tens of thousands of items, a headless CLI for terminals, SSH, and tmux. Deeper than its surface lets on.",
         "b1Title": "Quick Panel",
         "b1Desc": "Shortcut overlay with inline previews for text, links, images, code, and files.",
         "b2Title": "Local full-text search",
@@ -117,17 +117,17 @@
         "f6Title": "Text, images & files",
         "f6Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
         "f5Title": "Per-device sync gates",
-        "f5Desc": "Choose, per paired device, whether it sends, receives, and which content types — text, images, files — are allowed through. Lost a device? Revoke it from any paired one.",
+        "f5Desc": "Set send/receive direction and allowed content types — text, images, files — per paired device. Lost a device? Revoke it from any other.",
         "f7Title": "Real-time sync",
         "f7Desc": "Copy and it pushes — no manual trigger, no confirmation. Clipboard stays in sync across every device, automatically.",
         "f9Title": "Tunable history retention",
         "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time.",
         "f10Title": "iOS & Android native apps",
-        "f10Desc": "iOS Public Beta is on TestFlight via public invite; Android ships as a signed APK direct download. The SyncClipboard open protocol (iPhone Shortcuts, Android clients) stays as a fallback for anyone who'd rather not install a native app.",
+        "f10Desc": "iOS Public Beta on TestFlight (open invite); Android ships as a signed APK direct download. Rather not install a native app? The SyncClipboard open protocol (iPhone Shortcuts, Android clients) still works.",
         "f11Title": "Formatting stays intact",
-        "f11Desc": "Rich text and HTML come back in their original format instead of being flattened to plain text — and it stays faithful across platforms: Windows rich text, non-English URLs on Linux, and UTF-8 all arrive intact.",
+        "f11Desc": "Rich text and HTML come back in their original format, not flattened to plain text — and stay faithful across platforms: Windows rich text, non-English URLs on Linux, and UTF-8 all arrive intact.",
         "f12Title": "Visible sync status",
-        "f12Desc": "Every entry shows which device it came from and whether it reached each paired device — and anything that didn't make it can be re-sent in one tap.",
+        "f12Desc": "Every entry shows its source device and sync status on each peer — anything that didn't arrive re-sends in one tap.",
         "f13Title": "Make it yours",
         "f13Desc": "Configure light and dark themes independently, customize accent, background, and foreground colors, or just follow the system."
       }
@@ -140,13 +140,13 @@
         "uc": "UniClipboard",
         "icloud": "iCloud Universal",
         "selfhost": "Self-hosted (e.g. ClipCascade)",
-        "manager": "Local clipboard manager (Pastebot / Maccy)"
+        "manager": "Paste (paid · Apple-only)"
       },
       "toolsShort": {
         "uc": "UC",
         "icloud": "iCloud",
         "selfhost": "Self-host",
-        "manager": "Manager"
+        "manager": "Paste"
       },
       "rows": {
         "crossPlatform": {
@@ -155,7 +155,7 @@
           "uc": "Desktop + mobile, all 5",
           "icloud": "Apple only",
           "selfhost": "Depends",
-          "manager": "Single platform"
+          "manager": "Apple only"
         },
         "e2e": {
           "label": "E2E encrypted + auditable",
@@ -163,7 +163,7 @@
           "uc": "Open source",
           "icloud": "Closed-source E2E",
           "selfhost": "Depends",
-          "manager": "Local only"
+          "manager": "Closed-source"
         },
         "infra": {
           "label": "No server to run",
@@ -171,7 +171,7 @@
           "uc": "Out of the box",
           "icloud": "Out of the box",
           "selfhost": "Self-hosted",
-          "manager": "No server"
+          "manager": "Out of the box"
         },
         "history": {
           "label": "Searchable history",
@@ -179,7 +179,7 @@
           "uc": "Encrypted local index",
           "icloud": "No history",
           "selfhost": "Depends",
-          "manager": "Local history"
+          "manager": "Searchable"
         },
         "noAccount": {
           "label": "No account / email",
@@ -187,7 +187,7 @@
           "uc": "Public-key pairing",
           "icloud": "Apple ID required",
           "selfhost": "Depends",
-          "manager": "No account"
+          "manager": "Apple ID required"
         },
         "transport": {
           "label": "Direct on Wi-Fi, relay across networks, optional LAN-only",
@@ -195,7 +195,7 @@
           "uc": "P2P + relay · LAN-only switch",
           "icloud": "Proximity only",
           "selfhost": "Server-only typically",
-          "manager": "Local only"
+          "manager": "iCloud cloud"
         },
         "price": {
           "label": "Price",
@@ -203,7 +203,7 @@
           "uc": "Free · open source",
           "icloud": "Free",
           "selfhost": "Free + server cost",
-          "manager": "$30+"
+          "manager": "$30/yr"
         }
       },
       "footnote": "Comparison based on public information as of 2026-05. Spotted something off? Open an issue on GitHub."
@@ -221,7 +221,7 @@
     "download": {
       "eyebrow": "Download the latest release",
       "title": "Pick your platform.",
-      "description": "We've detected your platform. Pick a different one below if you need to. Each installer comes with the OS requirement so you know before you download.",
+      "description": "We've detected your platform — pick a different one below if needed. Each installer lists its OS requirement up front.",
       "descriptionMobile": "iPhone goes through TestFlight, Android installs the APK directly, and desktop has signed installers for Mac, Windows, and Linux.",
       "mobileAndroidAllArchs": "See all architectures",
       "mobileDesktopPlatforms": "Mac · Windows · Linux",
@@ -270,7 +270,7 @@
       "docsHelpCta": "Read the docs →",
       "item1": {
         "q": "Why not just iCloud Universal Clipboard?",
-        "a": "If you only use Apple devices, don't need history, and fully trust Apple's closed-source E2E encryption — iCloud is fine. The moment you add a Windows or Linux machine, want a searchable history, or want to verify the encryption yourself, you need something else."
+        "a": "If you only use Apple devices, don't need history, and fully trust Apple's closed-source E2E encryption, iCloud is fine. The moment you add a Windows or Linux machine, want searchable history, or want to verify the encryption yourself, you need something else."
       },
       "item2": {
         "q": "Why not a self-hosted clipboard sync (e.g. ClipCascade)?",
@@ -286,7 +286,7 @@
       },
       "item5": {
         "q": "Do you support mobile (iOS / Android)?",
-        "a": "Yes — there are native apps for both. iOS is in Public Beta on TestFlight (open invite), and Android ships as a signed APK direct download — both available on the download page. The original SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) open-protocol path is still supported: iPhone via the built-in Shortcuts app with a short config from your desktop, Android via any of SyncClipboard's clients — no cloud account, content stays on LAN. If you'd rather not install a native app, that path still works.",
+        "a": "Yes — native apps for both. iOS is in Public Beta on TestFlight (open invite), Android ships as a signed APK direct download — both on the download page. Rather not install a native app? The SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) open-protocol path is still supported: iPhone via built-in Shortcuts with a short config from your desktop, Android via any SyncClipboard client — no cloud account, content stays on LAN.",
         "downloadCta": "Get the iOS beta and Android APK on the download page →"
       },
       "item6": {
@@ -299,7 +299,7 @@
       },
       "item8": {
         "q": "Can I self-host it — run my own server or relay?",
-        "a": "You don't have to — by default UniClipboard is peer-to-peer and only falls back to an encrypted relay when a direct connection fails, so there's nothing to operate. But if you want more control, the advanced paths are there: point it at your own relay node (with a built-in connectivity test), run UniClipboard as a headless server node (it ships with Docker and Caddy configs for deploying to a VPS), and expose mobile sync over a full public URL via your own server or a secure proxy for cross-network phone access."
+        "a": "You don't have to — UniClipboard is peer-to-peer by default and only falls back to an encrypted relay when a direct connection fails, so there's nothing to operate. But the advanced paths are there if you want control: point it at your own relay node (with a built-in connectivity test), run UniClipboard as a headless server node (ships with Docker and Caddy configs for a VPS), and expose mobile sync over a full public URL via your own server or a secure proxy."
       }
     },
     "finalCta": {
@@ -312,7 +312,7 @@
     },
     "footer": {
       "thanksTitle": "Thanks",
-      "thanksDesc": "Cross-device clipboard sync — end-to-end encrypted, open source, auditable. Flows seamlessly between your own machines, without any cloud account in between.",
+      "thanksDesc": "Cross-device clipboard sync — end-to-end encrypted, open source, auditable. Flows between your own machines, with no cloud account in between.",
       "linksTitle": "Links",
       "repo": "Repository",
       "issues": "Issues",

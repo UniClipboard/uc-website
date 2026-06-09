@@ -28,20 +28,20 @@ type Hero = {
 };
 
 const heroes: Hero[] = [
-  { ns: "h1", Illustration: EncryptionFlow, Icon: Lock, animated: true },
   { ns: "h2", Illustration: NetworkFlow, Icon: Globe, animated: true },
+  { ns: "h1", Illustration: EncryptionFlow, Icon: Lock, animated: true },
   { ns: "h3", Illustration: PowerFlow, Icon: Zap, animated: true },
 ];
 
 type More = { icon: LucideIcon; key: string };
 const moreItems: More[] = [
   { icon: Command, key: "f1" },
+  { icon: Type, key: "f11" },
   { icon: Smartphone, key: "f10" },
   { icon: RefreshCw, key: "f4" },
   { icon: FileText, key: "f6" },
   { icon: Network, key: "f5" },
   { icon: Zap, key: "f7" },
-  { icon: Type, key: "f11" },
   { icon: CheckCheck, key: "f12" },
   { icon: Palette, key: "f13" },
 ];

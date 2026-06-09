@@ -67,11 +67,11 @@
     },
     "features": {
       "eyebrow": "核心功能",
-      "title": "用起来跟系统剪贴板一样——但跨平台、可搜索、可审计。",
+      "title": "你的系统剪贴板，现在跨平台、可搜索、端到端加密。",
       "moreEyebrow": "更多功能",
       "moreTitle": "你可能还想要这些。",
       "h1": {
-        "eyebrow": "01 — 隐私优先",
+        "eyebrow": "02 — 隐私优先",
         "title": "中继看到的，只有密文。",
         "lede": "内容在源设备加密，只在你的设备上解密。密钥存放在系统 Keyring 里，永远不离开本机。开源，可审计。",
         "b1Title": "端到端加密",
@@ -82,20 +82,20 @@
         "b3Desc": "AGPL-3.0 开源。加密实现你可以自己读、自己验证。"
       },
       "h2": {
-        "eyebrow": "02 — 五端覆盖 · 开放协议兜底",
-        "title": "五端覆盖，任意网络。",
-        "lede": "桌面三端基于 Rust + Tauri；iOS Public Beta 在 TestFlight 公测、Android 原生 App 已正式发布。需要时 SyncClipboard 开放协议仍作为备选。同 Wi-Fi 直连、跨网络 NAT 打洞、可一键切到 LAN-only。",
+        "eyebrow": "01 — 五端覆盖",
+        "title": "一处复制，五端可粘。",
+        "lede": "桌面三端基于 Rust + Tauri，iOS 在 TestFlight 公测、Android 原生 App 已发布。同 Wi-Fi 直连、跨网 NAT 打洞、可一键切到 LAN-only。",
         "b1Title": "桌面三端",
         "b1Desc": "Rust + Tauri 构建，启动快、占用低，集成进系统菜单栏与托盘。",
         "b2Title": "iOS & Android 原生 App",
-        "b2Desc": "iOS Public Beta 通过 TestFlight 公开邀请加入,Android 提供签名 APK 直链。SyncClipboard 开放协议仍作为不想装原生 App 用户的备选。",
+        "b2Desc": "iOS 通过 TestFlight 公测，Android 提供签名 APK 直链。不想装原生 App？SyncClipboard 开放协议仍可用。",
         "b3Title": "直连 · 打洞 · LAN-only 可切",
-        "b3Desc": "同 Wi-Fi 走 P2P，跨网络自动 NAT 打洞，加密中继兜底。一键打开 LAN-only 可以彻底关掉中继，只用本地网络。"
+        "b3Desc": "同 Wi-Fi 走 P2P，跨网自动 NAT 打洞，加密中继兜底。一键 LAN-only 可彻底关掉中继。"
       },
       "h3": {
         "eyebrow": "03 — 重度用户友好",
         "title": "Quick Panel、本地全文搜索、CLI——一个都不少。",
-        "lede": "唤起浮层立刻预览历史记录；上万条记录里毫秒级搜索；终端、SSH、tmux 里有无头 CLI。它的体验深度，超过它表面看起来的简单。",
+        "lede": "浮层即刻预览历史，上万条记录毫秒级搜索，终端 / SSH / tmux 里还有无头 CLI。比看上去更能打。",
         "b1Title": "Quick Panel",
         "b1Desc": "快捷键唤起的悬浮面板，文本、链接、图片、代码、文件都有内联预览。",
         "b2Title": "本地全文搜索",
@@ -105,42 +105,42 @@
       },
       "more": {
         "f1Title": "熟悉的快捷键",
-        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴——肌肉记忆零成本。它是系统剪贴板的延伸，不是又一个要切换的 App。",
+        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴，肌肉记忆零成本。是系统剪贴板的延伸，不是又一个 App。",
         "f4Title": "自动恢复",
         "f4Desc": "Wi-Fi 切换、休眠唤醒、短暂掉线后自动重连，无需重新配对。",
         "f6Title": "文本、图片与文件",
         "f6Desc": "一台复制，另一台粘贴。大文件采用流式传输，不必整个加载到内存。",
         "f5Title": "按设备控制同步",
-        "f5Desc": "每台已配对设备都能单独决定是否发送、是否接收，以及允许哪些内容类型（文本 / 图片 / 文件）。设备丢了？任意已配对设备一键吊销。",
+        "f5Desc": "每台配对设备可单独设定收发方向与内容类型（文本 / 图片 / 文件）。设备丢了？任意设备一键吊销。",
         "f7Title": "实时同步",
-        "f7Desc": "复制即推送，无需手动触发或确认。剪贴板内容在所有设备间自动保持一致。",
+        "f7Desc": "复制即推送，无需手动触发。所有设备自动保持一致。",
         "f9Title": "可控的历史保留",
         "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。",
         "f10Title": "iOS & Android 原生 App",
-        "f10Desc": "iOS 通过 TestFlight 公开邀请加入 Public Beta;Android 提供签名 APK 直链下载。SyncClipboard 开放协议(iPhone「快捷指令」+ Android 客户端)仍作为不想装原生 App 用户的备选。",
+        "f10Desc": "iOS 通过 TestFlight 公测，Android 提供签名 APK 直链。不想装原生 App？SyncClipboard 开放协议（iPhone「快捷指令」+ Android 客户端）仍可用。",
         "f11Title": "格式不降级",
-        "f11Desc": "富文本和 HTML 按原格式还原，不会被压成纯文本。跨平台同样保真——Windows 富文本、Linux 非英文 URL、UTF-8 文本都原样送达。",
+        "f11Desc": "富文本和 HTML 按原格式还原，不被压成纯文本。跨平台同样保真：Windows 富文本、Linux 非英文 URL、UTF-8 都原样送达。",
         "f12Title": "同步状态一目了然",
-        "f12Desc": "每条记录都显示来源设备，以及在各台配对设备上的同步状态;未送达的内容可以一键重发。",
+        "f12Desc": "每条记录显示来源设备和各端同步状态，未送达的可一键重发。",
         "f13Title": "可定制的外观",
-        "f13Desc": "浅色与深色主题可分别预设，强调色、背景色、前景色都能自定义，也可以直接跟随系统。"
+        "f13Desc": "浅色 / 深色主题分别预设，强调色、背景、前景自定义，也可跟随系统。"
       }
     },
     "comparison": {
       "eyebrow": "对比",
       "title": "为什么不是 iCloud？为什么不是自托管？",
-      "subtitle": "如果以下任何一条对你重要——那你需要的就不是 iCloud 通用剪贴板，也不是要你自己运维的方案。",
+      "subtitle": "只要以下任意一条对你重要，iCloud 通用剪贴板和自己运维的方案就都不够用。",
       "tools": {
         "uc": "UniClipboard",
         "icloud": "iCloud 通用剪贴板",
         "selfhost": "自托管 (ClipCascade 等)",
-        "manager": "本机剪贴板管理器 (Pastebot / Maccy)"
+        "manager": "Paste（付费 · 仅 Apple）"
       },
       "toolsShort": {
         "uc": "UC",
         "icloud": "iCloud",
         "selfhost": "自托管",
-        "manager": "管理器"
+        "manager": "Paste"
       },
       "rows": {
         "crossPlatform": {
@@ -149,7 +149,7 @@
           "uc": "桌面 + 移动 5 端",
           "icloud": "仅 Apple",
           "selfhost": "看实现",
-          "manager": "通常单平台"
+          "manager": "仅 Apple"
         },
         "e2e": {
           "label": "端到端加密 + 可审计",
@@ -157,7 +157,7 @@
           "uc": "开源可读",
           "icloud": "闭源 E2E",
           "selfhost": "看实现",
-          "manager": "纯本地"
+          "manager": "闭源"
         },
         "infra": {
           "label": "无需自己运维服务器",
@@ -165,7 +165,7 @@
           "uc": "开箱即用",
           "icloud": "开箱即用",
           "selfhost": "需自托管",
-          "manager": "无服务器"
+          "manager": "开箱即用"
         },
         "history": {
           "label": "可搜索的历史记录",
@@ -173,7 +173,7 @@
           "uc": "本机加密索引",
           "icloud": "无历史",
           "selfhost": "看实现",
-          "manager": "本机历史"
+          "manager": "可搜索历史"
         },
         "noAccount": {
           "label": "无需注册 / 邮箱",
@@ -181,7 +181,7 @@
           "uc": "公钥配对",
           "icloud": "需要 Apple ID",
           "selfhost": "看实现",
-          "manager": "无账号"
+          "manager": "需 Apple ID"
         },
         "transport": {
           "label": "同 Wi-Fi 直连，跨网中继回退，可强制 LAN-only",
@@ -189,7 +189,7 @@
           "uc": "P2P + 中继 · 可切 LAN-only",
           "icloud": "仅近场",
           "selfhost": "通常仅服务器",
-          "manager": "纯本地"
+          "manager": "iCloud 云同步"
         },
         "price": {
           "label": "价格",
@@ -197,7 +197,7 @@
           "uc": "免费 · 开源",
           "icloud": "免费",
           "selfhost": "免费 + 服务器成本",
-          "manager": "$30+"
+          "manager": "$30/年订阅"
         }
       },
       "footnote": "对比基于 2026-05 公开信息，如有出入欢迎在 GitHub 上提 Issue。"
@@ -206,16 +206,16 @@
       "eyebrow": "工作原理",
       "title": "配对一次，之后只剩复制和粘贴。",
       "step1Title": "本地配对",
-      "step1Desc": "设备之间在本地交换一次公钥——无需云账号，也不需要邮箱。在已有设备上生成一个短期邀请码，新设备输入邀请码和 Space 口令即可加入。",
+      "step1Desc": "设备本地交换一次公钥，无需云账号或邮箱。已有设备生成短期邀请码，新设备输入邀请码和 Space 口令即可加入。",
       "step2Title": "加密传输",
-      "step2Desc": "内容在源设备完成加密，密文走 P2P 直连（同 Wi-Fi 或跨网 NAT 打洞）；连不通时回退到加密中继。加密与传输彼此独立——即便中继被攻陷，也只能看到密文。",
+      "step2Desc": "内容在源设备加密，密文走 P2P 直连（同 Wi-Fi 或跨网 NAT 打洞），连不通才回退加密中继。即便中继被攻陷，也只能看到密文。",
       "step3Title": "本地解密、本地存储",
       "step3Desc": "解密只在你自己的设备上完成。本地历史与全文搜索索引在磁盘上同样加密。Wi-Fi 切换、休眠唤醒或短暂掉线后会自动恢复连接。"
     },
     "download": {
       "eyebrow": "下载最新版本",
       "title": "选择你的平台。",
-      "description": "我们已经为你识别了平台。如果不对，可以在下面切换。每个安装包都附了系统要求，方便你下载前确认。",
+      "description": "已自动识别你的平台，不对可在下面切换。每个安装包都标注了系统要求。",
       "descriptionMobile": "iPhone 走 TestFlight 内测，Android 直接装 APK，桌面三端有完整签名安装包。",
       "mobileAndroidAllArchs": "查看全部架构",
       "mobileDesktopPlatforms": "Mac · Windows · Linux",
@@ -264,36 +264,36 @@
       "docsHelpCta": "查看完整文档 →",
       "item1": {
         "q": "为什么不直接用 iCloud 通用剪贴板？",
-        "a": "如果你只用 Apple 设备、不需要剪贴板历史、且完全信任 Apple 闭源的端到端加密——iCloud 完全够用。但一旦你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或者想自己审计加密实现，就需要别的方案。"
+        "a": "只用 Apple 设备、不需要历史、又完全信任 Apple 闭源加密的话，iCloud 够用。但只要你多了一台 Windows 或 Linux 机器、想要可搜索的历史，或想自己审计加密实现，就得换方案。"
       },
       "item2": {
         "q": "为什么不用自托管的剪贴板同步（例如 ClipCascade）？",
-        "a": "自托管意味着你得自己运维一台服务器。UniClipboard 开箱即用——P2P 直连为主，加密中继只作兜底。你完全不用维护任何基础设施。"
+        "a": "自托管意味着你得自己运维服务器。UniClipboard 开箱即用：P2P 直连为主，加密中继兜底，不用维护任何基础设施。"
       },
       "item3": {
         "q": "可以纯离线 / 只在局域网内工作吗？",
-        "a": "可以。同一 Wi-Fi 下的设备会直接互联，不经过中继。「网络」设置里还有显式的 LAN-only Mode 开关——打开后所有已配对设备都只走局域网发现和直连，中继及其它公网服务整体关闭。"
+        "a": "可以。同一 Wi-Fi 下的设备直接互联，不经过中继。「网络」设置里还有 LAN-only Mode 开关，打开后所有设备只走局域网发现和直连，中继及公网服务全部关闭。"
       },
       "item4": {
         "q": "剪贴板历史到底存在哪里？",
-        "a": "只存在你自己的设备上。本地数据在磁盘上加密保存，密钥放在系统 Keyring 内，永不离开本机。任何 UniClipboard 的服务器都不会接收或存储剪贴板内容。"
+        "a": "只在你自己的设备上。本地数据加密保存，密钥放在系统 Keyring 内、永不离开本机。UniClipboard 的服务器不会接收或存储任何剪贴板内容。"
       },
       "item5": {
         "q": "支持移动端（iOS / Android）吗？",
-        "a": "都有原生 App。iOS Public Beta 在 TestFlight 公开邀请，Android 提供签名 APK 直链——下载页里都能拿到。原本兼容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT 开源）开放协议的路线仍然保留：iPhone 走系统「快捷指令」+ 桌面端给的一段配置，Android 用 SyncClipboard 项目里任意一个客户端，两边都不需要云账号，内容只在局域网内流转——如果你不想装原生 App，这条路依然走得通。",
+        "a": "都有原生 App。iOS 在 TestFlight 公测、Android 提供签名 APK 直链，下载页都能拿到。不想装原生 App 的话，兼容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT）开放协议的路线仍然保留：iPhone 走系统「快捷指令」+ 桌面端给的一段配置，Android 用 SyncClipboard 的任意客户端，无需云账号，内容只在局域网内流转。",
         "downloadCta": "去下载页拿 iOS Beta 和 Android APK →"
       },
       "item6": {
         "q": "AGPL-3.0 会影响我在公司里用吗？",
-        "a": "不会。AGPL 约束的是「修改源码后再以网络服务的形式分发」的场景。直接安装、自用、给团队用，跟普通免费软件没区别——不需要开源你公司任何代码。"
+        "a": "不会。AGPL 只约束「修改源码后再以网络服务形式分发」的场景。直接安装、自用或团队使用，跟普通免费软件没区别，不需要开源公司任何代码。"
       },
       "item7": {
         "q": "和 KDE Connect、Mouse Without Borders 比有什么不一样？",
-        "a": "KDE Connect 和 Mouse Without Borders 都是好工具，但它们属于 KVM 那一类——会一起把鼠标、键盘、文件、通知都共享过去，而且通常要在同一局域网（或者再叠一层 Tailscale）。UniClipboard 只做剪贴板，走公网也能用、不需要 VPN，自带可搜索的历史。如果你想要的就只是「这边复制那边粘」，没别的东西被搬来搬去——这一个就够了。"
+        "a": "KDE Connect 和 Mouse Without Borders 都是好工具，但属于 KVM 那一类，会把鼠标、键盘、文件、通知一起共享，且通常要在同一局域网（或叠一层 Tailscale）。UniClipboard 只做剪贴板，走公网也能用、不需要 VPN，自带可搜索的历史。只想「这边复制那边粘」、不想搬别的东西，它就够了。"
       },
       "item8": {
         "q": "可以自托管吗？能跑自己的服务器或中继吗？",
-        "a": "默认不需要——UniClipboard 走 P2P 直连，连不通才回退到加密中继，你不用运维任何东西。但需要的话，进阶用法也都给你留好了：可以指向自己的中继节点（带连通性测试）；可以把 UniClipboard 作为无界面的服务器节点常驻运行（内置 Docker 与 Caddy 配置，方便部署到 VPS）；移动端同步也能对外暴露一个完整公开 URL，通过自托管服务器或安全代理实现跨网络访问。"
+        "a": "默认不需要：UniClipboard 走 P2P 直连，连不通才回退加密中继，无需运维。需要时进阶用法也都留好了：指向自己的中继节点（带连通性测试）；把 UniClipboard 作为无界面服务器节点常驻（内置 Docker 与 Caddy 配置，方便部署到 VPS）；移动端同步还能暴露公开 URL，通过自托管服务器或安全代理实现跨网访问。"
       }
     },
     "finalCta": {
@@ -306,7 +306,7 @@
     },
     "footer": {
       "thanksTitle": "致谢",
-      "thanksDesc": "跨设备剪贴板同步——端到端加密、开源可审计。数据只在你自己的设备之间流动，不经过任何云账号。",
+      "thanksDesc": "跨设备剪贴板同步，端到端加密、开源可审计。数据只在你的设备间流动，不经过任何云账号。",
       "linksTitle": "链接",
       "repo": "仓库",
       "issues": "Issues",

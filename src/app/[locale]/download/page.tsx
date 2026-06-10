@@ -207,6 +207,24 @@ export default async function DownloadPage({ params }: LocaleParam) {
     });
   }
 
+  // The release feed only lists the Windows NSIS installer
+  // (UniClipboard_<version>_<arch>-setup.exe). Each release also publishes a
+  // portable sibling (UniClipboard_<version>_<arch>-portable.zip), so derive
+  // its URL the same way macOS .dmg links are derived from the updater bundle.
+  const winItems: PlatformBlock["items"] = groupedItems.win.flatMap((it) => {
+    if (!/-setup\.exe$/.test(it.url)) return [it];
+    return [
+      it,
+      {
+        arch: `${it.arch} ${t("direct.winPortableLabel")}`,
+        ext: ".zip",
+        url: it.url.replace(/-setup\.exe$/, "-portable.zip"),
+        minOS: it.minOS,
+        hint: t("direct.winPortableHint"),
+      },
+    ];
+  });
+
   const mobileGroups = buildMobileGroups({
     platformIOS: t("direct.platformIOS"),
     platformAndroid: t("direct.platformAndroid"),
@@ -233,7 +251,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
       os: "win",
       label: t("direct.platformWindows"),
       description: t("direct.blockWinDescription"),
-      items: groupedItems.win,
+      items: winItems,
     },
     {
       os: "linux",

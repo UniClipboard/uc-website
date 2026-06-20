@@ -42,13 +42,9 @@ export type SponsorChannel = {
 };
 
 export const SPONSOR_CHANNELS: SponsorChannel[] = [
-  // TODO: replace with the real sponsorship URLs.
-  { id: "afdian", label: "爱发电", href: "https://afdian.com/a/uniclipboard" },
-  {
-    id: "github",
-    label: "GitHub Sponsors",
-    href: "https://github.com/sponsors/mkdir700",
-  },
+  // 爱发电为目前唯一的收款渠道。GitHub Sponsors 暂未开通（未绑卡），
+  // 待开通后在此追加 { id: "github", ... } 即可。
+  { id: "afdian", label: "爱发电", href: "https://afdian.com/a/mkdir700" },
 ];
 
 export const GITHUB_REPO_URL = "https://github.com/UniClipboard/UniClipboard";

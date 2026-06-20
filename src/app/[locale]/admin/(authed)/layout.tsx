@@ -55,6 +55,12 @@ export default async function AdminAuthedLayout({
               Founders
             </Link>
             <Link
+              href="/admin/sponsors"
+              className="hover:text-foreground transition-colors"
+            >
+              Sponsors
+            </Link>
+            <Link
               href="/admin/ios-beta"
               className="hover:text-foreground transition-colors"
             >

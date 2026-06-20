@@ -41,6 +41,7 @@ export async function Footer() {
   const t = await getTranslations("landing.footer");
   const locale = await getLocale();
   const docsHref = getDocsHref(locale);
+  const sponsorHref = locale === "en" ? "/sponsor" : `/${locale}/sponsor`;
 
   return (
     <footer
@@ -113,6 +114,11 @@ export async function Footer() {
                 {
                   href: docsHref,
                   label: t("docs"),
+                  external: false,
+                },
+                {
+                  href: sponsorHref,
+                  label: t("sponsor"),
                   external: false,
                 },
               ].map((l) => (

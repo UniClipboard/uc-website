@@ -18,9 +18,20 @@ const emptyToNull = (v: string | null | undefined) => {
   return t ? t : null;
 };
 
+/** Canonical UUID form — guards the DB's uuid column from cast errors (→ 500). */
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 const updateSchema = z.object({
   name: z.string().trim().min(1).max(120).optional(),
-  url: z.string().trim().max(1000).nullable().optional(),
+  url: z
+    .string()
+    .trim()
+    .max(1000)
+    .regex(/^https?:\/\//i, "url must start with http:// or https://")
+    .nullable()
+    .optional()
+    .or(z.literal("")),
   tier: z.enum(["gold", "regular"]).optional(),
   since: z
     .string()
@@ -33,7 +44,14 @@ const updateSchema = z.object({
   /** Sponsorship amount in cents (CNY). Admin-only. Capped to fit int4. */
   amountCents: z.number().int().min(0).max(2_000_000_000).nullable().optional(),
   githubLogin: z.string().trim().max(100).nullable().optional(),
-  avatarUrl: z.string().trim().max(1000).nullable().optional(),
+  avatarUrl: z
+    .string()
+    .trim()
+    .max(1000)
+    .regex(/^https?:\/\//i, "avatarUrl must start with http:// or https://")
+    .nullable()
+    .optional()
+    .or(z.literal("")),
   avatarUpload: z.string().max(9_000_000).nullable().optional(),
   clearAvatar: z.boolean().optional(),
   displayOrder: z.number().int().optional(),
@@ -48,6 +66,9 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   }
 
   const { id } = await ctx.params;
+  if (!UUID_RE.test(id)) {
+    return NextResponse.json({ error: "Invalid sponsor id" }, { status: 400 });
+  }
   let parsed;
   try {
     const body = await req.json();
@@ -111,6 +132,9 @@ export async function DELETE(_req: NextRequest, ctx: Ctx) {
   }
 
   const { id } = await ctx.params;
+  if (!UUID_RE.test(id)) {
+    return NextResponse.json({ error: "Invalid sponsor id" }, { status: 400 });
+  }
   const ok = await deleteSponsor(id);
   if (!ok) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

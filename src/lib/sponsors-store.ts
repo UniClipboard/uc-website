@@ -1,6 +1,6 @@
 import "server-only";
 
-import { asc, eq, sql } from "drizzle-orm";
+import { asc, eq, inArray, sql } from "drizzle-orm";
 import sharp from "sharp";
 
 import { db } from "@/db/client";
@@ -8,16 +8,51 @@ import { sponsors } from "@/db/schema";
 
 import type { Sponsor, SponsorTier } from "./sponsors";
 
-type SponsorRow = typeof sponsors.$inferSelect;
-
 /** Largest accepted raw upload before downscaling (guards against abuse). */
 const MAX_UPLOAD_BYTES = 6 * 1024 * 1024; // 6 MB
 /** Square size we downscale avatars to. Wall renders them at ~40px. */
 const AVATAR_SIZE = 160;
 
+/**
+ * Columns needed to render a sponsor — deliberately excludes the potentially
+ * large `avatar_data` base64 blob. Whether an upload exists is derived as a
+ * boolean so list queries never haul the blob over the wire.
+ */
+const displaySelection = {
+  id: sponsors.id,
+  name: sponsors.name,
+  url: sponsors.url,
+  tier: sponsors.tier,
+  since: sponsors.since,
+  note: sponsors.note,
+  amountCents: sponsors.amountCents,
+  githubLogin: sponsors.githubLogin,
+  avatarUrl: sponsors.avatarUrl,
+  hasAvatar: sql<boolean>`${sponsors.avatarData} is not null`,
+  displayOrder: sponsors.displayOrder,
+  createdAt: sponsors.createdAt,
+  updatedAt: sponsors.updatedAt,
+};
+
+type DisplayRow = {
+  id: string;
+  name: string;
+  url: string | null;
+  tier: SponsorTier;
+  since: string | null;
+  note: string | null;
+  amountCents: number | null;
+  githubLogin: string | null;
+  avatarUrl: string | null;
+  hasAvatar: boolean;
+  displayOrder: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 /** Resolve a row's avatar to a URL the wall/admin can render, or undefined. */
-function resolveAvatar(row: SponsorRow): string | undefined {
-  if (row.avatarData) {
+function resolveAvatar(row: DisplayRow): string | undefined {
+  if (row.hasAvatar) {
     // Cache-bust on update so the immutable-cached serving route refreshes.
     return `/api/sponsor-avatar/${row.id}?v=${row.updatedAt.getTime()}`;
   }
@@ -30,7 +65,7 @@ function resolveAvatar(row: SponsorRow): string | undefined {
  */
 export async function getPublicSponsors(): Promise<Sponsor[]> {
   const rows = await db
-    .select()
+    .select(displaySelection)
     .from(sponsors)
     .orderBy(
       sql`case when ${sponsors.tier} = 'gold' then 0 else 1 end`,
@@ -66,7 +101,7 @@ export type SponsorAdminRow = {
   updatedAt: string;
 };
 
-const toAdminRow = (row: SponsorRow): SponsorAdminRow => ({
+const toAdminRow = (row: DisplayRow): SponsorAdminRow => ({
   id: row.id,
   name: row.name,
   url: row.url,
@@ -76,7 +111,7 @@ const toAdminRow = (row: SponsorRow): SponsorAdminRow => ({
   amountCents: row.amountCents,
   githubLogin: row.githubLogin,
   avatar: resolveAvatar(row) ?? null,
-  hasUpload: Boolean(row.avatarData),
+  hasUpload: row.hasAvatar,
   displayOrder: row.displayOrder,
   createdAt: row.createdAt.toISOString(),
   updatedAt: row.updatedAt.toISOString(),
@@ -84,7 +119,7 @@ const toAdminRow = (row: SponsorRow): SponsorAdminRow => ({
 
 export async function listAllSponsors(): Promise<SponsorAdminRow[]> {
   const rows = await db
-    .select()
+    .select(displaySelection)
     .from(sponsors)
     .orderBy(asc(sponsors.displayOrder), asc(sponsors.createdAt));
   return rows.map(toAdminRow);
@@ -157,7 +192,7 @@ export async function createSponsor(
       avatarMime: hasUpload ? (input.avatarMime ?? "image/webp") : null,
       displayOrder,
     })
-    .returning();
+    .returning(displaySelection);
   return toAdminRow(inserted);
 }
 
@@ -199,7 +234,7 @@ export async function updateSponsor(
     .update(sponsors)
     .set(set)
     .where(eq(sponsors.id, id))
-    .returning();
+    .returning(displaySelection);
   return row ? toAdminRow(row) : null;
 }
 
@@ -209,6 +244,36 @@ export async function deleteSponsor(id: string): Promise<boolean> {
     .where(eq(sponsors.id, id))
     .returning({ id: sponsors.id });
   return result.length > 0;
+}
+
+/**
+ * Swap the display order of two sponsors in a single transaction, so a partial
+ * failure can never leave the two rows sharing (or losing) an order value the
+ * way two independent updates could. Returns false if either id is missing.
+ */
+export async function swapSponsorOrder(
+  idA: string,
+  idB: string,
+): Promise<boolean> {
+  return db.transaction(async (tx) => {
+    const rows = await tx
+      .select({ id: sponsors.id, displayOrder: sponsors.displayOrder })
+      .from(sponsors)
+      .where(inArray(sponsors.id, [idA, idB]));
+    const a = rows.find((r) => r.id === idA);
+    const b = rows.find((r) => r.id === idB);
+    if (!a || !b) return false;
+    const now = new Date();
+    await tx
+      .update(sponsors)
+      .set({ displayOrder: b.displayOrder, updatedAt: now })
+      .where(eq(sponsors.id, idA));
+    await tx
+      .update(sponsors)
+      .set({ displayOrder: a.displayOrder, updatedAt: now })
+      .where(eq(sponsors.id, idB));
+    return true;
+  });
 }
 
 /**

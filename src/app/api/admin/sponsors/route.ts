@@ -17,7 +17,14 @@ const emptyToNull = (v: string | null | undefined) => {
 
 const createSchema = z.object({
   name: z.string().trim().min(1).max(120),
-  url: z.string().trim().max(1000).optional().nullable(),
+  url: z
+    .string()
+    .trim()
+    .max(1000)
+    .regex(/^https?:\/\//i, "url must start with http:// or https://")
+    .optional()
+    .nullable()
+    .or(z.literal("")),
   tier: z.enum(["gold", "regular"]).optional(),
   since: z
     .string()
@@ -30,7 +37,14 @@ const createSchema = z.object({
   /** Sponsorship amount in cents (CNY). Admin-only. Capped to fit int4. */
   amountCents: z.number().int().min(0).max(2_000_000_000).optional().nullable(),
   githubLogin: z.string().trim().max(100).optional().nullable(),
-  avatarUrl: z.string().trim().max(1000).optional().nullable(),
+  avatarUrl: z
+    .string()
+    .trim()
+    .max(1000)
+    .regex(/^https?:\/\//i, "avatarUrl must start with http:// or https://")
+    .optional()
+    .nullable()
+    .or(z.literal("")),
   /** Raw freshly-chosen image (data URI or base64) — downscaled server-side. */
   avatarUpload: z.string().max(9_000_000).optional().nullable(),
   displayOrder: z.number().int().optional().nullable(),

@@ -276,8 +276,13 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
       note: form.note.trim() || null,
       amountCents,
       githubLogin: form.githubLogin.trim() || null,
-      displayOrder: Number.isFinite(orderNum) ? orderNum : 0,
     };
+    // Only send displayOrder when it parses — a blank/invalid field would
+    // otherwise silently reorder the sponsor to the top (0). Omitting it lets
+    // the server keep the current order (PATCH) or auto-append (POST).
+    if (Number.isFinite(orderNum)) {
+      payload.displayOrder = orderNum;
+    }
 
     // Avatar precedence: new upload > explicit clear > changed URL.
     if (form.avatarUpload) {
@@ -333,18 +338,13 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
     if (idx < 0 || targetIdx < 0 || targetIdx >= sorted.length) return;
     const target = sorted[targetIdx];
     startTransition(async () => {
-      const a = fetch(`/api/admin/sponsors/${row.id}`, {
-        method: "PATCH",
+      // Single atomic swap — both rows move together or neither does.
+      const res = await fetch("/api/admin/sponsors/reorder", {
+        method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ displayOrder: target.displayOrder }),
+        body: JSON.stringify({ idA: row.id, idB: target.id }),
       });
-      const b = fetch(`/api/admin/sponsors/${target.id}`, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ displayOrder: row.displayOrder }),
-      });
-      const [ra, rb] = await Promise.all([a, b]);
-      if (!ra.ok || !rb.ok) {
+      if (!res.ok) {
         alert("调整顺序失败");
         return;
       }

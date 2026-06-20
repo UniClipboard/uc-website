@@ -1,0 +1,1 @@
+ALTER TABLE "sponsors" ADD CONSTRAINT "sponsors_amount_cents_non_negative" CHECK ("sponsors"."amount_cents" >= 0);

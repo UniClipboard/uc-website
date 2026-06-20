@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   index,
   integer,
   jsonb,
@@ -174,7 +175,11 @@ export const sponsors = pgTable(
       .notNull()
       .defaultNow(),
   },
-  (table) => [index("sponsors_display_order_idx").on(table.displayOrder)],
+  (table) => [
+    index("sponsors_display_order_idx").on(table.displayOrder),
+    // Monetary integrity: amount is either unset (NULL) or non-negative.
+    check("sponsors_amount_cents_non_negative", sql`${table.amountCents} >= 0`),
+  ],
 );
 
 export type Article = typeof articles.$inferSelect;

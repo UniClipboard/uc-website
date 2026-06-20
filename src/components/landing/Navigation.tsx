@@ -82,6 +82,7 @@ export function Navigation() {
       external: true,
     },
     { href: "/changelog", label: t("changelog"), matchPrefix: "/changelog" },
+    { href: "/sponsor", label: t("sponsor"), matchPrefix: "/sponsor" },
   ];
 
   const isItemActive = (matchPrefix: string) =>

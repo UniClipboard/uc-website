@@ -38,7 +38,8 @@
       "menuClose": "关闭菜单",
       "themeSystem": "跟随系统",
       "themeLight": "浅色",
-      "themeDark": "深色"
+      "themeDark": "深色",
+      "sponsor": "赞助"
     },
     "hero": {
       "eyebrow": "开源 · 端到端加密 · 五端同步 · 无需账号",
@@ -319,7 +320,72 @@
       "bilibili": "B站 · @mkdir700",
       "email": "hello@uniclipboard.app",
       "copyright": "© 2026 mkdir700",
-      "rustNote": "made with Rust 🦀 · AGPL-3.0"
+      "rustNote": "made with Rust 🦀 · AGPL-3.0",
+      "sponsor": "赞助支持"
+    },
+    "sponsor": {
+      "seoTitle": "赞助 UniClipboard",
+      "seoDescription": "UniClipboard 是一款免费、开源、跨设备的剪贴板工具。如果它帮到了你，你的赞助会让它走得更远。",
+      "seoKeywords": "UniClipboard 赞助,支持开源,赞助开发者,爱发电,开源捐赠",
+      "ogAlt": "赞助 UniClipboard",
+      "hero": {
+        "eyebrow": "支持这个项目",
+        "title": "让好用的东西，",
+        "titleLine2": "一直好用下去。",
+        "description": "UniClipboard 免费、开源、没有广告——以后也是。它由我一个人开发和维护，服务器也是自己的。如果它帮到了你，赞助是让它走得更远的最直接方式：更稳的同步、更快的更新，以及更多还在路上的功能。",
+        "primaryCta": "成为赞助者",
+        "secondaryCta": "在 GitHub 上 Star",
+        "count": "已有 {count} 位朋友在支持"
+      },
+      "benefits": {
+        "eyebrow": "赞助权益",
+        "title": "一点心意，一点回馈",
+        "subtitle": "不分档位、不设门槛——无论赞助多少，这些都属于每一位支持者。",
+        "items": {
+          "b1": {
+            "title": "名字留在这里",
+            "desc": "你的名字会出现在下方的赞助墙上，长期留着，作为一份公开的谢意。"
+          },
+          "b2": {
+            "title": "以后有 Pro，也免你的",
+            "desc": "核心功能会一直免费。要是将来真做了订阅或高级版，你作为早期赞助者直接免单——这个位置，提前给你留好了。"
+          },
+          "b3": {
+            "title": "你的想法被优先听见",
+            "desc": "你提的功能和反馈会被优先排进开发计划，真正影响它接下来的走向。"
+          },
+          "b4": {
+            "title": "有问题直接找我",
+            "desc": "遇到问题不用绕弯，可以直接联系到我，得到更快的回应。"
+          },
+          "b5": {
+            "title": "一枚赞助者徽章",
+            "desc": "在社区里有一枚专属标识，代表你对开源的那份支持。"
+          },
+          "b6": {
+            "title": "让它对所有人免费",
+            "desc": "你的支持，让 UniClipboard 能一直免费、开源、没有广告地走下去。"
+          }
+        }
+      },
+      "wall": {
+        "eyebrow": "赞助墙",
+        "title": "感谢这些朋友",
+        "subtitle": "正是因为有你们，UniClipboard 才走到了今天。这份名单，会一直写下去。",
+        "sinceLabel": "自",
+        "viewProfile": "查看主页",
+        "becomeTitle": "下一个就是你",
+        "becomeDesc": "加入他们，一起让它走得更远。",
+        "emptyTitle": "成为第一位赞助者",
+        "emptyDesc": "这面墙还空着——很期待第一个名字是你。"
+      },
+      "cta": {
+        "title": "让它继续走下去",
+        "subtitle": "如果 UniClipboard 帮你省下了时间，一点点支持，就能让它走得更远。每一份，我都记得。",
+        "primary": "去赞助",
+        "secondary": "在 GitHub 上 Star",
+        "note": "赞助为自愿 · 随时可取消"
+      }
     }
   },
   "downloadPage": {

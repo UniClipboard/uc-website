@@ -44,7 +44,8 @@
       "menuClose": "Close menu",
       "themeSystem": "System",
       "themeLight": "Light",
-      "themeDark": "Dark"
+      "themeDark": "Dark",
+      "sponsor": "Sponsor"
     },
     "hero": {
       "eyebrow": "Open source · End-to-end encrypted · 5 platforms · No account",
@@ -325,7 +326,72 @@
       "bilibili": "Bilibili · @mkdir700",
       "email": "hello@uniclipboard.app",
       "copyright": "© 2026 mkdir700",
-      "rustNote": "made with Rust 🦀 · AGPL-3.0"
+      "rustNote": "made with Rust 🦀 · AGPL-3.0",
+      "sponsor": "Sponsor"
+    },
+    "sponsor": {
+      "seoTitle": "Sponsor UniClipboard",
+      "seoDescription": "UniClipboard is a free, open-source clipboard that works across all your devices. If it helps you, your sponsorship is what keeps it getting better.",
+      "seoKeywords": "sponsor UniClipboard, support open source, donate to developer, open source funding, afdian",
+      "ogAlt": "Sponsor UniClipboard",
+      "hero": {
+        "eyebrow": "Support the project",
+        "title": "Good tools deserve",
+        "titleLine2": "to stay good.",
+        "description": "UniClipboard is free, open-source, and ad-free — and always will be. It is built and maintained by one person, on servers I pay for myself. If it has earned a place in your day, sponsoring is the most direct way to keep it getting better: steadier sync, faster updates, and the features still on the way.",
+        "primaryCta": "Become a sponsor",
+        "secondaryCta": "Star on GitHub",
+        "count": "{count, plural, one {# person already chips in} other {# people already chip in}}"
+      },
+      "benefits": {
+        "eyebrow": "Sponsor perks",
+        "title": "A small thank-you, in kind",
+        "subtitle": "No tiers, no thresholds — whatever you give, all of this is yours.",
+        "items": {
+          "b1": {
+            "title": "Your name, right here",
+            "desc": "Your name goes on the sponsor wall below and stays there — a public thank-you that sticks around."
+          },
+          "b2": {
+            "title": "Future Pro, on me",
+            "desc": "The core stays free, always. And if a subscription or Pro tier ever shows up down the road, you will not pay a cent — your spot is already saved."
+          },
+          "b3": {
+            "title": "Your ideas, heard first",
+            "desc": "Your requests and feedback move to the front of the line and genuinely shape where it goes."
+          },
+          "b4": {
+            "title": "A direct line to me",
+            "desc": "When something breaks, skip the queue — reach me directly and get a faster reply."
+          },
+          "b5": {
+            "title": "A sponsor badge",
+            "desc": "A small badge in the community that says you helped keep open source alive."
+          },
+          "b6": {
+            "title": "Free for everyone else",
+            "desc": "Your support is what keeps UniClipboard free, open-source, and ad-free for everyone."
+          }
+        }
+      },
+      "wall": {
+        "eyebrow": "Sponsor wall",
+        "title": "Thank you, friends",
+        "subtitle": "UniClipboard made it this far because of you. This list will keep growing — one name at a time.",
+        "sinceLabel": "since",
+        "viewProfile": "View profile",
+        "becomeTitle": "You could be next",
+        "becomeDesc": "Join them and help it go further.",
+        "emptyTitle": "Be the first to sponsor",
+        "emptyDesc": "This wall is empty for now — I would love for the first name to be yours."
+      },
+      "cta": {
+        "title": "Help it keep going",
+        "subtitle": "If UniClipboard has saved you time, a little support goes a long way toward keeping it alive. Every bit means something to me.",
+        "primary": "Sponsor now",
+        "secondary": "Star on GitHub",
+        "note": "Sponsorship is voluntary · cancel anytime"
+      }
     }
   },
   "downloadPage": {

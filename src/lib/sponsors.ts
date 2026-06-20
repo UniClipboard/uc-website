@@ -57,6 +57,23 @@ export const sponsorPrimaryChannel = (): SponsorChannel | undefined =>
   SPONSOR_CHANNELS[0];
 
 /**
+ * Sponsor count at/above which the hero shows a milestone progress bar. Below
+ * this, a near-empty bar ("1 of 10") reads as discouraging, so the hero shows a
+ * simple avatar cluster instead. Raise/lower to taste as the wall grows.
+ */
+export const SPONSOR_MILESTONE_MIN = 8;
+
+const SPONSOR_MILESTONES = [10, 25, 50, 100, 250, 500] as const;
+
+/** The next milestone strictly above `count` (rounds up to 100s past the top). */
+export function nextSponsorMilestone(count: number): number {
+  return (
+    SPONSOR_MILESTONES.find((m) => m > count) ??
+    Math.ceil((count + 1) / 100) * 100
+  );
+}
+
+/**
  * Deterministic monogram (initials + tint) for a sponsor without an avatar.
  * The tint backgrounds use low-alpha colours so they read well on both the
  * light (#fff) and dark (#161616) card surfaces.

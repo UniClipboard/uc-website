@@ -341,7 +341,8 @@
         "description": "UniClipboard is free, open-source, and ad-free — and always will be. It is built and maintained by one person, on servers I pay for myself. If it has earned a place in your day, sponsoring is the most direct way to keep it getting better: steadier sync, faster updates, and the features still on the way.",
         "primaryCta": "Become a sponsor",
         "secondaryCta": "Star on GitHub",
-        "count": "{count, plural, one {# person already chips in} other {# people already chip in}}"
+        "count": "{count, plural, one {# person already chips in} other {# people already chip in}}",
+        "milestoneTarget": "Goal: {target}"
       },
       "benefits": {
         "eyebrow": "Sponsor perks",
@@ -353,8 +354,8 @@
             "desc": "Your name goes on the sponsor wall below and stays there — a public thank-you that sticks around."
           },
           "b2": {
-            "title": "Future Pro, on me",
-            "desc": "The core stays free, always. And if a subscription or Pro tier ever shows up down the road, you will not pay a cent — your spot is already saved."
+            "title": "Your free Pro seat",
+            "desc": "The core stays free — always. And if a subscription or Pro tier ever launches, you'll get it automatically as an early sponsor, at no extra cost."
           },
           "b3": {
             "title": "Your ideas, heard first",
@@ -378,6 +379,9 @@
         "eyebrow": "Sponsor wall",
         "title": "Thank you, friends",
         "subtitle": "UniClipboard made it this far because of you. This list will keep growing — one name at a time.",
+        "supporters": "{count, plural, one {# supporter} other {# supporters}}",
+        "goldLabel": "Gold sponsors",
+        "backerLabel": "Backers",
         "sinceLabel": "since",
         "viewProfile": "View profile",
         "becomeTitle": "You could be next",

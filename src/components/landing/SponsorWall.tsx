@@ -1,4 +1,4 @@
-import { Plus, Sparkles } from "lucide-react";
+import { Plus, Sparkles, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { AnimateIn } from "@/components/landing/AnimateIn";
@@ -10,8 +10,10 @@ import { getPublicSponsors } from "@/lib/sponsors-store";
  * Engraved / gilded memorial wall.
  *
  * Each sponsor is a "nameplate" — avatar + name (+ since/note) — laid out on a
- * dark slate panel. Gold sponsors get a gilded-foil name. When there are no
- * sponsors yet, an empty state invites the first one.
+ * dark slate panel. Gold sponsors get a gilded-foil name and an oversized
+ * plate. When both gold and regular sponsors exist the wall splits into labelled
+ * tiers; with only one tier it stays a single clean cluster. An empty wall
+ * invites the first sponsor.
  */
 function SponsorAvatar({ sponsor, size }: { sponsor: Sponsor; size: number }) {
   if (sponsor.avatar) {
@@ -37,16 +39,19 @@ function SponsorAvatar({ sponsor, size }: { sponsor: Sponsor; size: number }) {
 function Nameplate({
   sponsor,
   sinceLabel,
+  featured = false,
 }: {
   sponsor: Sponsor;
   sinceLabel: string;
+  featured?: boolean;
 }) {
   const gold = sponsor.tier === "gold";
   const meta =
     sponsor.note ?? (sponsor.since ? `${sinceLabel} ${sponsor.since}` : null);
 
   const cls = [
-    "group flex items-center gap-3 rounded-full border py-2 pr-5 pl-2 transition-colors",
+    "group flex items-center rounded-full border transition-colors",
+    featured ? "gap-3.5 py-2.5 pr-6 pl-2.5" : "gap-3 py-2 pr-5 pl-2",
     gold
       ? "border-amber-400/30 bg-amber-300/[0.06] hover:border-amber-400/55"
       : "border-white/10 bg-white/[0.04] hover:border-white/25 hover:bg-white/[0.07]",
@@ -54,14 +59,14 @@ function Nameplate({
 
   const inner = (
     <>
-      <SponsorAvatar sponsor={sponsor} size={40} />
+      <SponsorAvatar sponsor={sponsor} size={featured ? 52 : 40} />
       <span className="flex min-w-0 flex-col text-left">
         <span className="flex items-center gap-1.5">
           <span
             className={
               gold
-                ? "uc-gild text-[15px] font-semibold tracking-tight"
-                : "truncate text-[15px] font-medium text-white/90"
+                ? `uc-gild font-semibold tracking-tight ${featured ? "text-base" : "text-[15px]"}`
+                : `truncate font-medium text-white/90 ${featured ? "text-base" : "text-[15px]"}`
             }
           >
             {sponsor.name}
@@ -95,12 +100,33 @@ function Nameplate({
   );
 }
 
+function TierLabel({ children, gold }: { children: string; gold?: boolean }) {
+  return (
+    <div className="mb-5 flex items-center justify-center gap-3">
+      <span className="h-px w-8 bg-white/15" />
+      <span
+        className={`font-mono text-[11px] tracking-[0.18em] uppercase ${
+          gold ? "text-amber-300/70" : "text-white/45"
+        }`}
+      >
+        {children}
+      </span>
+      <span className="h-px w-8 bg-white/15" />
+    </div>
+  );
+}
+
 export async function SponsorWall() {
   const t = await getTranslations("landing.sponsor.wall");
   const sponsors = await getPublicSponsors();
   const primary = sponsorPrimaryChannel();
   const sinceLabel = t("sinceLabel");
   const isEmpty = sponsors.length === 0;
+
+  const golds = sponsors.filter((s) => s.tier === "gold");
+  const regulars = sponsors.filter((s) => s.tier !== "gold");
+  // Only label the tiers when there is a genuine split to show.
+  const segmented = golds.length > 0 && regulars.length > 0;
 
   return (
     <section className="border-border bg-bg2/40 border-b py-[72px] md:py-[100px]">
@@ -127,12 +153,20 @@ export async function SponsorWall() {
               {t("subtitle")}
             </p>
           </AnimateIn>
+          {!isEmpty && (
+            <AnimateIn delay={0.16}>
+              <div className="border-border bg-card text-muted mt-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm">
+                <Users className="size-4" strokeWidth={1.8} />
+                <span>{t("supporters", { count: sponsors.length })}</span>
+              </div>
+            </AnimateIn>
+          )}
         </div>
 
-        <AnimateIn delay={0.16}>
+        <AnimateIn delay={0.2}>
           <div className="mt-12 flex justify-center">
             <div
-              className="relative inline-flex max-w-full overflow-hidden rounded-3xl border border-white/12 px-5 py-6 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_60px_-24px_rgba(0,0,0,0.3)] md:px-8 md:py-8"
+              className="relative inline-flex max-w-full overflow-hidden rounded-3xl border border-white/12 px-5 py-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_24px_60px_-24px_rgba(0,0,0,0.3)] md:px-9 md:py-9"
               style={{
                 background: "linear-gradient(180deg,#17171b 0%,#0b0b0d 62%)",
               }}
@@ -175,10 +209,38 @@ export async function SponsorWall() {
                   )}
                 </div>
               ) : (
-                <div className="relative flex flex-wrap items-center justify-center gap-3">
-                  {sponsors.map((s) => (
-                    <Nameplate key={s.id} sponsor={s} sinceLabel={sinceLabel} />
-                  ))}
+                <div className="relative flex w-full flex-col gap-9">
+                  {golds.length > 0 && (
+                    <div>
+                      {segmented && (
+                        <TierLabel gold>{t("goldLabel")}</TierLabel>
+                      )}
+                      <div className="flex flex-wrap items-center justify-center gap-3">
+                        {golds.map((s) => (
+                          <Nameplate
+                            key={s.id}
+                            sponsor={s}
+                            sinceLabel={sinceLabel}
+                            featured
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {regulars.length > 0 && (
+                    <div>
+                      {segmented && <TierLabel>{t("backerLabel")}</TierLabel>}
+                      <div className="flex flex-wrap items-center justify-center gap-3">
+                        {regulars.map((s) => (
+                          <Nameplate
+                            key={s.id}
+                            sponsor={s}
+                            sinceLabel={sinceLabel}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

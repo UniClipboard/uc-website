@@ -335,7 +335,8 @@
         "description": "UniClipboard 免费、开源、没有广告——以后也是。它由我一个人开发和维护，服务器也是自己的。如果它帮到了你，赞助是让它走得更远的最直接方式：更稳的同步、更快的更新，以及更多还在路上的功能。",
         "primaryCta": "成为赞助者",
         "secondaryCta": "在 GitHub 上 Star",
-        "count": "已有 {count} 位朋友在支持"
+        "count": "已有 {count} 位朋友在支持",
+        "milestoneTarget": "目标 {target} 位"
       },
       "benefits": {
         "eyebrow": "赞助权益",
@@ -347,8 +348,8 @@
             "desc": "你的名字会出现在下方的赞助墙上，长期留着，作为一份公开的谢意。"
           },
           "b2": {
-            "title": "以后有 Pro，也免你的",
-            "desc": "核心功能会一直免费。要是将来真做了订阅或高级版，你作为早期赞助者直接免单——这个位置，提前给你留好了。"
+            "title": "免费获得 Pro 席位",
+            "desc": "核心功能永远免费。将来若上线订阅或 Pro 版，你作为早期赞助者将直接获得，无需额外付费。"
           },
           "b3": {
             "title": "你的想法被优先听见",
@@ -372,6 +373,9 @@
         "eyebrow": "赞助墙",
         "title": "感谢这些朋友",
         "subtitle": "正是因为有你们，UniClipboard 才走到了今天。这份名单，会一直写下去。",
+        "supporters": "{count, plural, other {# 位赞助者}}",
+        "goldLabel": "金牌赞助",
+        "backerLabel": "支持者",
         "sinceLabel": "自",
         "viewProfile": "查看主页",
         "becomeTitle": "下一个就是你",

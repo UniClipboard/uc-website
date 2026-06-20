@@ -56,6 +56,8 @@ export type SponsorAdminRow = {
   tier: SponsorTier;
   since: string | null;
   note: string | null;
+  /** Sponsorship amount in cents (CNY). Admin-only — never shown publicly. */
+  amountCents: number | null;
   githubLogin: string | null;
   avatar: string | null;
   hasUpload: boolean;
@@ -71,6 +73,7 @@ const toAdminRow = (row: SponsorRow): SponsorAdminRow => ({
   tier: row.tier,
   since: row.since,
   note: row.note,
+  amountCents: row.amountCents,
   githubLogin: row.githubLogin,
   avatar: resolveAvatar(row) ?? null,
   hasUpload: Boolean(row.avatarData),
@@ -112,6 +115,8 @@ export type SponsorWrite = {
   tier?: SponsorTier;
   since?: string | null;
   note?: string | null;
+  /** Sponsorship amount in cents (CNY). Admin-only. */
+  amountCents?: number | null;
   githubLogin?: string | null;
   /** External avatar URL (e.g. GitHub CDN). Cleared if an upload is set. */
   avatarUrl?: string | null;
@@ -144,6 +149,7 @@ export async function createSponsor(
       tier: input.tier ?? "regular",
       since: input.since ?? null,
       note: input.note ?? null,
+      amountCents: input.amountCents ?? null,
       githubLogin: input.githubLogin ?? null,
       // An upload wins over an external URL; never keep both.
       avatarUrl: hasUpload ? null : (input.avatarUrl ?? null),
@@ -168,6 +174,7 @@ export async function updateSponsor(
   if (patch.tier !== undefined) set.tier = patch.tier;
   if (patch.since !== undefined) set.since = patch.since;
   if (patch.note !== undefined) set.note = patch.note;
+  if (patch.amountCents !== undefined) set.amountCents = patch.amountCents;
   if (patch.githubLogin !== undefined) set.githubLogin = patch.githubLogin;
   if (typeof patch.displayOrder === "number")
     set.displayOrder = patch.displayOrder;

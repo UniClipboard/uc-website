@@ -156,6 +156,8 @@ export const sponsors = pgTable(
     since: text("since"),
     /** One-line public shout-out shown under the name. */
     note: text("note"),
+    /** Sponsorship amount in cents (CNY). Admin-only; never shown publicly. */
+    amountCents: integer("amount_cents"),
     /** GitHub username, when the entry was created via GitHub lookup. */
     githubLogin: text("github_login"),
     /** External avatar URL (GitHub CDN or pasted). Used when no upload exists. */

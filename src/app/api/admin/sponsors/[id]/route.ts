@@ -30,6 +30,8 @@ const updateSchema = z.object({
     .optional()
     .or(z.literal("")),
   note: z.string().trim().max(500).nullable().optional(),
+  /** Sponsorship amount in cents (CNY). Admin-only. Capped to fit int4. */
+  amountCents: z.number().int().min(0).max(2_000_000_000).nullable().optional(),
   githubLogin: z.string().trim().max(100).nullable().optional(),
   avatarUrl: z.string().trim().max(1000).nullable().optional(),
   avatarUpload: z.string().max(9_000_000).nullable().optional(),
@@ -66,6 +68,7 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   if (parsed.tier !== undefined) patch.tier = parsed.tier;
   if (parsed.since !== undefined) patch.since = emptyToNull(parsed.since);
   if (parsed.note !== undefined) patch.note = emptyToNull(parsed.note);
+  if (parsed.amountCents !== undefined) patch.amountCents = parsed.amountCents;
   if (parsed.githubLogin !== undefined)
     patch.githubLogin = emptyToNull(parsed.githubLogin);
   if (parsed.displayOrder !== undefined)

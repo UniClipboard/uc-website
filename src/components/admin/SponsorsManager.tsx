@@ -14,6 +14,7 @@ type Row = {
   tier: Tier;
   since: string | null;
   note: string | null;
+  amountCents: number | null;
   githubLogin: string | null;
   avatar: string | null;
   hasUpload: boolean;
@@ -28,6 +29,8 @@ type FormState = {
   tier: Tier;
   since: string;
   note: string;
+  /** Sponsorship amount in yuan as typed (converted to cents on submit). */
+  amount: string;
   githubLogin: string;
   displayOrder: string;
   avatarUrl: string;
@@ -40,12 +43,21 @@ const TIER_LABELS: Record<Tier, string> = { gold: "金牌", regular: "普通" };
 
 const MAX_UPLOAD_BYTES = 6 * 1024 * 1024;
 
+/** Cents → a clean yuan string for the amount input (1888 → "18.88"). */
+const centsToYuanInput = (cents: number | null): string =>
+  cents == null ? "" : String(cents / 100);
+
+/** Cents → "¥18.88" for the table, or "—" when unset. */
+const formatAmount = (cents: number | null): string =>
+  cents == null ? "—" : `¥${(cents / 100).toFixed(2)}`;
+
 const emptyForm = (order: number): FormState => ({
   name: "",
   url: "",
   tier: "regular",
   since: "",
   note: "",
+  amount: "",
   githubLogin: "",
   displayOrder: String(order),
   avatarUrl: "",
@@ -136,6 +148,7 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
       tier: row.tier,
       since: row.since ?? "",
       note: row.note ?? "",
+      amount: centsToYuanInput(row.amountCents),
       githubLogin: row.githubLogin ?? "",
       displayOrder: String(row.displayOrder),
       avatarUrl: urlAvatar,
@@ -239,6 +252,19 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
       setError("赞助起始月份格式应为 YYYY-MM");
       return;
     }
+    const amountStr = form.amount.trim();
+    let amountCents: number | null = null;
+    if (amountStr) {
+      if (!/^\d+(\.\d{1,2})?$/.test(amountStr)) {
+        setError("赞助金额格式有误（最多两位小数，例如 18.88）");
+        return;
+      }
+      amountCents = Math.round(Number.parseFloat(amountStr) * 100);
+      if (!Number.isFinite(amountCents) || amountCents > 2_000_000_000) {
+        setError("赞助金额超出范围");
+        return;
+      }
+    }
     const orderNum = Number.parseInt(form.displayOrder, 10);
 
     type Payload = Record<string, unknown>;
@@ -248,6 +274,7 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
       tier: form.tier,
       since: form.since.trim() || null,
       note: form.note.trim() || null,
+      amountCents,
       githubLogin: form.githubLogin.trim() || null,
       displayOrder: Number.isFinite(orderNum) ? orderNum : 0,
     };
@@ -464,6 +491,20 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                 className={inputCls}
               />
             </div>
+            <div>
+              <label className={labelCls} htmlFor="sp-amount">
+                赞助金额（元，可选，仅后台可见）
+              </label>
+              <input
+                id="sp-amount"
+                type="text"
+                inputMode="decimal"
+                value={form.amount}
+                onChange={(e) => setForm({ ...form, amount: e.target.value })}
+                placeholder="例如 18.88"
+                className={inputCls}
+              />
+            </div>
             <div className="sm:col-span-2">
               <label className={labelCls} htmlFor="sp-note">
                 一句话致谢（可选，公开展示）
@@ -562,6 +603,7 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                 <th className="px-4 py-3 font-medium">头像</th>
                 <th className="px-4 py-3 font-medium">名称</th>
                 <th className="px-4 py-3 font-medium">等级</th>
+                <th className="px-4 py-3 font-medium">金额</th>
                 <th className="px-4 py-3 font-medium">起始</th>
                 <th className="px-4 py-3 font-medium">链接</th>
                 <th className="px-4 py-3"></th>
@@ -617,6 +659,9 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                     ) : (
                       <span className="text-muted-foreground">普通</span>
                     )}
+                  </td>
+                  <td className="text-muted-foreground px-4 py-3 font-mono text-xs whitespace-nowrap">
+                    {formatAmount(row.amountCents)}
                   </td>
                   <td className="text-muted-foreground px-4 py-3 text-xs">
                     {row.since || "—"}

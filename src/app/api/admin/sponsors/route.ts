@@ -27,6 +27,8 @@ const createSchema = z.object({
     .nullable()
     .or(z.literal("")),
   note: z.string().trim().max(500).optional().nullable(),
+  /** Sponsorship amount in cents (CNY). Admin-only. Capped to fit int4. */
+  amountCents: z.number().int().min(0).max(2_000_000_000).optional().nullable(),
   githubLogin: z.string().trim().max(100).optional().nullable(),
   avatarUrl: z.string().trim().max(1000).optional().nullable(),
   /** Raw freshly-chosen image (data URI or base64) — downscaled server-side. */
@@ -88,6 +90,7 @@ export async function POST(req: NextRequest) {
     tier: parsed.tier,
     since: emptyToNull(parsed.since),
     note: emptyToNull(parsed.note),
+    amountCents: parsed.amountCents ?? null,
     githubLogin: emptyToNull(parsed.githubLogin),
     avatarUrl: avatar ? null : emptyToNull(parsed.avatarUrl),
     avatarData: avatar?.data ?? null,

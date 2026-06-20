@@ -26,6 +26,8 @@ export const articleStatusEnum = pgEnum("article_status", [
 
 export const articleLocaleEnum = pgEnum("article_locale", ["en", "zh"]);
 
+export const sponsorTierEnum = pgEnum("sponsor_tier", ["gold", "regular"]);
+
 export const articles = pgTable(
   "articles",
   {
@@ -142,6 +144,37 @@ export const iosBetaSignups = pgTable(
   ],
 );
 
+export const sponsors = pgTable(
+  "sponsors",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    name: text("name").notNull(),
+    /** Optional homepage / profile link shown on the wall. */
+    url: text("url"),
+    tier: sponsorTierEnum("tier").notNull().default("regular"),
+    /** Month they started sponsoring, e.g. "2026-01". */
+    since: text("since"),
+    /** One-line public shout-out shown under the name. */
+    note: text("note"),
+    /** GitHub username, when the entry was created via GitHub lookup. */
+    githubLogin: text("github_login"),
+    /** External avatar URL (GitHub CDN or pasted). Used when no upload exists. */
+    avatarUrl: text("avatar_url"),
+    /** Uploaded avatar, downscaled to a small webp and stored as base64. */
+    avatarData: text("avatar_data"),
+    /** Content-type for the uploaded avatar, e.g. "image/webp". */
+    avatarMime: text("avatar_mime"),
+    displayOrder: integer("display_order").notNull().default(0),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [index("sponsors_display_order_idx").on(table.displayOrder)],
+);
+
 export type Article = typeof articles.$inferSelect;
 export type NewArticle = typeof articles.$inferInsert;
 export type ArticleTranslation = typeof articleTranslations.$inferSelect;
@@ -154,5 +187,7 @@ export type Release = typeof releases.$inferSelect;
 export type NewRelease = typeof releases.$inferInsert;
 export type IosBetaSignup = typeof iosBetaSignups.$inferSelect;
 export type NewIosBetaSignup = typeof iosBetaSignups.$inferInsert;
+export type Sponsor = typeof sponsors.$inferSelect;
+export type NewSponsor = typeof sponsors.$inferInsert;
 
 export const updateUpdatedAt = sql`now()`;

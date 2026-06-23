@@ -1019,5 +1019,36 @@
       "lastUpdatedLabel": "最后更新",
       "lastUpdatedDate": "2026-05-04"
     }
+  },
+  "sponsorClaim": {
+    "title": "完善你的赞助者资料",
+    "subtitle": "感谢你支持 UniClipboard！请选择你希望在赞助墙上展示的方式。",
+    "nameLabel": "展示名称",
+    "namePlaceholder": "在赞助墙上显示的名字",
+    "githubLabel": "GitHub 用户名（可选）",
+    "githubHint": "可一键从 GitHub 获取昵称与头像，也可以在下方手动填写。",
+    "githubButton": "获取",
+    "githubFetching": "获取中…",
+    "githubEmpty": "请先填写 GitHub 用户名",
+    "githubFound": "已获取：{name}",
+    "avatarLabel": "头像",
+    "avatarHint": "上传图片（自动裁剪为 160×160 方形），留空则显示首字母占位。",
+    "avatarUrlPlaceholder": "或粘贴头像图片 URL",
+    "avatarRemove": "移除头像",
+    "avatarTooLarge": "图片过大（上限 6MB）",
+    "noteLabel": "一句话致谢（可选）",
+    "notePlaceholder": "显示在名字下方的一句话",
+    "urlLabel": "主页 / 资料页链接（可选）",
+    "submit": "提交",
+    "submitting": "提交中…",
+    "successTitle": "已提交，谢谢你！",
+    "successBody": "资料已收到，经我们确认后即会出现在赞助墙上。你可以关闭此页面。",
+    "errorRequired": "展示名称必填",
+    "errorGeneric": "提交失败，请重试。",
+    "invalidTitle": "此链接已失效",
+    "invalidUsed": "该邀请链接已被使用。",
+    "invalidExpired": "该邀请链接已过期，请向我们索取新的链接。",
+    "invalidNotFound": "该邀请链接无效，请核对链接是否完整。",
+    "backHome": "返回首页"
   }
 }

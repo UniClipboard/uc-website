@@ -29,6 +29,16 @@ export const articleLocaleEnum = pgEnum("article_locale", ["en", "zh"]);
 
 export const sponsorTierEnum = pgEnum("sponsor_tier", ["gold", "regular"]);
 
+/**
+ * Publication state of a sponsor row. Admin-created rows default to "published"
+ * and show on the wall immediately; self-service submissions (via an invite
+ * link) start as "pending" and only appear once an admin approves them.
+ */
+export const sponsorStatusEnum = pgEnum("sponsor_status", [
+  "pending",
+  "published",
+]);
+
 export const articles = pgTable(
   "articles",
   {
@@ -153,6 +163,11 @@ export const sponsors = pgTable(
     /** Optional homepage / profile link shown on the wall. */
     url: text("url"),
     tier: sponsorTierEnum("tier").notNull().default("regular"),
+    /**
+     * Publication state. Admin-created rows are "published"; self-service
+     * submissions via an invite link start "pending" until an admin approves.
+     */
+    status: sponsorStatusEnum("status").notNull().default("published"),
     /** Month they started sponsoring, e.g. "2026-01". */
     since: text("since"),
     /** One-line public shout-out shown under the name. */
@@ -177,8 +192,51 @@ export const sponsors = pgTable(
   },
   (table) => [
     index("sponsors_display_order_idx").on(table.displayOrder),
+    index("sponsors_status_idx").on(table.status),
     // Monetary integrity: amount is either unset (NULL) or non-negative.
     check("sponsors_amount_cents_non_negative", sql`${table.amountCents} >= 0`),
+  ],
+);
+
+/**
+ * Single-use invite links the admin generates and sends to a sponsor so they
+ * can fill in their own public profile (name, avatar, note, link). The raw
+ * token is never stored — only its SHA-256 hash, mirroring `api_tokens`. The
+ * admin pre-sets `tier` and `amountCents` when minting the link; the sponsor
+ * never sees or edits those. A link is consumed (`usedAt`) the moment a sponsor
+ * submits, which creates a "pending" sponsor row referenced by `sponsorId`.
+ */
+export const sponsorInvites = pgTable(
+  "sponsor_invites",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    /** SHA-256 hash of the raw token; the raw token is shown to the admin once. */
+    tokenHash: text("token_hash").notNull(),
+    /** Admin-only memo, e.g. who the link was sent to. */
+    label: text("label"),
+    /** Tier the resulting sponsor row inherits. */
+    tier: sponsorTierEnum("tier").notNull().default("regular"),
+    /** Sponsorship amount in cents (CNY) the resulting row inherits. Admin-only. */
+    amountCents: integer("amount_cents"),
+    /** When the link stops being valid. NULL means it never expires. */
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    /** When the link was consumed. NULL means still usable. */
+    usedAt: timestamp("used_at", { withTimezone: true }),
+    /** The sponsor row created when the link was consumed. */
+    sponsorId: uuid("sponsor_id").references(() => sponsors.id, {
+      onDelete: "set null",
+    }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("sponsor_invites_token_hash_idx").on(table.tokenHash),
+    index("sponsor_invites_created_at_idx").on(table.createdAt),
+    check(
+      "sponsor_invites_amount_cents_non_negative",
+      sql`${table.amountCents} >= 0`,
+    ),
   ],
 );
 
@@ -196,5 +254,7 @@ export type IosBetaSignup = typeof iosBetaSignups.$inferSelect;
 export type NewIosBetaSignup = typeof iosBetaSignups.$inferInsert;
 export type Sponsor = typeof sponsors.$inferSelect;
 export type NewSponsor = typeof sponsors.$inferInsert;
+export type SponsorInvite = typeof sponsorInvites.$inferSelect;
+export type NewSponsorInvite = typeof sponsorInvites.$inferInsert;
 
 export const updateUpdatedAt = sql`now()`;

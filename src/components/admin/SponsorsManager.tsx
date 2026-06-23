@@ -6,12 +6,14 @@ import { useRef, useState, useTransition } from "react";
 import { monogramFor } from "@/lib/sponsors";
 
 type Tier = "gold" | "regular";
+type Status = "pending" | "published";
 
 type Row = {
   id: string;
   name: string;
   url: string | null;
   tier: Tier;
+  status: Status;
   since: string | null;
   note: string | null;
   amountCents: number | null;
@@ -21,6 +23,18 @@ type Row = {
   displayOrder: number;
   createdAt: string;
   updatedAt: string;
+};
+
+type InviteRow = {
+  id: string;
+  label: string | null;
+  tier: Tier;
+  amountCents: number | null;
+  expiresAt: string | null;
+  usedAt: string | null;
+  sponsorId: string | null;
+  createdAt: string;
+  status: "active" | "used" | "expired";
 };
 
 type FormState = {
@@ -98,7 +112,13 @@ function Thumb({
   );
 }
 
-export function SponsorsManager({ initial }: { initial: Row[] }) {
+export function SponsorsManager({
+  initial,
+  initialInvites,
+}: {
+  initial: Row[];
+  initialInvites: InviteRow[];
+}) {
   const router = useRouter();
   const [creating, setCreating] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -331,6 +351,21 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
     });
   };
 
+  const setStatus = (id: string, status: Status) => {
+    startTransition(async () => {
+      const res = await fetch(`/api/admin/sponsors/${id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) {
+        alert(`操作失败：${await res.text()}`);
+        return;
+      }
+      router.refresh();
+    });
+  };
+
   const move = (row: Row, direction: -1 | 1) => {
     const sorted = [...initial].sort((a, b) => a.displayOrder - b.displayOrder);
     const idx = sorted.findIndex((r) => r.id === row.id);
@@ -383,6 +418,8 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
           </button>
         )}
       </div>
+
+      <InvitesPanel initial={initialInvites} />
 
       {formOpen && (
         <form
@@ -602,6 +639,7 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                 <th className="px-4 py-3 font-medium">顺序</th>
                 <th className="px-4 py-3 font-medium">头像</th>
                 <th className="px-4 py-3 font-medium">名称</th>
+                <th className="px-4 py-3 font-medium">状态</th>
                 <th className="px-4 py-3 font-medium">等级</th>
                 <th className="px-4 py-3 font-medium">金额</th>
                 <th className="px-4 py-3 font-medium">起始</th>
@@ -652,6 +690,15 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-xs">
+                    {row.status === "pending" ? (
+                      <span className="rounded-full border border-orange-400/40 bg-orange-300/10 px-2 py-0.5 text-orange-600 dark:text-orange-300">
+                        待审核
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">已上墙</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-xs">
                     {row.tier === "gold" ? (
                       <span className="rounded-full border border-amber-400/40 bg-amber-300/10 px-2 py-0.5 text-amber-600 dark:text-amber-300">
                         金牌
@@ -682,6 +729,26 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                   </td>
                   <td className="px-4 py-3 text-xs">
                     <div className="flex items-center gap-3">
+                      {row.status === "pending" ? (
+                        <button
+                          type="button"
+                          onClick={() => setStatus(row.id, "published")}
+                          disabled={pending}
+                          className="text-emerald-600 hover:underline disabled:opacity-50 dark:text-emerald-400"
+                        >
+                          通过
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setStatus(row.id, "pending")}
+                          disabled={pending}
+                          className="text-muted-foreground hover:text-foreground disabled:opacity-50"
+                          title="从墙上撤下，转为待审核"
+                        >
+                          下墙
+                        </button>
+                      )}
                       <button
                         type="button"
                         onClick={() => beginEdit(row)}
@@ -698,6 +765,292 @@ export function SponsorsManager({ initial }: { initial: Row[] }) {
                         删除
                       </button>
                     </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const INVITE_STATUS_LABELS: Record<InviteRow["status"], string> = {
+  active: "可用",
+  used: "已使用",
+  expired: "已过期",
+};
+
+const fmtDate = (iso: string | null): string =>
+  iso ? new Date(iso).toLocaleString() : "—";
+
+/**
+ * Generate & manage single-use invite links. The raw token is only ever
+ * returned once (at creation), so the full URL is shown in a one-time box right
+ * after generating; the list below tracks status but can't recover past links.
+ */
+function InvitesPanel({ initial }: { initial: InviteRow[] }) {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [list, setList] = useState<InviteRow[]>(initial);
+  const [label, setLabel] = useState("");
+  const [tier, setTier] = useState<Tier>("regular");
+  const [amount, setAmount] = useState("");
+  const [expiresInDays, setExpiresInDays] = useState("7");
+  const [generated, setGenerated] = useState<{ url: string } | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  const inputCls =
+    "border-border bg-background text-foreground mt-1 w-full rounded border px-3 py-2 text-sm";
+  const labelCls = "text-foreground text-xs font-medium";
+
+  const generate = () => {
+    setError(null);
+    setGenerated(null);
+    setCopied(false);
+
+    const amountStr = amount.trim();
+    let amountCents: number | null = null;
+    if (amountStr) {
+      if (!/^\d+(\.\d{1,2})?$/.test(amountStr)) {
+        setError("金额格式有误（最多两位小数，例如 18.88）");
+        return;
+      }
+      amountCents = Math.round(Number.parseFloat(amountStr) * 100);
+      if (!Number.isFinite(amountCents) || amountCents > 2_000_000_000) {
+        setError("金额超出范围");
+        return;
+      }
+    }
+    const daysNum = Number.parseInt(expiresInDays, 10);
+    const expiresInDaysVal = Number.isFinite(daysNum)
+      ? Math.max(0, daysNum)
+      : 0;
+
+    startTransition(async () => {
+      const res = await fetch("/api/admin/sponsor-invites", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          label: label.trim() || null,
+          tier,
+          amountCents,
+          expiresInDays: expiresInDaysVal,
+        }),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(body?.error ?? `生成失败：${res.status}`);
+        return;
+      }
+      const url = `${window.location.origin}/sponsor/invite/${body.token}`;
+      setGenerated({ url });
+      setList((l) => [body.invite as InviteRow, ...l]);
+      setLabel("");
+      setAmount("");
+    });
+  };
+
+  const copyLink = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const revoke = (id: string) => {
+    if (!confirm("确定撤销该邀请链接？撤销后链接立即失效。")) return;
+    startTransition(async () => {
+      const res = await fetch(`/api/admin/sponsor-invites/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        alert(`撤销失败：${await res.text()}`);
+        return;
+      }
+      setList((l) => l.filter((it) => it.id !== id));
+      router.refresh();
+    });
+  };
+
+  return (
+    <div className="border-border bg-bg2/30 mb-6 rounded-lg border p-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-foreground text-sm font-semibold">邀请链接</h2>
+          <p className="text-muted-foreground mt-0.5 text-xs">
+            生成单次使用的填写链接发给赞助者，由其自助填写名称与头像。提交后进入「待审核」，确认后再上墙。
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="border-border hover:bg-bg2 inline-flex flex-none items-center rounded-md border px-3 py-1.5 text-sm font-medium"
+        >
+          {open ? "收起" : "生成链接"}
+        </button>
+      </div>
+
+      {open && (
+        <div className="border-border mt-4 border-t pt-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <label className={labelCls} htmlFor="inv-label">
+                备注（仅后台可见，例如发给谁）
+              </label>
+              <input
+                id="inv-label"
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                maxLength={200}
+                placeholder="例如：爱发电 @张三"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls} htmlFor="inv-tier">
+                等级（预设，赞助者不可改）
+              </label>
+              <select
+                id="inv-tier"
+                value={tier}
+                onChange={(e) => setTier(e.target.value as Tier)}
+                className={inputCls}
+              >
+                <option value="regular">{TIER_LABELS.regular}</option>
+                <option value="gold">{TIER_LABELS.gold}</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelCls} htmlFor="inv-amount">
+                金额（元，可选，仅后台可见）
+              </label>
+              <input
+                id="inv-amount"
+                type="text"
+                inputMode="decimal"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="例如 18.88"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <label className={labelCls} htmlFor="inv-days">
+                有效期（天，0 表示永不过期）
+              </label>
+              <input
+                id="inv-days"
+                type="number"
+                min={0}
+                max={365}
+                value={expiresInDays}
+                onChange={(e) => setExpiresInDays(e.target.value)}
+                className={inputCls}
+              />
+            </div>
+          </div>
+
+          {error && <p className="mt-3 text-xs text-red-500">{error}</p>}
+
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={generate}
+              disabled={pending}
+              className="bg-foreground text-background hover:bg-foreground/90 inline-flex items-center rounded-md px-3 py-1.5 text-sm font-medium disabled:opacity-50"
+            >
+              {pending ? "生成中..." : "生成链接"}
+            </button>
+          </div>
+
+          {generated && (
+            <div className="mt-4 rounded-md border border-emerald-500/40 bg-emerald-500/5 p-3">
+              <p className="text-xs font-medium text-emerald-700 dark:text-emerald-300">
+                链接已生成，请立即复制——出于安全考虑，它只会显示这一次。
+              </p>
+              <div className="mt-2 flex gap-2">
+                <input
+                  readOnly
+                  value={generated.url}
+                  onFocus={(e) => e.currentTarget.select()}
+                  className="border-border bg-background text-foreground w-full rounded border px-3 py-2 font-mono text-xs"
+                />
+                <button
+                  type="button"
+                  onClick={() => copyLink(generated.url)}
+                  className="border-border hover:bg-bg2 inline-flex flex-none items-center rounded-md border px-3 py-1.5 text-sm font-medium"
+                >
+                  {copied ? "已复制" : "复制"}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {list.length > 0 && (
+        <div className="border-border mt-4 overflow-x-auto rounded-lg border">
+          <table className="w-full text-left text-sm">
+            <thead className="border-border bg-bg2 border-b">
+              <tr>
+                <th className="px-4 py-2.5 font-medium">备注</th>
+                <th className="px-4 py-2.5 font-medium">等级</th>
+                <th className="px-4 py-2.5 font-medium">金额</th>
+                <th className="px-4 py-2.5 font-medium">状态</th>
+                <th className="px-4 py-2.5 font-medium">过期时间</th>
+                <th className="px-4 py-2.5 font-medium">创建时间</th>
+                <th className="px-4 py-2.5"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {list.map((it) => (
+                <tr
+                  key={it.id}
+                  className="border-border border-b align-middle last:border-b-0"
+                >
+                  <td className="text-foreground px-4 py-2.5 text-xs">
+                    {it.label || "—"}
+                  </td>
+                  <td className="px-4 py-2.5 text-xs">
+                    {it.tier === "gold" ? "金牌" : "普通"}
+                  </td>
+                  <td className="text-muted-foreground px-4 py-2.5 font-mono text-xs whitespace-nowrap">
+                    {formatAmount(it.amountCents)}
+                  </td>
+                  <td className="px-4 py-2.5 text-xs">
+                    {it.status === "active" ? (
+                      <span className="text-emerald-600 dark:text-emerald-400">
+                        {INVITE_STATUS_LABELS.active}
+                      </span>
+                    ) : (
+                      <span className="text-muted-foreground">
+                        {INVITE_STATUS_LABELS[it.status]}
+                      </span>
+                    )}
+                  </td>
+                  <td className="text-muted-foreground px-4 py-2.5 text-xs whitespace-nowrap">
+                    {it.expiresAt ? fmtDate(it.expiresAt) : "永久"}
+                  </td>
+                  <td className="text-muted-foreground px-4 py-2.5 text-xs whitespace-nowrap">
+                    {fmtDate(it.createdAt)}
+                  </td>
+                  <td className="px-4 py-2.5 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => revoke(it.id)}
+                      disabled={pending}
+                      className="text-red-500 hover:text-red-400 disabled:opacity-50"
+                    >
+                      撤销
+                    </button>
                   </td>
                 </tr>
               ))}

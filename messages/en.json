@@ -1025,5 +1025,36 @@
       "lastUpdatedLabel": "Last updated",
       "lastUpdatedDate": "2026-05-04"
     }
+  },
+  "sponsorClaim": {
+    "title": "Complete your sponsor profile",
+    "subtitle": "Thanks for supporting UniClipboard! Choose how you would like to appear on the sponsor wall.",
+    "nameLabel": "Display name",
+    "namePlaceholder": "How your name shows on the wall",
+    "githubLabel": "GitHub username (optional)",
+    "githubHint": "Auto-fill your name and avatar from GitHub, or fill them in manually below.",
+    "githubButton": "Fetch",
+    "githubFetching": "Fetching…",
+    "githubEmpty": "Enter a GitHub username first",
+    "githubFound": "Loaded: {name}",
+    "avatarLabel": "Avatar",
+    "avatarHint": "Upload an image (auto-cropped to a 160×160 square) — or leave empty to show your initials.",
+    "avatarUrlPlaceholder": "Or paste an image URL",
+    "avatarRemove": "Remove avatar",
+    "avatarTooLarge": "Image too large (max 6MB)",
+    "noteLabel": "One-line shout-out (optional)",
+    "notePlaceholder": "A short message shown under your name",
+    "urlLabel": "Homepage / profile link (optional)",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "successTitle": "Submitted — thank you!",
+    "successBody": "Your profile is in. It will appear on the sponsor wall once we have reviewed it. You can safely close this page.",
+    "errorRequired": "Display name is required",
+    "errorGeneric": "Submission failed. Please try again.",
+    "invalidTitle": "This link is no longer valid",
+    "invalidUsed": "This invite link has already been used.",
+    "invalidExpired": "This invite link has expired. Please ask the team for a new one.",
+    "invalidNotFound": "This invite link is invalid. Please double-check the URL.",
+    "backHome": "Back to home"
   }
 }

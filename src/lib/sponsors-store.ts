@@ -8,6 +8,8 @@ import { sponsors } from "@/db/schema";
 
 import type { Sponsor, SponsorTier } from "./sponsors";
 
+export type SponsorStatus = "pending" | "published";
+
 /** Largest accepted raw upload before downscaling (guards against abuse). */
 const MAX_UPLOAD_BYTES = 6 * 1024 * 1024; // 6 MB
 /** Square size we downscale avatars to. Wall renders them at ~40px. */
@@ -23,6 +25,7 @@ const displaySelection = {
   name: sponsors.name,
   url: sponsors.url,
   tier: sponsors.tier,
+  status: sponsors.status,
   since: sponsors.since,
   note: sponsors.note,
   amountCents: sponsors.amountCents,
@@ -39,6 +42,7 @@ type DisplayRow = {
   name: string;
   url: string | null;
   tier: SponsorTier;
+  status: SponsorStatus;
   since: string | null;
   note: string | null;
   amountCents: number | null;
@@ -67,6 +71,8 @@ export async function getPublicSponsors(): Promise<Sponsor[]> {
   const rows = await db
     .select(displaySelection)
     .from(sponsors)
+    // Only approved rows reach the public wall; pending self-submissions wait.
+    .where(eq(sponsors.status, "published"))
     .orderBy(
       sql`case when ${sponsors.tier} = 'gold' then 0 else 1 end`,
       asc(sponsors.displayOrder),
@@ -89,6 +95,7 @@ export type SponsorAdminRow = {
   name: string;
   url: string | null;
   tier: SponsorTier;
+  status: SponsorStatus;
   since: string | null;
   note: string | null;
   /** Sponsorship amount in cents (CNY). Admin-only — never shown publicly. */
@@ -106,6 +113,7 @@ const toAdminRow = (row: DisplayRow): SponsorAdminRow => ({
   name: row.name,
   url: row.url,
   tier: row.tier,
+  status: row.status,
   since: row.since,
   note: row.note,
   amountCents: row.amountCents,
@@ -148,6 +156,7 @@ export type SponsorWrite = {
   name: string;
   url?: string | null;
   tier?: SponsorTier;
+  status?: SponsorStatus;
   since?: string | null;
   note?: string | null;
   /** Sponsorship amount in cents (CNY). Admin-only. */
@@ -182,6 +191,7 @@ export async function createSponsor(
       name: input.name,
       url: input.url ?? null,
       tier: input.tier ?? "regular",
+      status: input.status ?? "published",
       since: input.since ?? null,
       note: input.note ?? null,
       amountCents: input.amountCents ?? null,
@@ -207,6 +217,7 @@ export async function updateSponsor(
   if (patch.name !== undefined) set.name = patch.name;
   if (patch.url !== undefined) set.url = patch.url;
   if (patch.tier !== undefined) set.tier = patch.tier;
+  if (patch.status !== undefined) set.status = patch.status;
   if (patch.since !== undefined) set.since = patch.since;
   if (patch.note !== undefined) set.note = patch.note;
   if (patch.amountCents !== undefined) set.amountCents = patch.amountCents;

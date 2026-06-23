@@ -33,6 +33,7 @@ const updateSchema = z.object({
     .optional()
     .or(z.literal("")),
   tier: z.enum(["gold", "regular"]).optional(),
+  status: z.enum(["pending", "published"]).optional(),
   since: z
     .string()
     .trim()
@@ -87,6 +88,7 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   if (parsed.name !== undefined) patch.name = parsed.name;
   if (parsed.url !== undefined) patch.url = emptyToNull(parsed.url);
   if (parsed.tier !== undefined) patch.tier = parsed.tier;
+  if (parsed.status !== undefined) patch.status = parsed.status;
   if (parsed.since !== undefined) patch.since = emptyToNull(parsed.since);
   if (parsed.note !== undefined) patch.note = emptyToNull(parsed.note);
   if (parsed.amountCents !== undefined) patch.amountCents = parsed.amountCents;

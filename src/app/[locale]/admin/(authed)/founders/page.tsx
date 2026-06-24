@@ -3,8 +3,7 @@ import { listAllFounders } from "@/lib/founders";
 
 export const metadata = { title: "创始用户 · Admin" };
 
-const dynamic = "force-dynamic";
-export { dynamic };
+export const dynamic = "force-dynamic";
 
 export default async function AdminFoundersPage() {
   const rows = await listAllFounders();

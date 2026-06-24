@@ -3,8 +3,7 @@ import { listIosBetaSignups } from "@/lib/ios-beta-signups";
 
 export const metadata = { title: "iOS Beta · Admin" };
 
-const dynamic = "force-dynamic";
-export { dynamic };
+export const dynamic = "force-dynamic";
 
 export default async function AdminIosBetaPage() {
   const rows = await listIosBetaSignups();

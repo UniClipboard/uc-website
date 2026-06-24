@@ -71,7 +71,7 @@ function applyPublicCdnCache(res: NextResponse): NextResponse {
     res.headers.delete("set-cookie");
     res.headers.set(
       "cache-control",
-      "public, s-maxage=300, stale-while-revalidate=600",
+      "public, s-maxage=1800, stale-while-revalidate=86400",
     );
   }
   return res;
@@ -94,5 +94,14 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|_vercel|docs|.*\\..*).*)", "/(api|trpc)(.*)"],
+  matcher: [
+    // Pages: run intl middleware everywhere except Next internals, the docs
+    // proxy, files with extensions, and ALL API routes (added `api` to the
+    // negative lookahead — API routes don't need locale routing).
+    "/((?!api|_next|_vercel|docs|.*\\..*).*)",
+    // Only admin APIs need Clerk auth in middleware. Other API routes
+    // (v1, cron, sponsor-avatar, sponsor-invite) authenticate inside their
+    // own handlers, so skip the middleware invocation entirely for them.
+    "/api/admin/:path*",
+  ],
 };

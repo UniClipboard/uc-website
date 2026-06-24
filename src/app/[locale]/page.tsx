@@ -18,6 +18,9 @@ import {
 } from "@/lib/release-feed/normalize-release";
 import { siteConfig } from "@/lib/site-config";
 
+// Prerender as ISR (regenerate at most hourly) instead of rendering per request.
+export const revalidate = 3600;
+
 const buildDegradedFallback = (): StableReleaseViewModel => ({
   status: "degraded",
   version: "unavailable",

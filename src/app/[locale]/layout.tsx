@@ -5,13 +5,21 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { fonts } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
+
+// Enumerate locales at build time so every `[locale]` page can be statically
+// prerendered. Without this (plus `setRequestLocale` below) next-intl reads the
+// locale from `headers()`, which forces the entire subtree into dynamic
+// rendering — a full SSR on every request.
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
   params,
@@ -98,6 +106,10 @@ const RootLayout = async ({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Enables static rendering for this layout and all descendant pages: makes
+  // next-intl resolve the locale from this value instead of `headers()`.
+  setRequestLocale(locale);
 
   const gaId = siteConfig.analytics.gaMeasurementId;
 

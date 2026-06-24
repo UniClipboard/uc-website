@@ -9,9 +9,11 @@ import { SponsorHero } from "@/components/landing/SponsorHero";
 import { SponsorWall } from "@/components/landing/SponsorWall";
 import { siteConfig } from "@/lib/site-config";
 
-// Sponsors are DB-backed and edited via the admin UI, so render per-request
-// instead of baking the list at build time.
-export const dynamic = "force-dynamic";
+// Sponsors are DB-backed but change rarely, so the wall renders statically and
+// is rebuilt on demand: the list is cached under SPONSORS_PUBLIC_CACHE_TAG (see
+// sponsors-store) and every admin mutation calls `revalidateTag` to refresh it.
+// The 30-min ISR window is a safety net in case a revalidation is ever missed.
+export const revalidate = 1800;
 
 type LocaleParam = { params: Promise<{ locale: string }> };
 

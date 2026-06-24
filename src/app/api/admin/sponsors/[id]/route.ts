@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -5,6 +6,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import {
   deleteSponsor,
   processAvatarUpload,
+  SPONSORS_PUBLIC_CACHE_TAG,
   type SponsorWrite,
   updateSponsor,
 } from "@/lib/sponsors-store";
@@ -122,6 +124,8 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   if (!updated) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
+  // Edits (incl. publish/unpublish, avatar, tier) change the public wall.
+  revalidateTag(SPONSORS_PUBLIC_CACHE_TAG);
   return NextResponse.json(updated);
 }
 
@@ -141,5 +145,6 @@ export async function DELETE(_req: NextRequest, ctx: Ctx) {
   if (!ok) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
+  revalidateTag(SPONSORS_PUBLIC_CACHE_TAG);
   return NextResponse.json({ ok: true });
 }

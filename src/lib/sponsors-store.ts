@@ -1,6 +1,7 @@
 import "server-only";
 
 import { asc, eq, inArray, sql } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 import sharp from "sharp";
 
 import { db } from "@/db/client";
@@ -64,10 +65,14 @@ function resolveAvatar(row: DisplayRow): string | undefined {
 }
 
 /**
- * Public wall list — gold sponsors first, then by display order, then by
- * creation time. Returns the isomorphic `Sponsor` display shape.
+ * Cache tag for the public sponsor wall. The wall reads the list through this
+ * tag so the page renders statically and is served from cache; every admin
+ * sponsor mutation calls `revalidateTag` with it to rebuild on demand instead
+ * of paying a DB read + full render on every visit.
  */
-export async function getPublicSponsors(): Promise<Sponsor[]> {
+export const SPONSORS_PUBLIC_CACHE_TAG = "sponsors:public";
+
+async function getPublicSponsorsRaw(): Promise<Sponsor[]> {
   const rows = await db
     .select(displaySelection)
     .from(sponsors)
@@ -88,6 +93,17 @@ export async function getPublicSponsors(): Promise<Sponsor[]> {
     tier: row.tier,
   }));
 }
+
+/**
+ * Public wall list — gold sponsors first, then by display order, then by
+ * creation time. Returns the isomorphic `Sponsor` display shape. Cached under
+ * `SPONSORS_PUBLIC_CACHE_TAG`; the hero and wall both call this within a render,
+ * so the cache also dedupes the two reads into a single DB query.
+ */
+export const getPublicSponsors = (): Promise<Sponsor[]> =>
+  unstable_cache(getPublicSponsorsRaw, ["sponsors", "public"], {
+    tags: [SPONSORS_PUBLIC_CACHE_TAG],
+  })();
 
 /** Admin DTO — never ships the base64 blob, just whether one exists + preview. */
 export type SponsorAdminRow = {

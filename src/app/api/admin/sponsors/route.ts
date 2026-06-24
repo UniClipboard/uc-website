@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -6,6 +7,7 @@ import {
   createSponsor,
   listAllSponsors,
   processAvatarUpload,
+  SPONSORS_PUBLIC_CACHE_TAG,
 } from "@/lib/sponsors-store";
 
 export const runtime = "nodejs";
@@ -111,5 +113,7 @@ export async function POST(req: NextRequest) {
     avatarMime: avatar?.mime ?? null,
     displayOrder: parsed.displayOrder ?? null,
   });
+  // New sponsors default to "published", so refresh the public wall.
+  revalidateTag(SPONSORS_PUBLIC_CACHE_TAG);
   return NextResponse.json(created, { status: 201 });
 }

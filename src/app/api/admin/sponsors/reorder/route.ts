@@ -1,8 +1,12 @@
+import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { requireAdmin } from "@/lib/admin-auth";
-import { swapSponsorOrder } from "@/lib/sponsors-store";
+import {
+  SPONSORS_PUBLIC_CACHE_TAG,
+  swapSponsorOrder,
+} from "@/lib/sponsors-store";
 
 export const runtime = "nodejs";
 
@@ -48,5 +52,6 @@ export async function POST(req: NextRequest) {
   if (!ok) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
+  revalidateTag(SPONSORS_PUBLIC_CACHE_TAG);
   return NextResponse.json({ ok: true });
 }

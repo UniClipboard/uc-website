@@ -6,8 +6,7 @@ import { emptyContentForCategory } from "@/lib/empty-article";
 
 export const metadata = { title: "Edit article · Admin" };
 
-const dynamic = "force-dynamic";
-export { dynamic };
+export const dynamic = "force-dynamic";
 
 export default async function EditArticlePage({
   params,

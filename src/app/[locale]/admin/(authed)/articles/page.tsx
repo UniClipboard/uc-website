@@ -6,8 +6,7 @@ import { listAllArticles } from "@/db/articles";
 
 export const metadata = { title: "Articles · Admin" };
 
-const dynamic = "force-dynamic";
-export { dynamic };
+export const dynamic = "force-dynamic";
 
 export default async function AdminArticlesPage() {
   const items = await listAllArticles();

@@ -6,8 +6,7 @@ import { releases } from "@/db/schema";
 
 export const metadata = { title: "Changelog · Admin" };
 
-const dynamic = "force-dynamic";
-export { dynamic };
+export const dynamic = "force-dynamic";
 
 export default async function AdminChangelogPage() {
   const rows = await db

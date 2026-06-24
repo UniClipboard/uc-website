@@ -7,8 +7,7 @@ import { releases } from "@/db/schema";
 
 export const metadata = { title: "Edit release · Admin" };
 
-const dynamic = "force-dynamic";
-export { dynamic };
+export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ id: string }> };
 

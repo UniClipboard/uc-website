@@ -388,7 +388,11 @@
         "subtitle": "如果 UniClipboard 帮你省下了时间，一点点支持，就能让它走得更远。每一份，我都记得。",
         "primary": "去赞助",
         "secondary": "在 GitHub 上 Star",
-        "note": "赞助为自愿 · 随时可取消"
+        "note": "赞助为自愿 · 随时可取消",
+        "claimNoteBefore": "已赞助？发邮件到",
+        "claimNoteAfter": "领取赞助礼包和赞助墙填写链接。",
+        "claimMailSubject": "领取 UniClipboard 赞助小礼包",
+        "claimMailBody": "你好，我已经赞助 UniClipboard，想领取赞助小礼包和赞助墙资料填写链接。\n\n赞助平台：\n赞助昵称 / 订单信息：\n\n谢谢！"
       }
     }
   },

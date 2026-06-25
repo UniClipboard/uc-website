@@ -6,6 +6,9 @@ import { GITHUB_REPO_URL, SPONSOR_CHANNELS } from "@/lib/sponsors";
 
 export async function SponsorCta() {
   const t = await getTranslations("landing.sponsor.cta");
+  const sponsorMailHref = `mailto:mkdir700@gmail.com?subject=${encodeURIComponent(
+    t("claimMailSubject"),
+  )}&body=${encodeURIComponent(t("claimMailBody"))}`;
 
   return (
     <section
@@ -104,8 +107,8 @@ export async function SponsorCta() {
             </div>
           </AnimateIn>
           <AnimateIn delay={0.24} duration={0.5}>
-            <p
-              className="mt-8"
+            <div
+              className="mt-8 flex flex-col items-center gap-2"
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: 11.5,
@@ -113,8 +116,21 @@ export async function SponsorCta() {
                 color: "rgba(250,250,250,0.48)",
               }}
             >
-              {t("note")}
-            </p>
+              <p>{t("note")}</p>
+              <p
+                className="max-w-[620px] leading-relaxed"
+                style={{ letterSpacing: "0.02em" }}
+              >
+                {t("claimNoteBefore")}{" "}
+                <a
+                  href={sponsorMailHref}
+                  className="text-white/70 underline underline-offset-4 transition-colors hover:text-white"
+                >
+                  mkdir700@gmail.com
+                </a>{" "}
+                {t("claimNoteAfter")}
+              </p>
+            </div>
           </AnimateIn>
         </div>
       </div>

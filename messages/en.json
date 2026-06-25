@@ -394,7 +394,11 @@
         "subtitle": "If UniClipboard has saved you time, a little support goes a long way toward keeping it alive. Every bit means something to me.",
         "primary": "Sponsor now",
         "secondary": "Star on GitHub",
-        "note": "Sponsorship is voluntary · cancel anytime"
+        "note": "Sponsorship is voluntary · cancel anytime",
+        "claimNoteBefore": "Already sponsored? Email",
+        "claimNoteAfter": "for your gift and sponsor wall link.",
+        "claimMailSubject": "Claim my UniClipboard sponsor thank-you gift",
+        "claimMailBody": "Hi, I have sponsored UniClipboard and would like to receive the sponsor thank-you gift and the sponsor wall profile link.\n\nSponsorship platform:\nSponsor name / order info:\n\nThanks!"
       }
     }
   },

@@ -7,6 +7,7 @@ import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
 import { routing } from "@/i18n/routing";
 import { fonts } from "@/lib/fonts";
@@ -137,6 +138,7 @@ const RootLayout = async ({
           </>
         )}
         <NextIntlClientProvider>
+          <ScrollToTop />
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </NextIntlClientProvider>
         <SpeedInsights />

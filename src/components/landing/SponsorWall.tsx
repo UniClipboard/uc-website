@@ -130,14 +130,6 @@ export async function SponsorWall() {
 
   return (
     <section className="border-border bg-bg2/40 border-b py-[72px] md:py-[100px]">
-      <style>{`
-        .uc-gild {
-          background: linear-gradient(180deg,#fdeec0 0%,#d9b15a 48%,#b9852f 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-      `}</style>
       <div className="landing-shell">
         <div className="max-w-2xl">
           <AnimateIn>

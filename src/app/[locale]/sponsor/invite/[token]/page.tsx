@@ -18,18 +18,29 @@ export default async function SponsorInvitePage({ params }: Params) {
   const { locale, token } = await params;
   const t = await getTranslations({ locale, namespace: "sponsorClaim" });
   const homeHref = locale === "en" ? "/" : `/${locale}`;
+  const wallHref = locale === "en" ? "/sponsor" : `/${locale}/sponsor`;
 
   const state = await getInviteState(token);
 
   return (
-    <main className="bg-background text-foreground flex min-h-screen items-center justify-center px-4 py-12">
-      <div className="w-full max-w-lg">
+    <main className="uc-invite-bg relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-20 text-[#f4efe0]">
+      <div className="relative w-full max-w-2xl">
         {state.valid ? (
-          <SponsorClaimForm token={token} />
+          <SponsorClaimForm
+            token={token}
+            tier={state.tier}
+            wallHref={wallHref}
+          />
         ) : (
-          <div className="border-border bg-bg2/40 rounded-2xl border p-8 text-center">
-            <h1 className="text-xl font-semibold">{t("invalidTitle")}</h1>
-            <p className="text-muted-foreground mt-3 text-sm">
+          <div className="relative overflow-hidden px-8 py-10 text-center">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 border border-[#f4efe0]/12"
+            />
+            <h1 className="text-xl font-bold tracking-tight text-[#f4efe0]">
+              {t("invalidTitle")}
+            </h1>
+            <p className="relative mt-3 text-sm text-[#f4efe0]/55">
               {state.reason === "used"
                 ? t("invalidUsed")
                 : state.reason === "expired"
@@ -38,7 +49,7 @@ export default async function SponsorInvitePage({ params }: Params) {
             </p>
             <Link
               href={homeHref}
-              className="text-muted-foreground hover:text-foreground mt-6 inline-block text-sm underline"
+              className="relative mt-6 inline-block text-sm text-[#f4efe0]/50 underline transition-colors hover:text-[#f4efe0]"
             >
               {t("backHome")}
             </Link>

@@ -176,6 +176,34 @@
   line-height: 1;
 }
 
+/* Gilded foil text — gold-tier sponsor names on the wall and the invite flow. */
+@utility uc-gild {
+  background: linear-gradient(180deg, #fdeec0 0%, #d9b15a 48%, #b9852f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Engraved invitation card stock — fine brass hairline texture under a soft
+   overhead spotlight, for the sponsor invite/claim flow. */
+@utility uc-invite-bg {
+  background-color: #0a0705;
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      rgba(214, 168, 90, 0.045) 0px,
+      rgba(214, 168, 90, 0.045) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    radial-gradient(
+      120% 70% at 50% -10%,
+      rgba(214, 168, 90, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(140% 100% at 50% 120%, rgba(0, 0, 0, 0.65), transparent 60%);
+}
+
 @keyframes uc-dot-pulse {
   0%,
   100% {

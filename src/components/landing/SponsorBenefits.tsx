@@ -50,7 +50,10 @@ export async function SponsorBenefits() {
           {/* Two headline perks — oversized cards with a horizontal layout. */}
           {FEATURED.map(({ key, Icon }, i) => (
             <AnimateIn key={key} delay={0.06 + i * 0.06}>
-              <div className="group border-border bg-card hover:border-foreground/25 relative flex h-full items-start gap-5 overflow-hidden rounded-2xl border p-7 transition-colors md:p-8">
+              {/* Below `sm` these match the compact cards exactly so the mobile
+                  column reads as one uniform list; the oversized treatment
+                  only kicks in once the grid exists. */}
+              <div className="group border-border bg-card hover:border-foreground/25 relative flex h-full items-start gap-4 overflow-hidden rounded-2xl border p-5 transition-colors sm:gap-5 sm:p-7 md:p-8">
                 {/* corner glow */}
                 <div
                   aria-hidden
@@ -60,14 +63,14 @@ export async function SponsorBenefits() {
                       "radial-gradient(circle, color-mix(in srgb, var(--foreground) 7%, transparent), transparent 70%)",
                   }}
                 />
-                <span className="border-border text-foreground bg-background relative inline-flex size-12 flex-none items-center justify-center rounded-xl border">
-                  <Icon className="size-6" strokeWidth={1.6} />
+                <span className="border-border text-foreground bg-background relative inline-flex size-10 flex-none items-center justify-center rounded-lg border sm:size-12 sm:rounded-xl">
+                  <Icon className="size-[18px] sm:size-6" strokeWidth={1.6} />
                 </span>
                 <div className="relative">
-                  <h3 className="text-foreground text-lg font-semibold tracking-tight">
+                  <h3 className="text-foreground text-[15px] font-semibold tracking-tight sm:text-lg">
                     {t(`items.${key}.title`)}
                   </h3>
-                  <p className="text-muted mt-2 text-sm leading-relaxed">
+                  <p className="text-muted mt-1.5 text-sm leading-relaxed sm:mt-2">
                     {t(`items.${key}.desc`)}
                   </p>
                 </div>
@@ -79,8 +82,8 @@ export async function SponsorBenefits() {
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
             {REST.map(({ key, Icon }, i) => (
               <AnimateIn key={key} delay={0.18 + i * 0.05}>
-                <div className="border-border bg-card hover:border-foreground/20 flex h-full flex-col gap-4 rounded-2xl border p-6 transition-colors">
-                  <span className="border-border text-foreground bg-background inline-flex size-10 items-center justify-center rounded-lg border">
+                <div className="border-border bg-card hover:border-foreground/20 flex h-full items-start gap-4 rounded-2xl border p-5 transition-colors sm:flex-col sm:p-6">
+                  <span className="border-border text-foreground bg-background inline-flex size-10 flex-none items-center justify-center rounded-lg border">
                     <Icon className="size-[18px]" strokeWidth={1.6} />
                   </span>
                   <div>

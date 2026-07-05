@@ -204,6 +204,46 @@
     radial-gradient(140% 100% at 50% 120%, rgba(0, 0, 0, 0.65), transparent 60%);
 }
 
+/* Sponsor danmaku marquee — pure CSS so the wall stays a static server render.
+   The track holds two identical halves and slides by exactly half its width,
+   producing a seamless left→right loop. Hover/focus pauses it so the pills
+   stay clickable; reduced-motion users get a static (non-scrolling) row. */
+@keyframes uc-marquee-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@utility uc-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: uc-marquee-ltr var(--uc-marquee-duration, 48s) linear infinite;
+}
+
+@utility uc-marquee-fade {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+.uc-marquee:hover .uc-marquee-track,
+.uc-marquee:focus-within .uc-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uc-marquee-track {
+    animation: none;
+  }
+}
+
 @keyframes uc-dot-pulse {
   0%,
   100% {

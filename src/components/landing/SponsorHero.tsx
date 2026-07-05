@@ -66,7 +66,12 @@ export async function SponsorHero() {
           </h1>
         </AnimateIn>
         <AnimateIn delay={0.12}>
-          <p className="text-muted mx-auto mt-6 max-w-2xl text-base leading-relaxed md:text-lg">
+          {/* The full pitch is too long for a phone screen — swap in a short
+              version below `sm` instead of clamping mid-sentence. */}
+          <p className="text-muted mx-auto mt-6 max-w-2xl text-base leading-relaxed sm:hidden">
+            {t("descriptionShort")}
+          </p>
+          <p className="text-muted mx-auto mt-6 hidden max-w-2xl text-base leading-relaxed sm:block md:text-lg">
             {t("description")}
           </p>
         </AnimateIn>

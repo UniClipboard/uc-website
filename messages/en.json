@@ -339,6 +339,7 @@
         "title": "Good tools deserve",
         "titleLine2": "to stay good.",
         "description": "UniClipboard is free, open-source, and ad-free — and always will be. It is built and maintained by one person, on servers I pay for myself. If it has earned a place in your day, sponsoring is the most direct way to keep it getting better: steadier sync, faster updates, and the features still on the way.",
+        "descriptionShort": "UniClipboard is free, open-source, and ad-free — built by one person. If it has earned a place in your day, sponsoring is the most direct way to keep it going.",
         "primaryCta": "Become a sponsor",
         "secondaryCta": "Star on GitHub",
         "count": "{count, plural, one {# person already chips in} other {# people already chip in}}",

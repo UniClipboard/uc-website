@@ -333,6 +333,7 @@
         "title": "让好用的东西，",
         "titleLine2": "一直好用下去。",
         "description": "UniClipboard 免费、开源、没有广告——以后也是。它由我一个人开发和维护，服务器也是自己的。如果它帮到了你，赞助是让它走得更远的最直接方式：更稳的同步、更快的更新，以及更多还在路上的功能。",
+        "descriptionShort": "UniClipboard 免费、开源、没有广告——由我一个人开发和维护。如果它帮到了你，赞助就是让它走得更远的最直接方式。",
         "primaryCta": "成为赞助者",
         "secondaryCta": "在 GitHub 上 Star",
         "count": "已有 {count} 位朋友在支持",

@@ -29,6 +29,10 @@ export type PlatformBlock = {
   installCommand?: string;
   scriptSourceLabel?: string;
   scriptSourceUrl?: string;
+  // Overrides the panel-wide `version`/`fallbackUrl` footer for platforms that
+  // ship on their own release cadence (e.g. Android tracks its own GitHub repo).
+  footerVersion?: string;
+  footerReleaseUrl?: string;
 };
 
 export type PlatformBlocksLabels = {
@@ -231,6 +235,9 @@ function Panel({
   fallbackUrl: string;
   iosTestFlight?: PlatformBlocksProps["iosTestFlight"];
 }) {
+  const footerVersion = block.footerVersion ?? version;
+  const footerReleaseUrl = block.footerReleaseUrl ?? fallbackUrl;
+
   return (
     <div className="flex h-full flex-col p-7 md:p-12">
       <header className="mb-7 md:mb-10">
@@ -341,10 +348,10 @@ function Panel({
             letterSpacing: "0.04em",
           }}
         >
-          {labels.versionPrefix} v{version}
+          {labels.versionPrefix} v{footerVersion}
         </span>
         <a
-          href={fallbackUrl}
+          href={footerReleaseUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"

@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { isChinaIp } from "@/lib/geo/country";
 import {
   getAndroidPrimaryDownloadUrl,
+  getAndroidRelease,
   IOS_TESTFLIGHT_URL,
 } from "@/lib/mobile-releases";
 
@@ -23,6 +24,7 @@ export async function HeroSection({ stars }: Props) {
   const defaultVideoSource: HeroVideoSource = (await isChinaIp())
     ? "bilibili"
     : "youtube";
+  const androidRelease = await getAndroidRelease();
 
   const downloadLabels = {
     primary: tDl("ctaPrimaryGeneric"),
@@ -146,7 +148,7 @@ export async function HeroSection({ stars }: Props) {
               iosLabel={t("mobileBadgeIOS")}
               iosHref={IOS_TESTFLIGHT_URL}
               androidLabel={t("mobileBadgeAndroid")}
-              androidUrl={getAndroidPrimaryDownloadUrl()}
+              androidUrl={getAndroidPrimaryDownloadUrl(androidRelease)}
             />
 
             <HeroTrustBar stars={stars} labels={trustLabels} />

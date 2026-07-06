@@ -12,7 +12,12 @@ import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { Link } from "@/i18n/navigation";
-import { buildMobileGroups, IOS_TESTFLIGHT_URL } from "@/lib/mobile-releases";
+import {
+  buildMobileGroups,
+  getAndroidRelease,
+  IOS_RELEASE,
+  IOS_TESTFLIGHT_URL,
+} from "@/lib/mobile-releases";
 import {
   FALLBACK_RELEASE_URL,
   fetchStableRelease,
@@ -225,17 +230,21 @@ export default async function DownloadPage({ params }: LocaleParam) {
     ];
   });
 
-  const mobileGroups = buildMobileGroups({
-    platformIOS: t("direct.platformIOS"),
-    platformAndroid: t("direct.platformAndroid"),
-    iosBetaBadge: t("direct.iosBetaBadge"),
-    androidMinOS: t("direct.androidMinOS"),
-    androidExtLabel: t("direct.androidExtLabel"),
-    androidHintArm64: t("direct.androidHintArm64"),
-    androidHintArmV7: t("direct.androidHintArmV7"),
-    androidHintX64: t("direct.androidHintX64"),
-    androidHintUniversal: t("direct.androidHintUniversal"),
-  });
+  const androidRelease = await getAndroidRelease();
+  const mobileGroups = buildMobileGroups(
+    {
+      platformIOS: t("direct.platformIOS"),
+      platformAndroid: t("direct.platformAndroid"),
+      iosBetaBadge: t("direct.iosBetaBadge"),
+      androidMinOS: t("direct.androidMinOS"),
+      androidExtLabel: t("direct.androidExtLabel"),
+      androidHintArm64: t("direct.androidHintArm64"),
+      androidHintArmV7: t("direct.androidHintArmV7"),
+      androidHintX64: t("direct.androidHintX64"),
+      androidHintUniversal: t("direct.androidHintUniversal"),
+    },
+    androidRelease,
+  );
 
   const iosMobileGroup = mobileGroups.find((g) => g.os === "ios");
   const androidMobileGroup = mobileGroups.find((g) => g.os === "android");
@@ -267,6 +276,8 @@ export default async function DownloadPage({ params }: LocaleParam) {
       label: t("direct.platformAndroid"),
       description: t("direct.blockAndroidDescription"),
       items: androidMobileGroup?.items ?? [],
+      footerVersion: androidRelease.version,
+      footerReleaseUrl: androidRelease.releasePageUrl,
     },
     {
       os: "ios",
@@ -274,6 +285,8 @@ export default async function DownloadPage({ params }: LocaleParam) {
       description: t("direct.blockIosDescription"),
       betaLabel: iosMobileGroup?.betaLabel,
       items: [],
+      footerVersion: IOS_RELEASE.version,
+      footerReleaseUrl: IOS_TESTFLIGHT_URL,
     },
   ];
 

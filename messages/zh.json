@@ -496,7 +496,7 @@
         },
         {
           "platform": "Linux",
-          "minOS": "glibc 2.31+（Ubuntu 20.04 / Debian 11 / Fedora 35 等）",
+          "minOS": "glibc 2.31+（Ubuntu 20.04 / Debian 11 / Fedora 35 等），支持 X11 与 Wayland",
           "arch": "x86_64、ARM64（.deb / .rpm / AppImage）",
           "memory": "空闲约 65 MB",
           "disk": "约 85 MB"
@@ -513,7 +513,7 @@
           "minOS": "Android 8.0（API 26）或更新",
           "arch": "arm64-v8a、armeabi-v7a、x86_64、universal",
           "memory": "—",
-          "disk": "约 25 MB"
+          "disk": "约 35 MB"
         }
       ]
     },

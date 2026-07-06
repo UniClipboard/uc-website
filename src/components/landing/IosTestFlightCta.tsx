@@ -4,7 +4,6 @@ import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 export type IosTestFlightLabels = {
-  description: string;
   joinCta: string;
   joinHint: string;
   shareLabel: string;
@@ -41,13 +40,6 @@ export function IosTestFlightCta({ labels, url }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <p
-        className="text-muted-foreground"
-        style={{ fontSize: 12.5, lineHeight: 1.55 }}
-      >
-        {labels.description}
-      </p>
-
       <a
         href={url}
         target="_blank"

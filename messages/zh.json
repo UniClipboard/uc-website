@@ -459,7 +459,6 @@
       "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
       "detectedBadge": "已识别",
       "iosTestFlight": {
-        "description": "iOS 公测已在 TestFlight 开放，无需申请。用 iPhone 或 iPad 打开下方邀请链接，TestFlight 会自动安装最新构建。",
         "joinCta": "在 TestFlight 中加入公测",
         "joinHint": "如果没装过 TestFlight，请先在 App Store 安装苹果官方的 TestFlight。",
         "shareLabel": "在电脑上看？复制链接发到手机",

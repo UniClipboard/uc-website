@@ -537,7 +537,6 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 }}
                 iosTestFlight={{
                   labels: {
-                    description: t("direct.iosTestFlight.description"),
                     joinCta: t("direct.iosTestFlight.joinCta"),
                     joinHint: t("direct.iosTestFlight.joinHint"),
                     shareLabel: t("direct.iosTestFlight.shareLabel"),

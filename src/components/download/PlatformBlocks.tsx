@@ -119,8 +119,8 @@ export function PlatformBlocks({
       className="border-border bg-card overflow-hidden rounded-[20px] border"
       style={{ boxShadow: "0 24px 60px -36px rgba(0,0,0,0.18)" }}
     >
-      <div className="flex flex-col md:min-h-[480px] md:flex-row">
-        <Sidebar
+      <div className="flex flex-col">
+        <TabBar
           blocks={visibleBlocks}
           active={active}
           detected={detected}
@@ -146,7 +146,7 @@ export function PlatformBlocks({
   );
 }
 
-function Sidebar({
+function TabBar({
   blocks,
   active,
   detected,
@@ -162,9 +162,9 @@ function Sidebar({
   return (
     <div
       role="tablist"
-      aria-orientation="vertical"
-      className="border-border flex shrink-0 overflow-x-auto md:w-[268px] md:flex-col md:overflow-x-visible md:border-r md:py-5"
-      style={{ borderColor: "var(--hair2)" }}
+      aria-orientation="horizontal"
+      className="flex overflow-x-auto"
+      style={{ borderBottom: "1px solid var(--hair2)" }}
     >
       {blocks.map((b) => {
         const isActive = b.os === active;
@@ -177,42 +177,41 @@ function Sidebar({
             role="tab"
             aria-selected={isActive}
             onClick={() => onSelect(b.os)}
-            className="group/tab relative flex shrink-0 cursor-pointer items-center gap-3 px-6 py-3.5 text-left transition-colors hover:bg-[var(--bg2)]/50 md:py-3.5"
+            className="group/tab relative flex shrink-0 cursor-pointer items-center gap-2.5 px-5 py-4 text-left transition-colors hover:bg-[var(--bg2)]/50"
             style={{
               color: isActive ? "var(--foreground)" : "var(--muted)",
-              background: isActive ? "var(--bg2)" : "transparent",
-              fontSize: 14.5,
+              fontSize: 14,
               fontWeight: isActive ? 600 : 500,
               letterSpacing: "-0.005em",
+              whiteSpace: "nowrap",
             }}
           >
-            <span
-              aria-hidden
-              className="hidden md:block"
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 10,
-                bottom: 10,
-                width: 3,
-                borderRadius: 2,
-                background: isActive ? "var(--foreground)" : "transparent",
-                transition: "background 0.18s ease",
-              }}
-            />
             <Glyph os={b.os} size={16} />
-            <span className="truncate">{b.label}</span>
+            <span>{b.label}</span>
             {isDetected && (
               <span
                 aria-label={detectedLabel}
                 title={detectedLabel}
-                className="ml-auto inline-block size-1.5 shrink-0 rounded-full"
+                className="inline-block size-1.5 shrink-0 rounded-full"
                 style={{
                   background: "#3DA47A",
                   boxShadow: "0 0 0 2px rgba(61,164,122,0.18)",
                 }}
               />
             )}
+            <span
+              aria-hidden
+              style={{
+                position: "absolute",
+                left: 14,
+                right: 14,
+                bottom: -1,
+                height: 2,
+                borderRadius: 2,
+                background: isActive ? "var(--foreground)" : "transparent",
+                transition: "background 0.18s ease",
+              }}
+            />
           </button>
         );
       })}

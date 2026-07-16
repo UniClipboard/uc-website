@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import type { AnchorHTMLAttributes } from "react";
 
 import { Navigation } from "@/components/landing/Navigation";
+import { localeMeta } from "@/i18n/locale-meta";
+import { routing } from "@/i18n/routing";
 
 const mockUseLocale = jest.fn();
 jest.mock("next-intl", () => ({
@@ -36,28 +38,82 @@ describe("Navigation", () => {
     mockUseLocale.mockReturnValue("en");
   });
 
-  it("renders language tabs and the theme toggle", () => {
+  // The language switcher is a closed dropdown until its trigger is clicked; the
+  // trigger's accessible name is the active locale's own name.
+  const openLangMenu = (activeLocale: keyof typeof localeMeta = "en") => {
+    fireEvent.click(
+      screen.getByRole("button", { name: localeMeta[activeLocale].nativeName }),
+    );
+  };
+
+  it("renders the language switcher trigger and the theme toggle", () => {
     render(<Navigation />);
 
-    expect(screen.getByRole("button", { name: "ZH" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "EN" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: localeMeta.en.nativeName }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Toggle theme" }),
     ).toBeInTheDocument();
   });
 
-  it("switches locale via the inline pathname-preserving router call", () => {
+  it("reveals one option per routed locale once opened", () => {
     render(<Navigation />);
+    openLangMenu();
 
-    fireEvent.click(screen.getByRole("button", { name: "ZH" }));
+    for (const locale of routing.locales) {
+      expect(
+        screen.getByRole("menuitemradio", {
+          name: localeMeta[locale].nativeName,
+        }),
+      ).toBeInTheDocument();
+    }
+  });
+
+  it("switches to Russian from the language menu", () => {
+    render(<Navigation />);
+    openLangMenu();
+
+    fireEvent.click(
+      screen.getByRole("menuitemradio", { name: localeMeta.ru.nativeName }),
+    );
+    expect(replace).toHaveBeenCalledWith("/", { locale: "ru" });
+  });
+
+  it("switches to Chinese from the language menu", () => {
+    render(<Navigation />);
+    openLangMenu();
+
+    fireEvent.click(
+      screen.getByRole("menuitemradio", { name: localeMeta.zh.nativeName }),
+    );
     expect(replace).toHaveBeenCalledWith("/", { locale: "zh" });
   });
 
-  it("does not call replace when clicking the active locale", () => {
+  it("does not call replace when choosing the active locale", () => {
+    render(<Navigation />);
+    openLangMenu();
+
+    fireEvent.click(
+      screen.getByRole("menuitemradio", { name: localeMeta.en.nativeName }),
+    );
+    expect(replace).not.toHaveBeenCalled();
+  });
+
+  it("hides the article sections in locales that have no article content", () => {
+    mockUseLocale.mockReturnValue("ru");
     render(<Navigation />);
 
-    fireEvent.click(screen.getByRole("button", { name: "EN" }));
-    expect(replace).not.toHaveBeenCalled();
+    expect(
+      screen.queryByRole("link", { name: "blog" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "compare" }),
+    ).not.toBeInTheDocument();
+    // Non-article sections stay available.
+    expect(
+      screen.getAllByRole("link", { name: "changelog" }).length,
+    ).toBeGreaterThan(0);
   });
 
   it("advances the theme one step in the system → light → dark cycle", () => {

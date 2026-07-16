@@ -19,7 +19,13 @@ import {
   getReleaseByVersion,
   type ReleaseRecord,
 } from "@/db/releases";
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
 import { Link } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { summarizeNotes } from "@/lib/changelog-parser";
 import { renderChangelogMarkdown } from "@/lib/changelog-render";
 import { syncLatestReleaseSafe } from "@/lib/changelog-sync";
@@ -28,11 +34,8 @@ import { siteConfig } from "@/lib/site-config";
 type PageParams = { locale: string; version: string };
 type PageProps = { params: Promise<PageParams> };
 
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
-
 const formatDate = (date: Date, locale: string) =>
-  new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-US", {
+  new Intl.DateTimeFormat(metaFor(locale).dateLocale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -63,6 +66,8 @@ const orderedPlatforms = (
   return entries;
 };
 
+// Release notes exist only as `notes_en` / `notes_zh`, so locales beyond those
+// two read the English notes inside an otherwise translated page.
 const pickNotes = (release: ReleaseRecord, locale: string) =>
   locale === "zh" ? release.notesZh : release.notesEn;
 
@@ -74,7 +79,7 @@ export const revalidate = 1800;
 export async function generateStaticParams() {
   const versions = await getAllReleaseVersions();
   return versions.flatMap((row) =>
-    ["en", "zh"].map((locale) => ({ locale, version: row.version })),
+    routing.locales.map((locale) => ({ locale, version: row.version })),
   );
 }
 
@@ -95,8 +100,9 @@ export async function generateMetadata({
     version,
     date: formatDate(release.pubDate, locale),
   });
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: t("ogAlt"),
@@ -106,11 +112,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical,
-      languages: {
-        en: `/changelog/${version}`,
-        zh: `/zh/changelog/${version}`,
-        "x-default": `/changelog/${version}`,
-      },
+      languages: localeAlternates(`/changelog/${version}`),
     },
     openGraph: {
       title,
@@ -118,7 +120,7 @@ export async function generateMetadata({
       url: `${siteConfig.url}${canonical}`,
       type: "article",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
       publishedTime: release.pubDate.toISOString(),
     },
@@ -154,7 +156,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
   const summary = summarizeNotes(pickNotes(release, locale));
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const homePath = locale === "en" ? "/" : `/${locale}`;
+  const homePath = localePathPrefix(locale) || "/";
   const canonical = `${localePathPrefix(locale)}/changelog/${version}`;
   const pageUrl = `${baseUrl}${canonical}`;
   const parentUrl = `${baseUrl}${localePathPrefix(locale)}/changelog`;
@@ -167,7 +169,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
       version,
       date: formatDate(release.pubDate, locale),
     }),
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     datePublished: release.pubDate.toISOString(),
     dateModified: release.updatedAt.toISOString(),
     mainEntityOfPage: pageUrl,

@@ -5,17 +5,20 @@ import { Article, BreadcrumbBar, JsonLd } from "@/components/article/sections";
 import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
-import type {
-  ArticleCategoryValue,
-  ArticleLocale,
-  MarkdownArticleContent,
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
+import {
+  ARTICLE_LOCALES,
+  type ArticleCategoryValue,
+  type ArticleLocale,
+  type MarkdownArticleContent,
 } from "@/lib/article-content";
 import { renderArticleMarkdown } from "@/lib/article-markdown";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
-
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
 
 const HUB_BASE_PATH: Partial<Record<ArticleCategoryValue, string>> = {
   blog: "/blog",
@@ -46,8 +49,9 @@ export async function buildMarkdownArticleMetadata(
     .map((k) => k.trim())
     .filter(Boolean);
 
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: content.seo.ogAlt,
@@ -59,11 +63,7 @@ export async function buildMarkdownArticleMetadata(
     keywords,
     alternates: {
       canonical,
-      languages: {
-        en: pagePath,
-        zh: `/zh${pagePath}`,
-        "x-default": pagePath,
-      },
+      languages: localeAlternates(pagePath, ARTICLE_LOCALES),
     },
     openGraph: {
       title: content.seo.title,
@@ -71,7 +71,7 @@ export async function buildMarkdownArticleMetadata(
       url: `${siteConfig.url}${canonical}`,
       type: "article",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
     },
     twitter: {
@@ -188,13 +188,13 @@ export async function MarkdownArticleLayout({
   const tocLabel = hubT("tableOfContents");
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const homePath = locale === "en" ? "/" : `/${locale}`;
+  const homePath = localePathPrefix(locale) || "/";
   const pagePath = articlePagePath(entry);
   const canonical = `${localePathPrefix(locale)}${pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
   const parentPath = HUB_BASE_PATH[entry.category] ?? "/blog";
   const parentUrl = `${baseUrl}${localePathPrefix(locale)}${parentPath}`;
-  const ogImage = `${baseUrl}${locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg"}`;
+  const ogImage = `${baseUrl}${metaFor(locale).ogImage}`;
   const logoUrl = `${baseUrl}/favicon/apple-touch-icon.png`;
   const keywords = content.seo.keywords
     .split(",")
@@ -207,7 +207,7 @@ export async function MarkdownArticleLayout({
     headline: content.seo.title,
     description: content.seo.description,
     image: ogImage,
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     datePublished: entry.datePublished,
     dateModified: content.meta.lastUpdatedDate,
     mainEntityOfPage: pageUrl,

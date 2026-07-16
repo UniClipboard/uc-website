@@ -1,15 +1,22 @@
 import { ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { getPublishedArticlesByCategory } from "@/db/articles";
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
 import { Link } from "@/i18n/navigation";
-import type {
-  ArticleCategoryValue,
-  ArticleLocale,
+import {
+  ARTICLE_LOCALES,
+  type ArticleCategoryValue,
+  isArticleLocale,
 } from "@/lib/article-content";
 import { siteConfig } from "@/lib/site-config";
 
@@ -20,9 +27,6 @@ export type HubConfig = {
   pagePath: string;
   namespace: string;
 };
-
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
 
 export async function buildHubMetadata(
   config: HubConfig,
@@ -38,8 +42,9 @@ export async function buildHubMetadata(
     .map((k) => k.trim())
     .filter(Boolean);
 
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: t("ogAlt"),
@@ -51,11 +56,7 @@ export async function buildHubMetadata(
     keywords,
     alternates: {
       canonical,
-      languages: {
-        en: config.pagePath,
-        zh: `/zh${config.pagePath}`,
-        "x-default": config.pagePath,
-      },
+      languages: localeAlternates(config.pagePath, ARTICLE_LOCALES),
     },
     openGraph: {
       title,
@@ -63,7 +64,7 @@ export async function buildHubMetadata(
       url: `${siteConfig.url}${canonical}`,
       type: "website",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
     },
     twitter: {
@@ -81,14 +82,16 @@ type HubProps = {
 };
 
 export async function ArticleHubLayout({ config, locale }: HubProps) {
+  if (!isArticleLocale(locale)) notFound();
+
   const t = await getTranslations({ locale, namespace: config.namespace });
   const articles = await getPublishedArticlesByCategory(
     config.category,
-    locale as ArticleLocale,
+    locale,
   );
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const homePath = locale === "en" ? "/" : `/${locale}`;
+  const homePath = localePathPrefix(locale) || "/";
   const canonical = `${localePathPrefix(locale)}${config.pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
 
@@ -99,7 +102,7 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
     "@type": "CollectionPage",
     name: t("seoTitle"),
     description: t("seoDescription"),
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     url: pageUrl,
     isPartOf: { "@type": "WebSite", name: siteConfig.brand, url: baseUrl },
     mainEntity: {
@@ -124,7 +127,7 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
             url: itemUrl,
             headline: article.content.hero.title,
             description,
-            inLanguage: locale === "zh" ? "zh-CN" : "en",
+            inLanguage: metaFor(locale).inLanguage,
             datePublished: article.datePublished,
             dateModified: new Date(article.updatedAt).toISOString(),
           },

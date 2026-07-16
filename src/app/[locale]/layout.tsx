@@ -9,8 +9,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
+import { localeAlternates, metaFor } from "@/i18n/locale-meta";
 import { routing } from "@/i18n/routing";
-import { fonts } from "@/lib/fonts";
+import { fontsFor } from "@/lib/fonts";
 import { siteConfig } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
@@ -39,8 +40,9 @@ export async function generateMetadata({
     .map((k) => k.trim())
     .filter(Boolean);
 
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: t("ogAlt"),
@@ -49,11 +51,7 @@ export async function generateMetadata({
   return {
     alternates: {
       canonical: canonicalUrl,
-      languages: {
-        en: "/",
-        zh: "/zh",
-        "x-default": "/",
-      },
+      languages: localeAlternates("/"),
     },
     metadataBase: new URL(siteConfig.url),
     title: {
@@ -82,7 +80,7 @@ export async function generateMetadata({
       title,
       description,
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
       type: "website",
     },
@@ -116,7 +114,7 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={cn("min-h-screen font-sans", fonts)}>
+      <body className={cn("min-h-screen font-sans", fontsFor(locale))}>
         {process.env.NODE_ENV === "development" && (
           <Script src="/react-grab.global.js" strategy="lazyOnload" />
         )}

@@ -1,5 +1,7 @@
 import "server-only";
 
+import { metaFor } from "@/i18n/locale-meta";
+
 const CHROME_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -58,21 +60,38 @@ export type OgFont = {
   style?: "normal" | "italic";
 };
 
+/**
+ * `text` is the full string the card will render. For non-Latin scripts it is
+ * forwarded to Google Fonts as a `text=` subset request, so the returned binary
+ * carries exactly the glyphs this card needs and nothing more.
+ */
 export async function loadOgFonts(
   locale: string,
-  cjkText: string,
+  text: string,
 ): Promise<OgFont[]> {
+  const { script } = metaFor(locale);
+  const trimmed = text.trim();
+
+  // The default Inter Tight payload from Google Fonts is Latin-only, so a
+  // Cyrillic card would render tofu without an explicit subset request.
+  const sansSubset =
+    script === "cyrillic" && trimmed ? { text: trimmed } : undefined;
+
   const tasks: Array<Promise<OgFont>> = [
-    fetchGoogleFont({ family: "Inter Tight", weight: 600 }).then((data) => ({
-      name: "Inter Tight",
-      data,
-      weight: 600,
-    })),
-    fetchGoogleFont({ family: "Inter Tight", weight: 700 }).then((data) => ({
-      name: "Inter Tight",
-      data,
-      weight: 700,
-    })),
+    fetchGoogleFont({ family: "Inter Tight", weight: 600, ...sansSubset }).then(
+      (data) => ({
+        name: "Inter Tight",
+        data,
+        weight: 600,
+      }),
+    ),
+    fetchGoogleFont({ family: "Inter Tight", weight: 700, ...sansSubset }).then(
+      (data) => ({
+        name: "Inter Tight",
+        data,
+        weight: 700,
+      }),
+    ),
     fetchGoogleFont({
       family: "Cormorant Garamond",
       axes: "ital,wght@1,600",
@@ -86,17 +105,17 @@ export async function loadOgFonts(
     })),
   ];
 
-  if (locale === "zh" && cjkText.trim()) {
+  if (script === "cjk" && trimmed) {
     tasks.push(
       fetchGoogleFont({
         family: "Noto Sans SC",
         weight: 700,
-        text: cjkText,
+        text: trimmed,
       }).then((data) => ({ name: "Noto Sans SC", data, weight: 700 })),
       fetchGoogleFont({
         family: "Noto Sans SC",
         weight: 500,
-        text: cjkText,
+        text: trimmed,
       }).then((data) => ({ name: "Noto Sans SC", data, weight: 500 })),
     );
   }

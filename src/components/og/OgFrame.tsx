@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import { metaFor } from "@/i18n/locale-meta";
+
 const PALETTE = {
   background: "#fafaf8",
   bg2: "#f2f2f0",
@@ -13,8 +15,12 @@ const PALETTE = {
 
 const FONT_SERIF = "Cormorant Garamond";
 
+// Noto Sans SC is only fetched for CJK cards (see `loadOgFonts`), so it is
+// named first there and left as a harmless tail fallback elsewhere.
 const fontSans = (locale?: string) =>
-  locale === "zh" ? "Noto Sans SC, Inter Tight" : "Inter Tight, Noto Sans SC";
+  locale && metaFor(locale).script === "cjk"
+    ? "Noto Sans SC, Inter Tight"
+    : "Inter Tight, Noto Sans SC";
 
 type OgFrameProps = {
   eyebrow: string;
@@ -25,7 +31,9 @@ type OgFrameProps = {
 };
 
 const cjkTextStyle = (locale?: string): CSSProperties =>
-  locale === "zh" ? { letterSpacing: 0, lineHeight: 1.18 } : {};
+  locale && metaFor(locale).script === "cjk"
+    ? { letterSpacing: 0, lineHeight: 1.18 }
+    : {};
 
 export function OgFrame({
   eyebrow,

@@ -7,7 +7,9 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { LangSwitcher } from "@/components/landing/LangSwitcher";
+import { Link, usePathname } from "@/i18n/navigation";
+import { isArticleLocale } from "@/lib/article-content";
 import { getDocsHref } from "@/lib/docs-href";
 
 function NavLinkPending() {
@@ -25,7 +27,6 @@ export function Navigation() {
   const t = useTranslations("landing.navigation");
   const { theme, setTheme } = useTheme();
   const locale = useLocale();
-  const router = useRouter();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,10 +62,9 @@ export function Navigation() {
     <Icons.sun className="size-[14px]" />
   );
 
-  const switchLang = (next: "zh" | "en") => {
-    if (next === locale) return;
-    router.replace(pathname, { locale: next });
-  };
+  // The article sections only exist in the locales their content was authored
+  // in, so linking to them from a locale without content would be a dead link.
+  const hasArticles = isArticleLocale(locale);
 
   const navItems: {
     href: string;
@@ -72,9 +72,17 @@ export function Navigation() {
     matchPrefix: string;
     external?: boolean;
   }[] = [
-    { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
-    { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
-    { href: "/use-cases", label: t("useCases"), matchPrefix: "/use-cases" },
+    ...(hasArticles
+      ? [
+          { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
+          { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
+          {
+            href: "/use-cases",
+            label: t("useCases"),
+            matchPrefix: "/use-cases",
+          },
+        ]
+      : []),
     {
       href: getDocsHref(locale),
       label: t("docs"),
@@ -130,40 +138,7 @@ export function Navigation() {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <div
-            role="tablist"
-            className="border-border bg-foreground/5 hidden rounded-full border p-[2px] sm:inline-flex"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.04em",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => switchLang("zh")}
-              className="cursor-pointer rounded-full px-2.5 py-1 transition-colors"
-              style={{
-                background:
-                  locale === "zh" ? "var(--foreground)" : "transparent",
-                color: locale === "zh" ? "var(--background)" : "var(--muted)",
-              }}
-            >
-              ZH
-            </button>
-            <button
-              type="button"
-              onClick={() => switchLang("en")}
-              className="cursor-pointer rounded-full px-2.5 py-1 transition-colors"
-              style={{
-                background:
-                  locale === "en" ? "var(--foreground)" : "transparent",
-                color: locale === "en" ? "var(--background)" : "var(--muted)",
-              }}
-            >
-              EN
-            </button>
-          </div>
+          <LangSwitcher placement="bottom" className="hidden sm:block" />
 
           <button
             type="button"
@@ -263,42 +238,7 @@ export function Navigation() {
             })}
 
             <div className="border-border mt-4 flex items-center gap-3 border-t pt-5">
-              <div
-                role="tablist"
-                className="border-border bg-foreground/5 inline-flex rounded-full border p-[2px]"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.04em",
-                }}
-              >
-                <button
-                  type="button"
-                  onClick={() => switchLang("zh")}
-                  className="cursor-pointer rounded-full px-2.5 py-1 transition-colors"
-                  style={{
-                    background:
-                      locale === "zh" ? "var(--foreground)" : "transparent",
-                    color:
-                      locale === "zh" ? "var(--background)" : "var(--muted)",
-                  }}
-                >
-                  ZH
-                </button>
-                <button
-                  type="button"
-                  onClick={() => switchLang("en")}
-                  className="cursor-pointer rounded-full px-2.5 py-1 transition-colors"
-                  style={{
-                    background:
-                      locale === "en" ? "var(--foreground)" : "transparent",
-                    color:
-                      locale === "en" ? "var(--background)" : "var(--muted)",
-                  }}
-                >
-                  EN
-                </button>
-              </div>
+              <LangSwitcher placement="top" />
               <button
                 type="button"
                 aria-label="Toggle theme"

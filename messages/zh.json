@@ -3,6 +3,7 @@
     "title": "UniClipboard — 跨 Mac / Windows / Linux / iPhone / Android 的开源加密剪贴板",
     "titleTemplate": "%s | UniClipboard",
     "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone、Android 之间实时同步——无需账号，也不经过任何第三方服务器。iCloud 通用剪贴板的跨平台开源替代。",
+    "softwareDescription": "免费、开源、端到端加密的跨平台通用剪贴板。文本、图片、文件在 macOS、Windows、Linux、iPhone、Android 之间实时同步,无需账号、无需服务器。",
     "keywords": "UniClipboard, 剪贴板同步, 剪贴板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪贴板同步, iPhone 剪贴板同步, Android 剪贴板同步, 手机电脑剪贴板, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪贴板, 跨设备复制粘贴",
     "ogAlt": "UniClipboard — 你的剪贴板，在所有设备上"
   },

@@ -1,14 +1,9 @@
 {
-  "home": {
-    "signIn": "Sign in",
-    "signOut": "Sign out",
-    "subtitle": "A Next.js starter template, packed with features like TypeScript, Tailwind CSS, Next-auth, Eslint, Stripe, testing tools and more. Jumpstart your project with efficiency and style.",
-    "getStartedButton": "Get started"
-  },
   "seo": {
     "title": "UniClipboard — Open-source encrypted clipboard across Mac, Windows, Linux, iPhone & Android",
     "titleTemplate": "%s | UniClipboard",
     "description": "The open-source, end-to-end encrypted universal clipboard. Mac, Windows, Linux, iPhone, Android — one clipboard, no cloud account, no server in the middle. The cross-platform alternative to iCloud Universal Clipboard.",
+    "softwareDescription": "Free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, Linux, iOS, and Android. Copy on one device and paste on another with no account and no server.",
     "keywords": "UniClipboard, universal clipboard, clipboard sync, cross-platform clipboard, Mac Windows clipboard, Linux clipboard sync, iPhone clipboard, Android clipboard, mobile clipboard sync, open source clipboard, end-to-end encrypted clipboard, iCloud universal clipboard alternative, clipboard manager, copy paste between devices",
     "ogAlt": "UniClipboard — one clipboard for every device you own"
   },

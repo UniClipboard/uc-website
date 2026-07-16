@@ -1,5 +1,5 @@
 import { Github } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Monogram } from "@/components/landing/Monogram";
@@ -14,7 +14,7 @@ import { getPublicSponsors } from "@/lib/sponsors-store";
 export async function SponsorHero() {
   const t = await getTranslations("landing.sponsor.hero");
   const sponsors = await getPublicSponsors();
-  const primary = sponsorPrimaryChannel();
+  const primary = sponsorPrimaryChannel(await getLocale());
   const count = sponsors.length;
   const preview = sponsors.slice(0, 6);
 

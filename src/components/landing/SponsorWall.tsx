@@ -1,5 +1,5 @@
 import { Plus, Sparkles, Users } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Monogram } from "@/components/landing/Monogram";
@@ -176,7 +176,7 @@ function MarqueeRow({
 export async function SponsorWall() {
   const t = await getTranslations("landing.sponsor.wall");
   const sponsors = await getPublicSponsors();
-  const primary = sponsorPrimaryChannel();
+  const primary = sponsorPrimaryChannel(await getLocale());
   const sinceLabel = t("sinceLabel");
   const isEmpty = sponsors.length === 0;
 

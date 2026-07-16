@@ -31,9 +31,8 @@ export type Sponsor = {
 };
 
 /**
- * Where the "Sponsor" buttons point. These are PLACEHOLDER links — replace the
- * hrefs with your real sponsorship pages. The first entry is used as the
- * primary call-to-action across the page.
+ * Where the "Sponsor" buttons point. The first entry is used as the primary
+ * call-to-action across the page.
  */
 export type SponsorChannel = {
   id: "afdian" | "github" | "kofi";
@@ -41,16 +40,29 @@ export type SponsorChannel = {
   href: string;
 };
 
-export const SPONSOR_CHANNELS: SponsorChannel[] = [
-  // 爱发电为目前唯一的收款渠道。GitHub Sponsors 暂未开通（未绑卡），
-  // 待开通后在此追加 { id: "github", ... } 即可。
-  { id: "afdian", label: "爱发电", href: "https://afdian.com/a/mkdir700" },
-];
+// 爱发电 only takes payment from mainland China, so it is the zh-only channel;
+// every other locale gets Ko-fi. GitHub Sponsors 暂未开通（未绑卡），待开通后在
+// 对应渠道列表中追加 { id: "github", ... } 即可。
+const AFDIAN_CHANNEL: SponsorChannel = {
+  id: "afdian",
+  label: "爱发电",
+  href: "https://afdian.com/a/mkdir700",
+};
+
+const KOFI_CHANNEL: SponsorChannel = {
+  id: "kofi",
+  label: "Ko-fi",
+  href: "https://ko-fi.com/mkdir700",
+};
+
+export const sponsorChannels = (locale: string): SponsorChannel[] =>
+  locale === "zh" ? [AFDIAN_CHANNEL] : [KOFI_CHANNEL];
 
 export const GITHUB_REPO_URL = "https://github.com/UniClipboard/UniClipboard";
 
-export const sponsorPrimaryChannel = (): SponsorChannel | undefined =>
-  SPONSOR_CHANNELS[0];
+export const sponsorPrimaryChannel = (
+  locale: string,
+): SponsorChannel | undefined => sponsorChannels(locale)[0];
 
 /**
  * Sponsor count at/above which the hero shows a milestone progress bar. Below

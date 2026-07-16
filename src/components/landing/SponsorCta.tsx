@@ -1,11 +1,12 @@
 import { ArrowUpRight, Github } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { AnimateIn } from "@/components/landing/AnimateIn";
-import { GITHUB_REPO_URL, SPONSOR_CHANNELS } from "@/lib/sponsors";
+import { GITHUB_REPO_URL, sponsorChannels } from "@/lib/sponsors";
 
 export async function SponsorCta() {
   const t = await getTranslations("landing.sponsor.cta");
+  const channels = sponsorChannels(await getLocale());
   const sponsorMailHref = `mailto:mkdir700@gmail.com?subject=${encodeURIComponent(
     t("claimMailSubject"),
   )}&body=${encodeURIComponent(t("claimMailBody"))}`;
@@ -55,7 +56,7 @@ export async function SponsorCta() {
           </AnimateIn>
           <AnimateIn delay={0.18} duration={0.55}>
             <div className="flex w-full max-w-xs flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
-              {SPONSOR_CHANNELS.map((channel, i) => (
+              {channels.map((channel, i) => (
                 <a
                   key={channel.id}
                   href={channel.href}

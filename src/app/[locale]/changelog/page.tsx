@@ -13,6 +13,11 @@ import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { getAllReleases, type ReleaseRecord } from "@/db/releases";
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
 import { Link } from "@/i18n/navigation";
 import { summarizeNotes } from "@/lib/changelog-parser";
 import { renderChangelogMarkdown } from "@/lib/changelog-render";
@@ -21,22 +26,23 @@ import { siteConfig } from "@/lib/site-config";
 
 type LocaleParam = { params: Promise<{ locale: string }> };
 
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
-
 const formatDate = (date: Date, locale: string) =>
-  new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-US", {
+  new Intl.DateTimeFormat(metaFor(locale).dateLocale, {
     year: "numeric",
     month: "long",
     day: "numeric",
   }).format(date);
 
 const formatMonth = (date: Date, locale: string) =>
-  new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-US", {
+  new Intl.DateTimeFormat(metaFor(locale).dateLocale, {
     year: "numeric",
     month: "long",
   }).format(date);
 
+// Release notes are authored in only two languages (the `notes_en` / `notes_zh`
+// columns), so every other locale reads the English notes inside an otherwise
+// translated page. Widening this means reshaping the notes columns into a
+// locale-keyed map.
 const pickNotes = (release: ReleaseRecord, locale: string) =>
   locale === "zh" ? release.notesZh : release.notesEn;
 
@@ -78,8 +84,9 @@ export async function generateMetadata({
   const canonical = `${localePathPrefix(locale)}/changelog`;
   const title = t("seoTitle");
   const description = t("seoDescription");
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: t("ogAlt"),
@@ -93,11 +100,7 @@ export async function generateMetadata({
       .filter(Boolean),
     alternates: {
       canonical,
-      languages: {
-        en: "/changelog",
-        zh: "/zh/changelog",
-        "x-default": "/changelog",
-      },
+      languages: localeAlternates("/changelog"),
     },
     openGraph: {
       title,
@@ -105,7 +108,7 @@ export async function generateMetadata({
       url: `${siteConfig.url}${canonical}`,
       type: "website",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
     },
     twitter: {
@@ -126,7 +129,7 @@ export default async function ChangelogPage({ params }: LocaleParam) {
 
   const releases = await getAllReleases();
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const homePath = locale === "en" ? "/" : `/${locale}`;
+  const homePath = localePathPrefix(locale) || "/";
   const canonical = `${localePathPrefix(locale)}/changelog`;
   const pageUrl = `${baseUrl}${canonical}`;
 
@@ -150,7 +153,7 @@ export default async function ChangelogPage({ params }: LocaleParam) {
     "@type": "ItemList",
     name: t("seoTitle"),
     description: t("seoDescription"),
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     url: pageUrl,
     numberOfItems: releases.length,
     itemListElement: releases.map((release, i) => ({

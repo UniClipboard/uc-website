@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 
 import { listAllArticles } from "@/db/articles";
 import { getAllReleases } from "@/db/releases";
+import { localeMeta, localePathPrefix } from "@/i18n/locale-meta";
 import {
   ARTICLE_CATEGORIES,
+  ARTICLE_LOCALES,
   type ArticleCategoryValue,
   type ArticleContent,
   type ArticleLocale,
@@ -25,11 +27,6 @@ const CATEGORY_LABEL: Record<ArticleCategoryValue, string> = {
   compare: "Comparisons",
   "use-cases": "Use cases",
   blog: "Blog",
-};
-
-const LOCALE_LABEL: Record<ArticleLocale, string> = {
-  en: "English",
-  zh: "Simplified Chinese",
 };
 
 const INTRO = `# UniClipboard — Full Content Dump for LLMs
@@ -62,8 +59,7 @@ function urlForArticle(
   category: ArticleCategoryValue,
   slug: string,
 ): string {
-  const localePrefix = locale === "zh" ? "/zh" : "";
-  return `${baseUrl}${localePrefix}${HUB_PATH[category]}/${slug}`;
+  return `${baseUrl}${localePathPrefix(locale)}${HUB_PATH[category]}/${slug}`;
 }
 
 function renderTemplateArticle(content: TemplateArticleContent): string {
@@ -165,7 +161,7 @@ export async function GET() {
     lines.push(`# ${CATEGORY_LABEL[category]}`, "");
 
     for (const article of inCat) {
-      for (const locale of ["en", "zh"] as const) {
+      for (const locale of ARTICLE_LOCALES) {
         const content = article.translations[locale];
         if (!content) continue;
 
@@ -179,7 +175,7 @@ export async function GET() {
 
         lines.push("---", "");
         lines.push(`> **Source**: ${url}`);
-        lines.push(`> **Locale**: ${LOCALE_LABEL[locale]}`);
+        lines.push(`> **Locale**: ${localeMeta[locale].englishName}`);
         lines.push(`> **Category**: ${CATEGORY_LABEL[article.category]}`);
         lines.push(`> **Published**: ${article.datePublished}`);
         lines.push(`> **Last updated**: ${lastUpdated}`);
@@ -194,15 +190,14 @@ export async function GET() {
   if (releases.length > 0) {
     lines.push(`# Changelog`, "");
     for (const release of releases) {
-      for (const locale of ["en", "zh"] as const) {
+      for (const locale of ARTICLE_LOCALES) {
         const notes = locale === "zh" ? release.notesZh : release.notesEn;
         if (!notes) continue;
-        const localePrefix = locale === "zh" ? "/zh" : "";
-        const url = `${baseUrl}${localePrefix}/changelog/${release.version}`;
+        const url = `${baseUrl}${localePathPrefix(locale)}/changelog/${release.version}`;
         const pubDate = release.pubDate.toISOString().slice(0, 10);
         lines.push("---", "");
         lines.push(`> **Source**: ${url}`);
-        lines.push(`> **Locale**: ${LOCALE_LABEL[locale]}`);
+        lines.push(`> **Locale**: ${localeMeta[locale].englishName}`);
         lines.push(`> **Version**: v${release.version}`);
         lines.push(`> **Released**: ${pubDate}`);
         lines.push("");

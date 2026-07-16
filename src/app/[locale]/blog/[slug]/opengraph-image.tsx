@@ -3,7 +3,7 @@ import { ImageResponse } from "takumi-js/response";
 
 import { OG_CONTENT_TYPE, OG_SIZE, OgFrame } from "@/components/og/OgFrame";
 import { getAllPublishedSlugs } from "@/db/articles";
-import type { ArticleLocale } from "@/lib/article-content";
+import { ARTICLE_LOCALES, isArticleLocale } from "@/lib/article-content";
 import { loadOgFonts } from "@/lib/og/fonts";
 
 export const size = OG_SIZE;
@@ -16,18 +16,18 @@ export async function generateStaticParams() {
   const all = await getAllPublishedSlugs();
   return all
     .filter((a) => a.category === "blog")
-    .flatMap((a) => [
-      { locale: "en", slug: a.slug },
-      { locale: "zh", slug: a.slug },
-    ]);
+    .flatMap((a) =>
+      ARTICLE_LOCALES.map((locale) => ({ locale, slug: a.slug })),
+    );
 }
 
 type Params = { params: Promise<{ locale: string; slug: string }> };
 
 async function loadArticleHero(slug: string, locale: string) {
   try {
+    if (!isArticleLocale(locale)) return null;
     const { getArticle } = await import("@/db/articles");
-    const article = await getArticle("blog", slug, locale as ArticleLocale);
+    const article = await getArticle("blog", slug, locale);
     if (!article || article.content.contentType !== "markdown") return null;
     return {
       title: article.content.hero.title,

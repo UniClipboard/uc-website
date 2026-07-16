@@ -15,15 +15,18 @@ import {
 } from "@/components/article/sections";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
-import type {
-  ArticleCategoryValue,
-  ArticleLocale,
-  TemplateArticleContent,
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
+import {
+  ARTICLE_LOCALES,
+  type ArticleCategoryValue,
+  type ArticleLocale,
+  type TemplateArticleContent,
 } from "@/lib/article-content";
 import { siteConfig } from "@/lib/site-config";
-
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
 
 type TemplateCategory = Exclude<ArticleCategoryValue, "blog">;
 
@@ -58,8 +61,9 @@ export async function buildArticleMetadata(
     .map((k) => k.trim())
     .filter(Boolean);
 
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: content.seo.ogAlt,
@@ -71,11 +75,7 @@ export async function buildArticleMetadata(
     keywords,
     alternates: {
       canonical,
-      languages: {
-        en: pagePath,
-        zh: `/zh${pagePath}`,
-        "x-default": pagePath,
-      },
+      languages: localeAlternates(pagePath, ARTICLE_LOCALES),
     },
     openGraph: {
       title: content.seo.title,
@@ -83,7 +83,7 @@ export async function buildArticleMetadata(
       url: `${siteConfig.url}${canonical}`,
       type: "article",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
     },
     twitter: {
@@ -112,13 +112,13 @@ export async function ArticleLayout({
   const breadcrumbParent = hubT("breadcrumbCurrent");
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const homePath = locale === "en" ? "/" : `/${locale}`;
+  const homePath = localePathPrefix(locale) || "/";
   const pagePath = articlePagePath(entry);
   const canonical = `${localePathPrefix(locale)}${pagePath}`;
   const pageUrl = `${baseUrl}${canonical}`;
   const parentPath = HUB_BASE_PATH[entry.category];
   const parentUrl = `${baseUrl}${localePathPrefix(locale)}${parentPath}`;
-  const ogImage = `${baseUrl}${locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg"}`;
+  const ogImage = `${baseUrl}${metaFor(locale).ogImage}`;
   const logoUrl = `${baseUrl}/favicon/apple-touch-icon.png`;
   const keywords = content.seo.keywords
     .split(",")
@@ -139,7 +139,7 @@ export async function ArticleLayout({
     headline: content.seo.title,
     description: content.seo.description,
     image: ogImage,
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     datePublished: entry.datePublished,
     dateModified: content.meta.lastUpdatedDate,
     mainEntityOfPage: pageUrl,
@@ -161,7 +161,7 @@ export async function ArticleLayout({
         "@type": "HowTo",
         name: content.steps.title,
         description: content.seo.description,
-        inLanguage: locale === "zh" ? "zh-CN" : "en",
+        inLanguage: metaFor(locale).inLanguage,
         ...(content.howTo.totalTime
           ? { totalTime: content.howTo.totalTime }
           : {}),

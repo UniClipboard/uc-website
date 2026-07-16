@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 import { SponsorClaimForm } from "@/components/sponsor/SponsorClaimForm";
+import { localePathPrefix } from "@/i18n/locale-meta";
 import { getInviteState } from "@/lib/sponsor-invites";
 
 // Validity is per-request and these links must never be cached or indexed.
@@ -17,8 +18,8 @@ type Params = { params: Promise<{ locale: string; token: string }> };
 export default async function SponsorInvitePage({ params }: Params) {
   const { locale, token } = await params;
   const t = await getTranslations({ locale, namespace: "sponsorClaim" });
-  const homeHref = locale === "en" ? "/" : `/${locale}`;
-  const wallHref = locale === "en" ? "/sponsor" : `/${locale}/sponsor`;
+  const homeHref = localePathPrefix(locale) || "/";
+  const wallHref = `${localePathPrefix(locale)}/sponsor`;
 
   const state = await getInviteState(token);
 

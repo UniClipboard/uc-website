@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { localePathPrefix } from "@/i18n/locale-meta";
 import { getDocsHref } from "@/lib/docs-href";
 
 import { FaqAccordion, type FaqItem } from "./FaqAccordion";
@@ -14,10 +15,10 @@ export async function FaqSection() {
       a: t(`item${i}.a`),
     };
     if (i === 5) {
-      const localePathPrefix = locale === "en" ? "" : `/${locale}`;
+      const prefix = localePathPrefix(locale);
       item.cta = {
         label: t("item5.downloadCta"),
-        href: `${localePathPrefix}/download`,
+        href: `${prefix}/download`,
       };
     }
     return item;

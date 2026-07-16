@@ -6,7 +6,7 @@ import {
   buildArticleMetadata,
 } from "@/components/article/ArticleLayout";
 import { getAllPublishedSlugs, getArticle } from "@/db/articles";
-import type { ArticleLocale } from "@/lib/article-content";
+import { ARTICLE_LOCALES, isArticleLocale } from "@/lib/article-content";
 
 const CATEGORY = "compare" as const;
 
@@ -18,17 +18,17 @@ export async function generateStaticParams() {
   const all = await getAllPublishedSlugs();
   return all
     .filter((a) => a.category === CATEGORY)
-    .flatMap((a) => [
-      { locale: "en", slug: a.slug },
-      { locale: "zh", slug: a.slug },
-    ]);
+    .flatMap((a) =>
+      ARTICLE_LOCALES.map((locale) => ({ locale, slug: a.slug })),
+    );
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const article = await getArticle(CATEGORY, slug, locale as ArticleLocale);
+  if (!isArticleLocale(locale)) return {};
+  const article = await getArticle(CATEGORY, slug, locale);
   if (!article || article.content.contentType !== "template") return {};
   return buildArticleMetadata(
     {
@@ -43,7 +43,10 @@ export async function generateMetadata({
 
 export default async function CompareArticlePage({ params }: PageProps) {
   const { locale, slug } = await params;
-  const article = await getArticle(CATEGORY, slug, locale as ArticleLocale);
+  // `articleTranslations.locale` is a Postgres enum of ARTICLE_LOCALES only, so
+  // a locale outside that set must be rejected before it reaches the query.
+  if (!isArticleLocale(locale)) notFound();
+  const article = await getArticle(CATEGORY, slug, locale);
   if (!article || article.content.contentType !== "template") notFound();
 
   return (
@@ -54,7 +57,7 @@ export default async function CompareArticlePage({ params }: PageProps) {
         datePublished: article.datePublished,
       }}
       content={article.content}
-      locale={locale as ArticleLocale}
+      locale={locale}
     />
   );
 }

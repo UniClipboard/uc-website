@@ -7,6 +7,7 @@ import { FinalDownloadCta } from "@/components/landing/FinalDownloadCta";
 import { Footer } from "@/components/landing/Footer";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { Navigation } from "@/components/landing/Navigation";
+import { localePathPrefix, metaFor } from "@/i18n/locale-meta";
 import { fetchGitHubStars } from "@/lib/github-stars";
 import {
   FALLBACK_RELEASE_URL,
@@ -61,15 +62,15 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     locale,
     namespace: "landing.howItWorks",
   });
+  const tSeo = await getTranslations({ locale, namespace: "seo" });
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const pageUrl = locale === "en" ? `${baseUrl}/` : `${baseUrl}/${locale}`;
-  const ogImage = `${baseUrl}${locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg"}`;
+  const pageUrl = `${baseUrl}${localePathPrefix(locale) || "/"}`;
+  const ogImage = `${baseUrl}${metaFor(locale).ogImage}`;
   const logoUrl = `${baseUrl}/favicon/apple-touch-icon.png`;
-  const softwareDescription =
-    locale === "zh"
-      ? "免费、开源、端到端加密的跨平台通用剪贴板。文本、图片、文件在 macOS、Windows、Linux、iPhone、Android 之间实时同步,无需账号、无需服务器。"
-      : "Free, open-source, end-to-end encrypted universal clipboard for macOS, Windows, Linux, iOS, and Android. Copy on one device and paste on another with no account and no server.";
+  // Deliberately distinct from `seo.description`: this one describes the
+  // product for the SoftwareApplication schema, not for a search snippet.
+  const softwareDescription = tSeo("softwareDescription");
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -80,7 +81,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     operatingSystem: "macOS, Windows, Linux, iOS, Android",
     url: baseUrl,
     image: ogImage,
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     offers: {
       "@type": "Offer",
       price: "0",
@@ -123,7 +124,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     "@type": "WebSite",
     name: "UniClipboard",
     url: baseUrl,
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     publisher: { "@type": "Organization", name: "UniClipboard", url: baseUrl },
   };
 
@@ -145,7 +146,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
     "@type": "HowTo",
     name: tHow("title"),
     description: tHow("title"),
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     totalTime: "PT1M",
     supply: [],
     tool: [

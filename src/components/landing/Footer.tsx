@@ -1,6 +1,7 @@
 import { Clipboard, Mail } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { localePathPrefix } from "@/i18n/locale-meta";
 import { getDocsHref } from "@/lib/docs-href";
 
 function XGlyph({ size = 12 }: { size?: number }) {
@@ -41,7 +42,7 @@ export async function Footer() {
   const t = await getTranslations("landing.footer");
   const locale = await getLocale();
   const docsHref = getDocsHref(locale);
-  const sponsorHref = locale === "en" ? "/sponsor" : `/${locale}/sponsor`;
+  const sponsorHref = `${localePathPrefix(locale)}/sponsor`;
 
   return (
     <footer

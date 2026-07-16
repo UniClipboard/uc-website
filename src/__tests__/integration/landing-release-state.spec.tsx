@@ -1,4 +1,5 @@
 import enMessages from "../../../messages/en.json";
+import ruMessages from "../../../messages/ru.json";
 import zhMessages from "../../../messages/zh.json";
 
 jest.mock("../../lib/site-config", () => ({
@@ -11,6 +12,7 @@ jest.mock("../../lib/site-config", () => ({
 }));
 
 import LandingPage from "@/app/[locale]/page";
+import { routing } from "@/i18n/routing";
 
 jest.mock(
   "@/lib/release-feed/fetch-stable-release",
@@ -27,7 +29,13 @@ jest.mock(
   { virtual: true },
 );
 
-let currentLocale: "en" | "zh" = "en";
+const messagesByLocale: Record<string, unknown> = {
+  en: enMessages,
+  zh: zhMessages,
+  ru: ruMessages,
+};
+
+let currentLocale = "en";
 
 const resolveDotPath = (
   dictionary: Record<string, unknown>,
@@ -51,7 +59,7 @@ jest.mock("next-intl/server", () => ({
     arg: string | { locale?: string; namespace?: string },
   ) => {
     const namespace = typeof arg === "string" ? arg : (arg?.namespace ?? "");
-    const messages = currentLocale === "en" ? enMessages : zhMessages;
+    const messages = messagesByLocale[currentLocale] ?? enMessages;
     const dictionary = namespace.split(".").reduce<unknown>((cursor, part) => {
       if (cursor && typeof cursor === "object" && part in (cursor as object))
         return (cursor as Record<string, unknown>)[part];
@@ -89,23 +97,31 @@ describe("landing release state integration", () => {
     expect(mockedNormalizeStableRelease).not.toHaveBeenCalled();
   });
 
-  it("keeps landing.finalCta keys aligned across locales", () => {
-    const enKeys = Object.keys(
-      enMessages.landing.finalCta as unknown as Record<string, unknown>,
-    ).sort();
-    const zhKeys = Object.keys(
-      zhMessages.landing.finalCta as unknown as Record<string, unknown>,
-    ).sort();
-    expect(zhKeys).toEqual(enKeys);
-  });
+  // A missing key does not fail the build — next-intl falls back to echoing the
+  // key path, so an untranslated locale ships looking like `landing.hero.title`.
+  // Comparing every leaf path against the default locale is what catches it.
+  const leafPaths = (value: unknown, prefix = ""): string[] => {
+    if (Array.isArray(value)) {
+      return value.flatMap((item, i) => leafPaths(item, `${prefix}[${i}]`));
+    }
+    if (value && typeof value === "object") {
+      return Object.entries(value).flatMap(([key, child]) =>
+        leafPaths(child, prefix ? `${prefix}.${key}` : key),
+      );
+    }
+    return [prefix];
+  };
 
-  it("keeps landing.download keys aligned across locales", () => {
-    const enKeys = Object.keys(
-      enMessages.landing.download as unknown as Record<string, unknown>,
-    ).sort();
-    const zhKeys = Object.keys(
-      zhMessages.landing.download as unknown as Record<string, unknown>,
-    ).sort();
-    expect(zhKeys).toEqual(enKeys);
+  const expectedPaths = leafPaths(enMessages).sort();
+
+  it.each(routing.locales.filter((locale) => locale !== routing.defaultLocale))(
+    "keeps every message key aligned between en and %s",
+    (locale) => {
+      expect(leafPaths(messagesByLocale[locale]).sort()).toEqual(expectedPaths);
+    },
+  );
+
+  it.each(routing.locales)("has a message file for %s", (locale) => {
+    expect(messagesByLocale[locale]).toBeDefined();
   });
 });

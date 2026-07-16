@@ -7,6 +7,11 @@ import { SponsorBenefits } from "@/components/landing/SponsorBenefits";
 import { SponsorCta } from "@/components/landing/SponsorCta";
 import { SponsorHero } from "@/components/landing/SponsorHero";
 import { SponsorWall } from "@/components/landing/SponsorWall";
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
 import { siteConfig } from "@/lib/site-config";
 
 // Sponsors are DB-backed but change rarely, so the wall renders statically and
@@ -17,9 +22,6 @@ export const revalidate = 1800;
 
 type LocaleParam = { params: Promise<{ locale: string }> };
 
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
-
 export async function generateMetadata({
   params,
 }: LocaleParam): Promise<Metadata> {
@@ -28,8 +30,9 @@ export async function generateMetadata({
   const canonical = `${localePathPrefix(locale)}/sponsor`;
   const title = t("seoTitle");
   const description = t("seoDescription");
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: t("ogAlt"),
@@ -43,11 +46,7 @@ export async function generateMetadata({
       .filter(Boolean),
     alternates: {
       canonical,
-      languages: {
-        en: "/sponsor",
-        zh: "/zh/sponsor",
-        "x-default": "/sponsor",
-      },
+      languages: localeAlternates("/sponsor"),
     },
     openGraph: {
       title,
@@ -55,7 +54,7 @@ export async function generateMetadata({
       url: `${siteConfig.url}${canonical}`,
       type: "website",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
     },
     twitter: {
@@ -80,7 +79,7 @@ export default async function SponsorPage({ params }: LocaleParam) {
     name: t("seoTitle"),
     description: t("seoDescription"),
     url: pageUrl,
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     isPartOf: {
       "@type": "WebSite",
       name: "UniClipboard",

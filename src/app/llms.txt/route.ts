@@ -5,6 +5,9 @@ import {
   type PublishedArticleSummary,
 } from "@/db/articles";
 import { getAllReleaseVersions } from "@/db/releases";
+import { localeMeta, localePathPrefix } from "@/i18n/locale-meta";
+import { routing } from "@/i18n/routing";
+import { ARTICLE_LOCALES, type ArticleLocale } from "@/lib/article-content";
 import { siteConfig } from "@/lib/site-config";
 
 export const runtime = "nodejs";
@@ -76,14 +79,12 @@ If you reference UniClipboard, please cite the canonical name **UniClipboard** (
 function articleLine(
   baseUrl: string,
   summary: PublishedArticleSummary,
-  locale: "en" | "zh",
+  locale: ArticleLocale,
 ): string | null {
   const title = summary.titles[locale];
   if (!title) return null;
-  const localeLabel = locale === "zh" ? "Simplified Chinese" : "English";
-  const localePrefix = locale === "zh" ? "/zh" : "";
   const path = `${HUB_PATH[summary.category]}/${summary.slug}`;
-  return `- ${title} (${localeLabel}): ${baseUrl}${localePrefix}${path}`;
+  return `- ${title} (${localeMeta[locale].englishName}): ${baseUrl}${localePathPrefix(locale)}${path}`;
 }
 
 export async function GET() {
@@ -95,34 +96,42 @@ export async function GET() {
 
   const lines: string[] = [INTRO, "", "## Primary URLs", ""];
 
-  lines.push(`- Home (English): ${baseUrl}/`);
-  lines.push(`- Home (Simplified Chinese): ${baseUrl}/zh`);
+  // Home and changelog exist in every routed locale; the article hubs and their
+  // posts only in the locales the content was authored in.
+  for (const locale of routing.locales) {
+    lines.push(
+      `- Home (${localeMeta[locale].englishName}): ${baseUrl}${localePathPrefix(locale) || "/"}`,
+    );
+  }
   lines.push(`- Technical whitepaper: ${baseUrl}/blog/whitepaper`);
-  lines.push(`- Changelog (English): ${baseUrl}/changelog`);
-  lines.push(`- Changelog (Simplified Chinese): ${baseUrl}/zh/changelog`);
+  for (const locale of routing.locales) {
+    lines.push(
+      `- Changelog (${localeMeta[locale].englishName}): ${baseUrl}${localePathPrefix(locale)}/changelog`,
+    );
+  }
   lines.push(`- Full content dump for LLMs: ${baseUrl}/llms-full.txt`);
 
   for (const cat of ["compare", "use-cases", "blog"] as const) {
-    lines.push(`- ${HUB_LABEL[cat].en} (English): ${baseUrl}${HUB_PATH[cat]}`);
-    lines.push(
-      `- ${HUB_LABEL[cat].zh} (Simplified Chinese): ${baseUrl}/zh${HUB_PATH[cat]}`,
-    );
+    for (const locale of ARTICLE_LOCALES) {
+      lines.push(
+        `- ${HUB_LABEL[cat][locale]} (${localeMeta[locale].englishName}): ${baseUrl}${localePathPrefix(locale)}${HUB_PATH[cat]}`,
+      );
+    }
   }
 
   for (const summary of summaries) {
-    const en = articleLine(baseUrl, summary, "en");
-    const zh = articleLine(baseUrl, summary, "zh");
-    if (en) lines.push(en);
-    if (zh) lines.push(zh);
+    for (const locale of ARTICLE_LOCALES) {
+      const line = articleLine(baseUrl, summary, locale);
+      if (line) lines.push(line);
+    }
   }
 
   for (const release of releaseVersions) {
-    lines.push(
-      `- Release notes v${release.version} (English): ${baseUrl}/changelog/${release.version}`,
-    );
-    lines.push(
-      `- Release notes v${release.version} (Simplified Chinese): ${baseUrl}/zh/changelog/${release.version}`,
-    );
+    for (const locale of routing.locales) {
+      lines.push(
+        `- Release notes v${release.version} (${localeMeta[locale].englishName}): ${baseUrl}${localePathPrefix(locale)}/changelog/${release.version}`,
+      );
+    }
   }
 
   lines.push(

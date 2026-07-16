@@ -170,8 +170,15 @@ export const CATEGORY_CONTENT_TYPE: Record<
   blog: "markdown",
 };
 
+// Articles are authored per-locale in the DB, so this list is narrower than
+// `routing.locales`: a locale the site's chrome is translated into does not
+// automatically have article content. Routes under a category must 404 for
+// locales absent here rather than render an empty hub.
 export const ARTICLE_LOCALES = ["en", "zh"] as const;
 export type ArticleLocale = (typeof ARTICLE_LOCALES)[number];
+
+export const isArticleLocale = (locale: string): locale is ArticleLocale =>
+  (ARTICLE_LOCALES as readonly string[]).includes(locale);
 
 export const ARTICLE_STATUSES = ["draft", "published"] as const;
 export type ArticleStatusValue = (typeof ARTICLE_STATUSES)[number];

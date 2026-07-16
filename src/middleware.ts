@@ -10,7 +10,13 @@ import { routing } from "./i18n/routing";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-const ADMIN_PATH_REGEX = /^\/(?:(?:en|zh)\/)?admin(?:\/|$)/;
+// Derived from `routing.locales` rather than spelled out, so a new locale can
+// never silently miss the admin canonicalization below and fall through to
+// intl routing.
+const LOCALE_ALT = routing.locales.join("|");
+
+const ADMIN_PATH_REGEX = new RegExp(`^/(?:(?:${LOCALE_ALT})/)?admin(?:/|$)`);
+const LOCALE_ADMIN_REGEX = new RegExp(`^/(?:${LOCALE_ALT})(/admin(?:/.*)?)$`);
 const ADMIN_API_REGEX = /^\/api\/admin(?:\/|$)/;
 const PUBLIC_ADMIN_REGEX = /^\/admin\/(?:sign-in|forbidden)(?:\/|$)/;
 
@@ -30,7 +36,7 @@ const adminMiddleware = clerkMiddleware(async (auth, req: NextRequest) => {
   }
 
   // 2) /admin/* and /[locale]/admin/* — canonicalize URL, then rewrite to /en/admin/*
-  const localeMatch = path.match(/^\/(?:en|zh)(\/admin(?:\/.*)?)$/);
+  const localeMatch = path.match(LOCALE_ADMIN_REGEX);
   if (localeMatch) {
     const url = req.nextUrl.clone();
     url.pathname = localeMatch[1];

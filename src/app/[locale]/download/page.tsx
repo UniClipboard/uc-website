@@ -11,6 +11,11 @@ import {
 import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
+import {
+  localeAlternates,
+  localePathPrefix,
+  metaFor,
+} from "@/i18n/locale-meta";
 import { Link } from "@/i18n/navigation";
 import {
   buildMobileGroups,
@@ -29,9 +34,6 @@ import {
 import { siteConfig } from "@/lib/site-config";
 
 type LocaleParam = { params: Promise<{ locale: string }> };
-
-const localePathPrefix = (locale: string) =>
-  locale === "en" ? "" : `/${locale}`;
 
 const buildDegradedFallback = (): StableReleaseViewModel => ({
   status: "degraded",
@@ -91,7 +93,7 @@ function fmtPublished(iso: string, locale: string, unavailable: string) {
   try {
     const d = new Date(iso);
     if (isNaN(d.getTime())) return iso;
-    return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : "en-US", {
+    return new Intl.DateTimeFormat(metaFor(locale).dateLocale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -111,8 +113,9 @@ export async function generateMetadata({
   const canonical = `${localePathPrefix(locale)}/download`;
   const title = t("seoTitle");
   const description = t("seoDescription");
+  const meta = metaFor(locale);
   const ogImage = {
-    url: locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg",
+    url: meta.ogImage,
     width: 1730,
     height: 909,
     alt: t("ogAlt"),
@@ -126,11 +129,7 @@ export async function generateMetadata({
       .filter(Boolean),
     alternates: {
       canonical,
-      languages: {
-        en: "/download",
-        zh: "/zh/download",
-        "x-default": "/download",
-      },
+      languages: localeAlternates("/download"),
     },
     openGraph: {
       title,
@@ -138,7 +137,7 @@ export async function generateMetadata({
       url: `${siteConfig.url}${canonical}`,
       type: "website",
       siteName: siteConfig.brand,
-      locale: locale === "zh" ? "zh_CN" : "en_US",
+      locale: meta.ogLocale,
       images: [ogImage],
     },
     twitter: {
@@ -178,7 +177,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
   }
 
   const baseUrl = siteConfig.url.replace(/\/$/, "");
-  const homePath = locale === "en" ? "/" : `/${locale}`;
+  const homePath = localePathPrefix(locale) || "/";
   const canonical = `${localePathPrefix(locale)}/download`;
   const pageUrl = `${baseUrl}${canonical}`;
 
@@ -305,7 +304,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
 
   const versionForSchema =
     release.version === "unavailable" ? undefined : release.version;
-  const ogImage = `${baseUrl}${locale === "zh" ? "/og-zh.jpg" : "/og-en.jpg"}`;
+  const ogImage = `${baseUrl}${metaFor(locale).ogImage}`;
 
   const softwareSchema = {
     "@context": "https://schema.org",
@@ -316,7 +315,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
     operatingSystem: "macOS, Windows, Linux, iOS, Android",
     url: pageUrl,
     image: ogImage,
-    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    inLanguage: metaFor(locale).inLanguage,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     softwareVersion: versionForSchema,
     license: "https://www.gnu.org/licenses/agpl-3.0.html",

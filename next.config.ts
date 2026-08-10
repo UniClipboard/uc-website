@@ -43,20 +43,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: "/docs",
-        destination: `${DOCS_ORIGIN}/docs`,
+        destination: DOCS_ORIGIN,
+        permanent: true,
       },
       {
         source: "/docs/:path*",
-        destination: `${DOCS_ORIGIN}/docs/:path*`,
+        destination: `${DOCS_ORIGIN}/:path*`,
+        permanent: true,
       },
-    ];
-  },
-  async redirects() {
-    return [
       {
         source: "/install.sh",
         destination:

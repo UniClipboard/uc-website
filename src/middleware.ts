@@ -7,6 +7,7 @@ import {
 import createIntlMiddleware from "next-intl/middleware";
 
 import { routing } from "./i18n/routing";
+import { acceptsMarkdown } from "./lib/markdown-negotiation";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -79,6 +80,7 @@ function applyPublicCdnCache(res: NextResponse): NextResponse {
       "cache-control",
       "public, s-maxage=1800, stale-while-revalidate=86400",
     );
+    res.headers.append("vary", "Accept");
   }
   return res;
 }
@@ -91,6 +93,16 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
   // Token-authenticated API routes (e.g. /api/v1/*) bypass intl rewriting.
   if (path.startsWith("/api/")) {
     return NextResponse.next();
+  }
+  if (
+    (req.method === "GET" || req.method === "HEAD") &&
+    path !== "/agent-markdown" &&
+    !path.startsWith("/agent-markdown/") &&
+    acceptsMarkdown(req.headers.get("accept"))
+  ) {
+    const url = req.nextUrl.clone();
+    url.pathname = `/agent-markdown${path === "/" ? "" : path}`;
+    return applyPublicCdnCache(NextResponse.rewrite(url));
   }
   const res = intlMiddleware(req);
   if (req.method === "GET" || req.method === "HEAD") {

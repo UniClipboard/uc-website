@@ -89,19 +89,20 @@ export function PlatformBlocks({
     setDetected(os);
 
     const mq = window.matchMedia("(max-width: 767px)");
-    const apply = (mobileVp: boolean) => {
+    const apply = (mobileVp: boolean, preferDetected = false) => {
       setIsMobileViewport(mobileVp);
       const candidates = mobileVp
         ? blocks.filter((b) => MOBILE_ONLY.includes(b.os))
         : blocks;
       if (candidates.length === 0) return;
       setActive((prev) => {
+        if (preferDetected && os && candidates.some((b) => b.os === os))
+          return os;
         if (candidates.some((b) => b.os === prev)) return prev;
-        if (os && candidates.some((b) => b.os === os)) return os;
         return candidates[0].os;
       });
     };
-    apply(mq.matches);
+    apply(mq.matches, true);
     const onChange = (e: MediaQueryListEvent) => apply(e.matches);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);

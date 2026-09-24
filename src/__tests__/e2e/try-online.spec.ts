@@ -52,6 +52,33 @@ const sha256 = (bytes: Buffer) =>
 
 const FAKE_TOKEN = "B".repeat(22);
 
+type GaProbe = {
+  loadHref: string;
+  commands: { cmd: unknown; href: string }[];
+  events: { type: string; href: string }[];
+};
+
+declare global {
+  interface Window {
+    __gaProbe?: GaProbe;
+  }
+}
+
+const GTAG_PROBE = `(function () {
+  var probe = (window.__gaProbe = { loadHref: location.href, commands: [], events: [] });
+  function handle(args) { probe.commands.push({ cmd: args && args[0], href: location.href }); }
+  var dl = (window.dataLayer = window.dataLayer || []);
+  for (var i = 0; i < dl.length; i++) handle(dl[i]);
+  var push = dl.push;
+  dl.push = function () {
+    for (var j = 0; j < arguments.length; j++) handle(arguments[j]);
+    return push.apply(dl, arguments);
+  };
+  ["popstate", "hashchange"].forEach(function (type) {
+    addEventListener(type, function () { probe.events.push({ type: type, href: location.href }); });
+  });
+})();`;
+
 // A mangled address: passes the character check, fails the structure check.
 const MALFORMED_ADDR = `tc${"A".repeat(40)}`;
 
@@ -114,7 +141,7 @@ test.describe("try page shell", () => {
     expect(html).toContain("<textarea");
   });
 
-  test("the connection fragment never reaches the network", async ({
+  test("the connection fragment never reaches analytics or the network", async ({
     page,
   }) => {
     const urls: string[] = [];
@@ -129,21 +156,52 @@ test.describe("try page shell", () => {
         return route.fulfill({ status: 204 });
       },
     );
+    // Stand-in for gtag.js, served at the real loader URL so it loads at the
+    // same point in the page lifecycle. Like gtag, it drains dataLayer on
+    // load, handles later pushes, and listens to history changes (in the
+    // bubble phase, registered after the page's own listeners). It records
+    // location.href at each of those moments.
+    await page.route(/googletagmanager\.com\/gtag\/js/, (route) =>
+      route.fulfill({
+        contentType: "text/javascript",
+        body: GTAG_PROBE,
+      }),
+    );
 
+    // Where the URL stands once parsing ends, before hydration or any async
+    // script (analytics, Speed Insights) runs.
     await page.addInitScript(() => {
-      const w = window as { dataLayer?: unknown[]; __gaHrefs?: string[] };
-      const hrefs: string[] = (w.__gaHrefs = []);
-      const layer: unknown[] = [];
-      layer.push = (...args: unknown[]) => {
-        hrefs.push(location.href);
-        return Array.prototype.push.apply(layer, args);
-      };
-      w.dataLayer = layer;
+      document.addEventListener("DOMContentLoaded", () => {
+        (window as { __hrefAtParseEnd?: string }).__hrefAtParseEnd =
+          location.href;
+      });
     });
-    await page.goto(`/try#c=${MALFORMED_ADDR}&k=${FAKE_TOKEN}`);
-    await expect.poll(() => page.evaluate(() => location.hash)).toBe("");
 
-    // A link pasted into the already-open tab is a same-document navigation.
+    // 1. Opening a link: the fragment is stripped during parsing, before
+    // hydration and before analytics loads.
+    await page.goto(`/try#c=${MALFORMED_ADDR}&k=${FAKE_TOKEN}`);
+    const hrefAtParseEnd = await page.evaluate(
+      () => (window as { __hrefAtParseEnd?: string }).__hrefAtParseEnd,
+    );
+    expect(hrefAtParseEnd, "DOMContentLoaded must have fired").toBeTruthy();
+    expect(hrefAtParseEnd).not.toContain("#");
+    // Precondition, not the property under test: GA must be rendered.
+    // playwright.config.ts starts the server with a test measurement ID.
+    await expect(
+      page.locator("script#ga4-init"),
+      "precondition: the layout must render GA (NEXT_PUBLIC_GA_MEASUREMENT_ID)",
+    ).toHaveCount(1);
+    await expect
+      .poll(() => page.evaluate(() => Boolean(window.__gaProbe)), {
+        message: "precondition: the gtag stand-in must load",
+      })
+      .toBe(true);
+    await expect
+      .poll(() => page.evaluate(() => window.__gaProbe!.commands.length))
+      .toBeGreaterThanOrEqual(2); // "js" and "config"
+    expect(await page.evaluate(() => location.hash)).toBe("");
+
+    // 2. A link pasted into the already-open tab (same-document navigation).
     await page.getByRole("button", { name: "Start over" }).click();
     await page.evaluate(
       (hash) => (location.hash = hash),
@@ -153,35 +211,43 @@ test.describe("try page shell", () => {
       "data-code",
       "invalid-link",
     );
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          window.__gaProbe!.events.some((e) => e.type === "hashchange"),
+        ),
+      )
+      .toBe(true);
     expect(await page.evaluate(() => location.hash)).toBe("");
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(1000);
 
-    const leaks = [...urls, ...collected].filter(
+    const probe = await page.evaluate(() => window.__gaProbe!);
+    const observed = [
+      probe.loadHref,
+      ...probe.commands.map((c) => c.href),
+      ...probe.events.map((e) => e.href),
+    ];
+    for (const href of observed) expect(href).not.toContain("#");
+    const leaks = [...urls, ...collected, ...observed].filter(
       (u) => u.includes(MALFORMED_ADDR) || u.includes(FAKE_TOKEN),
     );
     expect(leaks).toEqual([]);
+    // 3. Control: the probe does see fragments where nothing strips them
+    // (the home page), so the empty observations above are not blind spots.
+    await page.goto("/#probe-control");
+    await expect
+      .poll(() => page.evaluate(() => window.__gaProbe?.loadHref ?? ""))
+      .toContain("#probe-control");
 
-    // The init script above always creates dataLayer; gtag exists only
-    // when the layout rendered GA (NEXT_PUBLIC_GA_MEASUREMENT_ID set).
-    const gaConfigured = await page.evaluate(
-      () => typeof (window as { gtag?: unknown }).gtag === "function",
-    );
-    if (gaConfigured) {
-      // gtag reads location.href when it handles each command, so the URL
-      // must already be fragment-free every time one is pushed.
-      const seen = await page.evaluate(
-        () => (window as { __gaHrefs?: string[] }).__gaHrefs ?? [],
-      );
-      expect(seen.length).toBeGreaterThan(0);
-      for (const href of seen) expect(href).not.toContain("#");
-      // A test measurement ID gets no container from Google, so collection
-      // hits may be zero; any that do fire are covered by the leak check.
-    }
     record("fragment-not-sent", {
       requests: urls.length,
       analyticsRequests: collected.length,
-      gaConfigured,
+      hrefAtParseEnd,
+      gtagLoadHref: probe.loadHref,
+      gtagCommands: probe.commands.length,
+      historyEvents: probe.events.map((e) => e.type),
       leaks: leaks.length,
+      controlSawFragment: true,
     });
   });
 

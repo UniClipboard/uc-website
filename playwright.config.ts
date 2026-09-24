@@ -74,5 +74,11 @@ export default defineConfig({
     url: "http://127.0.0.1:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    // Render GA so the try-online analytics test has something to observe.
+    // The test serves a local stand-in for gtag.js; nothing reaches Google.
+    env: {
+      NEXT_PUBLIC_GA_MEASUREMENT_ID:
+        process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-E2ETEST000",
+    },
   },
 });

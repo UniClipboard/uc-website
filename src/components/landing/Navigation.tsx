@@ -71,7 +71,12 @@ export function Navigation() {
     label: string;
     matchPrefix: string;
     external?: boolean;
+    /** Skip viewport prefetch; see the /try entry. */
+    noPrefetch?: boolean;
   }[] = [
+    // Not prefetched: fetching the /try route while the home page is still
+    // painting measurably delayed the home LCP.
+    { href: "/try", label: t("try"), matchPrefix: "/try", noPrefetch: true },
     ...(hasArticles
       ? [
           { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
@@ -127,6 +132,7 @@ export function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={item.noPrefetch ? false : undefined}
                 className={className}
                 aria-current={active ? "page" : undefined}
               >
@@ -224,6 +230,7 @@ export function Navigation() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={item.noPrefetch ? false : undefined}
                   onClick={() => setMenuOpen(false)}
                   aria-current={active ? "page" : undefined}
                   className={itemClass}

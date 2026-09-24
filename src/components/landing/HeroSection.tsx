@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
+import { Link } from "@/i18n/navigation";
 import { isChinaIp } from "@/lib/geo/country";
 import {
   getAndroidPrimaryDownloadUrl,
@@ -30,6 +31,7 @@ export async function HeroSection({ stars }: Props) {
     primary: tDl("ctaPrimaryGeneric"),
     secondaryHow: t("secondaryCta"),
     otherPlatforms: tDl("ctaOtherPlatforms"),
+    tryOnline: t("tryCta"),
   };
 
   const trustLabels = {
@@ -150,6 +152,14 @@ export async function HeroSection({ stars }: Props) {
               androidLabel={t("mobileBadgeAndroid")}
               androidUrl={getAndroidPrimaryDownloadUrl(androidRelease)}
             />
+
+            <Link
+              href="/try"
+              prefetch={false}
+              className="border-border text-foreground hover:bg-foreground/5 mb-5 flex w-full items-center justify-center rounded-[10px] border px-5 py-3 text-[15px] font-medium transition-colors"
+            >
+              {t("tryCta")}
+            </Link>
 
             <HeroTrustBar stars={stars} labels={trustLabels} />
           </div>

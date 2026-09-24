@@ -10,6 +10,9 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Vendored Go runtime shim for the tailcat wasm; its hash is pinned in
+  // public/tailcat/manifest.json, so it must never be auto-fixed.
+  { ignores: ["public/tailcat/**"] },
   ...compat.config({
     extends: [
       "next/core-web-vitals",

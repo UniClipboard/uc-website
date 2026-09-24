@@ -5,7 +5,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -112,6 +116,12 @@ const RootLayout = async ({
 
   const gaId = siteConfig.analytics.gaMeasurementId;
 
+  // Every page serialises the client messages into its HTML. The /try page's
+  // copy is large and only used there, so that page provides it itself.
+  const messages = Object.fromEntries(
+    Object.entries(await getMessages()).filter(([ns]) => ns !== "try"),
+  );
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={cn("min-h-screen font-sans", fontsFor(locale))}>
@@ -125,6 +135,11 @@ const RootLayout = async ({
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
               strategy="afterInteractive"
             />
+            {/* No fixed page_location: gtag keeps a configured value for
+                later history-based page_views, which would report every
+                client-side navigation as the landing page. /try strips its
+                secret-bearing fragment before this script runs (see
+                FRAGMENT_CAPTURE_SCRIPT). */}
             <Script id="ga4-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
@@ -135,7 +150,7 @@ const RootLayout = async ({
             </Script>
           </>
         )}
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
           <ScrollToTop />
           <ThemeProvider attribute="class">{children}</ThemeProvider>
         </NextIntlClientProvider>

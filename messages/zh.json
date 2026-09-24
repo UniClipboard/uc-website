@@ -40,7 +40,8 @@
       "themeSystem": "跟随系统",
       "themeLight": "浅色",
       "themeDark": "深色",
-      "sponsor": "赞助"
+      "sponsor": "赞助",
+      "try": "在线试用"
     },
     "hero": {
       "eyebrow": "开源 · 端到端加密 · 五端同步 · 无需账号",
@@ -65,7 +66,8 @@
       "videoClose": "关闭视频",
       "videoSourceYoutube": "YouTube",
       "videoSourceBilibili": "哔哩哔哩",
-      "videoFallbackHint": "在线播放源不可用，已切换到本地视频。"
+      "videoFallbackHint": "在线播放源不可用，已切换到本地视频。",
+      "tryCta": "在浏览器里试试 →"
     },
     "features": {
       "eyebrow": "核心功能",
@@ -1084,5 +1086,110 @@
     "invalidExpired": "该邀请链接已过期，请向我们索取新的链接。",
     "invalidNotFound": "该邀请链接无效，请核对链接是否完整。",
     "backHome": "返回首页"
+  },
+  "try": {
+    "seoTitle": "在线试用 — 在两个浏览器之间传文字、图片和文件",
+    "seoDescription": "用链接或二维码，把文字、图片或文件从一个浏览器发到另一个浏览器。端到端加密，无需安装，无需账号。由 tailcat 驱动的网页演示。",
+    "compose": {
+      "title": "把任何内容发到另一台设备。",
+      "replyTitle": "回复对方设备",
+      "placeholder": "在这里粘贴、拖入或输入",
+      "textLabel": "要发送的内容",
+      "attach": "添加文件",
+      "remove": "移除 {name}",
+      "pastedImage": "粘贴的图片",
+      "send": "发送",
+      "sendReply": "发送回复",
+      "cancelReply": "返回",
+      "size": "{size} / {limit}",
+      "tooLarge": "已超过 {limit}。",
+      "getApp": "更大的文件请使用应用",
+      "empty": "请先添加文字或文件。",
+      "dropHint": "松开即可添加",
+      "autoCopy": "收到内容时自动复制到剪贴板",
+      "tooMany": "超过 {max} 项了。请移除一些，或打包成一个压缩文件。"
+    },
+    "preparing": {
+      "title": "正在准备安全链接…",
+      "loading": "正在加载安全连接 · {percent}%",
+      "loadingUnknown": "正在加载安全连接…",
+      "relay": "正在连接中继…"
+    },
+    "ready": {
+      "title": "在另一台设备上打开它。",
+      "scan": "用另一台设备的相机扫码，或把链接发给它。",
+      "qrLabel": "连接链接的二维码",
+      "copyLink": "复制链接",
+      "linkCopied": "链接已复制",
+      "shareLink": "分享链接",
+      "note": "链接只能用一次。下次发送会生成新链接。",
+      "waiting": "等待中 · 请保持此标签页打开",
+      "cancel": "取消"
+    },
+    "sending": {
+      "title": "正在发送到另一台设备…",
+      "replyTitle": "正在发送回复…",
+      "note": "传输完成前请保持此标签页打开。",
+      "cancel": "取消"
+    },
+    "delivered": {
+      "title": "已送达",
+      "replyHint": "此标签页保持打开时，对方可以发来回复。",
+      "replyIncoming": "正在接收回复 · {done} / {total}",
+      "replyFrom": "来自另一台设备的回复",
+      "replyFailed": "回复没有送达。",
+      "sendNew": "发送新内容",
+      "replyDeliveredTitle": "回复已送达"
+    },
+    "receiving": {
+      "connecting": "正在连接…",
+      "connectingHint": "正在通过加密中继连接发送方。",
+      "title": "正在接收…",
+      "progress": "{done} / {total}",
+      "cancel": "取消"
+    },
+    "received": {
+      "title": "已接收",
+      "copyText": "复制文字",
+      "copyImage": "复制图片",
+      "copied": "已复制到剪贴板",
+      "copyFailed": "无法自动复制，请点按钮复制。",
+      "save": "保存",
+      "saveName": "保存 {name}",
+      "reply": "回复",
+      "imagePreview": "收到的图片预览",
+      "text": "文字"
+    },
+    "summary": {
+      "text": "文字",
+      "images": "{count} 张图片",
+      "files": "{count} 个文件"
+    },
+    "errors": {
+      "title": "出错了",
+      "busy": "这个链接已经被用过了。请让对方重新生成。",
+      "connect-failed": "无法连接。请让发送方保持页面打开，然后重试。",
+      "peer-cancelled": "对方取消了传输。",
+      "connection-lost": "传输完成前连接中断了。请重试。",
+      "timeout": "对方没有响应。请重试。",
+      "integrity": "内容在传输中损坏，已丢弃。请重试。",
+      "too-large": "已超过 20 MB。更大的文件请使用应用。",
+      "rejected": "对方拒绝了这次传输。",
+      "protocol": "传输失败。请重试。",
+      "invalid-link": "这个链接不完整。请让对方重新生成。",
+      "listen-failed": "无法连接中继。请稍后重试。",
+      "load-failed": "无法加载安全连接。请检查网络后重试。",
+      "unsupported": "此浏览器无法运行演示。请使用较新的 Chrome、Edge、Firefox 或 Safari。",
+      "tryAgain": "重试",
+      "startOver": "重新开始"
+    },
+    "footer": {
+      "demo": "由 tailcat 驱动的网页演示",
+      "e2e": "经公共中继端到端加密",
+      "notApp": "与 UniClipboard 应用互不相通",
+      "getApp": "下载应用",
+      "forSync": "获得持续同步",
+      "license": "tailcat 许可证（BSD-3-Clause）"
+    }
   }
 }

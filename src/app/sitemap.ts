@@ -43,6 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       locales: ARTICLE_LOCALES,
     },
     { path: "changelog", priority: 0.8, changeFrequency: "weekly" as const },
+    { path: "try", priority: 0.7, changeFrequency: "monthly" as const },
     ...articles.map((article) => ({
       path: `${article.category}/${article.slug}`,
       priority: 0.9,

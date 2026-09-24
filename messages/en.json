@@ -40,7 +40,8 @@
       "themeSystem": "System",
       "themeLight": "Light",
       "themeDark": "Dark",
-      "sponsor": "Sponsor"
+      "sponsor": "Sponsor",
+      "try": "Try online"
     },
     "hero": {
       "eyebrow": "Open source · End-to-end encrypted · 5 platforms · No account",
@@ -65,7 +66,8 @@
       "videoClose": "Close video",
       "videoSourceYoutube": "YouTube",
       "videoSourceBilibili": "Bilibili",
-      "videoFallbackHint": "Embedded player unavailable — playing local copy."
+      "videoFallbackHint": "Embedded player unavailable — playing local copy.",
+      "tryCta": "Try it in your browser →"
     },
     "features": {
       "eyebrow": "Features",
@@ -1084,5 +1086,110 @@
     "invalidExpired": "This invite link has expired. Please ask the team for a new one.",
     "invalidNotFound": "This invite link is invalid. Please double-check the URL.",
     "backHome": "Back to home"
+  },
+  "try": {
+    "seoTitle": "Try online — send text, images and files between two browsers",
+    "seoDescription": "Send text, images or files from one browser to another with a link or QR code. End-to-end encrypted, no install, no account. A web demo powered by tailcat.",
+    "compose": {
+      "title": "Send anything to another device.",
+      "replyTitle": "Reply to the other device",
+      "placeholder": "Paste, drop or type here",
+      "textLabel": "Content to send",
+      "attach": "Attach files",
+      "remove": "Remove {name}",
+      "pastedImage": "Pasted image",
+      "send": "Send",
+      "sendReply": "Send reply",
+      "cancelReply": "Back",
+      "size": "{size} of {limit}",
+      "tooLarge": "That's over {limit}.",
+      "getApp": "Get the app for larger files",
+      "empty": "Add some text or a file first.",
+      "dropHint": "Drop to attach",
+      "autoCopy": "Copy to clipboard when something arrives",
+      "tooMany": "That's more than {max} items. Remove some, or zip them into one file."
+    },
+    "preparing": {
+      "title": "Preparing a secure link…",
+      "loading": "Loading the secure connection · {percent}%",
+      "loadingUnknown": "Loading the secure connection…",
+      "relay": "Reaching the relay…"
+    },
+    "ready": {
+      "title": "Open this on your other device.",
+      "scan": "Scan with the other device's camera, or send it the link.",
+      "qrLabel": "QR code for the connection link",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied",
+      "shareLink": "Share link",
+      "note": "The link works once. Your next send gets a new link.",
+      "waiting": "Waiting · keep this tab open",
+      "cancel": "Cancel"
+    },
+    "sending": {
+      "title": "Sending to the other device…",
+      "replyTitle": "Sending your reply…",
+      "note": "Keep this tab open until it finishes.",
+      "cancel": "Cancel"
+    },
+    "delivered": {
+      "title": "Delivered",
+      "replyHint": "The other device can send a reply while this tab stays open.",
+      "replyIncoming": "A reply is arriving · {done} of {total}",
+      "replyFrom": "Reply from the other device",
+      "replyFailed": "The reply didn't arrive.",
+      "sendNew": "Send something new",
+      "replyDeliveredTitle": "Reply delivered"
+    },
+    "receiving": {
+      "connecting": "Connecting…",
+      "connectingHint": "Reaching the sender through an encrypted relay.",
+      "title": "Receiving…",
+      "progress": "{done} of {total}",
+      "cancel": "Cancel"
+    },
+    "received": {
+      "title": "Received",
+      "copyText": "Copy text",
+      "copyImage": "Copy image",
+      "copied": "Copied to clipboard",
+      "copyFailed": "Couldn't copy automatically. Use the button instead.",
+      "save": "Save",
+      "saveName": "Save {name}",
+      "reply": "Reply",
+      "imagePreview": "Received image preview",
+      "text": "Text"
+    },
+    "summary": {
+      "text": "Text",
+      "images": "{count, plural, one {# image} other {# images}}",
+      "files": "{count, plural, one {# file} other {# files}}"
+    },
+    "errors": {
+      "title": "Something went wrong",
+      "busy": "This link was already used. Ask for a new one.",
+      "connect-failed": "Couldn't connect. Ask the sender to keep their page open, then try again.",
+      "peer-cancelled": "The other device cancelled the transfer.",
+      "connection-lost": "The connection dropped before the transfer finished. Try again.",
+      "timeout": "The other device stopped responding. Try again.",
+      "integrity": "The content arrived damaged and was discarded. Try again.",
+      "too-large": "That's over 20 MB. Get the app for larger files.",
+      "rejected": "The other device refused the transfer.",
+      "protocol": "The transfer failed. Try again.",
+      "invalid-link": "This link is incomplete. Ask for a new one.",
+      "listen-failed": "Couldn't reach the relay. Try again in a moment.",
+      "load-failed": "Couldn't load the secure connection. Check your network and try again.",
+      "unsupported": "This browser can't run the demo. Try a recent Chrome, Edge, Firefox or Safari.",
+      "tryAgain": "Try again",
+      "startOver": "Start over"
+    },
+    "footer": {
+      "demo": "Web demo powered by tailcat",
+      "e2e": "end-to-end encrypted through public relays",
+      "notApp": "separate from the UniClipboard apps",
+      "getApp": "Get the app",
+      "forSync": "for continuous sync",
+      "license": "tailcat license (BSD-3-Clause)"
+    }
   }
 }

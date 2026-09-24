@@ -161,8 +161,10 @@ test.describe("try page shell", () => {
     );
     expect(leaks).toEqual([]);
 
-    const gaConfigured = await page.evaluate(() =>
-      Array.isArray((window as { dataLayer?: unknown[] }).dataLayer),
+    // The init script above always creates dataLayer; gtag exists only
+    // when the layout rendered GA (NEXT_PUBLIC_GA_MEASUREMENT_ID set).
+    const gaConfigured = await page.evaluate(
+      () => typeof (window as { gtag?: unknown }).gtag === "function",
     );
     if (gaConfigured) {
       // gtag reads location.href when it handles each command, so the URL

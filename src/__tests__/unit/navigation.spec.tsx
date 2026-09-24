@@ -16,8 +16,14 @@ jest.mock("../../i18n/navigation", () => ({
   Link: ({
     children,
     href,
+    // Next's prefetch prop is not a DOM attribute.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    prefetch,
     ...props
-  }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) => (
+  }: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+    prefetch?: boolean;
+  }) => (
     <a href={href} {...props}>
       {children}
     </a>

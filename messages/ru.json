@@ -462,7 +462,6 @@
       "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
       "detectedBadge": "Определено",
       "iosTestFlight": {
-        "description": "Бета для iOS открыта в TestFlight — заявка не нужна. Откройте ссылку-приглашение на iPhone или iPad, и TestFlight установит последнюю сборку.",
         "joinCta": "Присоединиться к бете в TestFlight",
         "joinHint": "Если у вас ещё нет приложения TestFlight от Apple, сначала установите его из App Store.",
         "shareLabel": "Вы за компьютером? Скопируйте ссылку на телефон",

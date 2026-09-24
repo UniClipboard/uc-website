@@ -4,6 +4,10 @@ import createNextIntlPlugin from "next-intl/plugin";
 const STATIC_ASSET_PATTERN =
   "/:path*\\.(jpg|jpeg|png|webp|avif|svg|ico|woff|woff2)";
 
+// The /try page's tailcat wasm build. File names carry the pinned commit, so
+// the files never change in place (see scripts/build-tailcat-wasm.sh).
+const TAILCAT_ASSET_PATTERN = "/tailcat/:file*\\.(js|gz|wasm)";
+
 const DOCS_ORIGIN =
   process.env.DOCS_ORIGIN ??
   (process.env.VERCEL_ENV === "preview"
@@ -31,16 +35,15 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
-    return [
+    const immutable = [
       {
-        source: STATIC_ASSET_PATTERN,
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
+        key: "Cache-Control",
+        value: "public, max-age=31536000, immutable",
       },
+    ];
+    return [
+      { source: STATIC_ASSET_PATTERN, headers: immutable },
+      { source: TAILCAT_ASSET_PATTERN, headers: immutable },
     ];
   },
   async redirects() {

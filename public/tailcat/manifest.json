@@ -1,0 +1,20 @@
+{
+  "source": "https://github.com/tailscale/tailcat.git",
+  "commit": "83921d7141b80db20fd733ee195c805d2721e489",
+  "go": "go1.27.1",
+  "license": "BSD-3-Clause",
+  "files": {
+    "wasm": {
+      "path": "/tailcat/main.83921d71.wasm.gz",
+      "sha256": "76c8e22333f274089ba2b6cfe8c1d662e7e763f68575355eb117c10ad4373d70",
+      "bytes": 7797657,
+      "uncompressedSha256": "c858814711de1e2425c7ac3ee934782cd9c310577526be48babab0b7cae5918a",
+      "uncompressedBytes": 33961517
+    },
+    "wasmExec": {
+      "path": "/tailcat/wasm_exec.83921d71.js",
+      "sha256": "0c949f4996f9a89698e4b5c586de32249c3b69b7baadb64d220073cc04acba14",
+      "bytes": 16992
+    }
+  }
+}

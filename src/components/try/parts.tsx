@@ -3,6 +3,7 @@
 import { Check } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
+import { cn } from "@/lib/utils";
 import type { ItemKind } from "@/lib/web-transfer/payload";
 
 /**
@@ -145,7 +146,7 @@ export function ItemLead({
   }
   return (
     <span
-      className={`try-badge try-mono${large ? "try-badge--lg" : ""}`}
+      className={cn("try-badge try-mono", large && "try-badge--lg")}
       aria-hidden
     >
       {extensionOf(name).slice(0, 4)}

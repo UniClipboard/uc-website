@@ -130,6 +130,16 @@ test.describe("try page shell", () => {
       },
     );
 
+    await page.addInitScript(() => {
+      const w = window as { dataLayer?: unknown[]; __gaHrefs?: string[] };
+      const hrefs: string[] = (w.__gaHrefs = []);
+      const layer: unknown[] = [];
+      layer.push = (...args: unknown[]) => {
+        hrefs.push(location.href);
+        return Array.prototype.push.apply(layer, args);
+      };
+      w.dataLayer = layer;
+    });
     await page.goto(`/try#c=${MALFORMED_ADDR}&k=${FAKE_TOKEN}`);
     await expect.poll(() => page.evaluate(() => location.hash)).toBe("");
 
@@ -155,14 +165,13 @@ test.describe("try page shell", () => {
       Array.isArray((window as { dataLayer?: unknown[] }).dataLayer),
     );
     if (gaConfigured) {
-      const locations = await page.evaluate(() =>
-        ((window as unknown as { dataLayer: IArguments[] }).dataLayer ?? [])
-          .map((entry) => Array.from(entry))
-          .filter((a) => a[0] === "config")
-          .map((a) => (a[2] as { page_location?: string })?.page_location),
+      // gtag reads location.href when it handles each command, so the URL
+      // must already be fragment-free every time one is pushed.
+      const seen = await page.evaluate(
+        () => (window as { __gaHrefs?: string[] }).__gaHrefs ?? [],
       );
-      expect(locations.length).toBeGreaterThan(0);
-      for (const loc of locations) expect(loc).not.toContain("#");
+      expect(seen.length).toBeGreaterThan(0);
+      for (const href of seen) expect(href).not.toContain("#");
       // A test measurement ID gets no container from Google, so collection
       // hits may be zero; any that do fire are covered by the leak check.
     }
@@ -214,7 +223,13 @@ test.describe("try page shell", () => {
 
 const hasWasmBuild = (() => {
   try {
-    readFileSync(path.join(process.cwd(), "public/tailcat/manifest.json"));
+    const manifest = JSON.parse(
+      readFileSync(
+        path.join(process.cwd(), "public/tailcat/manifest.json"),
+        "utf8",
+      ),
+    ) as { files: { wasm: { path: string } } };
+    readFileSync(path.join(process.cwd(), "public", manifest.files.wasm.path));
     return true;
   } catch {
     return false;

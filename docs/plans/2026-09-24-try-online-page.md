@@ -63,7 +63,10 @@ Each slice is a vertical, independently verifiable change. Dependencies are list
 
 #### T0 — Analytics never sees the URL fragment
 **Depends on:** —
-- In `src/app/[locale]/layout.tsx`, configure GA4 with an explicit `page_location` of `location.origin + location.pathname + location.search` for every page.
+- ~~In `src/app/[locale]/layout.tsx`, configure GA4 with an explicit `page_location` of `location.origin + location.pathname + location.search` for every page.~~ **Revised in review (PR #60):**
+  - gtag keeps a configured `page_location` for later history-based page views, so a fixed value reports every client-side navigation as the landing page.
+  - The layout therefore does not override `page_location`.
+  - Instead, an inline script on `/try` strips the fragment before analytics loads. Its capture-phase `popstate` and `hashchange` listeners also strip fragments that arrive later.
 - `/try` also removes the fragment from the address bar with `history.replaceState` as soon as it has read it.
 
 **Accept:** a Playwright network assertion: on `/en/try#c=…&k=…`, no request to `googletagmanager.com` or `google-analytics.com` contains the fragment or any part of it.

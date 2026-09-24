@@ -135,17 +135,17 @@ const RootLayout = async ({
               src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
               strategy="afterInteractive"
             />
-            {/* page_location is set explicitly so analytics never sees the
-                URL fragment: /try carries connection secrets there. */}
+            {/* No fixed page_location: gtag keeps a configured value for
+                later history-based page_views, which would report every
+                client-side navigation as the landing page. /try strips its
+                secret-bearing fragment before this script runs (see
+                FRAGMENT_CAPTURE_SCRIPT). */}
             <Script id="ga4-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${gaId}', {
-                  send_page_view: true,
-                  page_location: location.origin + location.pathname + location.search
-                });
+                gtag('config', '${gaId}', { send_page_view: true });
               `}
             </Script>
           </>

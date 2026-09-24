@@ -4,6 +4,8 @@ export type HeroDownloadCtaLabels = {
   primary: string;
   secondaryHow: string;
   otherPlatforms: string;
+  /** Secondary button to the in-browser demo; omitted when absent. */
+  tryOnline?: string;
 };
 
 type Props = {
@@ -24,9 +26,26 @@ export function HeroDownloadCta({ labels, fullWidth = false }: Props) {
           : "flex flex-col items-center gap-3.5"
       }
     >
-      <Link href="/download" className={buttonClass}>
-        <span>{labels.primary}</span>
-      </Link>
+      <div
+        className={
+          fullWidth
+            ? "flex w-full flex-col items-stretch gap-2.5"
+            : "flex flex-wrap items-center justify-center gap-2.5"
+        }
+      >
+        <Link href="/download" className={buttonClass}>
+          <span>{labels.primary}</span>
+        </Link>
+        {labels.tryOnline && (
+          <Link
+            href="/try"
+            prefetch={false}
+            className="border-border text-foreground hover:bg-foreground/5 inline-flex items-center justify-center rounded-[8px] border px-[18px] py-[9px] text-[13.5px] font-medium transition-colors"
+          >
+            {labels.tryOnline}
+          </Link>
+        )}
+      </div>
 
       <div
         className={

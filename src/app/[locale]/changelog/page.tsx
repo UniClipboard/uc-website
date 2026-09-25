@@ -1,6 +1,5 @@
 import { ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
-import { after } from "next/server";
 import { getTranslations } from "next-intl/server";
 
 import { BreadcrumbBar, JsonLd } from "@/components/article/sections";
@@ -20,7 +19,6 @@ import {
 import { Link } from "@/i18n/navigation";
 import { summarizeNotes } from "@/lib/changelog-parser";
 import { renderChangelogMarkdown } from "@/lib/changelog-render";
-import { syncLatestReleaseSafe } from "@/lib/changelog-sync";
 import { siteConfig } from "@/lib/site-config";
 
 type LocaleParam = { params: Promise<{ locale: string }> };
@@ -126,9 +124,6 @@ export default async function ChangelogPage({ params }: LocaleParam) {
     namespace: "languagePicker",
   });
   const t = await getTranslations({ locale, namespace: "changelogHub" });
-
-  // Lazy refresh in the background — never blocks rendering.
-  after(() => syncLatestReleaseSafe());
 
   const releases = await getAllReleases();
   const baseUrl = siteConfig.url.replace(/\/$/, "");

@@ -23,8 +23,8 @@ export async function HeroSection({ stars }: Props) {
   const locale = await getLocale();
   const t = await getTranslations("landing.hero");
   const tDl = await getTranslations("landing.download");
-  // Keep the page static: choose a locale default, with the existing player
-  // controls available to switch sources. Request geolocation forces SSR.
+  // Chosen by locale, not visitor IP: reading request headers here would turn
+  // the whole home page into per-request SSR instead of ISR.
   const defaultVideoSource: HeroVideoSource =
     locale === "zh" ? "bilibili" : "youtube";
   const androidRelease = await getAndroidRelease();

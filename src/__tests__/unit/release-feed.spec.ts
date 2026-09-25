@@ -326,3 +326,154 @@ describe("release feed host filtering", () => {
     ]);
   });
 });
+
+// Shape of https://release.uniclipboard.app/stable.json as served for v0.19.4
+// (signatures shortened). The manifest gained `confirmation_required` and
+// `confirmation_description` for the desktop updater; the website must keep
+// reading the release even when the manifest grows fields it does not use.
+const upstreamStableFeed0194 = {
+  version: "0.19.4",
+  notes: "## 0.19.4 - 2026-09-22\n\n### Fixes\n\n- Linux packaging",
+  confirmation_required: true,
+  confirmation_description:
+    "UniClipboard 0.19.4 is a major update.\n\n<!-- zh -->\n\nUniClipboard 0.19.4 是一次重大更新。",
+  pub_date: "2026-09-22T05:05:00.000Z",
+  platforms: {
+    "linux-aarch64": {
+      signature: "sig",
+      url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard-0.19.4-1.aarch64.rpm",
+    },
+    "linux-x86_64": {
+      signature: "sig",
+      url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard-0.19.4-1.x86_64.rpm",
+    },
+    "windows-aarch64": {
+      signature: "sig",
+      url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_arm64-setup.exe",
+    },
+    "windows-x86_64": {
+      signature: "sig",
+      url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_x64-setup.exe",
+    },
+    "darwin-aarch64": {
+      signature: "sig",
+      url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_aarch64-apple-darwin.app.tar.gz",
+    },
+    "darwin-x86_64": {
+      signature: "sig",
+      url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_x86_64-apple-darwin.app.tar.gz",
+    },
+  },
+};
+
+const okResult = (
+  payload: Extract<StableReleaseFetchResult, { status: "ok" }>["payload"],
+): StableReleaseFetchResult => ({
+  status: "ok",
+  metadata: {
+    sourceUrl: STABLE_RELEASE_FEED_URL,
+    fetchedAt: "2026-09-25T00:00:00.000Z",
+    revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+  },
+  payload,
+});
+
+describe("release feed against the live manifest shape", () => {
+  it("accepts additive manifest fields such as update confirmation", () => {
+    const parsed = parseStableReleasePayload(upstreamStableFeed0194);
+
+    if (!parsed.ok) {
+      throw new Error(parsed.error.issues.join("; "));
+    }
+    expect(parsed.data.metadata).toEqual({
+      version: "0.19.4",
+      publishedAt: "2026-09-22T05:05:00.000Z",
+      notes: upstreamStableFeed0194.notes,
+    });
+    expect(parsed.data.downloads).toEqual({
+      "Linux ARM64":
+        "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard-0.19.4-1.aarch64.rpm",
+      "Linux x86_64":
+        "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard-0.19.4-1.x86_64.rpm",
+      "Windows ARM64":
+        "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_arm64-setup.exe",
+      "Windows x86_64":
+        "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_x64-setup.exe",
+      "macOS ARM64":
+        "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_aarch64.dmg",
+      "macOS x86_64":
+        "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_x64.dmg",
+    });
+  });
+
+  it("fetches the live manifest shape as an ok release", async () => {
+    const originalFetch = global.fetch;
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => upstreamStableFeed0194,
+    } as Response) as unknown as typeof fetch;
+    try {
+      const normalized = normalizeStableRelease(await fetchStableRelease());
+      expect(normalized.status).toBe("ok");
+      expect(normalized.version).toBe("0.19.4");
+      expect(normalized.publishedAt).toBe("2026-09-22T05:05:00.000Z");
+      expect(normalized.downloads).toHaveLength(6);
+      expect(normalized.fallbackReleaseUrl).toBe(
+        "https://github.com/UniClipboard/UniClipboard/releases/tag/v0.19.4",
+      );
+    } finally {
+      global.fetch = originalFetch;
+    }
+  });
+
+  it("still rejects a manifest without a version or platforms", () => {
+    const withoutVersion: Record<string, unknown> = {
+      ...upstreamStableFeed0194,
+    };
+    delete withoutVersion.version;
+    const withoutPlatforms: Record<string, unknown> = {
+      ...upstreamStableFeed0194,
+    };
+    delete withoutPlatforms.platforms;
+
+    const missingVersion = parseStableReleasePayload(withoutVersion);
+    const missingPlatforms = parseStableReleasePayload(withoutPlatforms);
+
+    expect(missingVersion.ok).toBe(false);
+    expect(missingPlatforms.ok).toBe(false);
+    if (missingVersion.ok) throw new Error("Expected parse to fail");
+    expect(missingVersion.error.issues).toEqual(
+      expect.arrayContaining([expect.stringContaining("version")]),
+    );
+  });
+
+  it("does not invent a version, date or downloads when the feed fails", () => {
+    const normalized = normalizeStableRelease({
+      status: "degraded",
+      reason: "schema-error",
+      fallbackReleaseUrl: FALLBACK_RELEASE_URL,
+      metadata: {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt: "2026-09-25T00:00:00.000Z",
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+      },
+    });
+
+    expect(normalized.status).toBe("degraded");
+    expect(normalized.version).toBeNull();
+    expect(normalized.publishedAt).toBeNull();
+    expect(normalized.downloads).toEqual([]);
+    expect(normalized.fallbackReleaseUrl).toBe(FALLBACK_RELEASE_URL);
+  });
+
+  it("keeps the real version but marks a release without assets as degraded", () => {
+    const normalized = normalizeStableRelease(
+      okResult({ metadata: { version: "0.19.4" }, downloads: {} }),
+    );
+
+    expect(normalized.status).toBe("degraded");
+    expect(normalized.version).toBe("0.19.4");
+    expect(normalized.publishedAt).toBeNull();
+    expect(normalized.downloads).toEqual([]);
+  });
+});

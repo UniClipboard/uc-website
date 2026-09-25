@@ -2,18 +2,18 @@ import {
   filterApprovedDownloads,
   isApprovedReleaseUrl,
 } from "@/lib/release-feed/allowlist";
-import {
-  FALLBACK_RELEASE_URL,
-  type StableReleaseFetchResult,
-} from "@/lib/release-feed/fetch-stable-release";
+import type { StableReleaseFetchResult } from "@/lib/release-feed/fetch-stable-release";
 
-const METADATA_UNAVAILABLE = "unavailable";
 const NOTES_UNAVAILABLE = "notes unavailable";
+const RELEASE_TAG_URL_PREFIX =
+  "https://github.com/UniClipboard/UniClipboard/releases/tag/v";
 
+// `version` and `publishedAt` are null when the feed did not provide them.
+// Callers must render that as "unknown", never as a version-shaped string.
 export type StableReleaseViewModel = {
   status: "ok" | "degraded";
-  version: string;
-  publishedAt: string;
+  version: string | null;
+  publishedAt: string | null;
   notes: string[];
   downloads: Array<{ platform: string; url: string }>;
   fallbackReleaseUrl: string;
@@ -27,8 +27,8 @@ export function normalizeStableRelease(
   if (input.status === "degraded") {
     return {
       status: "degraded",
-      version: METADATA_UNAVAILABLE,
-      publishedAt: METADATA_UNAVAILABLE,
+      version: null,
+      publishedAt: null,
       notes: [NOTES_UNAVAILABLE],
       downloads: [],
       fallbackReleaseUrl: input.fallbackReleaseUrl,
@@ -48,17 +48,21 @@ export function normalizeStableRelease(
       ? [notes]
       : [NOTES_UNAVAILABLE];
 
+  const version = input.payload.metadata.version;
+  // Without an explicit releaseUrl, point at the GitHub release whose tag
+  // matches the feed version (tags are `v<version>`), so the page never links
+  // a different "latest" than the version it shows.
   const fallbackReleaseUrl =
     typeof releaseUrl === "string" && isApprovedReleaseUrl(releaseUrl)
       ? releaseUrl
-      : FALLBACK_RELEASE_URL;
+      : `${RELEASE_TAG_URL_PREFIX}${encodeURIComponent(version)}`;
 
   const isDegraded = blocked.length > 0 || approved.length === 0;
 
   return {
     status: isDegraded ? "degraded" : "ok",
-    version: input.payload.metadata.version || METADATA_UNAVAILABLE,
-    publishedAt: input.payload.metadata.publishedAt || METADATA_UNAVAILABLE,
+    version,
+    publishedAt: input.payload.metadata.publishedAt || null,
     notes: normalizedNotes,
     downloads: approved,
     fallbackReleaseUrl,

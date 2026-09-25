@@ -37,8 +37,8 @@ type LocaleParam = { params: Promise<{ locale: string }> };
 
 const buildDegradedFallback = (): StableReleaseViewModel => ({
   status: "degraded",
-  version: "unavailable",
-  publishedAt: "unavailable",
+  version: null,
+  publishedAt: null,
   notes: ["notes unavailable"],
   downloads: [],
   fallbackReleaseUrl: FALLBACK_RELEASE_URL,
@@ -88,8 +88,8 @@ function getMinOSLabel(
   return "";
 }
 
-function fmtPublished(iso: string, locale: string, unavailable: string) {
-  if (!iso || iso === "unavailable") return unavailable;
+function fmtPublished(iso: string | null, locale: string): string | null {
+  if (!iso) return null;
   try {
     const d = new Date(iso);
     if (isNaN(d.getTime())) return iso;
@@ -97,6 +97,9 @@ function fmtPublished(iso: string, locale: string, unavailable: string) {
       year: "numeric",
       month: "long",
       day: "numeric",
+      // The feed publishes a UTC instant; the release is dated in UTC, so the
+      // label must not shift a day with the build machine's timezone.
+      timeZone: "UTC",
     }).format(d);
   } catch {
     return iso;
@@ -181,7 +184,6 @@ export default async function DownloadPage({ params }: LocaleParam) {
   const canonical = `${localePathPrefix(locale)}/download`;
   const pageUrl = `${baseUrl}${canonical}`;
 
-  const unavailable = t("hero.unavailableValue");
   const archLabels = {
     arm: t("direct.archArm"),
     intel: t("direct.archIntel"),
@@ -289,21 +291,13 @@ export default async function DownloadPage({ params }: LocaleParam) {
     },
   ];
 
-  const versionLabel =
-    release.version === "unavailable" ? unavailable : release.version;
-  const publishedAtLabel = fmtPublished(
-    release.publishedAt,
-    locale,
-    unavailable,
-  );
+  const publishedAtLabel = fmtPublished(release.publishedAt, locale);
   const isDegraded = release.status === "degraded";
 
   const sysReqRows = t.raw("sysreq.rows") as SysReqRow[];
   const verifyItems = t.raw("verify.items") as VerifyItem[];
   const faqItems = t.raw("faq.items") as FaqItem[];
 
-  const versionForSchema =
-    release.version === "unavailable" ? undefined : release.version;
   const ogImage = `${baseUrl}${metaFor(locale).ogImage}`;
 
   const softwareSchema = {
@@ -317,7 +311,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
     image: ogImage,
     inLanguage: metaFor(locale).inLanguage,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    softwareVersion: versionForSchema,
+    softwareVersion: release.version ?? undefined,
     license: "https://www.gnu.org/licenses/agpl-3.0.html",
     downloadUrl: release.fallbackReleaseUrl,
     sameAs: ["https://github.com/UniClipboard/UniClipboard"],
@@ -406,47 +400,58 @@ export default async function DownloadPage({ params }: LocaleParam) {
                   >
                     {t("hero.versionLabel")}
                   </span>
-                  <div className="flex flex-wrap items-baseline gap-3">
-                    <span
-                      className="text-foreground"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: "clamp(1.5rem, 3.2vw, 2rem)",
-                        fontWeight: 600,
-                        letterSpacing: "-0.01em",
-                      }}
-                    >
-                      v{versionLabel}
-                    </span>
-                    <span
-                      className="text-muted2 inline-flex items-center gap-1.5"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 11,
-                        letterSpacing: "0.05em",
-                      }}
-                    >
+                  {release.version ? (
+                    <div className="flex flex-wrap items-baseline gap-3">
                       <span
-                        className="inline-block size-1.5 rounded-full"
+                        className="text-foreground"
                         style={{
-                          background: "#3DA47A",
-                          boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
-                          animation: "uc-dot-pulse 2s ease-in-out infinite",
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "clamp(1.5rem, 3.2vw, 2rem)",
+                          fontWeight: 600,
+                          letterSpacing: "-0.01em",
                         }}
-                      />
-                      {t("hero.stableTag")}
-                    </span>
-                    <span
-                      className="text-muted-foreground"
-                      style={{
-                        fontFamily: "var(--font-mono)",
-                        fontSize: 12,
-                        letterSpacing: "0.04em",
-                      }}
+                      >
+                        v{release.version}
+                      </span>
+                      <span
+                        className="text-muted2 inline-flex items-center gap-1.5"
+                        style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: 11,
+                          letterSpacing: "0.05em",
+                        }}
+                      >
+                        <span
+                          className="inline-block size-1.5 rounded-full"
+                          style={{
+                            background: "#3DA47A",
+                            boxShadow: "0 0 0 3px rgba(61,164,122,0.18)",
+                            animation: "uc-dot-pulse 2s ease-in-out infinite",
+                          }}
+                        />
+                        {t("hero.stableTag")}
+                      </span>
+                      {publishedAtLabel && (
+                        <span
+                          className="text-muted-foreground"
+                          style={{
+                            fontFamily: "var(--font-mono)",
+                            fontSize: 12,
+                            letterSpacing: "0.04em",
+                          }}
+                        >
+                          {t("hero.publishedLabel")} · {publishedAtLabel}
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <p
+                      className="text-foreground"
+                      style={{ fontSize: 15.5, lineHeight: 1.5, maxWidth: 560 }}
                     >
-                      {t("hero.publishedLabel")} · {publishedAtLabel}
-                    </span>
-                  </div>
+                      {t("hero.releaseUnavailable")}
+                    </p>
+                  )}
                   <div className="text-muted-foreground mt-1 flex flex-wrap gap-x-3 gap-y-1.5 text-[12px]">
                     <span className="border-border inline-flex items-center gap-1 rounded-full border px-2.5 py-1">
                       <Check className="size-3" />
@@ -523,12 +528,13 @@ export default async function DownloadPage({ params }: LocaleParam) {
             <AnimateIn delay={0.14} duration={0.55}>
               <PlatformBlocks
                 blocks={platformBlocks}
-                version={versionLabel}
+                version={release.version}
                 fallbackUrl={release.fallbackReleaseUrl}
                 labels={{
                   detected: t("direct.detectedBadge"),
                   downloadAction: t("direct.downloadAction"),
                   noDownloads: t("direct.noDownloads"),
+                  downloadsUnavailable: t("direct.downloadsUnavailable"),
                   copy: t("pkg.copy"),
                   copied: t("pkg.copied"),
                   fallback: t("direct.fallback"),

@@ -31,21 +31,22 @@ export const stableReleasePayloadSchema = z
   })
   .strict();
 
-const upstreamPlatformEntrySchema = z
-  .object({
-    url: z.string().url(),
-    signature: z.string().optional(),
-  })
-  .strict();
+// The upstream manifest is owned by the release service and also feeds the
+// desktop updater, so it grows fields the website does not use (for example
+// `confirmation_required`). Unknown keys are dropped instead of rejected:
+// rejecting them turns every additive manifest change into a download page
+// with no version and no installers.
+const upstreamPlatformEntrySchema = z.object({
+  url: z.string().url(),
+  signature: z.string().optional(),
+});
 
-const upstreamStableReleasePayloadSchema = z
-  .object({
-    version: z.string().min(1),
-    pub_date: z.string().min(1).optional(),
-    notes: z.union([z.string(), z.array(z.string())]).optional(),
-    platforms: z.record(z.string().min(1), upstreamPlatformEntrySchema),
-  })
-  .strict();
+const upstreamStableReleasePayloadSchema = z.object({
+  version: z.string().min(1),
+  pub_date: z.string().min(1).optional(),
+  notes: z.union([z.string(), z.array(z.string())]).optional(),
+  platforms: z.record(z.string().min(1), upstreamPlatformEntrySchema),
+});
 
 export type StableReleasePayload = z.infer<typeof stableReleasePayloadSchema>;
 
@@ -159,14 +160,20 @@ export function parseStableReleasePayload(
     };
   }
 
+  const formatIssues = (issues: z.core.$ZodIssue[], prefix: string) =>
+    issues.map(
+      (issue) => `${prefix}${issue.path.join(".") || "root"}: ${issue.message}`,
+    );
+
   return {
     ok: false,
     error: {
       code: "INVALID_STABLE_FEED",
       message: "stable.json payload failed schema validation",
-      issues: parsed.error.issues.map(
-        (issue) => `${issue.path.join(".") || "root"}: ${issue.message}`,
-      ),
+      issues: [
+        ...formatIssues(parsed.error.issues, ""),
+        ...formatIssues(upstreamParsed.error.issues, "upstream."),
+      ],
     },
   };
 }

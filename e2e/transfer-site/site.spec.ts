@@ -83,7 +83,18 @@ for (const locale of ["en", "zh", "ru"]) {
         page.getByTestId(`try-code-input-${width < 500 ? "start" : "row"}`),
       ).toBeVisible();
       for (const theme of ["light", "dark"]) {
-        await page.locator("select").selectOption(theme);
+        // The theme control is one button cycling system → light → dark.
+        const toggle = page.locator(".transfer-theme");
+        await page.waitForLoadState("networkidle");
+        for (let i = 0; i < 3; i++) {
+          const choice = await toggle.getAttribute("data-theme-choice");
+          if (choice === theme) break;
+          await toggle.click();
+          await expect(toggle).not.toHaveAttribute(
+            "data-theme-choice",
+            choice!,
+          );
+        }
         await expect(page.locator("html")).toHaveClass(new RegExp(theme));
         expect(
           await page.evaluate(
@@ -98,9 +109,9 @@ for (const locale of ["en", "zh", "ru"]) {
       expect(bad).toEqual([]);
       expect(errors).toEqual([]);
       await expect(
-        page.locator(
-          `a[href="https://www.uniclipboard.app${prefix}/download"]`,
-        ),
+        page
+          .locator(`a[href="https://www.uniclipboard.app${prefix}/download"]`)
+          .last(), // header and footer both link; the footer shows at every width
       ).toBeVisible();
       results.push({
         test: "shell",

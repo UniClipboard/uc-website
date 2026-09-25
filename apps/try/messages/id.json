@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Coba online — kirim teks, gambar, dan file antara dua browser",
+    "seoDescription": "Kirim teks, gambar, atau file dari satu browser ke browser lain dengan tautan atau kode QR. Terenkripsi end-to-end, tanpa instalasi, tanpa akun. Demo web berbasis tailcat.",
+    "compose": {
+      "title": "Kirim apa saja ke perangkat lain.",
+      "replyTitle": "Balas ke perangkat lain",
+      "placeholder": "Tempel, seret, atau ketik di sini",
+      "textLabel": "Konten yang akan dikirim",
+      "attach": "Lampirkan file",
+      "remove": "Hapus {name}",
+      "pastedImage": "Gambar yang ditempel",
+      "send": "Kirim",
+      "sendReply": "Kirim balasan",
+      "cancelReply": "Kembali",
+      "size": "{size} dari {limit}",
+      "tooLarge": "Melebihi {limit}.",
+      "getApp": "Gunakan aplikasi untuk file yang lebih besar",
+      "empty": "Tambahkan teks atau file terlebih dahulu.",
+      "dropHint": "Lepaskan untuk melampirkan",
+      "autoCopy": "Salin ke papan klip saat ada yang masuk",
+      "tooMany": "Lebih dari {max} item. Hapus beberapa, atau kompres menjadi satu file."
+    },
+    "preparing": {
+      "title": "Menyiapkan tautan aman…",
+      "loading": "Memuat koneksi aman · {percent}%",
+      "loadingUnknown": "Memuat koneksi aman…",
+      "relay": "Menghubungi relay…"
+    },
+    "ready": {
+      "title": "Buka ini di perangkat Anda yang lain.",
+      "scan": "Pindai dengan kamera perangkat lain, atau kirimkan tautannya.",
+      "qrLabel": "Kode QR untuk tautan koneksi",
+      "copyLink": "Salin tautan",
+      "linkCopied": "Tautan disalin",
+      "shareLink": "Bagikan tautan",
+      "note": "Tautan hanya berfungsi sekali. Pengiriman berikutnya akan mendapat tautan baru.",
+      "waiting": "Menunggu · biarkan tab ini tetap terbuka",
+      "cancel": "Batal"
+    },
+    "code": {
+      "haveCode": "Punya kode?",
+      "inputLabel": "Kode 6 digit",
+      "receive": "Terima",
+      "checking": "Memeriksa…",
+      "startTitle": "Masukkan kode dari perangkat Anda yang lain.",
+      "sendInstead": "Kirim sesuatu saja",
+      "scanOrEnter": "Pindai, atau masukkan kode ini",
+      "expiresIn": "Kedaluwarsa dalam <time>{remaining}</time>",
+      "oneUse": "Sekali pakai",
+      "refreshing": "Mengambil kode baru…",
+      "unavailable": "Tidak dapat mengambil kode saat ini",
+      "tryAgain": "Coba lagi",
+      "noteReady": "Kode baru muncul otomatis saat kode ini kedaluwarsa atau telah digunakan.",
+      "noteRefreshing": "Kode QR dan tautan tetap berfungsi selama kode baru dimuat.",
+      "noteUnavailable": "Memindai kode QR atau membuka tautan tetap berfungsi. Keduanya tidak memerlukan kode.",
+      "sendingNote": "Biarkan tab ini terbuka hingga selesai. Pengiriman berikutnya akan mendapat kode baru.",
+      "errors": {
+        "incomplete": "Masukkan keenam digit.",
+        "expired": "Kode ini sudah kedaluwarsa atau sudah digunakan. Minta kode baru.",
+        "invalid": "Kode tidak valid. Periksa digitnya lalu coba lagi.",
+        "rate-limited": "Terlalu banyak percobaan. Tunggu satu menit lalu coba lagi.",
+        "unavailable": "Kode tidak dapat diperiksa saat ini. Minta tautan atau kode QR dari pengirim."
+      }
+    },
+    "sending": {
+      "title": "Mengirim ke perangkat lain…",
+      "replyTitle": "Mengirim balasan Anda…",
+      "note": "Biarkan tab ini terbuka hingga selesai.",
+      "cancel": "Batal"
+    },
+    "delivered": {
+      "title": "Terkirim",
+      "replyHint": "Perangkat lain dapat membalas selama tab ini tetap terbuka.",
+      "replyIncoming": "Balasan sedang masuk · {done} dari {total}",
+      "replyFrom": "Balasan dari perangkat lain",
+      "replyFailed": "Balasan tidak sampai.",
+      "sendNew": "Kirim sesuatu yang baru",
+      "replyDeliveredTitle": "Balasan terkirim"
+    },
+    "receiving": {
+      "connecting": "Menghubungkan…",
+      "connectingHint": "Menghubungi pengirim melalui relay terenkripsi.",
+      "title": "Menerima…",
+      "progress": "{done} dari {total}",
+      "cancel": "Batal"
+    },
+    "received": {
+      "title": "Diterima",
+      "copyText": "Salin teks",
+      "copyImage": "Salin gambar",
+      "copied": "Disalin ke papan klip",
+      "copyFailed": "Tidak dapat menyalin otomatis. Gunakan tombolnya.",
+      "save": "Simpan",
+      "saveName": "Simpan {name}",
+      "reply": "Balas",
+      "imagePreview": "Pratinjau gambar yang diterima",
+      "text": "Teks"
+    },
+    "summary": {
+      "text": "Teks",
+      "images": "{count, plural, other {# gambar}}",
+      "files": "{count, plural, other {# file}}"
+    },
+    "errors": {
+      "title": "Terjadi kesalahan",
+      "busy": "Tautan ini sudah digunakan. Minta tautan baru.",
+      "connect-failed": "Tidak dapat terhubung. Minta pengirim tetap membuka halamannya, lalu coba lagi.",
+      "peer-cancelled": "Perangkat lain membatalkan transfer.",
+      "connection-lost": "Koneksi terputus sebelum transfer selesai. Coba lagi.",
+      "timeout": "Perangkat lain berhenti merespons. Coba lagi.",
+      "integrity": "Konten yang diterima rusak dan telah dibuang. Coba lagi.",
+      "too-large": "Melebihi 20 MB. Gunakan aplikasi untuk file yang lebih besar.",
+      "rejected": "Perangkat lain menolak transfer.",
+      "protocol": "Transfer gagal. Coba lagi.",
+      "invalid-link": "Tautan ini tidak lengkap. Minta tautan baru.",
+      "listen-failed": "Tidak dapat menghubungi relay. Coba lagi sebentar lagi.",
+      "load-failed": "Tidak dapat memuat koneksi aman. Periksa jaringan Anda lalu coba lagi.",
+      "unsupported": "Browser ini tidak dapat menjalankan demo. Coba Chrome, Edge, Firefox, atau Safari versi terbaru.",
+      "tryAgain": "Coba lagi",
+      "startOver": "Mulai dari awal"
+    },
+    "footer": {
+      "demo": "Demo web berbasis tailcat",
+      "e2e": "terenkripsi end-to-end melalui relay publik",
+      "notApp": "terpisah dari aplikasi UniClipboard",
+      "getApp": "Unduh aplikasinya",
+      "forSync": "untuk sinkronisasi berkelanjutan",
+      "license": "lisensi tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Transfer web · terenkripsi end-to-end",
+      "languageSearch": "Cari bahasa",
+      "languageSuggested": "Dari browser Anda",
+      "languageAll": "Semua bahasa",
+      "languageEmpty": "Tidak ada bahasa yang cocok",
+      "languageClose": "Tutup daftar bahasa"
+    }
+  },
+  "nav": {
+    "language": "Bahasa",
+    "theme": "Tema",
+    "themeSystem": "Sistem",
+    "themeLight": "Terang",
+    "themeDark": "Gelap"
+  }
+}

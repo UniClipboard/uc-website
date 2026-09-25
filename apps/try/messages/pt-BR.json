@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Experimente on-line — envie textos, imagens e arquivos entre dois navegadores",
+    "seoDescription": "Envie textos, imagens ou arquivos de um navegador para outro com um link ou QR code. Criptografia de ponta a ponta, sem instalar nada e sem conta. Uma demo web baseada no tailcat.",
+    "compose": {
+      "title": "Envie qualquer coisa para outro dispositivo.",
+      "replyTitle": "Responder ao outro dispositivo",
+      "placeholder": "Cole, arraste ou digite aqui",
+      "textLabel": "Conteúdo a enviar",
+      "attach": "Anexar arquivos",
+      "remove": "Remover {name}",
+      "pastedImage": "Imagem colada",
+      "send": "Enviar",
+      "sendReply": "Enviar resposta",
+      "cancelReply": "Voltar",
+      "size": "{size} de {limit}",
+      "tooLarge": "Passou de {limit}.",
+      "getApp": "Use o app para arquivos maiores",
+      "empty": "Adicione um texto ou arquivo primeiro.",
+      "dropHint": "Solte para anexar",
+      "autoCopy": "Copiar para a área de transferência ao receber algo",
+      "tooMany": "São mais de {max} itens. Remova alguns ou compacte tudo em um único arquivo."
+    },
+    "preparing": {
+      "title": "Preparando um link seguro…",
+      "loading": "Carregando a conexão segura · {percent}%",
+      "loadingUnknown": "Carregando a conexão segura…",
+      "relay": "Conectando ao relay…"
+    },
+    "ready": {
+      "title": "Abra isto no seu outro dispositivo.",
+      "scan": "Escaneie com a câmera do outro dispositivo ou envie o link para ele.",
+      "qrLabel": "QR code do link de conexão",
+      "copyLink": "Copiar link",
+      "linkCopied": "Link copiado",
+      "shareLink": "Compartilhar link",
+      "note": "O link funciona uma única vez. O próximo envio terá um link novo.",
+      "waiting": "Aguardando · mantenha esta aba aberta",
+      "cancel": "Cancelar"
+    },
+    "code": {
+      "haveCode": "Tem um código?",
+      "inputLabel": "Código de 6 dígitos",
+      "receive": "Receber",
+      "checking": "Verificando…",
+      "startTitle": "Digite o código do seu outro dispositivo.",
+      "sendInstead": "Enviar algo em vez disso",
+      "scanOrEnter": "Escaneie ou digite este código",
+      "expiresIn": "Expira em <time>{remaining}</time>",
+      "oneUse": "Uso único",
+      "refreshing": "Obtendo um código novo…",
+      "unavailable": "Não foi possível obter um código agora",
+      "tryAgain": "Tentar de novo",
+      "noteReady": "Um código novo aparece automaticamente quando este expirar ou for usado.",
+      "noteRefreshing": "O QR code e o link continuam funcionando enquanto o novo código carrega.",
+      "noteUnavailable": "Escanear o QR code ou abrir o link continua funcionando. Eles não precisam de código.",
+      "sendingNote": "Mantenha esta aba aberta até terminar. O próximo envio terá um código novo.",
+      "errors": {
+        "incomplete": "Digite os 6 dígitos.",
+        "expired": "Este código expirou ou já foi usado. Peça um novo.",
+        "invalid": "Esse código não é válido. Confira os dígitos e tente de novo.",
+        "rate-limited": "Tentativas demais. Aguarde um minuto e tente de novo.",
+        "unavailable": "Não é possível verificar códigos agora. Peça o link ou o QR code a quem enviou."
+      }
+    },
+    "sending": {
+      "title": "Enviando para o outro dispositivo…",
+      "replyTitle": "Enviando sua resposta…",
+      "note": "Mantenha esta aba aberta até terminar.",
+      "cancel": "Cancelar"
+    },
+    "delivered": {
+      "title": "Entregue",
+      "replyHint": "O outro dispositivo pode responder enquanto esta aba estiver aberta.",
+      "replyIncoming": "Chegando uma resposta · {done} de {total}",
+      "replyFrom": "Resposta do outro dispositivo",
+      "replyFailed": "A resposta não chegou.",
+      "sendNew": "Enviar algo novo",
+      "replyDeliveredTitle": "Resposta entregue"
+    },
+    "receiving": {
+      "connecting": "Conectando…",
+      "connectingHint": "Conectando a quem enviou por meio de um relay criptografado.",
+      "title": "Recebendo…",
+      "progress": "{done} de {total}",
+      "cancel": "Cancelar"
+    },
+    "received": {
+      "title": "Recebido",
+      "copyText": "Copiar texto",
+      "copyImage": "Copiar imagem",
+      "copied": "Copiado para a área de transferência",
+      "copyFailed": "Não foi possível copiar automaticamente. Use o botão.",
+      "save": "Salvar",
+      "saveName": "Salvar {name}",
+      "reply": "Responder",
+      "imagePreview": "Prévia da imagem recebida",
+      "text": "Texto"
+    },
+    "summary": {
+      "text": "Texto",
+      "images": "{count, plural, one {# imagem} other {# imagens}}",
+      "files": "{count, plural, one {# arquivo} other {# arquivos}}"
+    },
+    "errors": {
+      "title": "Algo deu errado",
+      "busy": "Este link já foi usado. Peça um novo.",
+      "connect-failed": "Não foi possível conectar. Peça a quem enviou para manter a página aberta e tente de novo.",
+      "peer-cancelled": "O outro dispositivo cancelou a transferência.",
+      "connection-lost": "A conexão caiu antes do fim da transferência. Tente de novo.",
+      "timeout": "O outro dispositivo parou de responder. Tente de novo.",
+      "integrity": "O conteúdo chegou corrompido e foi descartado. Tente de novo.",
+      "too-large": "Passou de 20 MB. Use o app para arquivos maiores.",
+      "rejected": "O outro dispositivo recusou a transferência.",
+      "protocol": "A transferência falhou. Tente de novo.",
+      "invalid-link": "Este link está incompleto. Peça um novo.",
+      "listen-failed": "Não foi possível alcançar o relay. Tente de novo daqui a pouco.",
+      "load-failed": "Não foi possível carregar a conexão segura. Verifique sua rede e tente de novo.",
+      "unsupported": "Este navegador não consegue rodar a demo. Tente uma versão recente do Chrome, Edge, Firefox ou Safari.",
+      "tryAgain": "Tentar de novo",
+      "startOver": "Recomeçar"
+    },
+    "footer": {
+      "demo": "Demo web baseada no tailcat",
+      "e2e": "criptografia de ponta a ponta via relays públicos",
+      "notApp": "independente dos apps do UniClipboard",
+      "getApp": "Baixe o app",
+      "forSync": "para sincronização contínua",
+      "license": "licença do tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Transferência web · criptografia de ponta a ponta",
+      "languageSearch": "Buscar idiomas",
+      "languageSuggested": "Do seu navegador",
+      "languageAll": "Todos os idiomas",
+      "languageEmpty": "Nenhum idioma encontrado",
+      "languageClose": "Fechar a lista de idiomas"
+    }
+  },
+  "nav": {
+    "language": "Idioma",
+    "theme": "Tema",
+    "themeSystem": "Sistema",
+    "themeLight": "Claro",
+    "themeDark": "Escuro"
+  }
+}

@@ -6,8 +6,9 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 
+import { tryFontsFor } from "@/components/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
-import { tryFontsFor } from "@/components/try/fonts";
+import { metaFor } from "@/i18n/locale-meta";
 import { routing } from "@/i18n/routing";
 import { FRAGMENT_CAPTURE_SCRIPT } from "@/lib/web-transfer/link";
 
@@ -29,7 +30,12 @@ export default async function Layout({
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   return (
-    <html lang={locale} data-try-site="" suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={metaFor(locale).dir}
+      data-try-site=""
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: FRAGMENT_CAPTURE_SCRIPT }} />
       </head>

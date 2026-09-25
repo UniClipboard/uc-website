@@ -1218,6 +1218,14 @@
       "getApp": "下载应用",
       "forSync": "获得持续同步",
       "license": "tailcat 许可证（BSD-3-Clause）"
+    },
+    "header": {
+      "tagline": "网页传输 · 端到端加密",
+      "languageSearch": "搜索语言",
+      "languageSuggested": "来自浏览器设置",
+      "languageAll": "全部语言",
+      "languageEmpty": "没有匹配的语言",
+      "languageClose": "关闭语言列表"
     }
   }
 }

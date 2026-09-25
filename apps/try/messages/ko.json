@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "온라인으로 체험 — 두 브라우저 사이에서 텍스트, 이미지, 파일 보내기",
+    "seoDescription": "링크나 QR 코드로 한 브라우저에서 다른 브라우저로 텍스트, 이미지, 파일을 보내세요. 종단 간 암호화, 설치와 계정이 필요 없습니다. tailcat 기반 웹 데모입니다.",
+    "compose": {
+      "title": "무엇이든 다른 기기로 보내세요.",
+      "replyTitle": "다른 기기에 답장",
+      "placeholder": "여기에 붙여넣기, 끌어다 놓기 또는 입력",
+      "textLabel": "보낼 내용",
+      "attach": "파일 첨부",
+      "remove": "{name} 제거",
+      "pastedImage": "붙여넣은 이미지",
+      "send": "보내기",
+      "sendReply": "답장 보내기",
+      "cancelReply": "뒤로",
+      "size": "{size} / {limit}",
+      "tooLarge": "{limit}를 초과했습니다.",
+      "getApp": "큰 파일은 앱을 사용하세요",
+      "empty": "먼저 텍스트나 파일을 추가하세요.",
+      "dropHint": "놓아서 첨부",
+      "autoCopy": "받으면 클립보드에 복사",
+      "tooMany": "{max}개를 초과했습니다. 일부를 제거하거나 하나의 파일로 압축하세요."
+    },
+    "preparing": {
+      "title": "보안 링크를 준비하는 중…",
+      "loading": "보안 연결을 불러오는 중 · {percent}%",
+      "loadingUnknown": "보안 연결을 불러오는 중…",
+      "relay": "릴레이에 연결하는 중…"
+    },
+    "ready": {
+      "title": "다른 기기에서 여세요.",
+      "scan": "다른 기기의 카메라로 스캔하거나 링크를 보내세요.",
+      "qrLabel": "연결 링크 QR 코드",
+      "copyLink": "링크 복사",
+      "linkCopied": "링크를 복사했습니다",
+      "shareLink": "링크 공유",
+      "note": "링크는 한 번만 사용할 수 있습니다. 다음에 보낼 때는 새 링크가 생성됩니다.",
+      "waiting": "대기 중 · 이 탭을 열어 두세요",
+      "cancel": "취소"
+    },
+    "code": {
+      "haveCode": "코드가 있나요?",
+      "inputLabel": "6자리 코드",
+      "receive": "받기",
+      "checking": "확인하는 중…",
+      "startTitle": "다른 기기에 표시된 코드를 입력하세요.",
+      "sendInstead": "대신 보내기",
+      "scanOrEnter": "스캔하거나 이 코드를 입력하세요",
+      "expiresIn": "<time>{remaining}</time> 후 만료",
+      "oneUse": "1회용",
+      "refreshing": "새 코드를 받는 중…",
+      "unavailable": "지금은 코드를 받을 수 없습니다",
+      "tryAgain": "다시 시도",
+      "noteReady": "이 코드가 만료되거나 사용되면 새 코드가 자동으로 표시됩니다.",
+      "noteRefreshing": "새 코드를 불러오는 동안에도 QR 코드와 링크는 계속 작동합니다.",
+      "noteUnavailable": "QR 코드 스캔이나 링크 열기는 계속 가능합니다. 코드가 필요 없습니다.",
+      "sendingNote": "완료될 때까지 이 탭을 열어 두세요. 다음에 보낼 때는 새 코드가 생성됩니다.",
+      "errors": {
+        "incomplete": "6자리를 모두 입력하세요.",
+        "expired": "이 코드는 만료되었거나 이미 사용되었습니다. 새 코드를 요청하세요.",
+        "invalid": "유효하지 않은 코드입니다. 숫자를 확인하고 다시 시도하세요.",
+        "rate-limited": "시도 횟수가 너무 많습니다. 1분 후에 다시 시도하세요.",
+        "unavailable": "지금은 코드를 확인할 수 없습니다. 보낸 사람에게 링크나 QR 코드를 요청하세요."
+      }
+    },
+    "sending": {
+      "title": "다른 기기로 보내는 중…",
+      "replyTitle": "답장을 보내는 중…",
+      "note": "완료될 때까지 이 탭을 열어 두세요.",
+      "cancel": "취소"
+    },
+    "delivered": {
+      "title": "전송됨",
+      "replyHint": "이 탭이 열려 있는 동안 다른 기기에서 답장할 수 있습니다.",
+      "replyIncoming": "답장을 받는 중 · {done} / {total}",
+      "replyFrom": "다른 기기에서 온 답장",
+      "replyFailed": "답장이 도착하지 않았습니다.",
+      "sendNew": "새로 보내기",
+      "replyDeliveredTitle": "답장 전송됨"
+    },
+    "receiving": {
+      "connecting": "연결하는 중…",
+      "connectingHint": "암호화된 릴레이를 통해 보낸 사람에게 연결하는 중입니다.",
+      "title": "받는 중…",
+      "progress": "{done} / {total}",
+      "cancel": "취소"
+    },
+    "received": {
+      "title": "받음",
+      "copyText": "텍스트 복사",
+      "copyImage": "이미지 복사",
+      "copied": "클립보드에 복사했습니다",
+      "copyFailed": "자동으로 복사하지 못했습니다. 버튼을 사용하세요.",
+      "save": "저장",
+      "saveName": "{name} 저장",
+      "reply": "답장",
+      "imagePreview": "받은 이미지 미리보기",
+      "text": "텍스트"
+    },
+    "summary": {
+      "text": "텍스트",
+      "images": "{count, plural, other {이미지 #개}}",
+      "files": "{count, plural, other {파일 #개}}"
+    },
+    "errors": {
+      "title": "문제가 발생했습니다",
+      "busy": "이 링크는 이미 사용되었습니다. 새 링크를 요청하세요.",
+      "connect-failed": "연결할 수 없습니다. 보낸 사람에게 페이지를 열어 두라고 한 뒤 다시 시도하세요.",
+      "peer-cancelled": "다른 기기에서 전송을 취소했습니다.",
+      "connection-lost": "전송이 끝나기 전에 연결이 끊어졌습니다. 다시 시도하세요.",
+      "timeout": "다른 기기가 응답하지 않습니다. 다시 시도하세요.",
+      "integrity": "받은 내용이 손상되어 폐기했습니다. 다시 시도하세요.",
+      "too-large": "20MB를 초과했습니다. 큰 파일은 앱을 사용하세요.",
+      "rejected": "다른 기기에서 전송을 거부했습니다.",
+      "protocol": "전송에 실패했습니다. 다시 시도하세요.",
+      "invalid-link": "이 링크는 불완전합니다. 새 링크를 요청하세요.",
+      "listen-failed": "릴레이에 연결할 수 없습니다. 잠시 후 다시 시도하세요.",
+      "load-failed": "보안 연결을 불러오지 못했습니다. 네트워크를 확인하고 다시 시도하세요.",
+      "unsupported": "이 브라우저에서는 데모를 실행할 수 없습니다. 최신 Chrome, Edge, Firefox 또는 Safari를 사용해 보세요.",
+      "tryAgain": "다시 시도",
+      "startOver": "처음부터 다시"
+    },
+    "footer": {
+      "demo": "tailcat 기반 웹 데모",
+      "e2e": "공용 릴레이를 통한 종단 간 암호화",
+      "notApp": "UniClipboard 앱과는 별개입니다",
+      "getApp": "앱 받기",
+      "forSync": "(지속 동기화)",
+      "license": "tailcat 라이선스(BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "웹 전송 · 종단 간 암호화",
+      "languageSearch": "언어 검색",
+      "languageSuggested": "브라우저 설정 기준",
+      "languageAll": "모든 언어",
+      "languageEmpty": "일치하는 언어가 없습니다",
+      "languageClose": "언어 목록 닫기"
+    }
+  },
+  "nav": {
+    "language": "언어",
+    "theme": "테마",
+    "themeSystem": "시스템",
+    "themeLight": "라이트",
+    "themeDark": "다크"
+  }
+}

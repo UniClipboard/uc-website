@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Wypróbuj online — wysyłaj tekst, obrazy i pliki między dwiema przeglądarkami",
+    "seoDescription": "Wyślij tekst, obrazy lub pliki z jednej przeglądarki do drugiej za pomocą linku lub kodu QR. Szyfrowanie end-to-end, bez instalacji i bez konta. Demo webowe oparte na tailcat.",
+    "compose": {
+      "title": "Wyślij cokolwiek na inne urządzenie.",
+      "replyTitle": "Odpowiedz drugiemu urządzeniu",
+      "placeholder": "Wklej, upuść lub wpisz tutaj",
+      "textLabel": "Treść do wysłania",
+      "attach": "Załącz pliki",
+      "remove": "Usuń {name}",
+      "pastedImage": "Wklejony obraz",
+      "send": "Wyślij",
+      "sendReply": "Wyślij odpowiedź",
+      "cancelReply": "Wstecz",
+      "size": "{size} z {limit}",
+      "tooLarge": "To więcej niż {limit}.",
+      "getApp": "Większe pliki wyślesz w aplikacji",
+      "empty": "Najpierw dodaj tekst lub plik.",
+      "dropHint": "Upuść, aby załączyć",
+      "autoCopy": "Kopiuj do schowka, gdy coś przyjdzie",
+      "tooMany": "To więcej niż {max} elementów. Usuń część lub spakuj je do jednego pliku."
+    },
+    "preparing": {
+      "title": "Przygotowywanie bezpiecznego linku…",
+      "loading": "Wczytywanie bezpiecznego połączenia · {percent}%",
+      "loadingUnknown": "Wczytywanie bezpiecznego połączenia…",
+      "relay": "Łączenie z przekaźnikiem…"
+    },
+    "ready": {
+      "title": "Otwórz to na drugim urządzeniu.",
+      "scan": "Zeskanuj aparatem drugiego urządzenia lub wyślij mu link.",
+      "qrLabel": "Kod QR z linkiem połączenia",
+      "copyLink": "Kopiuj link",
+      "linkCopied": "Skopiowano link",
+      "shareLink": "Udostępnij link",
+      "note": "Link działa tylko raz. Przy następnym wysyłaniu powstanie nowy link.",
+      "waiting": "Oczekiwanie · nie zamykaj tej karty",
+      "cancel": "Anuluj"
+    },
+    "code": {
+      "haveCode": "Masz kod?",
+      "inputLabel": "6-cyfrowy kod",
+      "receive": "Odbierz",
+      "checking": "Sprawdzanie…",
+      "startTitle": "Wpisz kod z drugiego urządzenia.",
+      "sendInstead": "Zamiast tego coś wyślij",
+      "scanOrEnter": "Zeskanuj lub wpisz ten kod",
+      "expiresIn": "Wygasa za <time>{remaining}</time>",
+      "oneUse": "Jednorazowy",
+      "refreshing": "Pobieranie nowego kodu…",
+      "unavailable": "Nie można teraz pobrać kodu",
+      "tryAgain": "Spróbuj ponownie",
+      "noteReady": "Gdy ten kod wygaśnie lub zostanie użyty, automatycznie pojawi się nowy.",
+      "noteRefreshing": "Kod QR i link działają, dopóki wczytuje się nowy kod.",
+      "noteUnavailable": "Skanowanie kodu QR i otwieranie linku nadal działa. Nie potrzebują kodu.",
+      "sendingNote": "Nie zamykaj tej karty do końca. Przy następnym wysyłaniu powstanie nowy kod.",
+      "errors": {
+        "incomplete": "Wpisz wszystkie 6 cyfr.",
+        "expired": "Ten kod wygasł lub został już użyty. Poproś o nowy.",
+        "invalid": "To nieprawidłowy kod. Sprawdź cyfry i spróbuj ponownie.",
+        "rate-limited": "Zbyt wiele prób. Odczekaj minutę i spróbuj ponownie.",
+        "unavailable": "Nie można teraz sprawdzić kodów. Poproś nadawcę o link lub kod QR."
+      }
+    },
+    "sending": {
+      "title": "Wysyłanie na drugie urządzenie…",
+      "replyTitle": "Wysyłanie odpowiedzi…",
+      "note": "Nie zamykaj tej karty do końca.",
+      "cancel": "Anuluj"
+    },
+    "delivered": {
+      "title": "Dostarczono",
+      "replyHint": "Drugie urządzenie może odpowiedzieć, dopóki ta karta jest otwarta.",
+      "replyIncoming": "Nadchodzi odpowiedź · {done} z {total}",
+      "replyFrom": "Odpowiedź z drugiego urządzenia",
+      "replyFailed": "Odpowiedź nie dotarła.",
+      "sendNew": "Wyślij coś nowego",
+      "replyDeliveredTitle": "Odpowiedź dostarczona"
+    },
+    "receiving": {
+      "connecting": "Łączenie…",
+      "connectingHint": "Łączenie z nadawcą przez szyfrowany przekaźnik.",
+      "title": "Odbieranie…",
+      "progress": "{done} z {total}",
+      "cancel": "Anuluj"
+    },
+    "received": {
+      "title": "Odebrano",
+      "copyText": "Kopiuj tekst",
+      "copyImage": "Kopiuj obraz",
+      "copied": "Skopiowano do schowka",
+      "copyFailed": "Nie udało się skopiować automatycznie. Użyj przycisku.",
+      "save": "Zapisz",
+      "saveName": "Zapisz {name}",
+      "reply": "Odpowiedz",
+      "imagePreview": "Podgląd odebranego obrazu",
+      "text": "Tekst"
+    },
+    "summary": {
+      "text": "Tekst",
+      "images": "{count, plural, one {# obraz} few {# obrazy} many {# obrazów} other {# obrazu}}",
+      "files": "{count, plural, one {# plik} few {# pliki} many {# plików} other {# pliku}}"
+    },
+    "errors": {
+      "title": "Coś poszło nie tak",
+      "busy": "Ten link został już użyty. Poproś o nowy.",
+      "connect-failed": "Nie udało się połączyć. Poproś nadawcę, aby nie zamykał strony, i spróbuj ponownie.",
+      "peer-cancelled": "Drugie urządzenie anulowało przesyłanie.",
+      "connection-lost": "Połączenie zerwało się przed końcem przesyłania. Spróbuj ponownie.",
+      "timeout": "Drugie urządzenie przestało odpowiadać. Spróbuj ponownie.",
+      "integrity": "Treść dotarła uszkodzona i została odrzucona. Spróbuj ponownie.",
+      "too-large": "To więcej niż 20 MB. Większe pliki wyślesz w aplikacji.",
+      "rejected": "Drugie urządzenie odrzuciło przesyłanie.",
+      "protocol": "Przesyłanie nie powiodło się. Spróbuj ponownie.",
+      "invalid-link": "Ten link jest niekompletny. Poproś o nowy.",
+      "listen-failed": "Nie udało się połączyć z przekaźnikiem. Spróbuj ponownie za chwilę.",
+      "load-failed": "Nie udało się wczytać bezpiecznego połączenia. Sprawdź sieć i spróbuj ponownie.",
+      "unsupported": "Ta przeglądarka nie obsługuje demo. Wypróbuj aktualną wersję Chrome, Edge, Firefox lub Safari.",
+      "tryAgain": "Spróbuj ponownie",
+      "startOver": "Zacznij od nowa"
+    },
+    "footer": {
+      "demo": "Demo webowe oparte na tailcat",
+      "e2e": "szyfrowane end-to-end przez publiczne przekaźniki",
+      "notApp": "niezależne od aplikacji UniClipboard",
+      "getApp": "Pobierz aplikację",
+      "forSync": "do stałej synchronizacji",
+      "license": "licencja tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Przesyłanie przez web · szyfrowanie end-to-end",
+      "languageSearch": "Szukaj języka",
+      "languageSuggested": "Z Twojej przeglądarki",
+      "languageAll": "Wszystkie języki",
+      "languageEmpty": "Brak pasującego języka",
+      "languageClose": "Zamknij listę języków"
+    }
+  },
+  "nav": {
+    "language": "Język",
+    "theme": "Motyw",
+    "themeSystem": "Systemowy",
+    "themeLight": "Jasny",
+    "themeDark": "Ciemny"
+  }
+}

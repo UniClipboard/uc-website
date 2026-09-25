@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Online ausprobieren – Text, Bilder und Dateien zwischen zwei Browsern senden",
+    "seoDescription": "Sende Text, Bilder oder Dateien per Link oder QR-Code von einem Browser zum anderen. Ende-zu-Ende-verschlüsselt, ohne Installation, ohne Konto. Eine Web-Demo auf Basis von tailcat.",
+    "compose": {
+      "title": "Sende alles an ein anderes Gerät.",
+      "replyTitle": "Dem anderen Gerät antworten",
+      "placeholder": "Hier einfügen, ablegen oder tippen",
+      "textLabel": "Zu sendender Inhalt",
+      "attach": "Dateien anhängen",
+      "remove": "{name} entfernen",
+      "pastedImage": "Eingefügtes Bild",
+      "send": "Senden",
+      "sendReply": "Antwort senden",
+      "cancelReply": "Zurück",
+      "size": "{size} von {limit}",
+      "tooLarge": "Das ist mehr als {limit}.",
+      "getApp": "Für größere Dateien die App nutzen",
+      "empty": "Füge zuerst Text oder eine Datei hinzu.",
+      "dropHint": "Zum Anhängen ablegen",
+      "autoCopy": "Bei Empfang in die Zwischenablage kopieren",
+      "tooMany": "Das sind mehr als {max} Elemente. Entferne einige oder packe sie in eine ZIP-Datei."
+    },
+    "preparing": {
+      "title": "Sicherer Link wird vorbereitet…",
+      "loading": "Sichere Verbindung wird geladen · {percent} %",
+      "loadingUnknown": "Sichere Verbindung wird geladen…",
+      "relay": "Relay wird erreicht…"
+    },
+    "ready": {
+      "title": "Öffne das auf deinem anderen Gerät.",
+      "scan": "Scanne mit der Kamera des anderen Geräts oder sende ihm den Link.",
+      "qrLabel": "QR-Code für den Verbindungslink",
+      "copyLink": "Link kopieren",
+      "linkCopied": "Link kopiert",
+      "shareLink": "Link teilen",
+      "note": "Der Link funktioniert nur einmal. Beim nächsten Senden gibt es einen neuen Link.",
+      "waiting": "Warten · diesen Tab geöffnet lassen",
+      "cancel": "Abbrechen"
+    },
+    "code": {
+      "haveCode": "Hast du einen Code?",
+      "inputLabel": "6-stelliger Code",
+      "receive": "Empfangen",
+      "checking": "Wird geprüft…",
+      "startTitle": "Gib den Code von deinem anderen Gerät ein.",
+      "sendInstead": "Stattdessen etwas senden",
+      "scanOrEnter": "Scannen oder diesen Code eingeben",
+      "expiresIn": "Läuft ab in <time>{remaining}</time>",
+      "oneUse": "Einmalig",
+      "refreshing": "Neuer Code wird abgerufen…",
+      "unavailable": "Gerade kann kein Code abgerufen werden",
+      "tryAgain": "Erneut versuchen",
+      "noteReady": "Ein neuer Code erscheint automatisch, wenn dieser abläuft oder benutzt wird.",
+      "noteRefreshing": "QR-Code und Link funktionieren weiter, während der neue Code lädt.",
+      "noteUnavailable": "QR-Code scannen oder Link öffnen funktioniert weiterhin – dafür ist kein Code nötig.",
+      "sendingNote": "Lass diesen Tab geöffnet, bis es fertig ist. Beim nächsten Senden gibt es einen neuen Code.",
+      "errors": {
+        "incomplete": "Gib alle 6 Ziffern ein.",
+        "expired": "Dieser Code ist abgelaufen oder wurde bereits benutzt. Frag nach einem neuen.",
+        "invalid": "Das ist kein gültiger Code. Prüfe die Ziffern und versuche es erneut.",
+        "rate-limited": "Zu viele Versuche. Warte eine Minute und versuche es erneut.",
+        "unavailable": "Codes können gerade nicht geprüft werden. Frag den Absender stattdessen nach dem Link oder QR-Code."
+      }
+    },
+    "sending": {
+      "title": "Wird an das andere Gerät gesendet…",
+      "replyTitle": "Deine Antwort wird gesendet…",
+      "note": "Lass diesen Tab geöffnet, bis es fertig ist.",
+      "cancel": "Abbrechen"
+    },
+    "delivered": {
+      "title": "Zugestellt",
+      "replyHint": "Das andere Gerät kann antworten, solange dieser Tab geöffnet bleibt.",
+      "replyIncoming": "Eine Antwort kommt an · {done} von {total}",
+      "replyFrom": "Antwort vom anderen Gerät",
+      "replyFailed": "Die Antwort ist nicht angekommen.",
+      "sendNew": "Etwas Neues senden",
+      "replyDeliveredTitle": "Antwort zugestellt"
+    },
+    "receiving": {
+      "connecting": "Verbindung wird hergestellt…",
+      "connectingHint": "Der Absender wird über ein verschlüsseltes Relay erreicht.",
+      "title": "Wird empfangen…",
+      "progress": "{done} von {total}",
+      "cancel": "Abbrechen"
+    },
+    "received": {
+      "title": "Empfangen",
+      "copyText": "Text kopieren",
+      "copyImage": "Bild kopieren",
+      "copied": "In die Zwischenablage kopiert",
+      "copyFailed": "Automatisches Kopieren nicht möglich. Nutze stattdessen die Schaltfläche.",
+      "save": "Speichern",
+      "saveName": "{name} speichern",
+      "reply": "Antworten",
+      "imagePreview": "Vorschau des empfangenen Bildes",
+      "text": "Text"
+    },
+    "summary": {
+      "text": "Text",
+      "images": "{count, plural, one {# Bild} other {# Bilder}}",
+      "files": "{count, plural, one {# Datei} other {# Dateien}}"
+    },
+    "errors": {
+      "title": "Etwas ist schiefgelaufen",
+      "busy": "Dieser Link wurde bereits benutzt. Frag nach einem neuen.",
+      "connect-failed": "Keine Verbindung möglich. Bitte den Absender, seine Seite geöffnet zu lassen, und versuche es erneut.",
+      "peer-cancelled": "Das andere Gerät hat die Übertragung abgebrochen.",
+      "connection-lost": "Die Verbindung brach vor Ende der Übertragung ab. Versuche es erneut.",
+      "timeout": "Das andere Gerät reagiert nicht mehr. Versuche es erneut.",
+      "integrity": "Der Inhalt kam beschädigt an und wurde verworfen. Versuche es erneut.",
+      "too-large": "Das ist mehr als 20 MB. Für größere Dateien die App nutzen.",
+      "rejected": "Das andere Gerät hat die Übertragung abgelehnt.",
+      "protocol": "Die Übertragung ist fehlgeschlagen. Versuche es erneut.",
+      "invalid-link": "Dieser Link ist unvollständig. Frag nach einem neuen.",
+      "listen-failed": "Das Relay ist nicht erreichbar. Versuche es gleich noch einmal.",
+      "load-failed": "Die sichere Verbindung konnte nicht geladen werden. Prüfe dein Netzwerk und versuche es erneut.",
+      "unsupported": "Dieser Browser kann die Demo nicht ausführen. Probiere ein aktuelles Chrome, Edge, Firefox oder Safari.",
+      "tryAgain": "Erneut versuchen",
+      "startOver": "Von vorn beginnen"
+    },
+    "footer": {
+      "demo": "Web-Demo auf Basis von tailcat",
+      "e2e": "Ende-zu-Ende-verschlüsselt über öffentliche Relays",
+      "notApp": "unabhängig von den UniClipboard-Apps",
+      "getApp": "Hol dir die App",
+      "forSync": "für dauerhafte Synchronisierung",
+      "license": "tailcat-Lizenz (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Web-Übertragung · Ende-zu-Ende-verschlüsselt",
+      "languageSearch": "Sprachen suchen",
+      "languageSuggested": "Aus deinem Browser",
+      "languageAll": "Alle Sprachen",
+      "languageEmpty": "Keine passende Sprache",
+      "languageClose": "Sprachliste schließen"
+    }
+  },
+  "nav": {
+    "language": "Sprache",
+    "theme": "Design",
+    "themeSystem": "System",
+    "themeLight": "Hell",
+    "themeDark": "Dunkel"
+  }
+}

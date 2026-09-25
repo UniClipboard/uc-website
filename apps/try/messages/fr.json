@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Essayer en ligne — envoyez du texte, des images et des fichiers entre deux navigateurs",
+    "seoDescription": "Envoyez du texte, des images ou des fichiers d’un navigateur à un autre avec un lien ou un QR code. Chiffré de bout en bout, sans installation ni compte. Une démo web propulsée par tailcat.",
+    "compose": {
+      "title": "Envoyez ce que vous voulez vers un autre appareil.",
+      "replyTitle": "Répondre à l’autre appareil",
+      "placeholder": "Collez, déposez ou saisissez ici",
+      "textLabel": "Contenu à envoyer",
+      "attach": "Joindre des fichiers",
+      "remove": "Retirer {name}",
+      "pastedImage": "Image collée",
+      "send": "Envoyer",
+      "sendReply": "Envoyer la réponse",
+      "cancelReply": "Retour",
+      "size": "{size} sur {limit}",
+      "tooLarge": "Cela dépasse {limit}.",
+      "getApp": "Utilisez l’app pour les fichiers plus lourds",
+      "empty": "Ajoutez d’abord du texte ou un fichier.",
+      "dropHint": "Déposez pour joindre",
+      "autoCopy": "Copier dans le presse-papiers à la réception",
+      "tooMany": "Cela fait plus de {max} éléments. Retirez-en quelques-uns ou compressez-les en un seul fichier."
+    },
+    "preparing": {
+      "title": "Préparation d’un lien sécurisé…",
+      "loading": "Chargement de la connexion sécurisée · {percent} %",
+      "loadingUnknown": "Chargement de la connexion sécurisée…",
+      "relay": "Connexion au relais…"
+    },
+    "ready": {
+      "title": "Ouvrez ceci sur votre autre appareil.",
+      "scan": "Scannez avec l’appareil photo de l’autre appareil ou envoyez-lui le lien.",
+      "qrLabel": "QR code du lien de connexion",
+      "copyLink": "Copier le lien",
+      "linkCopied": "Lien copié",
+      "shareLink": "Partager le lien",
+      "note": "Le lien ne fonctionne qu’une fois. Le prochain envoi aura un nouveau lien.",
+      "waiting": "En attente · gardez cet onglet ouvert",
+      "cancel": "Annuler"
+    },
+    "code": {
+      "haveCode": "Vous avez un code ?",
+      "inputLabel": "Code à 6 chiffres",
+      "receive": "Recevoir",
+      "checking": "Vérification…",
+      "startTitle": "Saisissez le code affiché sur votre autre appareil.",
+      "sendInstead": "Envoyer quelque chose à la place",
+      "scanOrEnter": "Scannez ou saisissez ce code",
+      "expiresIn": "Expire dans <time>{remaining}</time>",
+      "oneUse": "Usage unique",
+      "refreshing": "Obtention d’un nouveau code…",
+      "unavailable": "Impossible d’obtenir un code pour le moment",
+      "tryAgain": "Réessayer",
+      "noteReady": "Un nouveau code apparaît automatiquement quand celui-ci expire ou est utilisé.",
+      "noteRefreshing": "Le QR code et le lien restent valables pendant le chargement du nouveau code.",
+      "noteUnavailable": "Scanner le QR code ou ouvrir le lien fonctionne toujours. Ils n’ont pas besoin de code.",
+      "sendingNote": "Gardez cet onglet ouvert jusqu’à la fin. Le prochain envoi aura un nouveau code.",
+      "errors": {
+        "incomplete": "Saisissez les 6 chiffres.",
+        "expired": "Ce code a expiré ou a déjà été utilisé. Demandez-en un nouveau.",
+        "invalid": "Ce code n’est pas valide. Vérifiez les chiffres et réessayez.",
+        "rate-limited": "Trop de tentatives. Patientez une minute puis réessayez.",
+        "unavailable": "Impossible de vérifier les codes pour le moment. Demandez plutôt le lien ou le QR code à l’expéditeur."
+      }
+    },
+    "sending": {
+      "title": "Envoi vers l’autre appareil…",
+      "replyTitle": "Envoi de votre réponse…",
+      "note": "Gardez cet onglet ouvert jusqu’à la fin.",
+      "cancel": "Annuler"
+    },
+    "delivered": {
+      "title": "Livré",
+      "replyHint": "L’autre appareil peut répondre tant que cet onglet reste ouvert.",
+      "replyIncoming": "Une réponse arrive · {done} sur {total}",
+      "replyFrom": "Réponse de l’autre appareil",
+      "replyFailed": "La réponse n’est pas arrivée.",
+      "sendNew": "Envoyer autre chose",
+      "replyDeliveredTitle": "Réponse livrée"
+    },
+    "receiving": {
+      "connecting": "Connexion…",
+      "connectingHint": "Connexion à l’expéditeur via un relais chiffré.",
+      "title": "Réception…",
+      "progress": "{done} sur {total}",
+      "cancel": "Annuler"
+    },
+    "received": {
+      "title": "Reçu",
+      "copyText": "Copier le texte",
+      "copyImage": "Copier l’image",
+      "copied": "Copié dans le presse-papiers",
+      "copyFailed": "Copie automatique impossible. Utilisez plutôt le bouton.",
+      "save": "Enregistrer",
+      "saveName": "Enregistrer {name}",
+      "reply": "Répondre",
+      "imagePreview": "Aperçu de l’image reçue",
+      "text": "Texte"
+    },
+    "summary": {
+      "text": "Texte",
+      "images": "{count, plural, one {# image} other {# images}}",
+      "files": "{count, plural, one {# fichier} other {# fichiers}}"
+    },
+    "errors": {
+      "title": "Un problème est survenu",
+      "busy": "Ce lien a déjà été utilisé. Demandez-en un nouveau.",
+      "connect-failed": "Connexion impossible. Demandez à l’expéditeur de garder sa page ouverte, puis réessayez.",
+      "peer-cancelled": "L’autre appareil a annulé le transfert.",
+      "connection-lost": "La connexion a été coupée avant la fin du transfert. Réessayez.",
+      "timeout": "L’autre appareil ne répond plus. Réessayez.",
+      "integrity": "Le contenu est arrivé endommagé et a été supprimé. Réessayez.",
+      "too-large": "Cela dépasse 20 Mo. Utilisez l’app pour les fichiers plus lourds.",
+      "rejected": "L’autre appareil a refusé le transfert.",
+      "protocol": "Le transfert a échoué. Réessayez.",
+      "invalid-link": "Ce lien est incomplet. Demandez-en un nouveau.",
+      "listen-failed": "Impossible de joindre le relais. Réessayez dans un instant.",
+      "load-failed": "Impossible de charger la connexion sécurisée. Vérifiez votre réseau et réessayez.",
+      "unsupported": "Ce navigateur ne peut pas exécuter la démo. Essayez une version récente de Chrome, Edge, Firefox ou Safari.",
+      "tryAgain": "Réessayer",
+      "startOver": "Recommencer"
+    },
+    "footer": {
+      "demo": "Démo web propulsée par tailcat",
+      "e2e": "chiffrée de bout en bout via des relais publics",
+      "notApp": "indépendante des apps UniClipboard",
+      "getApp": "Téléchargez l’app",
+      "forSync": "pour une synchronisation continue",
+      "license": "licence tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Transfert web · chiffré de bout en bout",
+      "languageSearch": "Rechercher une langue",
+      "languageSuggested": "Selon votre navigateur",
+      "languageAll": "Toutes les langues",
+      "languageEmpty": "Aucune langue ne correspond",
+      "languageClose": "Fermer la liste des langues"
+    }
+  },
+  "nav": {
+    "language": "Langue",
+    "theme": "Thème",
+    "themeSystem": "Système",
+    "themeLight": "Clair",
+    "themeDark": "Sombre"
+  }
+}

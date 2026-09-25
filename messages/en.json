@@ -1218,6 +1218,14 @@
       "getApp": "Get the app",
       "forSync": "for continuous sync",
       "license": "tailcat license (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Web transfer · end-to-end encrypted",
+      "languageSearch": "Search languages",
+      "languageSuggested": "From your browser",
+      "languageAll": "All languages",
+      "languageEmpty": "No matching language",
+      "languageClose": "Close language list"
     }
   }
 }

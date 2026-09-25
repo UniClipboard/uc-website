@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Dùng thử trực tuyến — gửi văn bản, hình ảnh và tệp giữa hai trình duyệt",
+    "seoDescription": "Gửi văn bản, hình ảnh hoặc tệp từ trình duyệt này sang trình duyệt khác bằng liên kết hoặc mã QR. Mã hóa đầu cuối, không cần cài đặt, không cần tài khoản. Bản demo web chạy trên tailcat.",
+    "compose": {
+      "title": "Gửi bất cứ thứ gì sang thiết bị khác.",
+      "replyTitle": "Trả lời thiết bị kia",
+      "placeholder": "Dán, kéo thả hoặc nhập tại đây",
+      "textLabel": "Nội dung cần gửi",
+      "attach": "Đính kèm tệp",
+      "remove": "Xóa {name}",
+      "pastedImage": "Hình ảnh đã dán",
+      "send": "Gửi",
+      "sendReply": "Gửi trả lời",
+      "cancelReply": "Quay lại",
+      "size": "{size} / {limit}",
+      "tooLarge": "Vượt quá {limit}.",
+      "getApp": "Dùng ứng dụng cho tệp lớn hơn",
+      "empty": "Hãy thêm văn bản hoặc tệp trước.",
+      "dropHint": "Thả để đính kèm",
+      "autoCopy": "Sao chép vào bộ nhớ tạm khi nhận được nội dung",
+      "tooMany": "Nhiều hơn {max} mục. Hãy bớt một số mục hoặc nén chúng thành một tệp."
+    },
+    "preparing": {
+      "title": "Đang chuẩn bị liên kết bảo mật…",
+      "loading": "Đang tải kết nối bảo mật · {percent}%",
+      "loadingUnknown": "Đang tải kết nối bảo mật…",
+      "relay": "Đang kết nối tới máy chủ chuyển tiếp…"
+    },
+    "ready": {
+      "title": "Mở liên kết này trên thiết bị kia.",
+      "scan": "Quét bằng camera của thiết bị kia, hoặc gửi liên kết cho nó.",
+      "qrLabel": "Mã QR của liên kết kết nối",
+      "copyLink": "Sao chép liên kết",
+      "linkCopied": "Đã sao chép liên kết",
+      "shareLink": "Chia sẻ liên kết",
+      "note": "Liên kết chỉ dùng được một lần. Lần gửi sau sẽ có liên kết mới.",
+      "waiting": "Đang chờ · hãy giữ tab này mở",
+      "cancel": "Hủy"
+    },
+    "code": {
+      "haveCode": "Bạn có mã?",
+      "inputLabel": "Mã 6 chữ số",
+      "receive": "Nhận",
+      "checking": "Đang kiểm tra…",
+      "startTitle": "Nhập mã hiển thị trên thiết bị kia.",
+      "sendInstead": "Gửi nội dung thay vào đó",
+      "scanOrEnter": "Quét hoặc nhập mã này",
+      "expiresIn": "Hết hạn sau <time>{remaining}</time>",
+      "oneUse": "Dùng một lần",
+      "refreshing": "Đang lấy mã mới…",
+      "unavailable": "Hiện không lấy được mã",
+      "tryAgain": "Thử lại",
+      "noteReady": "Khi mã này hết hạn hoặc đã được dùng, mã mới sẽ tự động xuất hiện.",
+      "noteRefreshing": "Mã QR và liên kết vẫn dùng được trong lúc tải mã mới.",
+      "noteUnavailable": "Vẫn có thể quét mã QR hoặc mở liên kết. Hai cách này không cần mã.",
+      "sendingNote": "Hãy giữ tab này mở cho đến khi xong. Lần gửi sau sẽ có mã mới.",
+      "errors": {
+        "incomplete": "Hãy nhập đủ 6 chữ số.",
+        "expired": "Mã này đã hết hạn hoặc đã được dùng. Hãy xin mã mới.",
+        "invalid": "Mã không hợp lệ. Hãy kiểm tra các chữ số rồi thử lại.",
+        "rate-limited": "Thử quá nhiều lần. Hãy đợi một phút rồi thử lại.",
+        "unavailable": "Hiện không kiểm tra được mã. Hãy xin người gửi liên kết hoặc mã QR."
+      }
+    },
+    "sending": {
+      "title": "Đang gửi sang thiết bị kia…",
+      "replyTitle": "Đang gửi câu trả lời…",
+      "note": "Hãy giữ tab này mở cho đến khi xong.",
+      "cancel": "Hủy"
+    },
+    "delivered": {
+      "title": "Đã gửi tới",
+      "replyHint": "Thiết bị kia có thể trả lời trong khi tab này còn mở.",
+      "replyIncoming": "Đang nhận câu trả lời · {done} / {total}",
+      "replyFrom": "Trả lời từ thiết bị kia",
+      "replyFailed": "Không nhận được câu trả lời.",
+      "sendNew": "Gửi nội dung mới",
+      "replyDeliveredTitle": "Đã gửi câu trả lời"
+    },
+    "receiving": {
+      "connecting": "Đang kết nối…",
+      "connectingHint": "Đang kết nối tới người gửi qua máy chủ chuyển tiếp được mã hóa.",
+      "title": "Đang nhận…",
+      "progress": "{done} / {total}",
+      "cancel": "Hủy"
+    },
+    "received": {
+      "title": "Đã nhận",
+      "copyText": "Sao chép văn bản",
+      "copyImage": "Sao chép hình ảnh",
+      "copied": "Đã sao chép vào bộ nhớ tạm",
+      "copyFailed": "Không thể tự động sao chép. Hãy dùng nút bên dưới.",
+      "save": "Lưu",
+      "saveName": "Lưu {name}",
+      "reply": "Trả lời",
+      "imagePreview": "Xem trước hình ảnh đã nhận",
+      "text": "Văn bản"
+    },
+    "summary": {
+      "text": "Văn bản",
+      "images": "{count, plural, other {# hình ảnh}}",
+      "files": "{count, plural, other {# tệp}}"
+    },
+    "errors": {
+      "title": "Đã xảy ra lỗi",
+      "busy": "Liên kết này đã được dùng. Hãy xin liên kết mới.",
+      "connect-failed": "Không kết nối được. Hãy nhờ người gửi giữ trang mở rồi thử lại.",
+      "peer-cancelled": "Thiết bị kia đã hủy truyền.",
+      "connection-lost": "Kết nối bị ngắt trước khi truyền xong. Hãy thử lại.",
+      "timeout": "Thiết bị kia không còn phản hồi. Hãy thử lại.",
+      "integrity": "Nội dung nhận được bị hỏng và đã bị loại bỏ. Hãy thử lại.",
+      "too-large": "Vượt quá 20 MB. Dùng ứng dụng cho tệp lớn hơn.",
+      "rejected": "Thiết bị kia đã từ chối truyền.",
+      "protocol": "Truyền thất bại. Hãy thử lại.",
+      "invalid-link": "Liên kết này không đầy đủ. Hãy xin liên kết mới.",
+      "listen-failed": "Không kết nối được tới máy chủ chuyển tiếp. Hãy thử lại sau giây lát.",
+      "load-failed": "Không tải được kết nối bảo mật. Hãy kiểm tra mạng rồi thử lại.",
+      "unsupported": "Trình duyệt này không chạy được bản demo. Hãy thử phiên bản mới của Chrome, Edge, Firefox hoặc Safari.",
+      "tryAgain": "Thử lại",
+      "startOver": "Bắt đầu lại"
+    },
+    "footer": {
+      "demo": "Bản demo web chạy trên tailcat",
+      "e2e": "mã hóa đầu cuối qua máy chủ chuyển tiếp công cộng",
+      "notApp": "tách biệt với các ứng dụng UniClipboard",
+      "getApp": "Tải ứng dụng",
+      "forSync": "để đồng bộ liên tục",
+      "license": "giấy phép tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Truyền qua web · mã hóa đầu cuối",
+      "languageSearch": "Tìm ngôn ngữ",
+      "languageSuggested": "Theo trình duyệt của bạn",
+      "languageAll": "Tất cả ngôn ngữ",
+      "languageEmpty": "Không có ngôn ngữ phù hợp",
+      "languageClose": "Đóng danh sách ngôn ngữ"
+    }
+  },
+  "nav": {
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "themeSystem": "Theo hệ thống",
+    "themeLight": "Sáng",
+    "themeDark": "Tối"
+  }
+}

@@ -24,8 +24,8 @@ export const revalidate = 3600;
 
 const buildDegradedFallback = (): StableReleaseViewModel => ({
   status: "degraded",
-  version: "unavailable",
-  publishedAt: "unavailable",
+  version: null,
+  publishedAt: null,
   notes: ["notes unavailable"],
   downloads: [],
   fallbackReleaseUrl: FALLBACK_RELEASE_URL,
@@ -51,8 +51,7 @@ const LandingPage = async ({ params }: LandingPageProps) => {
   const starsResult = await fetchGitHubStars();
   const stars = starsResult.stars;
 
-  const versionForSchema =
-    stableRelease.version === "unavailable" ? undefined : stableRelease.version;
+  const versionForSchema = stableRelease.version ?? undefined;
 
   const tFaq = await getTranslations({
     locale,

@@ -14,7 +14,7 @@ export async function FinalDownloadCta({ release }: FinalDownloadCtaProps) {
   const t = await getTranslations("landing.finalCta");
 
   const versionLine =
-    release.status === "ok" && release.version !== "unavailable"
+    release.status === "ok" && release.version
       ? `${t("versionPrefix")} v${release.version} · ${t("platformsLine")}`
       : t("platformsLine");
 

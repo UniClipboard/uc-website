@@ -45,6 +45,24 @@ export type StableReleaseFetchResult =
   | StableReleaseFetchSuccess
   | StableReleaseFetchFailure;
 
+// Build/ISR logs are the only place a degraded render is visible; without this
+// a rejected feed silently ships a page with no version and no installers.
+function degraded(
+  reason: StableReleaseFailureReason,
+  metadata: StableReleaseFetchFailure["metadata"],
+): StableReleaseFetchFailure {
+  console.warn(
+    `[release-feed] ${STABLE_RELEASE_FEED_URL} degraded: ${reason}`,
+    metadata.httpStatus ?? metadata.parseFailure?.issues ?? "",
+  );
+  return {
+    status: "degraded",
+    reason,
+    fallbackReleaseUrl: FALLBACK_RELEASE_URL,
+    metadata,
+  };
+}
+
 export async function fetchStableRelease(): Promise<StableReleaseFetchResult> {
   const fetchedAt = new Date().toISOString();
   const timeoutController = new AbortController();
@@ -64,48 +82,33 @@ export async function fetchStableRelease(): Promise<StableReleaseFetchResult> {
     });
 
     if (!response.ok) {
-      return {
-        status: "degraded",
-        reason: "http-error",
-        fallbackReleaseUrl: FALLBACK_RELEASE_URL,
-        metadata: {
-          sourceUrl: STABLE_RELEASE_FEED_URL,
-          fetchedAt,
-          revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
-          httpStatus: response.status,
-        },
-      };
+      return degraded("http-error", {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt,
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+        httpStatus: response.status,
+      });
     }
 
     let body: unknown;
     try {
       body = await response.json();
     } catch {
-      return {
-        status: "degraded",
-        reason: "invalid-json",
-        fallbackReleaseUrl: FALLBACK_RELEASE_URL,
-        metadata: {
-          sourceUrl: STABLE_RELEASE_FEED_URL,
-          fetchedAt,
-          revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
-        },
-      };
+      return degraded("invalid-json", {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt,
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+      });
     }
 
     const parsed = parseStableReleasePayload(body);
     if (!parsed.ok) {
-      return {
-        status: "degraded",
-        reason: "schema-error",
-        fallbackReleaseUrl: FALLBACK_RELEASE_URL,
-        metadata: {
-          sourceUrl: STABLE_RELEASE_FEED_URL,
-          fetchedAt,
-          revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
-          parseFailure: parsed.error,
-        },
-      };
+      return degraded("schema-error", {
+        sourceUrl: STABLE_RELEASE_FEED_URL,
+        fetchedAt,
+        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+        parseFailure: parsed.error,
+      });
     }
 
     return {
@@ -119,16 +122,11 @@ export async function fetchStableRelease(): Promise<StableReleaseFetchResult> {
     };
   } catch (error) {
     const timedOut = error instanceof Error && error.name === "AbortError";
-    return {
-      status: "degraded",
-      reason: timedOut ? "timeout" : "network-error",
-      fallbackReleaseUrl: FALLBACK_RELEASE_URL,
-      metadata: {
-        sourceUrl: STABLE_RELEASE_FEED_URL,
-        fetchedAt,
-        revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
-      },
-    };
+    return degraded(timedOut ? "timeout" : "network-error", {
+      sourceUrl: STABLE_RELEASE_FEED_URL,
+      fetchedAt,
+      revalidateSeconds: STABLE_RELEASE_REVALIDATE_SECONDS,
+    });
   } finally {
     clearTimeout(timeoutId);
   }

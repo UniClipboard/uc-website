@@ -54,6 +54,7 @@ describe("PlatformBlocks", () => {
           detected: "Detected",
           downloadAction: "Download",
           noDownloads: "No downloads",
+          downloadsUnavailable: "Installer links could not be loaded",
           copy: "Copy",
           copied: "Copied",
           fallback: "All releases",
@@ -72,6 +73,69 @@ describe("PlatformBlocks", () => {
     );
     expect(screen.getByRole("tabpanel")).toHaveTextContent(
       "Download for Windows",
+    );
+  });
+
+  const labels = {
+    detected: "Detected",
+    downloadAction: "Download",
+    noDownloads: "No downloads",
+    downloadsUnavailable: "Installer links could not be loaded",
+    copy: "Copy",
+    copied: "Copied",
+    fallback: "All releases",
+    versionPrefix: "Version",
+  };
+
+  it("points at the release page instead of claiming there is no release when the feed failed", async () => {
+    render(
+      <PlatformBlocks
+        blocks={blocks}
+        labels={labels}
+        version={null}
+        fallbackUrl="https://github.com/uniclipboard/uniclipboard/releases/latest"
+      />,
+    );
+
+    const panel = await screen.findByRole("tabpanel");
+    expect(panel).toHaveTextContent("Installer links could not be loaded");
+    expect(panel).not.toHaveTextContent("No downloads");
+    expect(panel).not.toHaveTextContent(/Version v/);
+    expect(screen.getByRole("link", { name: /All releases/ })).toHaveAttribute(
+      "href",
+      "https://github.com/uniclipboard/uniclipboard/releases/latest",
+    );
+  });
+
+  it("lists the release installers with their version when the feed is available", async () => {
+    render(
+      <PlatformBlocks
+        blocks={[
+          {
+            os: "win",
+            label: "Windows",
+            description: "Download for Windows",
+            items: [
+              {
+                arch: "x64",
+                ext: ".exe",
+                url: "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_x64-setup.exe",
+              },
+            ],
+          },
+        ]}
+        labels={labels}
+        version="0.19.4"
+        fallbackUrl="https://github.com/UniClipboard/UniClipboard/releases/tag/v0.19.4"
+      />,
+    );
+
+    const panel = await screen.findByRole("tabpanel");
+    expect(panel).toHaveTextContent("Version v0.19.4");
+    expect(panel).not.toHaveTextContent("Installer links could not be loaded");
+    expect(screen.getByRole("link", { name: /x64/ })).toHaveAttribute(
+      "href",
+      "https://release.uniclipboard.app/artifacts/v0.19.4/UniClipboard_0.19.4_x64-setup.exe",
     );
   });
 });

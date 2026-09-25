@@ -39,6 +39,8 @@ export type PlatformBlocksLabels = {
   detected: string;
   downloadAction: string;
   noDownloads: string;
+  // Shown instead of `noDownloads` when the release itself could not be read.
+  downloadsUnavailable: string;
   copy: string;
   copied: string;
   fallback: string;
@@ -48,7 +50,9 @@ export type PlatformBlocksLabels = {
 export type PlatformBlocksProps = {
   blocks: PlatformBlock[];
   labels: PlatformBlocksLabels;
-  version: string;
+  // null when the release feed could not be read; the panel then shows no
+  // version and points at `fallbackUrl` instead of claiming there is no release.
+  version: string | null;
   fallbackUrl: string;
   iosTestFlight?: {
     labels: IosTestFlightLabels;
@@ -231,12 +235,19 @@ function Panel({
   block: PlatformBlock;
   labels: PlatformBlocksLabels;
   isDetected: boolean;
-  version: string;
+  version: string | null;
   fallbackUrl: string;
   iosTestFlight?: PlatformBlocksProps["iosTestFlight"];
 }) {
   const footerVersion = block.footerVersion ?? version;
   const footerReleaseUrl = block.footerReleaseUrl ?? fallbackUrl;
+  // The release could not be read: the body carries the GitHub fallback, so
+  // the footer (version + the same link) is left out.
+  const releaseUnavailable =
+    block.os !== "ios" &&
+    block.os !== "linux" &&
+    block.items.length === 0 &&
+    !footerVersion;
 
   return (
     <div className="flex h-full flex-col p-7 md:p-12">
@@ -320,6 +331,23 @@ function Panel({
           />
         ) : block.os === "linux" ? (
           <LinuxBody block={block} labels={labels} />
+        ) : releaseUnavailable ? (
+          <div
+            className="text-muted-foreground flex flex-col items-center gap-3 rounded-[12px] px-4 py-6 text-center"
+            style={{ border: "1px dashed var(--border)", fontSize: 13.5 }}
+          >
+            <p>{labels.downloadsUnavailable}</p>
+            <a
+              href={footerReleaseUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground border-border bg-card hover:bg-foreground/5 inline-flex items-center gap-1.5 rounded-full border px-4 py-2 transition-colors"
+              style={{ fontSize: 13, fontWeight: 500 }}
+            >
+              {labels.fallback}
+              <ArrowUpRight size={14} />
+            </a>
+          </div>
         ) : block.items.length === 0 ? (
           <p
             className="text-muted-foreground rounded-[12px] px-4 py-6 text-center"
@@ -336,35 +364,41 @@ function Panel({
         )}
       </div>
 
-      <footer
-        className="mt-8 flex flex-wrap items-center justify-between gap-3 pt-5 md:mt-10"
-        style={{ borderTop: "1px solid var(--hair2)" }}
-      >
-        <span
-          className="text-muted2"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 11.5,
-            letterSpacing: "0.04em",
-          }}
+      {!releaseUnavailable && (
+        <footer
+          className="mt-8 flex flex-wrap items-center justify-between gap-3 pt-5 md:mt-10"
+          style={{ borderTop: "1px solid var(--hair2)" }}
         >
-          {labels.versionPrefix} v{footerVersion}
-        </span>
-        <a
-          href={footerReleaseUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 11.5,
-            letterSpacing: "0.04em",
-          }}
-        >
-          <span>{labels.fallback}</span>
-          <ArrowUpRight size={12} />
-        </a>
-      </footer>
+          {footerVersion ? (
+            <span
+              className="text-muted2"
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 11.5,
+                letterSpacing: "0.04em",
+              }}
+            >
+              {labels.versionPrefix} v{footerVersion}
+            </span>
+          ) : (
+            <span />
+          )}
+          <a
+            href={footerReleaseUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 transition-colors"
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11.5,
+              letterSpacing: "0.04em",
+            }}
+          >
+            <span>{labels.fallback}</span>
+            <ArrowUpRight size={12} />
+          </a>
+        </footer>
+      )}
     </div>
   );
 }

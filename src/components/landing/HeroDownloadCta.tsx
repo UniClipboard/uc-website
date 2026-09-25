@@ -1,4 +1,7 @@
+import { useLocale } from "next-intl";
+
 import { Link } from "@/i18n/navigation";
+import { getTryHref } from "@/lib/try-site";
 
 export type HeroDownloadCtaLabels = {
   primary: string;
@@ -14,6 +17,7 @@ type Props = {
 };
 
 export function HeroDownloadCta({ labels, fullWidth = false }: Props) {
+  const locale = useLocale();
   const buttonClass = fullWidth
     ? "bg-primary text-primary-foreground flex w-full items-center justify-center rounded-[10px] px-5 py-3.5 text-[15px] font-medium"
     : "bg-primary text-primary-foreground inline-flex items-center rounded-[8px] px-[18px] py-[10px] text-[13.5px] font-medium transition-transform hover:-translate-y-[1px]";
@@ -38,7 +42,7 @@ export function HeroDownloadCta({ labels, fullWidth = false }: Props) {
         </Link>
         {labels.tryOnline && (
           <Link
-            href="/try"
+            href={getTryHref(locale)}
             prefetch={false}
             className="border-border text-foreground hover:bg-foreground/5 inline-flex items-center justify-center rounded-[8px] border px-[18px] py-[9px] text-[13.5px] font-medium transition-colors"
           >

@@ -37,6 +37,8 @@
       "github": "GitHub",
       "menu": "Меню",
       "menuClose": "Закрыть меню",
+      "language": "Язык",
+      "theme": "Тема",
       "themeSystem": "Системная",
       "themeLight": "Светлая",
       "themeDark": "Тёмная",

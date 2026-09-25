@@ -37,6 +37,8 @@
       "github": "GitHub",
       "menu": "Menu",
       "menuClose": "Close menu",
+      "language": "Language",
+      "theme": "Theme",
       "themeSystem": "System",
       "themeLight": "Light",
       "themeDark": "Dark",

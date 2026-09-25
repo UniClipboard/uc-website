@@ -1,10 +1,10 @@
 "use client";
 
 import { Upload, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 
-import { Link } from "@/i18n/navigation";
+import { localePathPrefix } from "@/i18n/locale-meta";
 import {
   draftBytes,
   type DraftItem,
@@ -35,6 +35,7 @@ const toAttachment = (file: File): Attachment => ({
  * drop, or a paste anywhere on the page.
  */
 export function ComposeCard({ mode, onSubmit, onBack }: Props) {
+  const locale = useLocale();
   const t = useTranslations("try.compose");
   const [text, setText] = useState("");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
@@ -170,9 +171,12 @@ export function ComposeCard({ mode, onSubmit, onBack }: Props) {
           {over ? (
             <>
               {t("tooLarge", { limit })}{" "}
-              <Link href="/download" style={{ textDecoration: "underline" }}>
+              <a
+                href={`https://www.uniclipboard.app${localePathPrefix(locale)}/download`}
+                style={{ textDecoration: "underline" }}
+              >
                 {t("getApp")}
-              </Link>
+              </a>
             </>
           ) : tooMany ? (
             t("tooMany", { max: MAX_ITEMS })

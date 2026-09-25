@@ -60,3 +60,10 @@ sitemap-*.xml
 # Project-specific skills (documenting this repo's APIs) — tracked so agents
 # of any contributor can use them.
 !.claude/skills/publish-article/
+
+# Independent transfer app build inputs and outputs
+/apps/try/node_modules/
+/apps/try/.next/
+/apps/try/.shared/
+/apps/try/public/tailcat/
+.env*

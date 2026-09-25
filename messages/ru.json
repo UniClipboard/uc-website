@@ -1218,6 +1218,14 @@
       "getApp": "Установите приложение",
       "forSync": "для постоянной синхронизации",
       "license": "лицензия tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Веб-передача · сквозное шифрование",
+      "languageSearch": "Поиск языка",
+      "languageSuggested": "Из настроек браузера",
+      "languageAll": "Все языки",
+      "languageEmpty": "Язык не найден",
+      "languageClose": "Закрыть список языков"
     }
   }
 }

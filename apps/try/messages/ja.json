@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "オンラインで試す — 2 つのブラウザ間でテキスト・画像・ファイルを送信",
+    "seoDescription": "リンクや QR コードで、テキスト・画像・ファイルをブラウザからブラウザへ送信。エンドツーエンド暗号化、インストールもアカウントも不要。tailcat を利用したウェブデモです。",
+    "compose": {
+      "title": "何でも別のデバイスへ送れます。",
+      "replyTitle": "相手のデバイスに返信",
+      "placeholder": "ここに貼り付け、ドロップ、または入力",
+      "textLabel": "送信する内容",
+      "attach": "ファイルを添付",
+      "remove": "{name} を削除",
+      "pastedImage": "貼り付けた画像",
+      "send": "送信",
+      "sendReply": "返信を送信",
+      "cancelReply": "戻る",
+      "size": "{size} / {limit}",
+      "tooLarge": "{limit} を超えています。",
+      "getApp": "大きなファイルはアプリで",
+      "empty": "先にテキストかファイルを追加してください。",
+      "dropHint": "ドロップして添付",
+      "autoCopy": "受信したらクリップボードにコピー",
+      "tooMany": "{max} 件を超えています。いくつか削除するか、1 つのファイルに圧縮してください。"
+    },
+    "preparing": {
+      "title": "安全なリンクを準備しています…",
+      "loading": "安全な接続を読み込み中 · {percent}%",
+      "loadingUnknown": "安全な接続を読み込み中…",
+      "relay": "リレーに接続しています…"
+    },
+    "ready": {
+      "title": "もう一方のデバイスで開いてください。",
+      "scan": "相手のデバイスのカメラでスキャンするか、リンクを送ってください。",
+      "qrLabel": "接続リンクの QR コード",
+      "copyLink": "リンクをコピー",
+      "linkCopied": "リンクをコピーしました",
+      "shareLink": "リンクを共有",
+      "note": "リンクは 1 回だけ使えます。次の送信では新しいリンクになります。",
+      "waiting": "待機中 · このタブを開いたままにしてください",
+      "cancel": "キャンセル"
+    },
+    "code": {
+      "haveCode": "コードをお持ちですか？",
+      "inputLabel": "6 桁のコード",
+      "receive": "受信",
+      "checking": "確認中…",
+      "startTitle": "もう一方のデバイスに表示されたコードを入力してください。",
+      "sendInstead": "代わりに何かを送る",
+      "scanOrEnter": "スキャンするか、このコードを入力",
+      "expiresIn": "あと <time>{remaining}</time> で失効",
+      "oneUse": "1 回限り",
+      "refreshing": "新しいコードを取得中…",
+      "unavailable": "現在コードを取得できません",
+      "tryAgain": "再試行",
+      "noteReady": "このコードが失効するか使用されると、新しいコードが自動で表示されます。",
+      "noteRefreshing": "新しいコードの読み込み中も、QR コードとリンクは使えます。",
+      "noteUnavailable": "QR コードのスキャンやリンクは引き続き使えます。これらにコードは不要です。",
+      "sendingNote": "完了するまでこのタブを開いたままにしてください。次の送信では新しいコードになります。",
+      "errors": {
+        "incomplete": "6 桁すべてを入力してください。",
+        "expired": "このコードは失効したか、すでに使用されています。新しいコードをもらってください。",
+        "invalid": "無効なコードです。数字を確認してもう一度お試しください。",
+        "rate-limited": "試行回数が多すぎます。1 分ほど待ってからお試しください。",
+        "unavailable": "現在コードを確認できません。送信者にリンクか QR コードをもらってください。"
+      }
+    },
+    "sending": {
+      "title": "もう一方のデバイスへ送信中…",
+      "replyTitle": "返信を送信中…",
+      "note": "完了するまでこのタブを開いたままにしてください。",
+      "cancel": "キャンセル"
+    },
+    "delivered": {
+      "title": "送信しました",
+      "replyHint": "このタブを開いている間、相手のデバイスから返信できます。",
+      "replyIncoming": "返信を受信中 · {done} / {total}",
+      "replyFrom": "相手のデバイスからの返信",
+      "replyFailed": "返信を受け取れませんでした。",
+      "sendNew": "新しく送る",
+      "replyDeliveredTitle": "返信を送信しました"
+    },
+    "receiving": {
+      "connecting": "接続中…",
+      "connectingHint": "暗号化されたリレー経由で送信者に接続しています。",
+      "title": "受信中…",
+      "progress": "{done} / {total}",
+      "cancel": "キャンセル"
+    },
+    "received": {
+      "title": "受信しました",
+      "copyText": "テキストをコピー",
+      "copyImage": "画像をコピー",
+      "copied": "クリップボードにコピーしました",
+      "copyFailed": "自動でコピーできませんでした。ボタンを使ってください。",
+      "save": "保存",
+      "saveName": "{name} を保存",
+      "reply": "返信",
+      "imagePreview": "受信した画像のプレビュー",
+      "text": "テキスト"
+    },
+    "summary": {
+      "text": "テキスト",
+      "images": "{count, plural, other {画像 # 枚}}",
+      "files": "{count, plural, other {ファイル # 件}}"
+    },
+    "errors": {
+      "title": "問題が発生しました",
+      "busy": "このリンクはすでに使用されています。新しいリンクをもらってください。",
+      "connect-failed": "接続できませんでした。送信者にページを開いたままにしてもらい、もう一度お試しください。",
+      "peer-cancelled": "相手のデバイスが転送をキャンセルしました。",
+      "connection-lost": "転送の完了前に接続が切れました。もう一度お試しください。",
+      "timeout": "相手のデバイスが応答しなくなりました。もう一度お試しください。",
+      "integrity": "受信した内容が破損していたため破棄しました。もう一度お試しください。",
+      "too-large": "20 MB を超えています。大きなファイルはアプリをお使いください。",
+      "rejected": "相手のデバイスが転送を拒否しました。",
+      "protocol": "転送に失敗しました。もう一度お試しください。",
+      "invalid-link": "このリンクは不完全です。新しいリンクをもらってください。",
+      "listen-failed": "リレーに接続できませんでした。しばらくしてからお試しください。",
+      "load-failed": "安全な接続を読み込めませんでした。ネットワークを確認してもう一度お試しください。",
+      "unsupported": "このブラウザではデモを実行できません。最新の Chrome、Edge、Firefox、Safari をお試しください。",
+      "tryAgain": "再試行",
+      "startOver": "最初からやり直す"
+    },
+    "footer": {
+      "demo": "tailcat を利用したウェブデモ",
+      "e2e": "公開リレー経由でエンドツーエンド暗号化",
+      "notApp": "UniClipboard アプリとは連携しません",
+      "getApp": "アプリを入手",
+      "forSync": "（常時同期）",
+      "license": "tailcat ライセンス（BSD-3-Clause）"
+    },
+    "header": {
+      "tagline": "ウェブ転送 · エンドツーエンド暗号化",
+      "languageSearch": "言語を検索",
+      "languageSuggested": "ブラウザの設定から",
+      "languageAll": "すべての言語",
+      "languageEmpty": "一致する言語がありません",
+      "languageClose": "言語リストを閉じる"
+    }
+  },
+  "nav": {
+    "language": "言語",
+    "theme": "テーマ",
+    "themeSystem": "システム",
+    "themeLight": "ライト",
+    "themeDark": "ダーク"
+  }
+}

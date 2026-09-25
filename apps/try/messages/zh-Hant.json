@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "線上試用 — 在兩個瀏覽器之間傳送文字、圖片和檔案",
+    "seoDescription": "透過連結或 QR 碼，把文字、圖片或檔案從一個瀏覽器傳到另一個瀏覽器。端對端加密，免安裝、免帳號。由 tailcat 驅動的網頁示範。",
+    "compose": {
+      "title": "把任何內容傳到另一台裝置。",
+      "replyTitle": "回覆另一台裝置",
+      "placeholder": "在這裡貼上、拖入或輸入",
+      "textLabel": "要傳送的內容",
+      "attach": "加入檔案",
+      "remove": "移除 {name}",
+      "pastedImage": "貼上的圖片",
+      "send": "傳送",
+      "sendReply": "傳送回覆",
+      "cancelReply": "返回",
+      "size": "{size} / {limit}",
+      "tooLarge": "超過 {limit} 了。",
+      "getApp": "較大的檔案請使用應用程式",
+      "empty": "請先加入文字或檔案。",
+      "dropHint": "放開以加入",
+      "autoCopy": "收到內容時自動複製到剪貼簿",
+      "tooMany": "超過 {max} 個項目了。請移除一些，或壓縮成一個檔案。"
+    },
+    "preparing": {
+      "title": "正在準備安全連結…",
+      "loading": "正在載入安全連線 · {percent}%",
+      "loadingUnknown": "正在載入安全連線…",
+      "relay": "正在連線到中繼…"
+    },
+    "ready": {
+      "title": "在另一台裝置上開啟。",
+      "scan": "用另一台裝置的相機掃描，或把連結傳給它。",
+      "qrLabel": "連線連結的 QR 碼",
+      "copyLink": "複製連結",
+      "linkCopied": "已複製連結",
+      "shareLink": "分享連結",
+      "note": "連結只能使用一次。下次傳送會產生新連結。",
+      "waiting": "等待中 · 請保持此分頁開啟",
+      "cancel": "取消"
+    },
+    "code": {
+      "haveCode": "有接收碼？",
+      "inputLabel": "6 位數接收碼",
+      "receive": "接收",
+      "checking": "正在確認…",
+      "startTitle": "輸入另一台裝置上顯示的接收碼。",
+      "sendInstead": "改為傳送內容",
+      "scanOrEnter": "掃描，或輸入這組接收碼",
+      "expiresIn": "<time>{remaining}</time> 後失效",
+      "oneUse": "僅限一次",
+      "refreshing": "正在取得新的接收碼…",
+      "unavailable": "目前無法取得接收碼",
+      "tryAgain": "重試",
+      "noteReady": "這組接收碼失效或被使用後，會自動產生新的接收碼。",
+      "noteRefreshing": "新接收碼載入期間，QR 碼和連結仍可使用。",
+      "noteUnavailable": "仍可掃描 QR 碼或開啟連結，這兩種方式不需要接收碼。",
+      "sendingNote": "傳送完成前請保持此分頁開啟。下次傳送會產生新的接收碼。",
+      "errors": {
+        "incomplete": "請輸入完整的 6 位數字。",
+        "expired": "這組接收碼已失效或已被使用。請索取新的接收碼。",
+        "invalid": "接收碼無效。請檢查數字後再試一次。",
+        "rate-limited": "嘗試次數過多。請稍候一分鐘再試。",
+        "unavailable": "目前無法確認接收碼。請向傳送方索取連結或 QR 碼。"
+      }
+    },
+    "sending": {
+      "title": "正在傳送到另一台裝置…",
+      "replyTitle": "正在傳送你的回覆…",
+      "note": "傳送完成前請保持此分頁開啟。",
+      "cancel": "取消"
+    },
+    "delivered": {
+      "title": "已送達",
+      "replyHint": "只要此分頁保持開啟，另一台裝置就能回覆你。",
+      "replyIncoming": "正在接收回覆 · {done} / {total}",
+      "replyFrom": "來自另一台裝置的回覆",
+      "replyFailed": "回覆沒有送達。",
+      "sendNew": "傳送新內容",
+      "replyDeliveredTitle": "回覆已送達"
+    },
+    "receiving": {
+      "connecting": "正在連線…",
+      "connectingHint": "正在透過加密中繼連線到傳送方。",
+      "title": "正在接收…",
+      "progress": "{done} / {total}",
+      "cancel": "取消"
+    },
+    "received": {
+      "title": "已接收",
+      "copyText": "複製文字",
+      "copyImage": "複製圖片",
+      "copied": "已複製到剪貼簿",
+      "copyFailed": "無法自動複製，請改用按鈕。",
+      "save": "儲存",
+      "saveName": "儲存 {name}",
+      "reply": "回覆",
+      "imagePreview": "收到的圖片預覽",
+      "text": "文字"
+    },
+    "summary": {
+      "text": "文字",
+      "images": "{count, plural, other {# 張圖片}}",
+      "files": "{count, plural, other {# 個檔案}}"
+    },
+    "errors": {
+      "title": "發生錯誤",
+      "busy": "這個連結已被使用。請索取新連結。",
+      "connect-failed": "無法連線。請傳送方保持頁面開啟，然後再試一次。",
+      "peer-cancelled": "另一台裝置取消了傳輸。",
+      "connection-lost": "傳輸完成前連線中斷了。請再試一次。",
+      "timeout": "另一台裝置沒有回應。請再試一次。",
+      "integrity": "收到的內容已損毀並被捨棄。請再試一次。",
+      "too-large": "超過 20 MB 了。較大的檔案請使用應用程式。",
+      "rejected": "另一台裝置拒絕了傳輸。",
+      "protocol": "傳輸失敗。請再試一次。",
+      "invalid-link": "這個連結不完整。請索取新連結。",
+      "listen-failed": "無法連線到中繼。請稍後再試。",
+      "load-failed": "無法載入安全連線。請檢查網路後再試一次。",
+      "unsupported": "這個瀏覽器無法執行示範。請改用新版 Chrome、Edge、Firefox 或 Safari。",
+      "tryAgain": "重試",
+      "startOver": "重新開始"
+    },
+    "footer": {
+      "demo": "由 tailcat 驅動的網頁示範",
+      "e2e": "透過公共中繼端對端加密",
+      "notApp": "與 UniClipboard 應用程式互不相通",
+      "getApp": "下載應用程式",
+      "forSync": "取得持續同步",
+      "license": "tailcat 授權條款（BSD-3-Clause）"
+    },
+    "header": {
+      "tagline": "網頁傳輸 · 端對端加密",
+      "languageSearch": "搜尋語言",
+      "languageSuggested": "來自瀏覽器設定",
+      "languageAll": "所有語言",
+      "languageEmpty": "沒有符合的語言",
+      "languageClose": "關閉語言清單"
+    }
+  },
+  "nav": {
+    "language": "語言",
+    "theme": "主題",
+    "themeSystem": "跟隨系統",
+    "themeLight": "淺色",
+    "themeDark": "深色"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Online proberen — stuur tekst, afbeeldingen en bestanden tussen twee browsers",
+    "seoDescription": "Stuur tekst, afbeeldingen of bestanden van de ene browser naar de andere met een link of QR-code. End-to-end versleuteld, zonder installatie en zonder account. Een webdemo op basis van tailcat.",
+    "compose": {
+      "title": "Stuur alles naar een ander apparaat.",
+      "replyTitle": "Antwoord het andere apparaat",
+      "placeholder": "Plak, sleep of typ hier",
+      "textLabel": "Inhoud om te versturen",
+      "attach": "Bestanden bijvoegen",
+      "remove": "{name} verwijderen",
+      "pastedImage": "Geplakte afbeelding",
+      "send": "Versturen",
+      "sendReply": "Antwoord versturen",
+      "cancelReply": "Terug",
+      "size": "{size} van {limit}",
+      "tooLarge": "Dat is meer dan {limit}.",
+      "getApp": "Gebruik de app voor grotere bestanden",
+      "empty": "Voeg eerst tekst of een bestand toe.",
+      "dropHint": "Loslaten om bij te voegen",
+      "autoCopy": "Naar klembord kopiëren als er iets binnenkomt",
+      "tooMany": "Dat zijn meer dan {max} items. Verwijder er een paar of zip ze tot één bestand."
+    },
+    "preparing": {
+      "title": "Veilige link voorbereiden…",
+      "loading": "Veilige verbinding laden · {percent}%",
+      "loadingUnknown": "Veilige verbinding laden…",
+      "relay": "Relay bereiken…"
+    },
+    "ready": {
+      "title": "Open dit op je andere apparaat.",
+      "scan": "Scan met de camera van het andere apparaat, of stuur het de link.",
+      "qrLabel": "QR-code voor de verbindingslink",
+      "copyLink": "Link kopiëren",
+      "linkCopied": "Link gekopieerd",
+      "shareLink": "Link delen",
+      "note": "De link werkt één keer. Je volgende verzending krijgt een nieuwe link.",
+      "waiting": "Wachten · houd dit tabblad open",
+      "cancel": "Annuleren"
+    },
+    "code": {
+      "haveCode": "Heb je een code?",
+      "inputLabel": "Code van 6 cijfers",
+      "receive": "Ontvangen",
+      "checking": "Controleren…",
+      "startTitle": "Voer de code van je andere apparaat in.",
+      "sendInstead": "In plaats daarvan iets versturen",
+      "scanOrEnter": "Scan, of voer deze code in",
+      "expiresIn": "Verloopt over <time>{remaining}</time>",
+      "oneUse": "Eenmalig",
+      "refreshing": "Nieuwe code ophalen…",
+      "unavailable": "Kan nu geen code ophalen",
+      "tryAgain": "Opnieuw proberen",
+      "noteReady": "Er verschijnt automatisch een nieuwe code als deze verloopt of gebruikt is.",
+      "noteRefreshing": "De QR-code en link blijven werken terwijl de nieuwe code laadt.",
+      "noteUnavailable": "Scannen van de QR-code of openen van de link werkt nog steeds. Daarvoor is geen code nodig.",
+      "sendingNote": "Houd dit tabblad open tot het klaar is. Je volgende verzending krijgt een nieuwe code.",
+      "errors": {
+        "incomplete": "Voer alle 6 cijfers in.",
+        "expired": "Deze code is verlopen of al gebruikt. Vraag om een nieuwe.",
+        "invalid": "Dat is geen geldige code. Controleer de cijfers en probeer het opnieuw.",
+        "rate-limited": "Te veel pogingen. Wacht een minuut en probeer het opnieuw.",
+        "unavailable": "Codes kunnen nu niet worden gecontroleerd. Vraag de afzender om de link of QR-code."
+      }
+    },
+    "sending": {
+      "title": "Versturen naar het andere apparaat…",
+      "replyTitle": "Je antwoord versturen…",
+      "note": "Houd dit tabblad open tot het klaar is.",
+      "cancel": "Annuleren"
+    },
+    "delivered": {
+      "title": "Afgeleverd",
+      "replyHint": "Het andere apparaat kan antwoorden zolang dit tabblad open blijft.",
+      "replyIncoming": "Er komt een antwoord binnen · {done} van {total}",
+      "replyFrom": "Antwoord van het andere apparaat",
+      "replyFailed": "Het antwoord is niet aangekomen.",
+      "sendNew": "Iets nieuws versturen",
+      "replyDeliveredTitle": "Antwoord afgeleverd"
+    },
+    "receiving": {
+      "connecting": "Verbinden…",
+      "connectingHint": "De afzender bereiken via een versleutelde relay.",
+      "title": "Ontvangen…",
+      "progress": "{done} van {total}",
+      "cancel": "Annuleren"
+    },
+    "received": {
+      "title": "Ontvangen",
+      "copyText": "Tekst kopiëren",
+      "copyImage": "Afbeelding kopiëren",
+      "copied": "Gekopieerd naar klembord",
+      "copyFailed": "Automatisch kopiëren is mislukt. Gebruik de knop.",
+      "save": "Opslaan",
+      "saveName": "{name} opslaan",
+      "reply": "Antwoorden",
+      "imagePreview": "Voorbeeld van de ontvangen afbeelding",
+      "text": "Tekst"
+    },
+    "summary": {
+      "text": "Tekst",
+      "images": "{count, plural, one {# afbeelding} other {# afbeeldingen}}",
+      "files": "{count, plural, one {# bestand} other {# bestanden}}"
+    },
+    "errors": {
+      "title": "Er ging iets mis",
+      "busy": "Deze link is al gebruikt. Vraag om een nieuwe.",
+      "connect-failed": "Kan geen verbinding maken. Vraag de afzender de pagina open te houden en probeer het opnieuw.",
+      "peer-cancelled": "Het andere apparaat heeft de overdracht geannuleerd.",
+      "connection-lost": "De verbinding viel weg voordat de overdracht klaar was. Probeer het opnieuw.",
+      "timeout": "Het andere apparaat reageert niet meer. Probeer het opnieuw.",
+      "integrity": "De inhoud kwam beschadigd aan en is verwijderd. Probeer het opnieuw.",
+      "too-large": "Dat is meer dan 20 MB. Gebruik de app voor grotere bestanden.",
+      "rejected": "Het andere apparaat heeft de overdracht geweigerd.",
+      "protocol": "De overdracht is mislukt. Probeer het opnieuw.",
+      "invalid-link": "Deze link is onvolledig. Vraag om een nieuwe.",
+      "listen-failed": "De relay is niet bereikbaar. Probeer het zo opnieuw.",
+      "load-failed": "De veilige verbinding kon niet worden geladen. Controleer je netwerk en probeer het opnieuw.",
+      "unsupported": "Deze browser kan de demo niet uitvoeren. Probeer een recente versie van Chrome, Edge, Firefox of Safari.",
+      "tryAgain": "Opnieuw proberen",
+      "startOver": "Opnieuw beginnen"
+    },
+    "footer": {
+      "demo": "Webdemo op basis van tailcat",
+      "e2e": "end-to-end versleuteld via openbare relays",
+      "notApp": "los van de UniClipboard-apps",
+      "getApp": "Download de app",
+      "forSync": "voor doorlopende synchronisatie",
+      "license": "tailcat-licentie (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Webtransfer · end-to-end versleuteld",
+      "languageSearch": "Talen zoeken",
+      "languageSuggested": "Uit je browser",
+      "languageAll": "Alle talen",
+      "languageEmpty": "Geen overeenkomende taal",
+      "languageClose": "Talenlijst sluiten"
+    }
+  },
+  "nav": {
+    "language": "Taal",
+    "theme": "Thema",
+    "themeSystem": "Systeem",
+    "themeLight": "Licht",
+    "themeDark": "Donker"
+  }
+}

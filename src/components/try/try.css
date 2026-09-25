@@ -350,12 +350,13 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 12px 12px 12px 8px;
+  padding-block: 12px;
+  padding-inline: 8px 12px;
   border-top: 1px solid var(--try-line);
 }
 
 .try-compose-bar > .try-btn {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 @media (max-width: 420px) {
@@ -768,7 +769,7 @@
 
 .try-code-row .try-code-error {
   align-self: flex-end;
-  text-align: right;
+  text-align: end;
 }
 
 .try-code-error {

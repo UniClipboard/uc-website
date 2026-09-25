@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Prova online — invia testi, immagini e file tra due browser",
+    "seoDescription": "Invia testi, immagini o file da un browser all’altro con un link o un codice QR. Crittografia end-to-end, nessuna installazione e nessun account. Una demo web basata su tailcat.",
+    "compose": {
+      "title": "Invia qualsiasi cosa a un altro dispositivo.",
+      "replyTitle": "Rispondi all’altro dispositivo",
+      "placeholder": "Incolla, trascina o scrivi qui",
+      "textLabel": "Contenuto da inviare",
+      "attach": "Allega file",
+      "remove": "Rimuovi {name}",
+      "pastedImage": "Immagine incollata",
+      "send": "Invia",
+      "sendReply": "Invia risposta",
+      "cancelReply": "Indietro",
+      "size": "{size} di {limit}",
+      "tooLarge": "Supera {limit}.",
+      "getApp": "Usa l’app per file più grandi",
+      "empty": "Aggiungi prima un testo o un file.",
+      "dropHint": "Rilascia per allegare",
+      "autoCopy": "Copia negli appunti quando arriva qualcosa",
+      "tooMany": "Sono più di {max} elementi. Rimuovine alcuni o comprimili in un unico file."
+    },
+    "preparing": {
+      "title": "Preparazione di un link sicuro…",
+      "loading": "Caricamento della connessione sicura · {percent}%",
+      "loadingUnknown": "Caricamento della connessione sicura…",
+      "relay": "Connessione al relay…"
+    },
+    "ready": {
+      "title": "Aprilo sull’altro dispositivo.",
+      "scan": "Scansiona con la fotocamera dell’altro dispositivo o inviagli il link.",
+      "qrLabel": "Codice QR del link di connessione",
+      "copyLink": "Copia link",
+      "linkCopied": "Link copiato",
+      "shareLink": "Condividi link",
+      "note": "Il link funziona una sola volta. Il prossimo invio avrà un nuovo link.",
+      "waiting": "In attesa · tieni aperta questa scheda",
+      "cancel": "Annulla"
+    },
+    "code": {
+      "haveCode": "Hai un codice?",
+      "inputLabel": "Codice di 6 cifre",
+      "receive": "Ricevi",
+      "checking": "Verifica…",
+      "startTitle": "Inserisci il codice mostrato sull’altro dispositivo.",
+      "sendInstead": "Invia qualcosa invece",
+      "scanOrEnter": "Scansiona o inserisci questo codice",
+      "expiresIn": "Scade tra <time>{remaining}</time>",
+      "oneUse": "Monouso",
+      "refreshing": "Recupero di un nuovo codice…",
+      "unavailable": "Impossibile ottenere un codice ora",
+      "tryAgain": "Riprova",
+      "noteReady": "Quando questo codice scade o viene usato, ne compare automaticamente uno nuovo.",
+      "noteRefreshing": "Il codice QR e il link continuano a funzionare mentre il nuovo codice si carica.",
+      "noteUnavailable": "Scansionare il codice QR o aprire il link funziona comunque. Non serve un codice.",
+      "sendingNote": "Tieni aperta questa scheda fino alla fine. Il prossimo invio avrà un nuovo codice.",
+      "errors": {
+        "incomplete": "Inserisci tutte e 6 le cifre.",
+        "expired": "Questo codice è scaduto o è già stato usato. Chiedine uno nuovo.",
+        "invalid": "Codice non valido. Controlla le cifre e riprova.",
+        "rate-limited": "Troppi tentativi. Attendi un minuto e riprova.",
+        "unavailable": "Impossibile verificare i codici ora. Chiedi al mittente il link o il codice QR."
+      }
+    },
+    "sending": {
+      "title": "Invio all’altro dispositivo…",
+      "replyTitle": "Invio della tua risposta…",
+      "note": "Tieni aperta questa scheda fino alla fine.",
+      "cancel": "Annulla"
+    },
+    "delivered": {
+      "title": "Consegnato",
+      "replyHint": "L’altro dispositivo può rispondere finché questa scheda resta aperta.",
+      "replyIncoming": "Sta arrivando una risposta · {done} di {total}",
+      "replyFrom": "Risposta dall’altro dispositivo",
+      "replyFailed": "La risposta non è arrivata.",
+      "sendNew": "Invia qualcos’altro",
+      "replyDeliveredTitle": "Risposta consegnata"
+    },
+    "receiving": {
+      "connecting": "Connessione…",
+      "connectingHint": "Connessione al mittente tramite un relay crittografato.",
+      "title": "Ricezione…",
+      "progress": "{done} di {total}",
+      "cancel": "Annulla"
+    },
+    "received": {
+      "title": "Ricevuto",
+      "copyText": "Copia testo",
+      "copyImage": "Copia immagine",
+      "copied": "Copiato negli appunti",
+      "copyFailed": "Impossibile copiare automaticamente. Usa il pulsante.",
+      "save": "Salva",
+      "saveName": "Salva {name}",
+      "reply": "Rispondi",
+      "imagePreview": "Anteprima dell’immagine ricevuta",
+      "text": "Testo"
+    },
+    "summary": {
+      "text": "Testo",
+      "images": "{count, plural, one {# immagine} other {# immagini}}",
+      "files": "{count, plural, other {# file}}"
+    },
+    "errors": {
+      "title": "Qualcosa è andato storto",
+      "busy": "Questo link è già stato usato. Chiedine uno nuovo.",
+      "connect-failed": "Connessione non riuscita. Chiedi al mittente di tenere aperta la pagina, poi riprova.",
+      "peer-cancelled": "L’altro dispositivo ha annullato il trasferimento.",
+      "connection-lost": "La connessione si è interrotta prima della fine del trasferimento. Riprova.",
+      "timeout": "L’altro dispositivo ha smesso di rispondere. Riprova.",
+      "integrity": "Il contenuto è arrivato danneggiato ed è stato scartato. Riprova.",
+      "too-large": "Supera 20 MB. Usa l’app per file più grandi.",
+      "rejected": "L’altro dispositivo ha rifiutato il trasferimento.",
+      "protocol": "Trasferimento non riuscito. Riprova.",
+      "invalid-link": "Questo link è incompleto. Chiedine uno nuovo.",
+      "listen-failed": "Impossibile raggiungere il relay. Riprova tra poco.",
+      "load-failed": "Impossibile caricare la connessione sicura. Controlla la rete e riprova.",
+      "unsupported": "Questo browser non può eseguire la demo. Prova una versione recente di Chrome, Edge, Firefox o Safari.",
+      "tryAgain": "Riprova",
+      "startOver": "Ricomincia"
+    },
+    "footer": {
+      "demo": "Demo web basata su tailcat",
+      "e2e": "crittografia end-to-end tramite relay pubblici",
+      "notApp": "separata dalle app UniClipboard",
+      "getApp": "Scarica l’app",
+      "forSync": "per la sincronizzazione continua",
+      "license": "licenza tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Trasferimento web · crittografia end-to-end",
+      "languageSearch": "Cerca lingue",
+      "languageSuggested": "Dal tuo browser",
+      "languageAll": "Tutte le lingue",
+      "languageEmpty": "Nessuna lingua corrispondente",
+      "languageClose": "Chiudi l’elenco delle lingue"
+    }
+  },
+  "nav": {
+    "language": "Lingua",
+    "theme": "Tema",
+    "themeSystem": "Sistema",
+    "themeLight": "Chiaro",
+    "themeDark": "Scuro"
+  }
+}

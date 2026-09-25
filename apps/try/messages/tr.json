@@ -1,0 +1,147 @@
+{
+  "try": {
+    "seoTitle": "Çevrimiçi deneyin — iki tarayıcı arasında metin, görsel ve dosya gönderin",
+    "seoDescription": "Bir bağlantı veya QR kodla bir tarayıcıdan diğerine metin, görsel ya da dosya gönderin. Uçtan uca şifreli, kurulum ve hesap gerektirmez. tailcat tabanlı bir web demosu.",
+    "compose": {
+      "title": "Her şeyi başka bir cihaza gönderin.",
+      "replyTitle": "Diğer cihaza yanıt verin",
+      "placeholder": "Buraya yapıştırın, sürükleyin veya yazın",
+      "textLabel": "Gönderilecek içerik",
+      "attach": "Dosya ekle",
+      "remove": "{name} öğesini kaldır",
+      "pastedImage": "Yapıştırılan görsel",
+      "send": "Gönder",
+      "sendReply": "Yanıtı gönder",
+      "cancelReply": "Geri",
+      "size": "{size} / {limit}",
+      "tooLarge": "{limit} sınırını aşıyor.",
+      "getApp": "Büyük dosyalar için uygulamayı kullanın",
+      "empty": "Önce metin veya dosya ekleyin.",
+      "dropHint": "Eklemek için bırakın",
+      "autoCopy": "Bir şey geldiğinde panoya kopyala",
+      "tooMany": "{max} öğeden fazla. Bazılarını kaldırın veya tek bir dosyada sıkıştırın."
+    },
+    "preparing": {
+      "title": "Güvenli bağlantı hazırlanıyor…",
+      "loading": "Güvenli bağlantı yükleniyor · %{percent}",
+      "loadingUnknown": "Güvenli bağlantı yükleniyor…",
+      "relay": "Aktarıcıya bağlanılıyor…"
+    },
+    "ready": {
+      "title": "Bunu diğer cihazınızda açın.",
+      "scan": "Diğer cihazın kamerasıyla tarayın veya bağlantıyı ona gönderin.",
+      "qrLabel": "Bağlantı adresinin QR kodu",
+      "copyLink": "Bağlantıyı kopyala",
+      "linkCopied": "Bağlantı kopyalandı",
+      "shareLink": "Bağlantıyı paylaş",
+      "note": "Bağlantı yalnızca bir kez çalışır. Sonraki gönderimde yeni bir bağlantı oluşur.",
+      "waiting": "Bekleniyor · bu sekmeyi açık tutun",
+      "cancel": "İptal"
+    },
+    "code": {
+      "haveCode": "Kodunuz var mı?",
+      "inputLabel": "6 haneli kod",
+      "receive": "Al",
+      "checking": "Kontrol ediliyor…",
+      "startTitle": "Diğer cihazınızdaki kodu girin.",
+      "sendInstead": "Bunun yerine bir şey gönder",
+      "scanOrEnter": "Tarayın veya bu kodu girin",
+      "expiresIn": "<time>{remaining}</time> içinde sona erer",
+      "oneUse": "Tek kullanımlık",
+      "refreshing": "Yeni kod alınıyor…",
+      "unavailable": "Şu anda kod alınamıyor",
+      "tryAgain": "Tekrar dene",
+      "noteReady": "Bu kodun süresi dolduğunda veya kullanıldığında otomatik olarak yeni bir kod görünür.",
+      "noteRefreshing": "Yeni kod yüklenirken QR kod ve bağlantı çalışmaya devam eder.",
+      "noteUnavailable": "QR kodu taramak veya bağlantıyı açmak yine çalışır. Bunlar için kod gerekmez.",
+      "sendingNote": "Bitene kadar bu sekmeyi açık tutun. Sonraki gönderimde yeni bir kod oluşur.",
+      "errors": {
+        "incomplete": "6 hanenin tamamını girin.",
+        "expired": "Bu kodun süresi doldu veya kod zaten kullanıldı. Yeni bir kod isteyin.",
+        "invalid": "Bu geçerli bir kod değil. Rakamları kontrol edip tekrar deneyin.",
+        "rate-limited": "Çok fazla deneme yapıldı. Bir dakika bekleyip tekrar deneyin.",
+        "unavailable": "Kodlar şu anda kontrol edilemiyor. Gönderenden bağlantıyı veya QR kodu isteyin."
+      }
+    },
+    "sending": {
+      "title": "Diğer cihaza gönderiliyor…",
+      "replyTitle": "Yanıtınız gönderiliyor…",
+      "note": "Bitene kadar bu sekmeyi açık tutun.",
+      "cancel": "İptal"
+    },
+    "delivered": {
+      "title": "Teslim edildi",
+      "replyHint": "Bu sekme açık kaldığı sürece diğer cihaz yanıt verebilir.",
+      "replyIncoming": "Yanıt geliyor · {done} / {total}",
+      "replyFrom": "Diğer cihazdan gelen yanıt",
+      "replyFailed": "Yanıt ulaşmadı.",
+      "sendNew": "Yeni bir şey gönder",
+      "replyDeliveredTitle": "Yanıt teslim edildi"
+    },
+    "receiving": {
+      "connecting": "Bağlanılıyor…",
+      "connectingHint": "Şifreli bir aktarıcı üzerinden gönderene ulaşılıyor.",
+      "title": "Alınıyor…",
+      "progress": "{done} / {total}",
+      "cancel": "İptal"
+    },
+    "received": {
+      "title": "Alındı",
+      "copyText": "Metni kopyala",
+      "copyImage": "Görseli kopyala",
+      "copied": "Panoya kopyalandı",
+      "copyFailed": "Otomatik olarak kopyalanamadı. Bunun yerine düğmeyi kullanın.",
+      "save": "Kaydet",
+      "saveName": "{name} dosyasını kaydet",
+      "reply": "Yanıtla",
+      "imagePreview": "Alınan görselin önizlemesi",
+      "text": "Metin"
+    },
+    "summary": {
+      "text": "Metin",
+      "images": "{count, plural, one {# görsel} other {# görsel}}",
+      "files": "{count, plural, one {# dosya} other {# dosya}}"
+    },
+    "errors": {
+      "title": "Bir sorun oluştu",
+      "busy": "Bu bağlantı zaten kullanıldı. Yeni bir bağlantı isteyin.",
+      "connect-failed": "Bağlanılamadı. Gönderenden sayfasını açık tutmasını isteyip tekrar deneyin.",
+      "peer-cancelled": "Diğer cihaz aktarımı iptal etti.",
+      "connection-lost": "Aktarım bitmeden bağlantı koptu. Tekrar deneyin.",
+      "timeout": "Diğer cihaz yanıt vermeyi bıraktı. Tekrar deneyin.",
+      "integrity": "İçerik bozuk geldi ve silindi. Tekrar deneyin.",
+      "too-large": "20 MB sınırını aşıyor. Büyük dosyalar için uygulamayı kullanın.",
+      "rejected": "Diğer cihaz aktarımı reddetti.",
+      "protocol": "Aktarım başarısız oldu. Tekrar deneyin.",
+      "invalid-link": "Bu bağlantı eksik. Yeni bir bağlantı isteyin.",
+      "listen-failed": "Aktarıcıya ulaşılamadı. Birazdan tekrar deneyin.",
+      "load-failed": "Güvenli bağlantı yüklenemedi. Ağınızı kontrol edip tekrar deneyin.",
+      "unsupported": "Bu tarayıcı demoyu çalıştıramıyor. Güncel bir Chrome, Edge, Firefox veya Safari deneyin.",
+      "tryAgain": "Tekrar dene",
+      "startOver": "Baştan başla"
+    },
+    "footer": {
+      "demo": "tailcat tabanlı web demosu",
+      "e2e": "herkese açık aktarıcılar üzerinden uçtan uca şifreli",
+      "notApp": "UniClipboard uygulamalarından bağımsızdır",
+      "getApp": "Uygulamayı edinin",
+      "forSync": "(sürekli eşitleme için)",
+      "license": "tailcat lisansı (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Web aktarımı · uçtan uca şifreli",
+      "languageSearch": "Dil ara",
+      "languageSuggested": "Tarayıcınızdan",
+      "languageAll": "Tüm diller",
+      "languageEmpty": "Eşleşen dil yok",
+      "languageClose": "Dil listesini kapat"
+    }
+  },
+  "nav": {
+    "language": "Dil",
+    "theme": "Tema",
+    "themeSystem": "Sistem",
+    "themeLight": "Açık",
+    "themeDark": "Koyu"
+  }
+}

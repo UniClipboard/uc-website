@@ -129,9 +129,10 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
 export const config = {
   matcher: [
     // Pages: run intl middleware everywhere except Next internals, the docs
-    // proxy, files with extensions, and ALL API routes (added `api` to the
-    // negative lookahead — API routes don't need locale routing).
-    "/((?!api|_next|_vercel|docs|.*\\..*).*)",
+    // proxy, files with extensions, ALL API routes (API routes don't need
+    // locale routing), and the root `apple-icon` metadata route, which intl
+    // rewriting would turn into a 404 at `/en/apple-icon`.
+    "/((?!api|_next|_vercel|docs|apple-icon|.*\\..*).*)",
     // Only admin APIs need Clerk auth in middleware. Other API routes
     // (v1, cron, sponsor-avatar, sponsor-invite) authenticate inside their
     // own handlers, so skip the middleware invocation entirely for them.

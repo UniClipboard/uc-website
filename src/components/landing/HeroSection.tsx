@@ -1,7 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
-import { isChinaIp } from "@/lib/geo/country";
 import {
   getAndroidPrimaryDownloadUrl,
   getAndroidRelease,
@@ -24,9 +23,10 @@ export async function HeroSection({ stars }: Props) {
   const locale = await getLocale();
   const t = await getTranslations("landing.hero");
   const tDl = await getTranslations("landing.download");
-  const defaultVideoSource: HeroVideoSource = (await isChinaIp())
-    ? "bilibili"
-    : "youtube";
+  // Keep the page static: choose a locale default, with the existing player
+  // controls available to switch sources. Request geolocation forces SSR.
+  const defaultVideoSource: HeroVideoSource =
+    locale === "zh" ? "bilibili" : "youtube";
   const androidRelease = await getAndroidRelease();
 
   const downloadLabels = {

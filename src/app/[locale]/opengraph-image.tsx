@@ -1,3 +1,4 @@
+import { Renderer } from "@takumi-rs/core";
 import { getTranslations } from "next-intl/server";
 import { ImageResponse } from "takumi-js/response";
 
@@ -26,6 +27,11 @@ export default async function Image({ params }: Params) {
 
   const fonts = await loadOgFonts(locale, `${eyebrow}${title}${subtitle}`);
 
+  // Each card has text-subset fonts. A shared renderer caches by family and
+  // weight, which can reuse another locale's glyph subset during static builds.
+  const renderer = new Renderer();
+  await renderer.loadFonts(fonts);
+
   return new ImageResponse(
     <OgFrame
       eyebrow={eyebrow}
@@ -33,6 +39,6 @@ export default async function Image({ params }: Params) {
       subtitle={subtitle}
       locale={locale}
     />,
-    { ...OG_SIZE, fonts },
+    { ...OG_SIZE, renderer },
   );
 }

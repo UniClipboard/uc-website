@@ -99,7 +99,7 @@ export function HeroVideo({
               openModal();
             }}
             aria-label={openLabel}
-            className="pointer-events-auto inline-flex cursor-pointer items-center gap-2.5 rounded-full pr-5 pl-4 transition-transform duration-300"
+            className="pointer-events-auto inline-flex cursor-pointer items-center gap-2.5 rounded-full ps-4 pe-5 transition-transform duration-300"
             style={{
               height: 48,
               background: "rgba(255,255,255,0.96)",
@@ -122,7 +122,7 @@ export function HeroVideo({
                 size={11}
                 fill="#fff"
                 stroke="#fff"
-                style={{ marginLeft: 1 }}
+                style={{ marginInlineStart: 1 }}
               />
             </span>
             {playLabel}

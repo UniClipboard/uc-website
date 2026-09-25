@@ -7,8 +7,9 @@ import {
 import createIntlMiddleware from "next-intl/middleware";
 
 import { routing } from "./i18n/routing";
+import { isArticleLocale } from "./lib/article-content";
 import { acceptsMarkdown } from "./lib/markdown-negotiation";
-import { trySiteUrl } from "./lib/try-site";
+import { tryPathFor, trySiteUrl } from "./lib/try-site";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -92,15 +93,24 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
   // Location deliberately has no hash: browsers inherit the original fragment.
   // Unlike next.config redirects, this response keeps explicit privacy/cache
   // headers, and a temporary 307 permits immediate production rollback.
-  const legacyTry = path.match(/^\/(?:(en|zh|ru)\/)?try\/?$/);
+  const legacyTry = path.match(new RegExp(`^/(?:(${LOCALE_ALT})/)?try/?$`));
   if (trySiteUrl && legacyTry) {
-    const locale = legacyTry[1] || "en";
-    const target = new URL(locale === "en" ? "/" : `/${locale}`, trySiteUrl);
+    const target = new URL(tryPathFor(legacyTry[1] || "en"), trySiteUrl);
     target.search = req.nextUrl.search;
     const response = NextResponse.redirect(target, 307);
     response.headers.set("cache-control", "no-store");
     response.headers.set("referrer-policy", "no-referrer");
     return response;
+  }
+  // An untranslated article should lead to its language-availability hub,
+  // before streaming can turn notFound() into a misleading 200 response.
+  const article = path.match(
+    new RegExp(`^/(${LOCALE_ALT})/(blog|compare|use-cases)/[^/]+/?$`),
+  );
+  if (article && !isArticleLocale(article[1])) {
+    const target = req.nextUrl.clone();
+    target.pathname = `/${article[1]}/${article[2]}`;
+    return NextResponse.redirect(target, 307);
   }
   if (isAdminRoute(path)) {
     return adminMiddleware(req, event);

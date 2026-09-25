@@ -123,7 +123,11 @@ const RootLayout = async ({
   );
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={metaFor(locale).inLanguage}
+      dir={metaFor(locale).dir}
+      suppressHydrationWarning
+    >
       <body className={cn("min-h-screen font-sans", fontsFor(locale))}>
         {process.env.NODE_ENV === "development" && (
           <Script src="/react-grab.global.js" strategy="lazyOnload" />

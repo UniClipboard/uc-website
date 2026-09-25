@@ -202,7 +202,7 @@ export async function ComparisonSection() {
                 <tr className="border-border bg-bg2 border-b">
                   <th
                     scope="col"
-                    className="text-muted2 px-5 py-4 text-left"
+                    className="text-muted2 px-5 py-4 text-start"
                     style={{
                       fontFamily: "var(--font-mono)",
                       fontSize: 10,
@@ -233,7 +233,7 @@ export async function ComparisonSection() {
                   >
                     <th
                       scope="row"
-                      className="text-foreground px-5 py-4 text-left"
+                      className="text-foreground px-5 py-4 text-start"
                       style={{
                         fontSize: 14,
                         fontWeight: 500,
@@ -293,7 +293,8 @@ export async function ComparisonSection() {
                       fontSize: 10.5,
                       fontWeight: isUC ? 600 : 500,
                       letterSpacing: "0.02em",
-                      borderLeft: idx === 0 ? "none" : "1px solid var(--hair2)",
+                      borderInlineStart:
+                        idx === 0 ? "none" : "1px solid var(--hair2)",
                     }}
                   >
                     {toolLabelsShort[tool]}
@@ -329,7 +330,7 @@ export async function ComparisonSection() {
                       className="flex items-center justify-center py-2.5"
                       style={{
                         background: isUC ? "var(--bg2)" : "transparent",
-                        borderLeft:
+                        borderInlineStart:
                           idx === 0 ? "none" : "1px solid var(--hair2)",
                       }}
                       aria-label={row.cells[tool]}
@@ -368,7 +369,7 @@ function ToolHeader({
   return (
     <th
       scope="col"
-      className="px-5 py-4 text-left"
+      className="px-5 py-4 text-start"
       style={{
         background: highlight ? "var(--foreground)" : "transparent",
         color: highlight ? "var(--background)" : "var(--foreground)",

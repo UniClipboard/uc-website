@@ -9,7 +9,6 @@ import {
   DownloadButtons,
   SectionSummaryRow,
 } from "@/components/changelog/sections";
-import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { getAllReleases, type ReleaseRecord } from "@/db/releases";
@@ -122,6 +121,10 @@ export async function generateMetadata({
 
 export default async function ChangelogPage({ params }: LocaleParam) {
   const { locale } = await params;
+  const language = await getTranslations({
+    locale,
+    namespace: "languagePicker",
+  });
   const t = await getTranslations({ locale, namespace: "changelogHub" });
 
   // Lazy refresh in the background — never blocks rendering.
@@ -189,16 +192,21 @@ export default async function ChangelogPage({ params }: LocaleParam) {
       <main>
         <section className="border-border bg-background border-b pt-28 pb-14 md:pt-36 md:pb-20">
           <div className="landing-shell">
+            {locale !== "en" && locale !== "zh" && (
+              <p className="text-muted-foreground mb-6 text-sm" role="note">
+                {language("notesAvailability")}
+              </p>
+            )}
             <BreadcrumbBar
               items={[
                 { label: t("breadcrumbHome"), href: "/" },
                 { label: t("breadcrumbCurrent") },
               ]}
             />
-            <AnimateIn variant="fade-in" duration={0.5}>
+            <div>
               <p className="landing-kicker">{t("eyebrow")}</p>
-            </AnimateIn>
-            <AnimateIn delay={0.05} duration={0.6}>
+            </div>
+            <div>
               <h1
                 className="text-foreground mt-3.5 mb-5"
                 style={{
@@ -212,17 +220,17 @@ export default async function ChangelogPage({ params }: LocaleParam) {
               >
                 {t("title")}
               </h1>
-            </AnimateIn>
-            <AnimateIn delay={0.1} duration={0.5}>
+            </div>
+            <div>
               <p
                 className="text-muted-foreground"
                 style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 720 }}
               >
                 {t("subtitle")}
               </p>
-            </AnimateIn>
+            </div>
             {latest && (
-              <AnimateIn delay={0.18} duration={0.5}>
+              <div>
                 <div className="border-border bg-bg2/50 mt-9 flex flex-col gap-5 rounded-[14px] border p-6 md:flex-row md:items-center md:justify-between md:p-7">
                   <div>
                     <p
@@ -256,7 +264,7 @@ export default async function ChangelogPage({ params }: LocaleParam) {
                     label={t("downloadLabel")}
                   />
                 </div>
-              </AnimateIn>
+              </div>
             )}
           </div>
         </section>
@@ -350,6 +358,8 @@ export default async function ChangelogPage({ params }: LocaleParam) {
                         )}
                         {rendered?.html && (
                           <div
+                            lang={locale === "zh" ? "zh-CN" : "en"}
+                            dir="ltr"
                             className={changelogProseClasses}
                             dangerouslySetInnerHTML={{ __html: rendered.html }}
                           />

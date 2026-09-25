@@ -182,7 +182,7 @@ function TabBar({
             role="tab"
             aria-selected={isActive}
             onClick={() => onSelect(b.os)}
-            className="group/tab relative flex shrink-0 cursor-pointer items-center gap-2.5 px-5 py-4 text-left transition-colors hover:bg-[var(--bg2)]/50"
+            className="group/tab relative flex shrink-0 cursor-pointer items-center gap-2.5 px-5 py-4 text-start transition-colors hover:bg-[var(--bg2)]/50"
             style={{
               color: isActive ? "var(--foreground)" : "var(--muted)",
               fontSize: 14,
@@ -378,7 +378,7 @@ function Panel({
                 letterSpacing: "0.04em",
               }}
             >
-              {labels.versionPrefix} v{footerVersion}
+              {labels.versionPrefix} <bdi dir="ltr">v{footerVersion}</bdi>
             </span>
           ) : (
             <span />

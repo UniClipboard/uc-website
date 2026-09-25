@@ -1,0 +1,868 @@
+{
+  "seo": {
+    "title": "UniClipboard | مزامنة مشفّرة للحافظة بين الأجهزة",
+    "titleTemplate": "%s | UniClipboard",
+    "description": "زامن الحافظة بين Mac وWindows وLinux وiPhone وAndroid. مفتوح المصدر ومشفّر من طرف إلى طرف، بلا حساب سحابي أو خادم تديره بنفسك.",
+    "softwareDescription": "حافظة شاملة مجانية ومفتوحة المصدر ومشفّرة من طرف إلى طرف لأنظمة macOS وWindows وLinux وiOS وAndroid. انسخ على جهاز والصق على آخر، بلا حساب أو خادم.",
+    "keywords": "UniClipboard, حافظة شاملة, مزامنة الحافظة, حافظة متعددة المنصات, حافظة Mac Windows, مزامنة حافظة Linux, حافظة iPhone, حافظة Android, مزامنة الهاتف, حافظة مفتوحة المصدر, تشفير من طرف إلى طرف, بديل حافظة iCloud الشاملة, مدير الحافظة, النسخ واللصق بين الأجهزة",
+    "ogAlt": "UniClipboard — حافظة واحدة لكل أجهزتك"
+  },
+  "og": {
+    "home": {
+      "eyebrow": "حافظة شاملة",
+      "title": "حافظة واحدة. لكل أجهزتك.",
+      "subtitle": "مفتوح المصدر ومشفّر من طرف إلى طرف. Mac وWindows وLinux وiPhone وAndroid.",
+      "alt": "UniClipboard — حافظة واحدة لكل أجهزتك"
+    },
+    "download": {
+      "eyebrow": "تنزيل",
+      "title": "احصل على UniClipboard لكل منصة",
+      "subtitle": "ملفات تثبيت موقّعة وHomebrew وSnap. مجاني ومفتوح المصدر.",
+      "alt": "تنزيل UniClipboard لأنظمة Mac وWindows وLinux"
+    },
+    "blog": {
+      "eyebrow": "المدونة",
+      "subtitle": "UniClipboard",
+      "alt": "مقال في مدونة UniClipboard"
+    }
+  },
+  "landing": {
+    "navigation": {
+      "blog": "المدونة",
+      "compare": "المقارنات",
+      "useCases": "حالات الاستخدام",
+      "docs": "التوثيق",
+      "changelog": "سجل التغييرات",
+      "download": "تثبيت",
+      "github": "GitHub",
+      "menu": "القائمة",
+      "menuClose": "إغلاق القائمة",
+      "language": "اللغة",
+      "theme": "المظهر",
+      "themeSystem": "النظام",
+      "themeLight": "فاتح",
+      "themeDark": "داكن",
+      "sponsor": "ادعم المشروع",
+      "try": "جرّب عبر المتصفح"
+    },
+    "hero": {
+      "eyebrow": "مفتوح المصدر · تشفير من طرف إلى طرف · 5 منصات · بلا حساب",
+      "title": "حافظة واحدة.",
+      "titleLine2": "لكل أجهزتك.",
+      "description": "UniClipboard حافظة مفتوحة المصدر ومشفرة من طرف إلى طرف، تزامن النصوص والصور والملفات بين Mac وWindows وLinux وiPhone وAndroid. دون حساب سحابي أو خادم وسيط.",
+      "descriptionMobile": "حافظة واحدة لكل أجهزتك. مفتوحة المصدر، ومشفرة من طرف إلى طرف، ولا تتطلب حسابًا.",
+      "mobileBadge": "كيف يعمل على هاتفي؟ →",
+      "mobileBadgeIOS": "انضم إلى نسخة iOS التجريبية على TestFlight →",
+      "mobileBadgeAndroid": "تنزيل Android",
+      "secondaryCta": "الورقة التقنية",
+      "starsSuffix": "على GitHub",
+      "starsFallback": "GitHub",
+      "free": "مجاني ومفتوح المصدر",
+      "e2e": "تشفير من طرف إلى طرف",
+      "videoLabel": "uniclipboard — demo.mp4",
+      "videoPlay": "تشغيل العرض",
+      "videoPause": "إيقاف مؤقت",
+      "videoDuration": "00:60",
+      "videoSeek": "موضع التشغيل",
+      "videoOpen": "مشاهدة العرض",
+      "videoClose": "إغلاق الفيديو",
+      "videoSourceYoutube": "YouTube",
+      "videoSourceBilibili": "Bilibili",
+      "videoFallbackHint": "المشغّل المضمّن غير متاح — تُشغّل النسخة المحلية.",
+      "tryCta": "جرّبه في متصفحك →"
+    },
+    "features": {
+      "eyebrow": "المزايا",
+      "title": "حافظة نظامك — تعمل الآن عبر المنصات، مع البحث والتشفير من طرف إلى طرف.",
+      "moreEyebrow": "المزيد",
+      "moreTitle": "مزايا أخرى قد تحتاجها.",
+      "h1": {
+        "eyebrow": "02 — الخصوصية أولًا",
+        "title": "لا يرى خادم الترحيل سوى النص المشفر.",
+        "lede": "يُشفّر المحتوى عند المصدر ولا يُفك تشفيره إلا على أجهزتك. تبقى المفاتيح في مخزن مفاتيح النظام ولا تغادر جهازك. الشفرة مفتوحة ويمكن تدقيقها.",
+        "b1Title": "تشفير من طرف إلى طرف",
+        "b1Desc": "XChaCha20-Poly1305 AEAD — تشفير أثناء النقل والتخزين.",
+        "b2Title": "بلا حساب سحابي",
+        "b2Desc": "لا بريد إلكتروني ولا رقم هاتف — مجرد جهازين يتبادلان مفتاحًا عامًا.",
+        "b3Title": "شفرة قابلة للتدقيق",
+        "b3Desc": "مفتوح المصدر بترخيص AGPL-3.0. اقرأ آلية التشفير وتحقق منها بنفسك."
+      },
+      "h2": {
+        "eyebrow": "01 — خمس منصات",
+        "title": "انسخ مرة، والصق على المنصات الخمس.",
+        "lede": "ثلاث منصات مكتبية مبنية على Rust + Tauri. نسخة iOS تجريبية عامة على TestFlight وتطبيق Android أصلي متاح. اتصال P2P على شبكة Wi-Fi نفسها، واجتياز NAT بين الشبكات، ووضع للشبكة المحلية فقط عند الحاجة.",
+        "b1Title": "ثلاث منصات مكتبية",
+        "b1Desc": "مبني على Rust + Tauri — بدء سريع واستهلاك منخفض، مع تكامل في شريط القوائم وعلبة النظام.",
+        "b2Title": "تطبيقان أصليان لـ iOS وAndroid",
+        "b2Desc": "نسخة iOS تجريبية عامة بدعوة مفتوحة على TestFlight؛ وAndroid متاح كملف APK موقّع للتنزيل المباشر. لا ترغب في تثبيت تطبيق أصلي؟ ما زال بروتوكول SyncClipboard المفتوح يعمل.",
+        "b3Title": "مباشر · اجتياز NAT · شبكة محلية فقط",
+        "b3Desc": "اتصال P2P على Wi-Fi نفسها، واجتياز NAT بين الشبكات، وترحيل مشفّر عند تعذر الاتصال. فعّل وضع الشبكة المحلية فقط لتعطيل الترحيل تمامًا."
+      },
+      "h3": {
+        "eyebrow": "03 — للمستخدمين المتقدمين",
+        "title": "لوحة سريعة وبحث نصي كامل وواجهة أوامر — كلها مضمّنة.",
+        "lede": "لوحة باختصار لمعاينة السجل، وبحث خلال أجزاء من الثانية بين عشرات الآلاف من العناصر، وواجهة أوامر بلا واجهة رسومية للطرفية وSSH وtmux. إمكانات أكثر مما يوحي به مظهره البسيط.",
+        "b1Title": "اللوحة السريعة",
+        "b1Desc": "لوحة تُفتح باختصار وتعرض معاينات للنصوص والروابط والصور والشفرة والملفات.",
+        "b2Title": "بحث نصي كامل محلي",
+        "b2Desc": "ابحث في السجل كله خلال أجزاء من الثانية، حتى مع عشرات الآلاف من الإدخالات. يبقى الفهرس مشفّرًا على القرص.",
+        "b3Title": "واجهة أوامر uniclip",
+        "b3Desc": "مزايا الواجهة الرسومية بأمر واحد — تعمل بلا واجهة رسومية في الطرفية وSSH والبرامج النصية ومسارات عمل tmux."
+      },
+      "more": {
+        "f1Title": "اختصارات مألوفة",
+        "f1Desc": "⌘C / Ctrl-C للنسخ و⌘V / Ctrl-V للصق — لا حاجة لتغيير عاداتك. امتداد لحافظة النظام، لا تطبيق آخر عليك تعلّم تشغيله.",
+        "f4Title": "استعادة الاتصال تلقائيًا",
+        "f4Desc": "يعيد الاتصال بعد تغيير Wi-Fi أو السكون والاستيقاظ أو الانقطاعات القصيرة. بلا إعادة اقتران.",
+        "f6Title": "نصوص وصور وملفات",
+        "f6Desc": "انسخ على جهاز والصق على آخر. تُنقل الملفات الكبيرة على دفعات متدفقة، فلا يلزم تحميلها كاملة في الذاكرة.",
+        "f5Title": "ضبط المزامنة لكل جهاز",
+        "f5Desc": "حدّد اتجاه الإرسال والاستقبال وأنواع المحتوى المسموح بها — النصوص والصور والملفات — لكل جهاز مقترن. فقدت جهازًا؟ ألغِ وصوله من أي جهاز آخر.",
+        "f7Title": "مزامنة فورية",
+        "f7Desc": "انسخ ليُرسل المحتوى فورًا — بلا تشغيل يدوي أو تأكيد. تبقى الحافظة متزامنة تلقائيًا بين جميع أجهزتك.",
+        "f9Title": "مدة حفظ سجل قابلة للتعديل",
+        "f9Desc": "30 يومًا افتراضيًا؛ اختر 7 أيام أو الاحتفاظ الدائم. امسح حسب الجهاز أو النوع، أو امسح السجل كله في أي وقت.",
+        "f10Title": "تطبيقان أصليان لـ iOS وAndroid",
+        "f10Desc": "نسخة iOS تجريبية عامة بدعوة مفتوحة على TestFlight؛ وAndroid متاح كملف APK موقّع للتنزيل المباشر. لا تريد تطبيقًا أصليًا؟ ما زال بروتوكول SyncClipboard المفتوح يعمل عبر اختصارات iPhone وعملاء Android.",
+        "f11Title": "التنسيق محفوظ",
+        "f11Desc": "تعود النصوص المنسّقة وHTML بتنسيقها الأصلي، لا كنص عادي، وتحافظ على دقتها بين المنصات: نصوص Windows المنسّقة وروابط Linux غير الإنجليزية وUTF-8 تصل كما هي.",
+        "f12Title": "حالة مزامنة واضحة",
+        "f12Desc": "يعرض كل إدخال جهازه المصدر وحالة مزامنته على كل جهاز مرتبط. ما لم يصل يمكن إعادة إرساله بلمسة واحدة.",
+        "f13Title": "على ذوقك",
+        "f13Desc": "اضبط المظهرين الفاتح والداكن بشكل مستقل، وخصّص ألوان التمييز والخلفية والنص، أو اتبع إعداد النظام."
+      }
+    },
+    "comparison": {
+      "eyebrow": "المقارنات",
+      "title": "لماذا لا أستخدم iCloud أو الاستضافة الذاتية؟",
+      "subtitle": "إذا كان أي مما يلي مهمًا لك، فقد لا تكفيك حافظة iCloud الشاملة أو الأدوات التي تتطلب تشغيل خادمك الخاص.",
+      "tools": {
+        "uc": "UniClipboard",
+        "icloud": "حافظة iCloud الشاملة",
+        "selfhost": "استضافة ذاتية، مثل ClipCascade",
+        "manager": "Paste (مدفوع · لأجهزة Apple فقط)"
+      },
+      "toolsShort": {
+        "uc": "UC",
+        "icloud": "iCloud",
+        "selfhost": "استضافة ذاتية",
+        "manager": "Paste"
+      },
+      "rows": {
+        "crossPlatform": {
+          "label": "macOS / Windows / Linux / iOS / Android",
+          "labelMobile": "متعدد المنصات",
+          "uc": "الحاسوب والهاتف، المنصات الخمس",
+          "icloud": "Apple فقط",
+          "selfhost": "بحسب الأداة",
+          "manager": "Apple فقط"
+        },
+        "e2e": {
+          "label": "تشفير E2E قابل للتدقيق",
+          "labelMobile": "تشفير وتدقيق",
+          "uc": "مفتوح المصدر",
+          "icloud": "تشفير E2E مغلق المصدر",
+          "selfhost": "بحسب الأداة",
+          "manager": "مغلق المصدر"
+        },
+        "infra": {
+          "label": "لا خادم لتديره",
+          "labelMobile": "بلا بنية تحتية",
+          "uc": "جاهز للاستخدام",
+          "icloud": "جاهز للاستخدام",
+          "selfhost": "استضافة ذاتية",
+          "manager": "جاهز للاستخدام"
+        },
+        "history": {
+          "label": "سجل قابل للبحث",
+          "labelMobile": "قابل للبحث",
+          "uc": "فهرس محلي مشفّر",
+          "icloud": "بلا سجل",
+          "selfhost": "بحسب الأداة",
+          "manager": "قابل للبحث"
+        },
+        "noAccount": {
+          "label": "بلا حساب أو بريد إلكتروني",
+          "labelMobile": "بلا حساب",
+          "uc": "اقتران بمفتاح عام",
+          "icloud": "يتطلب Apple ID",
+          "selfhost": "بحسب الأداة",
+          "manager": "يتطلب Apple ID"
+        },
+        "transport": {
+          "label": "اتصال مباشر على Wi-Fi وترحيل بين الشبكات وخيار للشبكة المحلية فقط",
+          "labelMobile": "اتصال مباشر وترحيل",
+          "uc": "P2P وترحيل · خيار شبكة محلية فقط",
+          "icloud": "عند التقارب فقط",
+          "selfhost": "عبر الخادم فقط عادةً",
+          "manager": "سحابة iCloud"
+        },
+        "price": {
+          "label": "السعر",
+          "labelMobile": "السعر",
+          "uc": "مجاني · مفتوح المصدر",
+          "icloud": "مجاني",
+          "selfhost": "مجاني + تكلفة الخادم",
+          "manager": "30 دولارًا سنويًا"
+        }
+      },
+      "footnote": "المقارنة مبنية على المعلومات العامة حتى مايو 2026. وجدت خطأ؟ افتح بلاغًا على GitHub."
+    },
+    "howItWorks": {
+      "eyebrow": "كيف يعمل",
+      "title": "اقترن مرة واحدة. ثم انسخ والصق ببساطة.",
+      "step1Title": "اقتران محلي",
+      "step1Desc": "تتبادل الأجهزة مفتاحًا عامًا مرة واحدة محليًا — بلا حساب سحابي أو بريد إلكتروني. أنشئ رمز دعوة قصير الصلاحية على أحد الأجهزة، ثم ينضم الجهاز الجديد بالرمز وعبارة مرور المساحة.",
+      "step2Title": "نقل مشفّر",
+      "step2Desc": "يُشفّر المحتوى عند المصدر. يمر النص المشفّر باتصال P2P مباشر على Wi-Fi نفسها أو عبر اجتياز NAT. عند تعذر الاتصال المباشر، يُستخدم ترحيل مشفّر. حتى خادم الترحيل الخبيث لا يرى إلا نصًا مشفّرًا.",
+      "step3Title": "فك تشفير وتخزين محليان",
+      "step3Desc": "لا يُفك التشفير إلا على أجهزتك. يُشفّر السجل المحلي وفهرس البحث عند التخزين. وتتعافى الاتصالات تلقائيًا بعد تغيير Wi-Fi أو السكون والاستيقاظ أو الانقطاعات القصيرة."
+    },
+    "download": {
+      "eyebrow": "تنزيل أحدث إصدار",
+      "title": "اختر منصتك.",
+      "description": "اكتشفنا منصتك؛ يمكنك اختيار غيرها أدناه عند الحاجة. يوضح كل ملف تثبيت متطلبات نظام التشغيل مسبقًا.",
+      "descriptionMobile": "يستخدم iPhone خدمة TestFlight، ويُثبّت Android ملف APK مباشرة، وتتوفر ملفات تثبيت موقّعة لأنظمة Mac وWindows وLinux.",
+      "mobileAndroidAllArchs": "عرض كل المعماريات",
+      "mobileDesktopPlatforms": "Mac · Windows · Linux",
+      "mobileDesktopHint": "ملفات التثبيت المكتبية تعمل على الحاسوب. أرسل الرابط إلى حاسوبك وتابع هناك.",
+      "versionLabel": "الإصدار",
+      "publishedLabel": "تاريخ النشر",
+      "channelLabel": "القناة",
+      "channelStable": "مستقر",
+      "openRelease": "فتح أحدث إصدار",
+      "shareLinkIdle": "إرسال الرابط إلى الحاسوب",
+      "shareLinkCopied": "نُسخ الرابط",
+      "shareLinkTitle": "UniClipboard — حافظة شاملة",
+      "fallback": "كل الإصدارات",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "downloadAction": "تنزيل",
+      "recommended": "موصى به",
+      "noDownloads": "لا تتوفر تنزيلات بعد.",
+      "degradedNotice": "تفاصيل الإصدار غير متاحة مؤقتًا.",
+      "metadataUnavailable": "البيانات الوصفية غير متاحة",
+      "unavailableValue": "غير متاح",
+      "ctaPrimaryGeneric": "نزّل الآن",
+      "ctaPrimaryWith": "تنزيل لمنصة",
+      "ctaOtherPlatforms": "منصات أخرى",
+      "ctaLinuxX64": "Linux · x64",
+      "ctaLinuxArm": "Linux · ARM64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "iosBetaBadge": "نسخة تجريبية عامة · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk"
+    },
+    "faq": {
+      "eyebrow": "أسئلة شائعة",
+      "title": "ما قد ترغب في معرفته.",
+      "docsHelpLede": "لم تجد إجابتك هنا؟",
+      "docsHelpCta": "اقرأ التوثيق →",
+      "item1": {
+        "q": "لماذا لا أكتفي بحافظة iCloud الشاملة؟",
+        "a": "إذا كنت تستخدم أجهزة Apple فقط، ولا تحتاج إلى سجل، وتثق تمامًا في تشفير Apple المغلق المصدر من طرف إلى طرف، فإن iCloud مناسب. لكن عند إضافة جهاز Windows أو Linux، أو الرغبة في سجل قابل للبحث، أو التحقق من التشفير بنفسك، ستحتاج إلى حل آخر."
+      },
+      "item2": {
+        "q": "لماذا لا أستخدم مزامنة باستضافة ذاتية مثل ClipCascade؟",
+        "a": "الاستضافة الذاتية تعني تشغيل خادم. يعمل UniClipboard فورًا: اتصال P2P مباشر أولًا وترحيل مشفّر كخيار احتياطي فقط. لا تحتاج إلى تشغيل أي بنية تحتية."
+      },
+      "item3": {
+        "q": "هل يعمل دون إنترنت تمامًا أو على الشبكة المحلية فقط؟",
+        "a": "نعم. تتصل الأجهزة على Wi-Fi نفسها مباشرة دون ترحيل. ويوجد وضع للشبكة المحلية فقط في إعدادات الشبكة، يقصر جميع الأجهزة المقترنة على الاكتشاف المحلي والاتصالات المباشرة. يُعطّل الترحيل والخدمات العامة الأخرى تمامًا ما دام هذا الوضع مفعّلًا."
+      },
+      "item4": {
+        "q": "أين يُحفظ سجل الحافظة فعلًا؟",
+        "a": "على أجهزتك فقط. يُشفّر التخزين المحلي بمفتاح لا يغادر مخزن مفاتيح النظام أبدًا. لا يستقبل أي خادم UniClipboard محتوى حافظتك أو يخزنه."
+      },
+      "item5": {
+        "q": "هل تدعمون الهواتف بنظامي iOS وAndroid؟",
+        "a": "نعم، بتطبيقين أصليين. iOS في نسخة تجريبية عامة بدعوة مفتوحة على TestFlight، وAndroid متاح كملف APK موقّع للتنزيل المباشر، وكلاهما في صفحة التنزيل. لا ترغب في تطبيق أصلي؟ ما زال بروتوكول SyncClipboard المفتوح (github.com/Jeric-X/SyncClipboard، MIT) مدعومًا: على iPhone عبر تطبيق الاختصارات بإعداد قصير من الحاسوب، وعلى Android عبر أي عميل SyncClipboard. بلا حساب سحابي، ويبقى المحتوى على الشبكة المحلية.",
+        "downloadCta": "احصل على نسخة iOS التجريبية وAPK Android من صفحة التنزيل →"
+      },
+      "item6": {
+        "q": "هل يؤثر ترخيص AGPL-3.0 على استخدامه داخل شركة؟",
+        "a": "لا. ينطبق AGPL إذا عدّلت الشفرة المصدرية ثم أعدت توزيعها كخدمة شبكية. التثبيت للاستخدام الشخصي أو للفريق لا يختلف عن أي تطبيق مجاني آخر، ولا يلزمك نشر شفرة شركتك."
+      },
+      "item7": {
+        "q": "ما الفرق عن KDE Connect أو Mouse Without Borders؟",
+        "a": "KDE Connect وMouse Without Borders أداتان ممتازتان من نمط KVM، وتشاركان أيضًا الفأرة ولوحة المفاتيح والملفات والإشعارات، وتتطلبان عادةً الشبكة المحلية نفسها أو إضافة Tailscale. يركز UniClipboard على الحافظة وحدها، ويعمل عبر الإنترنت بلا VPN، ويشمل سجلًا قابلًا للبحث. إذا أردت النسخ هنا واللصق هناك دون مشاركة بقية الأشياء، فهو مناسب لك."
+      },
+      "item8": {
+        "q": "هل يمكنني استضافته بنفسي أو تشغيل خادمي أو خادم الترحيل الخاص بي؟",
+        "a": "لست مضطرًا لذلك. يستخدم UniClipboard الاتصال بين الأقران افتراضيًا، ولا يلجأ إلى الترحيل المشفّر إلا عند فشل الاتصال المباشر، فلا يوجد ما تديره. لكن تتوفر خيارات متقدمة: خادم ترحيل خاص مع اختبار اتصال مضمّن، وتشغيل UniClipboard كعقدة خادم بلا واجهة مع إعدادات Docker وCaddy لخادم VPS، وإتاحة مزامنة الهاتف عبر عنوان URL عام على خادمك أو وكيل آمن."
+      }
+    },
+    "finalCta": {
+      "title": "برمج واكتب وصمّم — والصق أينما أردت.",
+      "subtitle": "مجاني ومفتوح المصدر ومشفّر من طرف إلى طرف. ثبّته مرة على كل جهاز، وسترافقك حافظتك.",
+      "primary": "تنزيل UniClipboard",
+      "secondary": "عرض المصدر على GitHub",
+      "platformsLine": "macOS · Windows · Linux · iOS · Android",
+      "versionPrefix": "الأحدث"
+    },
+    "footer": {
+      "thanksTitle": "شكرًا",
+      "thanksDesc": "مزامنة الحافظة بين الأجهزة — بتشفير من طرف إلى طرف وشفرة مفتوحة قابلة للتدقيق. ينتقل المحتوى بين أجهزتك دون حساب سحابي في الوسط.",
+      "linksTitle": "روابط",
+      "repo": "المستودع",
+      "issues": "البلاغات",
+      "releases": "الإصدارات",
+      "docs": "التوثيق",
+      "stackTitle": "بُني باستخدام",
+      "contactTitle": "تواصل",
+      "twitter": "X · @uniclipboard",
+      "authorTwitter": "X · @mkdir700",
+      "bilibili": "Bilibili · @mkdir700",
+      "email": "hello@uniclipboard.app",
+      "copyright": "© 2026 mkdir700",
+      "rustNote": "صُنع باستخدام Rust 🦀 · AGPL-3.0",
+      "sponsor": "ادعم المشروع"
+    },
+    "sponsor": {
+      "seoTitle": "ادعم UniClipboard",
+      "seoDescription": "UniClipboard حافظة مجانية ومفتوحة المصدر تعمل على جميع أجهزتك. إذا كانت تفيدك، فإن دعمك يساعدها على الاستمرار في التحسن.",
+      "seoKeywords": "دعم UniClipboard, دعم المصدر المفتوح, التبرع للمطور, تمويل المشاريع المفتوحة, afdian",
+      "ogAlt": "ادعم UniClipboard",
+      "hero": {
+        "eyebrow": "ادعم المشروع",
+        "title": "الأدوات الجيدة تستحق",
+        "titleLine2": "أن تبقى جيدة.",
+        "description": "UniClipboard مجاني ومفتوح المصدر وبلا إعلانات، وسيبقى كذلك دائمًا. يطوره ويصونه شخص واحد، على خوادم أدفع تكلفتها بنفسي. إذا أصبح جزءًا من يومك، فالدعم هو الطريق الأكثر مباشرة لتحسينه: مزامنة أكثر ثباتًا وتحديثات أسرع ومزايا قادمة.",
+        "descriptionShort": "UniClipboard مجاني ومفتوح المصدر وبلا إعلانات، ويطوره شخص واحد. إذا أصبح جزءًا من يومك، فالدعم هو الطريق الأكثر مباشرة لاستمراره.",
+        "primaryCta": "كن داعمًا",
+        "secondaryCta": "أضف نجمة على GitHub",
+        "count": "{count, plural, zero {لا يوجد داعمون بعد} one {يساهم شخص واحد بالفعل} two {يساهم شخصان بالفعل} few {يساهم # أشخاص بالفعل} many {يساهم # شخصًا بالفعل} other {يساهم # شخص بالفعل}}",
+        "milestoneTarget": "الهدف: {target}"
+      },
+      "benefits": {
+        "eyebrow": "مزايا الداعمين",
+        "title": "شكر صغير في صورة مزايا",
+        "subtitle": "بلا مستويات أو حد أدنى — مهما كان دعمك، فكل هذه المزايا لك.",
+        "items": {
+          "b1": {
+            "title": "اسمك هنا",
+            "desc": "يظهر اسمك على لوحة الداعمين أدناه ويبقى فيها — شكر علني يدوم."
+          },
+          "b2": {
+            "title": "وصول Pro مجاني لك",
+            "desc": "ستبقى المزايا الأساسية مجانية دائمًا. وإذا أُطلق اشتراك أو مستوى Pro، فستحصل عليه تلقائيًا بوصفك داعمًا مبكرًا، دون تكلفة إضافية."
+          },
+          "b3": {
+            "title": "أفكارك تُسمع أولًا",
+            "desc": "تحظى طلباتك وملاحظاتك بالأولوية وتؤثر مباشرة في اتجاه المشروع."
+          },
+          "b4": {
+            "title": "تواصل مباشر معي",
+            "desc": "عند حدوث مشكلة، تواصل معي مباشرة لتحصل على رد أسرع."
+          },
+          "b5": {
+            "title": "شارة داعم",
+            "desc": "شارة صغيرة في المجتمع تُظهر أنك ساعدت في استمرار المصدر المفتوح."
+          },
+          "b6": {
+            "title": "مجاني للجميع",
+            "desc": "دعمك يبقي UniClipboard مجانيًا ومفتوح المصدر وبلا إعلانات للجميع."
+          }
+        }
+      },
+      "wall": {
+        "eyebrow": "لوحة الداعمين",
+        "title": "شكرًا لكم يا أصدقاء",
+        "subtitle": "وصل UniClipboard إلى هنا بفضلكم. وستواصل هذه القائمة النمو، اسمًا بعد اسم.",
+        "supporters": "{count, plural, zero {لا يوجد داعمون} one {داعم واحد} two {داعمان} few {# داعمين} many {# داعمًا} other {# داعم}}",
+        "goldLabel": "الداعمون الذهبيون",
+        "backerLabel": "الداعمون",
+        "sinceLabel": "منذ",
+        "viewProfile": "عرض الملف",
+        "becomeTitle": "قد تكون التالي",
+        "becomeDesc": "انضم إليهم وساعد المشروع على التقدم.",
+        "emptyTitle": "كن أول داعم",
+        "emptyDesc": "هذه اللوحة فارغة الآن، ويسعدني أن يكون اسمك أول اسم فيها."
+      },
+      "cta": {
+        "title": "ساعده على الاستمرار",
+        "subtitle": "إذا وفّر لك UniClipboard وقتًا، فإن دعمًا بسيطًا يساعد كثيرًا في إبقائه حيًا. كل مساهمة تعني لي الكثير.",
+        "primary": "ادعم الآن",
+        "secondary": "أضف نجمة على GitHub",
+        "note": "الدعم اختياري · يمكنك الإلغاء في أي وقت",
+        "claimNoteBefore": "دعمت المشروع بالفعل؟ راسل",
+        "claimNoteAfter": "للحصول على رابط ملفك في لوحة الداعمين.",
+        "claimMailSubject": "أضفني إلى لوحة داعمي UniClipboard",
+        "claimMailBody": "مرحبًا، لقد دعمت UniClipboard وأرغب في الحصول على رابط ملفي في لوحة الداعمين. /  / منصة الدعم: / اسم الداعم أو معلومات الطلب: /  / شكرًا!"
+      }
+    }
+  },
+  "downloadPage": {
+    "seoTitle": "تنزيل UniClipboard — ملفات تثبيت macOS وWindows وLinux مع Homebrew وSnap",
+    "seoDescription": "نزّل أحدث إصدار موقّع من UniClipboard لأنظمة macOS وWindows وLinux. ثبّته عبر Homebrew على Mac أو Snap على Linux أو ملف التثبيت المباشر. مجاني ومفتوح المصدر ومشفّر من طرف إلى طرف.",
+    "seoKeywords": "تنزيل uniclipboard, تثبيت uniclipboard, brew install uniclipboard, snap install uniclipboard, uniclipboard mac, uniclipboard windows, uniclipboard linux, مزامنة حافظة appimage",
+    "ogAlt": "تنزيل UniClipboard لأنظمة macOS وWindows وLinux",
+    "breadcrumbHome": "الرئيسية",
+    "breadcrumbCurrent": "تنزيل",
+    "hero": {
+      "eyebrow": "احصل على UniClipboard",
+      "title": "تنزيل UniClipboard.",
+      "subtitle": "ثبّته على كل جهاز واقرن الأجهزة مرة واحدة، وسترافقك حافظتك. اختر ملف التثبيت المناسب أو استخدم مدير حزم أدناه.",
+      "versionLabel": "أحدث إصدار مستقر",
+      "publishedLabel": "تاريخ النشر",
+      "stableTag": "مستقر",
+      "releaseUnavailable": "تفاصيل الإصدار غير متاحة مؤقتًا. تحتوي صفحة إصدارات GitHub دائمًا على ملفات التثبيت الحالية.",
+      "badgeFree": "مجاني ومفتوح المصدر",
+      "badgeEncrypted": "تشفير من طرف إلى طرف",
+      "badgeSignedMac": "موثّق من Apple على macOS",
+      "badgeSignedWin": "موقّع باستخدام Authenticode",
+      "openLatest": "فتح الإصدار على GitHub"
+    },
+    "direct": {
+      "eyebrow": "تنزيلات مباشرة",
+      "title": "اختر منصتك.",
+      "description": "كل ملف تثبيت موقّع ويبيّن الحد الأدنى لنظام التشغيل. نبرز المنصة التي نكتشفها، لكن جميع الخيارات متاحة بنقرة واحدة.",
+      "degradedNotice": "تفاصيل الإصدار غير متاحة مؤقتًا. استخدم صفحة إصدارات GitHub أدناه بدلًا منها.",
+      "noDownloads": "لا تتوفر تنزيلات بعد.",
+      "downloadsUnavailable": "تعذر تحميل روابط التثبيت الآن. نزّل UniClipboard من GitHub بدلًا من ذلك.",
+      "fallback": "كل الإصدارات على GitHub",
+      "downloadAction": "تنزيل",
+      "recommended": "مكتشف",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "iosBetaBadge": "نسخة تجريبية عامة · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk",
+      "androidHintArm64": "لهواتف Android الحديثة بمعمارية 64 بت — أفضل أداء وأصغر حجم. اختر هذا إن لم تكن متأكدًا.",
+      "androidHintArmV7": "لهواتف Android القديمة بمعمارية 32 بت فقط.",
+      "androidHintX64": "لمحاكيات Android أو الأجهزة النادرة بمعالجات Intel.",
+      "androidHintUniversal": "يجمع كل المعماريات — أكبر حجمًا، لكنه قابل للتثبيت على أي منها.",
+      "winPortableLabel": "محمول",
+      "winPortableHint": "بلا تثبيت — فك الضغط وشغّل. مناسب لوحدات USB أو الحواسيب دون صلاحيات مسؤول.",
+      "blockMacDescription": "موقّع وموثّق من Apple لنظام macOS 12 Monterey وما بعده.",
+      "blockWinDescription": "ملف تثبيت موقّع بـ Authenticode لنظامي Windows 10 و11، مع ملف .zip محمول يعمل دون تثبيت.",
+      "blockLinuxDescription": "يكتشف glibc والمعمارية تلقائيًا، ويثبّت في ~/.local.",
+      "blockIosDescription": "تطبيق iOS في نسخة تجريبية عامة على TestFlight. افتح رابط الدعوة أدناه على iPhone أو iPad.",
+      "blockAndroidDescription": "ملف APK موقّع. ثبّته مباشرة على هاتف Android حديث.",
+      "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
+      "linuxScriptSourceLabel": "اقرأ البرنامج النصي",
+      "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
+      "detectedBadge": "مكتشف",
+      "iosTestFlight": {
+        "joinCta": "انضم إلى نسخة TestFlight التجريبية",
+        "joinHint": "ثبّت تطبيق TestFlight من Apple عبر App Store أولًا إذا لم يكن لديك.",
+        "shareLabel": "تستخدم حاسوبًا؟ انسخ الرابط لهاتفك",
+        "copy": "نسخ الرابط",
+        "copied": "نُسخ"
+      }
+    },
+    "pkg": {
+      "copy": "نسخ الأمر",
+      "copied": "نُسخ"
+    },
+    "sysreq": {
+      "eyebrow": "متطلبات النظام",
+      "title": "ما تحتاجه لتشغيله.",
+      "description": "UniClipboard تطبيق مكتبي صغير. يستهلك قدرًا ضئيلًا جدًا من المعالج أثناء الخمول، ولا يستخدم الشبكة إلا عندما تنسخ شيئًا.",
+      "colPlatform": "المنصة",
+      "colMinOS": "الحد الأدنى للنظام",
+      "colArch": "المعماريات",
+      "colMemory": "الذاكرة",
+      "colDisk": "القرص",
+      "rows": [
+        {
+          "platform": "macOS",
+          "minOS": "macOS 12 Monterey أو أحدث",
+          "arch": "Apple Silicon (arm64), Intel (x86_64)",
+          "memory": "نحو 60 MB أثناء الخمول",
+          "disk": "≈ 80 MB"
+        },
+        {
+          "platform": "Windows",
+          "minOS": "Windows 10 (الإصدار 19041 أو أحدث) أو Windows 11",
+          "arch": "x86_64",
+          "memory": "نحو 70 MB أثناء الخمول",
+          "disk": "≈ 90 MB"
+        },
+        {
+          "platform": "Linux",
+          "minOS": "glibc 2.31 أو أحدث (Ubuntu 20.04 أو Debian 11 أو Fedora 35 أو ما يعادلها)، مع دعم X11 وWayland",
+          "arch": "x86_64, ARM64 (.deb / .rpm / AppImage)",
+          "memory": "نحو 65 MB أثناء الخمول",
+          "disk": "≈ 85 MB"
+        },
+        {
+          "platform": "iOS",
+          "minOS": "iOS 16 أو أحدث (نسخة TestFlight تجريبية عامة)",
+          "arch": "iPhone / iPad (Apple Silicon)",
+          "memory": "—",
+          "disk": "≈ 30 MB"
+        },
+        {
+          "platform": "Android",
+          "minOS": "Android 8.0 (API 26) أو أحدث",
+          "arch": "arm64-v8a, armeabi-v7a, x86_64, universal",
+          "memory": "—",
+          "disk": "≈ 35 MB"
+        }
+      ]
+    },
+    "verify": {
+      "eyebrow": "تحقق من التنزيل",
+      "title": "ثق، ثم تحقق.",
+      "description": "يُوقّع كل إصدار قبل نشره. يمكنك التأكد من أصالته محليًا قبل التثبيت. بعد حصولك على الملف، لا تتطلب الخطوات التالية اتصالًا بالإنترنت.",
+      "items": [
+        {
+          "platform": "macOS",
+          "body": "ملفات التثبيت موثّقة من Apple. انقر بزر الفأرة الأيمن على .dmg واختر فتح، أو نفّذ الأمر أدناه لفحص توقيع المطور.",
+          "command": "spctl -a -vvv -t install ~/Downloads/UniClipboard.dmg"
+        },
+        {
+          "platform": "Windows",
+          "body": "ملف .exe موقّع بـ Authenticode. انقر بزر الفأرة الأيمن على الملف ← الخصائص ← التواقيع الرقمية لفحص سلسلة الشهادات.",
+          "command": "Get-AuthenticodeSignature .\\UniClipboard-Setup.exe"
+        },
+        {
+          "platform": "Linux",
+          "body": "يُنشر كل ملف .deb و.rpm و.AppImage على صفحة إصدارات GitHub مع ملف توقيع .sig مطابق. نزّل التوقيع مع ملف التثبيت وتحقق منه بالمفتاح العام المنشور في README للمستودع.",
+          "command": "minisign -Vm UniClipboard_amd64.deb -P RWQ... # see README for the public key"
+        }
+      ]
+    },
+    "older": {
+      "eyebrow": "تبحث عن نسخة أقدم؟",
+      "title": "كل الإصدارات محفوظة.",
+      "description": "لا نحذف الإصدارات السابقة. تصفح سجل التغييرات أو انتقل مباشرة إلى صفحة إصدارات GitHub للحصول على ملف التثبيت المطلوب.",
+      "changelogCta": "تصفح سجل التغييرات",
+      "allReleasesCta": "كل الإصدارات على GitHub"
+    },
+    "faq": {
+      "eyebrow": "حل مشكلات التثبيت",
+      "title": "أسئلة متكررة.",
+      "items": [
+        {
+          "q": "يقول macOS إن «UniClipboard.app تالف ولا يمكن فتحه».",
+          "a": "يظهر ذلك عند تعيين سمة الحجر في Gatekeeper على الملف قبل التحقق من توثيق Apple. انقل التطبيق إلى /Applications، ثم نفّذ xattr -dr com.apple.quarantine /Applications/UniClipboard.app مرة واحدة. التحديثات اللاحقة عبر أداة التحديث داخل التطبيق لا تحتاج إلى هذه الخطوة."
+        },
+        {
+          "q": "يحذر Windows SmartScreen من «تطبيق غير معروف».",
+          "a": "إذا كان الإصدار جديدًا جدًا، فقد لا يكون SmartScreen قد كوّن سمعة لهذا الملف المحدد رغم توقيعه. اختر «مزيد من المعلومات» ثم «تشغيل على أي حال». عادةً يختفي التحذير خلال أيام مع زيادة عدد عمليات التثبيت."
+        },
+        {
+          "q": "كيف أشغّل AppImage على Linux؟",
+          "a": "بعد التنزيل، امنح الملف إذن التنفيذ بالأمر chmod +x UniClipboard-x86_64.AppImage، ثم انقر عليه مرتين أو شغّله من الطرفية. لإضافته إلى مشغّل التطبيقات، استخدم AppImageLauncher أو appimaged."
+        },
+        {
+          "q": "هل تحتاج حزمة Snap إلى --classic؟",
+          "a": "لا. تعمل بعزل قياسي، وتطلب الواجهات اللازمة فقط: network وhome وpassword-manager-service. يمكنك فحصها بالأمر snap connections uniclipboard."
+        },
+        {
+          "q": "كيف أزيل حزمة Homebrew cask؟",
+          "a": "نفّذ brew uninstall --cask uniclipboard. ولإزالة tap أيضًا، نفّذ بعدها brew untap uniclipboard/tap. لا تحذف هذه الأوامر سجل الحافظة المحلي في مجلدك الشخصي. لبداية نظيفة، احذف ~/Library/Application Support/UniClipboard."
+        }
+      ]
+    }
+  },
+  "compareHub": {
+    "seoTitle": "قارن UniClipboard — مزامنة مفتوحة المصدر مقابل iCloud وMaccy وغيرها",
+    "seoDescription": "مقارنات صريحة بين UniClipboard وأدوات إدارة الحافظة ومزامنتها التي قد تستخدمها، مثل حافظة iCloud الشاملة وMaccy. اختر الأداة المناسبة، لا أول أداة عثرت عليها.",
+    "seoKeywords": "بدائل uniclipboard, مقارنة مديري الحافظة, بديل حافظة iCloud الشاملة, بديل maccy, مقارنة مزامنة متعددة المنصات, مدير حافظة مفتوح المصدر",
+    "ogAlt": "قارن UniClipboard مع iCloud وMaccy وأدوات الحافظة الأخرى",
+    "breadcrumbHome": "الرئيسية",
+    "breadcrumbCurrent": "المقارنات",
+    "eyebrow": "المقارنات",
+    "title": "UniClipboard في المقارنة.",
+    "subtitle": "مقارنات جنبًا إلى جنب مع أدوات إدارة الحافظة ومزامنتها التي قد تعرفها. نوضح أوجه القصور ولمن تناسب كل أداة.",
+    "categoryLabel": "المقارنات",
+    "readMore": "اقرأ المقارنة",
+    "countLabel": "{count, plural, =0 {لا توجد مقارنات بعد} one {مقارنة واحدة} two {مقارنتان} few {# مقارنات} many {# مقارنة} other {# مقارنة}}",
+    "emptyState": "لم تُنشر مقارنات بعد. عد قريبًا."
+  },
+  "blogHub": {
+    "seoTitle": "مدونة UniClipboard — ملاحظات عن المزامنة والتشفير والعمل بين الأجهزة",
+    "seoDescription": "مقالات مفصلة عن آلية عمل UniClipboard وما نطلقه والموازنة بين الخيارات في مزامنة الحافظة عبر الأجهزة. للمهندسين الراغبين في التفاصيل.",
+    "seoKeywords": "مدونة uniclipboard, آلية مزامنة الحافظة, تشفير الحافظة من طرف إلى طرف, هندسة متعددة المنصات, تحديثات الحافظة المفتوحة",
+    "ogAlt": "مدونة UniClipboard — ملاحظات هندسية عن مزامنة الحافظة",
+    "breadcrumbHome": "الرئيسية",
+    "breadcrumbCurrent": "المدونة",
+    "eyebrow": "المدونة",
+    "title": "ملاحظات الفريق.",
+    "subtitle": "كيف نبني UniClipboard وما نطلقه والخيارات وراء مزامنة الحافظة بين الأجهزة — للمهندسين الراغبين في التفاصيل.",
+    "categoryLabel": "مقال",
+    "tableOfContents": "في هذه الصفحة",
+    "readMore": "اقرأ المقال",
+    "countLabel": "{count, plural, =0 {لا توجد مقالات بعد} one {مقالة واحدة} two {مقالتان} few {# مقالات} many {# مقالة} other {# مقالة}}",
+    "emptyState": "لم تُنشر مقالات بعد. عد قريبًا."
+  },
+  "changelogHub": {
+    "seoTitle": "سجل UniClipboard — كل إصدار وإصلاح وتغيير غير متوافق",
+    "seoDescription": "ما تغير في كل إصدار من UniClipboard: مزايا وإصلاحات وتغييرات غير متوافقة لأنظمة macOS وWindows وLinux. يُحدّث تلقائيًا عند كل إصدار مستقر.",
+    "seoKeywords": "سجل تغييرات uniclipboard, ملاحظات إصدارات uniclipboard, تحديثات uniclipboard, إصدارات مزامنة الحافظة, نسخ uniclipboard",
+    "ogAlt": "سجل UniClipboard — ملاحظات كل إصدار",
+    "breadcrumbHome": "الرئيسية",
+    "breadcrumbCurrent": "سجل التغييرات",
+    "eyebrow": "سجل التغييرات",
+    "title": "كل إصدار مسجّل.",
+    "subtitle": "ما أطلقناه وما أصلحناه وما تسببنا في تعطيله. تُجلب المعلومات مباشرة من موجز الإصدارات، لذا فهذه الصفحة هي المرجع.",
+    "latestLabel": "أحدث إصدار مستقر",
+    "downloadLabel": "تنزيل",
+    "downloadShort": "احصل على",
+    "permalink": "رابط دائم",
+    "viewVersion": "عرض v{version}",
+    "emptyState": "لم تُنشر إصدارات بعد. عد قريبًا.",
+    "releasedOn": "صدر في",
+    "olderRelease": "الأقدم",
+    "newerRelease": "الأحدث",
+    "backToList": "كل الإصدارات",
+    "notFoundTitle": "الإصدار غير موجود",
+    "detailSeoTitle": "UniClipboard v{version} — ملاحظات الإصدار",
+    "detailSeoDescription": "ملاحظات إصدار UniClipboard v{version} المنشور في {date}. الميزات والإصلاحات والتغييرات غير المتوافقة."
+  },
+  "useCasesHub": {
+    "seoTitle": "حالات استخدام UniClipboard — أدلة عملية للحافظة بين الأجهزة",
+    "seoDescription": "أدلة خطوة بخطوة لاستخدامات UniClipboard الفعلية: النسخ من Mac إلى Windows، والعمل مع SSH وtmux، ومشاركة حافظة مشفّرة مع زميل. مع اختصارات لوحة مفاتيح محددة.",
+    "seoKeywords": "حالات استخدام uniclipboard, دليل حافظة mac windows, حافظة ssh tmux, دليل متعدد المنصات, النسخ واللصق بين الأجهزة",
+    "ogAlt": "حالات استخدام UniClipboard — أدلة عملية بين الأجهزة",
+    "breadcrumbHome": "الرئيسية",
+    "breadcrumbCurrent": "حالات الاستخدام",
+    "eyebrow": "حالات الاستخدام",
+    "title": "كيف يستخدم الناس UniClipboard.",
+    "subtitle": "خطوات عملية لمسارات عمل حقيقية، باختصارات واضحة ومع شرح التشفير دائمًا.",
+    "categoryLabel": "حالة استخدام",
+    "readMore": "اقرأ الدليل",
+    "countLabel": "{count, plural, =0 {لا توجد أدلة بعد} one {دليل واحد} two {دليلان} few {# أدلة} many {# دليلًا} other {# دليل}}",
+    "emptyState": "لم تُنشر أدلة بعد. عد قريبًا."
+  },
+  "sponsorClaim": {
+    "title": "أكمل ملفك كداعم",
+    "subtitle": "شكرًا لدعم UniClipboard! اختر كيف تريد الظهور على لوحة الداعمين.",
+    "badgeGold": "دعوة داعم ذهبي",
+    "badgeRegular": "دعوة داعم",
+    "tierGold": "داعم ذهبي",
+    "tierRegular": "ادعم المشروع",
+    "welcomeTitle": "شكرًا لك، من القلب.",
+    "welcomeBody": "خطوات قصيرة لتترك اسمك على لوحة الداعمين — نحو دقيقة واحدة.",
+    "welcomeCta": "ابدأ",
+    "welcomeHint": "هذا رابطك الشخصي للاستخدام مرة واحدة.",
+    "stepOf": "الخطوة {current} من {total}",
+    "back": "رجوع",
+    "continue": "متابعة",
+    "stepIdentityTitle": "لنتعرف عليك",
+    "stepIdentitySubtitle": "صورتك واسمك — هكذا ستظهر على اللوحة.",
+    "stepMessageTitle": "اترك كلمة أو كلمتين",
+    "stepMessageSubtitle": "كلاهما اختياري؛ يمكنك التخطي إن شئت.",
+    "stepReviewTitle": "هذه بطاقة دعمك",
+    "stepReviewSubtitle": "راجعها ثم أرسلها. سنفحصها قريبًا.",
+    "reviewPendingNote": "نراجع الطلبات يدويًا، وستظهر على اللوحة بعد الموافقة.",
+    "errorUrl": "يجب أن يبدأ الرابط بـ http:// أو https://",
+    "viewWallCta": "عرض لوحة الداعمين",
+    "plaqueEyebrow": "لوحتك التذكارية",
+    "plaqueBody": "شكرًا لأنك أصبحت جزءًا من UniClipboard — دعمك مسجّل.",
+    "proSeatTitle": "وصولك إلى Pro محجوز",
+    "proSeatBody": "تبقى المزايا الأساسية مجانية دائمًا. عندما يُطلق مستوى Pro مدفوع، يحصل عليه الداعمون الأوائل مثلك دون تكلفة إضافية.",
+    "perksTitle": "ما تحصل عليه كداعم",
+    "perkVote": "أفكارك تُسمع أولًا",
+    "perkContact": "تواصل مباشر معي عند المشكلات",
+    "perkBadge": "شارة داعم خاصة بك",
+    "perkMission": "إبقاء UniClipboard مجانيًا ومفتوحًا وبلا إعلانات",
+    "nameLabel": "اسم العرض",
+    "namePlaceholder": "الاسم الذي سيظهر على اللوحة",
+    "githubLabel": "اسم مستخدم GitHub (اختياري)",
+    "githubHint": "اجلب اسمك وصورتك من GitHub تلقائيًا، أو أدخلهما يدويًا أدناه.",
+    "githubButton": "جلب",
+    "githubFetching": "جارٍ الجلب…",
+    "githubEmpty": "أدخل اسم مستخدم GitHub أولًا",
+    "githubFound": "تم التحميل: {name}",
+    "avatarLabel": "الصورة الشخصية",
+    "avatarHint": "ارفع صورة تُقص تلقائيًا إلى مربع 160×160، أو اتركها فارغة لعرض الأحرف الأولى من اسمك.",
+    "avatarUrlPlaceholder": "أو الصق رابط صورة",
+    "avatarRemove": "إزالة الصورة",
+    "avatarTooLarge": "الصورة كبيرة جدًا (الحد الأقصى 6 MB)",
+    "noteLabel": "رسالة قصيرة (اختياري)",
+    "notePlaceholder": "رسالة قصيرة تظهر أسفل اسمك",
+    "urlLabel": "رابط موقعك أو ملفك (اختياري)",
+    "submit": "إرسال",
+    "submitting": "جارٍ الإرسال…",
+    "successTitle": "تم الإرسال — شكرًا لك!",
+    "successBody": "استلمنا ملفك، وسيظهر على لوحة الداعمين بعد مراجعته. يمكنك إغلاق هذه الصفحة.",
+    "errorRequired": "اسم العرض مطلوب",
+    "errorGeneric": "فشل الإرسال. يرجى المحاولة مجددًا.",
+    "invalidTitle": "هذا الرابط لم يعد صالحًا",
+    "invalidUsed": "استُخدم رابط الدعوة هذا بالفعل.",
+    "invalidExpired": "انتهت صلاحية رابط الدعوة. اطلب رابطًا جديدًا من الفريق.",
+    "invalidNotFound": "رابط الدعوة غير صالح. تحقق من عنوان URL.",
+    "backHome": "العودة إلى الرئيسية"
+  },
+  "try": {
+    "seoTitle": "جرّبه عبر الإنترنت — أرسل النصوص والصور والملفات بين متصفحين",
+    "seoDescription": "أرسل نصوصًا أو صورًا أو ملفات من متصفح إلى آخر عبر رابط أو رمز QR. تشفير تام بين الطرفين، دون تثبيت ودون حساب. عرض توضيحي على الويب يعمل بتقنية tailcat.",
+    "compose": {
+      "title": "أرسل أي شيء إلى جهاز آخر.",
+      "replyTitle": "الرد على الجهاز الآخر",
+      "placeholder": "الصق أو اسحب أو اكتب هنا",
+      "textLabel": "المحتوى المراد إرساله",
+      "attach": "إرفاق ملفات",
+      "remove": "إزالة {name}",
+      "pastedImage": "صورة ملصقة",
+      "send": "إرسال",
+      "sendReply": "إرسال الرد",
+      "cancelReply": "رجوع",
+      "size": "{size} من {limit}",
+      "tooLarge": "الحجم يتجاوز {limit}.",
+      "getApp": "استخدم التطبيق للملفات الأكبر",
+      "empty": "أضف نصًا أو ملفًا أولًا.",
+      "dropHint": "أفلِت للإرفاق",
+      "autoCopy": "النسخ إلى الحافظة عند وصول شيء",
+      "tooMany": "العناصر أكثر من {max}. أزِل بعضها أو اضغطها في ملف واحد."
+    },
+    "preparing": {
+      "title": "جارٍ تجهيز رابط آمن…",
+      "loading": "جارٍ تحميل الاتصال الآمن · {percent}%",
+      "loadingUnknown": "جارٍ تحميل الاتصال الآمن…",
+      "relay": "جارٍ الاتصال بخادم الترحيل…"
+    },
+    "ready": {
+      "title": "افتح هذا على جهازك الآخر.",
+      "scan": "امسحه بكاميرا الجهاز الآخر أو أرسل إليه الرابط.",
+      "qrLabel": "رمز QR لرابط الاتصال",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ الرابط",
+      "shareLink": "مشاركة الرابط",
+      "note": "يعمل الرابط مرة واحدة فقط. سيحصل الإرسال التالي على رابط جديد.",
+      "waiting": "في الانتظار · أبقِ علامة التبويب هذه مفتوحة",
+      "cancel": "إلغاء"
+    },
+    "code": {
+      "haveCode": "لديك رمز؟",
+      "inputLabel": "رمز من 6 أرقام",
+      "receive": "استلام",
+      "checking": "جارٍ التحقق…",
+      "startTitle": "أدخل الرمز الظاهر على جهازك الآخر.",
+      "sendInstead": "أرسل شيئًا بدلًا من ذلك",
+      "scanOrEnter": "امسح الرمز أو أدخل هذا الرمز",
+      "expiresIn": "تنتهي صلاحيته خلال <time>{remaining}</time>",
+      "oneUse": "استخدام واحد",
+      "refreshing": "جارٍ الحصول على رمز جديد…",
+      "unavailable": "يتعذر الحصول على رمز الآن",
+      "tryAgain": "إعادة المحاولة",
+      "noteReady": "يظهر رمز جديد تلقائيًا عند انتهاء صلاحية هذا الرمز أو استخدامه.",
+      "noteRefreshing": "يظل رمز QR والرابط صالحين أثناء تحميل الرمز الجديد.",
+      "noteUnavailable": "لا يزال مسح رمز QR أو فتح الرابط يعمل، ولا يحتاجان إلى رمز.",
+      "sendingNote": "أبقِ علامة التبويب هذه مفتوحة حتى ينتهي الإرسال. سيحصل الإرسال التالي على رمز جديد.",
+      "errors": {
+        "incomplete": "أدخل الأرقام الستة كلها.",
+        "expired": "انتهت صلاحية هذا الرمز أو استُخدم بالفعل. اطلب رمزًا جديدًا.",
+        "invalid": "هذا الرمز غير صالح. تحقق من الأرقام وحاول مجددًا.",
+        "rate-limited": "محاولات كثيرة جدًا. انتظر دقيقة ثم حاول مجددًا.",
+        "unavailable": "يتعذر التحقق من الرموز الآن. اطلب من المرسل الرابط أو رمز QR بدلًا من ذلك."
+      }
+    },
+    "sending": {
+      "title": "جارٍ الإرسال إلى الجهاز الآخر…",
+      "replyTitle": "جارٍ إرسال ردك…",
+      "note": "أبقِ علامة التبويب هذه مفتوحة حتى ينتهي الإرسال.",
+      "cancel": "إلغاء"
+    },
+    "delivered": {
+      "title": "تم التسليم",
+      "replyHint": "يمكن للجهاز الآخر إرسال رد ما دامت علامة التبويب هذه مفتوحة.",
+      "replyIncoming": "يصل رد الآن · {done} من {total}",
+      "replyFrom": "رد من الجهاز الآخر",
+      "replyFailed": "لم يصل الرد.",
+      "sendNew": "إرسال شيء جديد",
+      "replyDeliveredTitle": "تم تسليم الرد"
+    },
+    "receiving": {
+      "connecting": "جارٍ الاتصال…",
+      "connectingHint": "جارٍ الوصول إلى المرسل عبر خادم ترحيل مشفّر.",
+      "title": "جارٍ الاستلام…",
+      "progress": "{done} من {total}",
+      "cancel": "إلغاء"
+    },
+    "received": {
+      "title": "تم الاستلام",
+      "copyText": "نسخ النص",
+      "copyImage": "نسخ الصورة",
+      "copied": "تم النسخ إلى الحافظة",
+      "copyFailed": "تعذّر النسخ تلقائيًا. استخدم الزر بدلًا من ذلك.",
+      "save": "حفظ",
+      "saveName": "حفظ {name}",
+      "reply": "رد",
+      "imagePreview": "معاينة الصورة المستلمة",
+      "text": "نص"
+    },
+    "summary": {
+      "text": "نص",
+      "images": "{count, plural, zero {لا صور} one {صورة واحدة} two {صورتان} few {# صور} many {# صورة} other {# صورة}}",
+      "files": "{count, plural, zero {لا ملفات} one {ملف واحد} two {ملفان} few {# ملفات} many {# ملفًا} other {# ملف}}"
+    },
+    "errors": {
+      "title": "حدث خطأ ما",
+      "busy": "استُخدم هذا الرابط بالفعل. اطلب رابطًا جديدًا.",
+      "connect-failed": "تعذّر الاتصال. اطلب من المرسل إبقاء صفحته مفتوحة، ثم حاول مجددًا.",
+      "peer-cancelled": "ألغى الجهاز الآخر عملية النقل.",
+      "connection-lost": "انقطع الاتصال قبل اكتمال النقل. حاول مجددًا.",
+      "timeout": "توقف الجهاز الآخر عن الاستجابة. حاول مجددًا.",
+      "integrity": "وصل المحتوى تالفًا وتم تجاهله. حاول مجددًا.",
+      "too-large": "الحجم يتجاوز 20 ميغابايت. استخدم التطبيق للملفات الأكبر.",
+      "rejected": "رفض الجهاز الآخر عملية النقل.",
+      "protocol": "فشلت عملية النقل. حاول مجددًا.",
+      "invalid-link": "هذا الرابط غير مكتمل. اطلب رابطًا جديدًا.",
+      "listen-failed": "تعذّر الوصول إلى خادم الترحيل. حاول مجددًا بعد قليل.",
+      "load-failed": "تعذّر تحميل الاتصال الآمن. تحقق من الشبكة وحاول مجددًا.",
+      "unsupported": "لا يمكن لهذا المتصفح تشغيل العرض التوضيحي. جرّب إصدارًا حديثًا من Chrome أو Edge أو Firefox أو Safari.",
+      "tryAgain": "إعادة المحاولة",
+      "startOver": "البدء من جديد"
+    },
+    "footer": {
+      "demo": "عرض توضيحي على الويب يعمل بتقنية tailcat",
+      "e2e": "مشفّر تمامًا بين الطرفين عبر خوادم ترحيل عامة",
+      "notApp": "منفصل عن تطبيقات UniClipboard",
+      "getApp": "احصل على التطبيق",
+      "forSync": "للمزامنة المستمرة",
+      "license": "ترخيص tailcat ‏(BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "نقل عبر الويب · تشفير تام بين الطرفين",
+      "languageSearch": "ابحث عن لغة",
+      "languageSuggested": "من إعدادات متصفحك",
+      "languageAll": "كل اللغات",
+      "languageEmpty": "لا توجد لغة مطابقة",
+      "languageClose": "إغلاق قائمة اللغات"
+    }
+  },
+  "languagePicker": {
+    "label": "اللغة",
+    "search": "البحث عن لغة",
+    "empty": "لا توجد لغات مطابقة",
+    "recommended": "اقتراح المتصفح",
+    "articleAvailability": "المقالات متاحة بالإنجليزية والصينية المبسطة. تفتح اللغات الأخرى نظرة عامة على القسم.",
+    "contentAvailability": "المقالات متاحة باللغات التالية:",
+    "notesAvailability": "ملاحظات الإصدار متاحة باللغة الإنجليزية.",
+    "draft": "مسودة ترجمة بمساعدة الآلة، لم يراجعها متحدث أصلي بعد."
+  },
+  "errors": {
+    "notFound": "الصفحة غير موجودة",
+    "unavailable": "هذه الصفحة غير متاحة بهذه اللغة.",
+    "home": "العودة إلى الرئيسية",
+    "title": "حدث خطأ",
+    "description": "يرجى المحاولة مجددًا.",
+    "retry": "إعادة المحاولة"
+  }
+}

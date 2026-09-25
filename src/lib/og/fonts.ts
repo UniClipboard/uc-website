@@ -2,6 +2,15 @@ import "server-only";
 
 import { metaFor } from "@/i18n/locale-meta";
 
+export const ogScriptFont = (locale: string) =>
+  ({
+    ja: "Noto Sans JP",
+    ko: "Noto Sans KR",
+    "zh-TW": "Noto Sans TC",
+    ar: "Noto Sans Arabic",
+    hi: "Noto Sans Devanagari",
+  })[locale as "ja"] ?? "Noto Sans SC";
+
 const CHROME_UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/124.0 Safari/537.36";
@@ -74,8 +83,7 @@ export async function loadOgFonts(
 
   // The default Inter Tight payload from Google Fonts is Latin-only, so a
   // Cyrillic card would render tofu without an explicit subset request.
-  const sansSubset =
-    script === "cyrillic" && trimmed ? { text: trimmed } : undefined;
+  const sansSubset = trimmed ? { text: trimmed } : undefined;
 
   const tasks: Array<Promise<OgFont>> = [
     fetchGoogleFont({ family: "Inter Tight", weight: 600, ...sansSubset }).then(
@@ -105,18 +113,18 @@ export async function loadOgFonts(
     })),
   ];
 
-  if (script === "cjk" && trimmed) {
+  if (["cjk", "arabic", "devanagari"].includes(script) && trimmed) {
     tasks.push(
       fetchGoogleFont({
-        family: "Noto Sans SC",
+        family: ogScriptFont(locale),
         weight: 700,
         text: trimmed,
-      }).then((data) => ({ name: "Noto Sans SC", data, weight: 700 })),
+      }).then((data) => ({ name: "Locale Sans", data, weight: 700 })),
       fetchGoogleFont({
-        family: "Noto Sans SC",
+        family: ogScriptFont(locale),
         weight: 500,
         text: trimmed,
-      }).then((data) => ({ name: "Noto Sans SC", data, weight: 500 })),
+      }).then((data) => ({ name: "Locale Sans", data, weight: 500 })),
     );
   }
 

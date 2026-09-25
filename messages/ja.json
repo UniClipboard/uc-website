@@ -1,0 +1,868 @@
+{
+  "seo": {
+    "title": "UniClipboard | 暗号化されたクリップボードをデバイス間で同期",
+    "titleTemplate": "%s | UniClipboard",
+    "description": "Mac、Windows、Linux、iPhone、Android のクリップボードを同期。オープンソースでエンドツーエンド暗号化に対応し、クラウドアカウントもサーバーの運用も不要です。",
+    "softwareDescription": "macOS、Windows、Linux、iOS、Android に対応した、無料・オープンソース・エンドツーエンド暗号化のユニバーサルクリップボード。アカウントもサーバーも不要で、あるデバイスでコピーして別のデバイスに貼り付けられます。",
+    "keywords": "UniClipboard, ユニバーサルクリップボード, クリップボード同期, クロスプラットフォーム, Mac Windows クリップボード, Linux クリップボード同期, iPhone クリップボード, Android クリップボード, モバイル同期, オープンソース, エンドツーエンド暗号化, iCloud ユニバーサルクリップボード代替, クリップボード管理, デバイス間コピー＆ペースト",
+    "ogAlt": "UniClipboard — すべてのデバイスに、ひとつのクリップボード"
+  },
+  "og": {
+    "home": {
+      "eyebrow": "ユニバーサルクリップボード",
+      "title": "ひとつのクリップボード。すべてのデバイスに。",
+      "subtitle": "オープンソース、エンドツーエンド暗号化。Mac、Windows、Linux、iPhone、Android。",
+      "alt": "UniClipboard — すべてのデバイスに、ひとつのクリップボード"
+    },
+    "download": {
+      "eyebrow": "ダウンロード",
+      "title": "すべてのプラットフォームで UniClipboard を",
+      "subtitle": "署名済みインストーラー、Homebrew、Snap に対応。無料でオープンソース。",
+      "alt": "Mac、Windows、Linux 用 UniClipboard をダウンロード"
+    },
+    "blog": {
+      "eyebrow": "ブログ",
+      "subtitle": "UniClipboard",
+      "alt": "UniClipboard のブログ記事"
+    }
+  },
+  "landing": {
+    "navigation": {
+      "blog": "ブログ",
+      "compare": "比較",
+      "useCases": "活用ガイド",
+      "docs": "ドキュメント",
+      "changelog": "更新履歴",
+      "download": "インストール",
+      "github": "GitHub",
+      "menu": "メニュー",
+      "menuClose": "メニューを閉じる",
+      "language": "言語",
+      "theme": "テーマ",
+      "themeSystem": "システム設定",
+      "themeLight": "ライト",
+      "themeDark": "ダーク",
+      "sponsor": "支援する",
+      "try": "オンラインで試す"
+    },
+    "hero": {
+      "eyebrow": "オープンソース · エンドツーエンド暗号化 · 5 つのプラットフォーム · アカウント不要",
+      "title": "クリップボードはひとつ。",
+      "titleLine2": "すべてのデバイスで。",
+      "description": "UniClipboard は、Mac、Windows、Linux、iPhone、Android 間でテキスト・画像・ファイルを同期する、オープンソースのエンドツーエンド暗号化クリップボードです。クラウドアカウントや仲介サーバーは不要です。",
+      "descriptionMobile": "すべてのデバイスでひとつのクリップボード。オープンソース、エンドツーエンド暗号化、アカウント不要。",
+      "mobileBadge": "スマートフォンではどう使う？ →",
+      "mobileBadgeIOS": "TestFlight で iOS ベータに参加 →",
+      "mobileBadgeAndroid": "Android 版をダウンロード",
+      "secondaryCta": "技術ホワイトペーパー",
+      "starsSuffix": "GitHub での評価",
+      "starsFallback": "GitHub",
+      "free": "無料・オープンソース",
+      "e2e": "エンドツーエンド暗号化",
+      "videoLabel": "uniclipboard — demo.mp4",
+      "videoPlay": "デモを再生",
+      "videoPause": "一時停止",
+      "videoDuration": "00:60",
+      "videoSeek": "再生位置",
+      "videoOpen": "デモを見る",
+      "videoClose": "動画を閉じる",
+      "videoSourceYoutube": "YouTube",
+      "videoSourceBilibili": "Bilibili",
+      "videoFallbackHint": "埋め込みプレーヤーを利用できないため、ローカル版を再生しています。",
+      "tryCta": "ブラウザーで試す →"
+    },
+    "features": {
+      "eyebrow": "機能",
+      "title": "システムのクリップボードが、プラットフォームを越えて同期・検索でき、エンドツーエンド暗号化にも対応。",
+      "moreEyebrow": "さらに",
+      "moreTitle": "あるとうれしい、さまざまな機能。",
+      "h1": {
+        "eyebrow": "02 — プライバシーを最優先に",
+        "title": "中継サーバーが見るのは暗号文だけ。",
+        "lede": "内容は送信元で暗号化され、お使いのデバイスでのみ復号されます。鍵はシステムのキーストアに保管され、デバイスの外には出ません。オープンソースなので検証も可能です。",
+        "b1Title": "エンドツーエンド暗号化",
+        "b1Desc": "XChaCha20-Poly1305 AEAD — 転送中も保存時も暗号化。",
+        "b2Title": "クラウドアカウント不要",
+        "b2Desc": "メールアドレスも電話番号も不要。2 台のデバイスが公開鍵を交換するだけです。",
+        "b3Title": "検証できるコード",
+        "b3Desc": "AGPL-3.0 のオープンソース。暗号化の実装を自分で読んで確かめられます。"
+      },
+      "h2": {
+        "eyebrow": "01 — 5 つのプラットフォーム",
+        "title": "一度コピーすれば、5 つすべてに貼り付け。",
+        "lede": "デスクトップ 3 種は Rust + Tauri 製。iOS は TestFlight でパブリックベータ公開中、Android はネイティブアプリを提供。同じ Wi-Fi では P2P、異なるネットワークでは NAT ホールパンチング、必要なら LAN 限定モードも使えます。",
+        "b1Title": "3 つのデスクトップ環境",
+        "b1Desc": "Rust + Tauri 製で、起動が速く省リソース。メニューバーやシステムトレイに統合されています。",
+        "b2Title": "iOS・Android ネイティブアプリ",
+        "b2Desc": "iOS は TestFlight の公開招待からベータに参加可能。Android は署名済み APK を直接ダウンロードできます。ネイティブアプリを入れたくない場合は、オープンな SyncClipboard プロトコルも引き続き使えます。",
+        "b3Title": "直接接続 · ホールパンチング · LAN 限定",
+        "b3Desc": "同じ Wi-Fi では P2P、異なるネットワークでは NAT ホールパンチングを利用し、接続できない場合は暗号化リレーに切り替えます。LAN 限定モードならリレーを完全に無効化できます。"
+      },
+      "h3": {
+        "eyebrow": "03 — 高度な使い方にも",
+        "title": "クイックパネル、全文検索、CLI。すべて標準搭載。",
+        "lede": "ショートカットで履歴をプレビューし、数万件からミリ秒単位で検索。ターミナル、SSH、tmux ではヘッドレス CLI を使えます。シンプルな見た目の中に、幅広い機能を備えています。",
+        "b1Title": "クイックパネル",
+        "b1Desc": "ショートカットで開くパネルから、テキスト、リンク、画像、コード、ファイルをプレビューできます。",
+        "b2Title": "ローカル全文検索",
+        "b2Desc": "数万件の履歴でもミリ秒単位で検索。検索インデックスはディスク上でも暗号化されます。",
+        "b3Title": "uniclip CLI",
+        "b3Desc": "GUI の機能をコマンドで操作。ターミナル、SSH、スクリプト、tmux で、画面なしで実行できます。"
+      },
+      "more": {
+        "f1Title": "いつものショートカット",
+        "f1Desc": "⌘C / Ctrl-C でコピー、⌘V / Ctrl-V で貼り付け。操作を覚え直す必要はありません。別のアプリを操作するのではなく、システムのクリップボードをそのまま拡張します。",
+        "f4Title": "自動で接続を回復",
+        "f4Desc": "Wi-Fi の切り替え、スリープ復帰、一時的な切断の後も自動で再接続。ペアリングのやり直しは不要です。",
+        "f6Title": "テキスト・画像・ファイル",
+        "f6Desc": "あるデバイスでコピーし、別のデバイスへ貼り付け。大容量ファイルはストリーミング転送されるので、全体をメモリに収める必要はありません。",
+        "f5Title": "デバイスごとの同期設定",
+        "f5Desc": "ペアリング済みデバイスごとに、送受信の方向と許可する内容の種類を設定できます。テキスト、画像、ファイルを個別に制御し、紛失したデバイスのアクセス権は別のデバイスから取り消せます。",
+        "f7Title": "リアルタイム同期",
+        "f7Desc": "コピーするとすぐに送信。手動操作や確認は不要です。すべてのデバイスでクリップボードが自動的に同期されます。",
+        "f9Title": "履歴の保存期間を調整",
+        "f9Desc": "標準は 30 日。7 日や無期限にも変更できます。デバイス別・種類別に削除したり、いつでも履歴をすべて消去したりできます。",
+        "f10Title": "iOS・Android ネイティブアプリ",
+        "f10Desc": "iOS は公開招待の TestFlight パブリックベータ、Android は署名済み APK の直接ダウンロードを提供。ネイティブアプリを入れたくない場合は、SyncClipboard のオープンプロトコルを iPhone のショートカットや Android クライアントで引き続き使えます。",
+        "f11Title": "書式をそのままに",
+        "f11Desc": "リッチテキストや HTML をプレーンテキストに変換せず、元の書式で保持します。Windows のリッチテキスト、Linux の英語以外の URL、UTF-8 も、プラットフォームを越えてそのまま届きます。",
+        "f12Title": "同期状況が見える",
+        "f12Desc": "各項目に送信元デバイスと接続先ごとの同期状況を表示。届いていない項目はワンタップで再送できます。",
+        "f13Title": "自分好みに",
+        "f13Desc": "ライトとダークのテーマを個別に設定し、アクセント色、背景色、文字色をカスタマイズ。システム設定に合わせることもできます。"
+      }
+    },
+    "comparison": {
+      "eyebrow": "比較",
+      "title": "iCloud やセルフホストではだめ？",
+      "subtitle": "ここにある項目のどれかを重視するなら、iCloud のユニバーサルクリップボードや自分でサーバーを運用するツールでは足りないかもしれません。",
+      "tools": {
+        "uc": "UniClipboard",
+        "icloud": "iCloud ユニバーサルクリップボード",
+        "selfhost": "セルフホスト（ClipCascade など）",
+        "manager": "Paste（有料・Apple のみ）"
+      },
+      "toolsShort": {
+        "uc": "UC",
+        "icloud": "iCloud",
+        "selfhost": "セルフホスト",
+        "manager": "Paste"
+      },
+      "rows": {
+        "crossPlatform": {
+          "label": "macOS / Windows / Linux / iOS / Android",
+          "labelMobile": "クロスプラットフォーム",
+          "uc": "デスクトップとモバイル、全 5 種",
+          "icloud": "Apple のみ",
+          "selfhost": "製品による",
+          "manager": "Apple のみ"
+        },
+        "e2e": {
+          "label": "E2E 暗号化・検証可能",
+          "labelMobile": "E2E 暗号化と監査",
+          "uc": "オープンソース",
+          "icloud": "非公開コードの E2E 暗号化",
+          "selfhost": "製品による",
+          "manager": "クローズドソース"
+        },
+        "infra": {
+          "label": "サーバー運用不要",
+          "labelMobile": "インフラ不要",
+          "uc": "すぐに使える",
+          "icloud": "すぐに使える",
+          "selfhost": "セルフホスト",
+          "manager": "すぐに使える"
+        },
+        "history": {
+          "label": "検索可能な履歴",
+          "labelMobile": "検索可能",
+          "uc": "暗号化されたローカルインデックス",
+          "icloud": "履歴なし",
+          "selfhost": "製品による",
+          "manager": "検索可能"
+        },
+        "noAccount": {
+          "label": "アカウント・メール不要",
+          "labelMobile": "アカウント不要",
+          "uc": "公開鍵でペアリング",
+          "icloud": "Apple ID が必要",
+          "selfhost": "製品による",
+          "manager": "Apple ID が必要"
+        },
+        "transport": {
+          "label": "Wi-Fi では直接接続、ネットワーク間はリレー、LAN 限定も選択可能",
+          "labelMobile": "直接接続とリレー",
+          "uc": "P2P とリレー · LAN 限定切り替え",
+          "icloud": "近距離のみ",
+          "selfhost": "通常はサーバー経由のみ",
+          "manager": "iCloud クラウド"
+        },
+        "price": {
+          "label": "価格",
+          "labelMobile": "価格",
+          "uc": "無料・オープンソース",
+          "icloud": "無料",
+          "selfhost": "無料 + サーバー費用",
+          "manager": "年間 30 米ドル"
+        }
+      },
+      "footnote": "2026 年 5 月時点の公開情報に基づく比較です。誤りを見つけた場合は GitHub で Issue を作成してください。"
+    },
+    "howItWorks": {
+      "eyebrow": "仕組み",
+      "title": "一度ペアリングすれば、あとはコピー＆ペースト。",
+      "step1Title": "ローカルでペアリング",
+      "step1Desc": "デバイス間で一度だけ、ローカルに公開鍵を交換します。クラウドアカウントもメールも不要。1 台で有効期間の短い招待コードを生成し、新しいデバイスがそのコードとスペースのパスフレーズで参加します。",
+      "step2Title": "暗号化して転送",
+      "step2Desc": "内容は送信元で暗号化されます。暗号文は同じ Wi-Fi または NAT ホールパンチングによる P2P 直接接続で転送され、接続できない場合は暗号化リレーに切り替わります。悪意のあるリレーにも暗号文しか見えません。",
+      "step3Title": "ローカルで復号・保存",
+      "step3Desc": "復号はお使いのデバイス上でのみ行います。ローカル履歴と検索インデックスは保存時にも暗号化。Wi-Fi の切り替え、スリープ復帰、一時的な切断の後は自動で接続を回復します。"
+    },
+    "download": {
+      "eyebrow": "最新版をダウンロード",
+      "title": "プラットフォームを選択。",
+      "description": "お使いのプラットフォームを検出しました。必要なら下で別のものを選べます。各インストーラーには必要な OS を明記しています。",
+      "descriptionMobile": "iPhone は TestFlight、Android は APK の直接インストールに対応。Mac、Windows、Linux には署名済みインストーラーを提供しています。",
+      "mobileAndroidAllArchs": "すべてのアーキテクチャを見る",
+      "mobileDesktopPlatforms": "Mac · Windows · Linux",
+      "mobileDesktopHint": "デスクトップ用インストーラーはパソコンで実行します。リンクをパソコンに送り、そちらで続けてください。",
+      "versionLabel": "バージョン",
+      "publishedLabel": "公開日",
+      "channelLabel": "チャンネル",
+      "channelStable": "安定版",
+      "openRelease": "最新リリースを開く",
+      "shareLinkIdle": "リンクをパソコンに送る",
+      "shareLinkCopied": "リンクをコピーしました",
+      "shareLinkTitle": "UniClipboard — ユニバーサルクリップボード",
+      "fallback": "すべてのリリース",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "downloadAction": "ダウンロード",
+      "recommended": "おすすめ",
+      "noDownloads": "ダウンロードはまだありません。",
+      "degradedNotice": "リリース情報を一時的に取得できません。",
+      "metadataUnavailable": "メタデータを取得できません",
+      "unavailableValue": "利用できません",
+      "ctaPrimaryGeneric": "今すぐダウンロード",
+      "ctaPrimaryWith": "ダウンロード対象",
+      "ctaOtherPlatforms": "その他のプラットフォーム",
+      "ctaLinuxX64": "Linux · x64",
+      "ctaLinuxArm": "Linux · ARM64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "iosBetaBadge": "パブリックベータ · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk"
+    },
+    "faq": {
+      "eyebrow": "よくある質問",
+      "title": "気になる疑問にお答えします。",
+      "docsHelpLede": "答えが見つかりませんか？",
+      "docsHelpCta": "ドキュメントを読む →",
+      "item1": {
+        "q": "iCloud のユニバーサルクリップボードではだめですか？",
+        "a": "Apple 製品のみを使い、履歴が不要で、Apple の非公開コードによるエンドツーエンド暗号化を全面的に信頼するなら、iCloud で十分です。Windows や Linux を追加したい、履歴を検索したい、暗号化を自分で検証したい場合には、別の選択肢が必要です。"
+      },
+      "item2": {
+        "q": "ClipCascade のようなセルフホスト型同期ではだめですか？",
+        "a": "セルフホストにはサーバーの運用が必要です。UniClipboard はすぐに使え、まず P2P 直接接続を試み、接続できないときだけ暗号化リレーを利用します。インフラを運用する必要はありません。"
+      },
+      "item3": {
+        "q": "完全オフラインや LAN 限定で使えますか？",
+        "a": "はい。同じ Wi-Fi 上のデバイスはリレーを通さず直接接続します。ネットワーク設定には LAN 限定モードもあり、すべてのペアリング済みデバイスをローカル探索と直接接続のみに制限できます。有効な間は、リレーとその他の公開サービスが完全に無効になります。"
+      },
+      "item4": {
+        "q": "クリップボード履歴はどこに保存されますか？",
+        "a": "お使いのデバイスだけです。ローカルストレージは、システムのキーストアから出ない鍵で保存時に暗号化されます。UniClipboard のサーバーがクリップボードの内容を受信・保存することはありません。"
+      },
+      "item5": {
+        "q": "iOS や Android に対応していますか？",
+        "a": "はい。どちらにもネイティブアプリがあります。iOS は TestFlight の公開招待でパブリックベータに参加でき、Android は署名済み APK を直接ダウンロードできます。どちらもダウンロードページで案内しています。アプリを入れたくない場合は、オープンな SyncClipboard プロトコル（github.com/Jeric-X/SyncClipboard、MIT）も利用可能です。iPhone はデスクトップで簡単に設定して標準のショートカットから、Android は対応クライアントから使えます。クラウドアカウントは不要で、内容は LAN 内に留まります。",
+        "downloadCta": "ダウンロードページで iOS ベータと Android APK を入手 →"
+      },
+      "item6": {
+        "q": "AGPL-3.0 は社内利用に影響しますか？",
+        "a": "いいえ。AGPL はソースコードを変更し、それをネットワークサービスとして再配布する場合に適用されます。個人やチームでインストールして使う分には他の無料アプリと同じで、会社のコードを公開する必要はありません。"
+      },
+      "item7": {
+        "q": "KDE Connect や Mouse Without Borders との違いは？",
+        "a": "KDE Connect と Mouse Without Borders は優れた KVM 型ツールで、マウス、キーボード、ファイル、通知も共有します。通常は同じ LAN、または追加で Tailscale が必要です。UniClipboard はクリップボードに特化し、VPN なしでインターネット越しに使え、検索可能な履歴も備えます。他のものは共有せず、ここでコピーしてあちらへ貼り付けたい場合に適しています。"
+      },
+      "item8": {
+        "q": "自分のサーバーやリレーで運用できますか？",
+        "a": "必須ではありません。UniClipboard は標準で P2P を使い、直接接続ができない場合だけ暗号化リレーを利用するため、運用作業は不要です。より細かく制御したい場合は、接続テスト付きの独自リレー設定、VPS 向け Docker・Caddy 設定を使うヘッドレスサーバーノード、自分のサーバーや安全なプロキシの公開 URL を使うモバイル同期にも対応しています。"
+      }
+    },
+    "finalCta": {
+      "title": "コードも、文章も、デザインも。どこへでも貼り付け。",
+      "subtitle": "無料、オープンソース、エンドツーエンド暗号化。各デバイスに一度インストールすれば、クリップボードがついてきます。",
+      "primary": "UniClipboard をダウンロード",
+      "secondary": "GitHub でソースを見る",
+      "platformsLine": "macOS · Windows · Linux · iOS · Android",
+      "versionPrefix": "最新"
+    },
+    "footer": {
+      "thanksTitle": "感謝",
+      "thanksDesc": "デバイス間のクリップボード同期。エンドツーエンド暗号化、オープンソース、検証可能。クラウドアカウントを介さず、自分のデバイス間で内容をやり取りできます。",
+      "linksTitle": "リンク",
+      "repo": "リポジトリ",
+      "issues": "Issue",
+      "releases": "リリース",
+      "docs": "ドキュメント",
+      "stackTitle": "使用技術",
+      "contactTitle": "お問い合わせ",
+      "twitter": "X · @uniclipboard",
+      "authorTwitter": "X · @mkdir700",
+      "bilibili": "Bilibili · @mkdir700",
+      "email": "hello@uniclipboard.app",
+      "copyright": "© 2026 mkdir700",
+      "rustNote": "Rust で開発 🦀 · AGPL-3.0",
+      "sponsor": "支援する"
+    },
+    "sponsor": {
+      "seoTitle": "UniClipboard を支援",
+      "seoDescription": "UniClipboard は、すべてのデバイスで使える無料のオープンソースクリップボードです。役立っているなら、あなたの支援がさらなる改善につながります。",
+      "seoKeywords": "UniClipboard 支援, オープンソース支援, 開発者寄付, オープンソース資金, afdian",
+      "ogAlt": "UniClipboard を支援",
+      "hero": {
+        "eyebrow": "プロジェクトを支援",
+        "title": "良いツールを、",
+        "titleLine2": "これからも良いままに。",
+        "description": "UniClipboard は無料、オープンソース、広告なし。これからも変わりません。1 人で開発・保守し、サーバー費用も自分で負担しています。日々の作業に役立っているなら、支援は改善を後押しする最も直接的な方法です。より安定した同期、素早い更新、これからの新機能につながります。",
+        "descriptionShort": "UniClipboard は 1 人で開発している、無料・オープンソース・広告なしのアプリです。日々の作業に役立っているなら、支援が開発を続ける力になります。",
+        "primaryCta": "スポンサーになる",
+        "secondaryCta": "GitHub でスターを付ける",
+        "count": "{count, plural, other {すでに # 人が支援しています}}",
+        "milestoneTarget": "目標：{target}"
+      },
+      "benefits": {
+        "eyebrow": "スポンサー特典",
+        "title": "感謝を、ささやかな形に",
+        "subtitle": "ランクや最低金額はありません。どの金額でも、すべての特典を受け取れます。",
+        "items": {
+          "b1": {
+            "title": "あなたのお名前をここに",
+            "desc": "下のスポンサー一覧にお名前を掲載し、そのまま残します。長く続く、公開のお礼です。"
+          },
+          "b2": {
+            "title": "Pro の無料利用権",
+            "desc": "基本機能はずっと無料です。将来サブスクリプションや Pro プランを提供した場合、初期スポンサーには追加料金なしで自動的に利用権をお渡しします。"
+          },
+          "b3": {
+            "title": "あなたのアイデアを優先",
+            "desc": "ご要望やフィードバックを優先的に受け止め、今後の開発に反映します。"
+          },
+          "b4": {
+            "title": "開発者に直接連絡",
+            "desc": "問題が起きたときは私に直接連絡でき、より早く返信を受けられます。"
+          },
+          "b5": {
+            "title": "スポンサーバッジ",
+            "desc": "オープンソースを支えてくれたことを示す、小さなコミュニティバッジです。"
+          },
+          "b6": {
+            "title": "みんなの無料を支える",
+            "desc": "あなたの支援が、UniClipboard を誰にとっても無料・オープンソース・広告なしに保ちます。"
+          }
+        }
+      },
+      "wall": {
+        "eyebrow": "スポンサー一覧",
+        "title": "支援してくださった皆さんへ",
+        "subtitle": "UniClipboard がここまで来られたのは皆さんのおかげです。この一覧は、一人ずつ、これからも増えていきます。",
+        "supporters": "{count, plural, other {支援者 # 人}}",
+        "goldLabel": "ゴールドスポンサー",
+        "backerLabel": "支援者",
+        "sinceLabel": "支援開始",
+        "viewProfile": "プロフィールを見る",
+        "becomeTitle": "次はあなたかもしれません",
+        "becomeDesc": "仲間に加わって、さらに先へ進む力を。",
+        "emptyTitle": "最初のスポンサーになる",
+        "emptyDesc": "この一覧はまだ空です。最初にあなたのお名前を載せられたらうれしいです。"
+      },
+      "cta": {
+        "title": "開発の継続を支える",
+        "subtitle": "UniClipboard で時間を節約できているなら、少しの支援でも開発を続ける大きな力になります。どのご支援も大切に受け止めます。",
+        "primary": "今すぐ支援",
+        "secondary": "GitHub でスターを付ける",
+        "note": "支援は任意 · いつでも解約可能",
+        "claimNoteBefore": "すでに支援済みの方は、こちらへメールしてください：",
+        "claimNoteAfter": "スポンサー一覧のプロフィールリンクをお送りします。",
+        "claimMailSubject": "UniClipboard のスポンサー一覧への掲載希望",
+        "claimMailBody": "こんにちは。UniClipboard を支援しました。スポンサー一覧のプロフィールリンクを希望します。 /  / 支援プラットフォーム： / 支援者名・注文情報： /  / よろしくお願いします。"
+      }
+    }
+  },
+  "downloadPage": {
+    "seoTitle": "UniClipboard をダウンロード — macOS・Windows・Linux インストーラー、Homebrew・Snap",
+    "seoDescription": "macOS、Windows、Linux 向け UniClipboard の最新署名済みリリースをダウンロード。Mac は Homebrew、Linux は Snap、または直接インストールできます。無料、オープンソース、エンドツーエンド暗号化。",
+    "seoKeywords": "uniclipboard ダウンロード, uniclipboard インストール, brew install uniclipboard, snap install uniclipboard, uniclipboard mac, uniclipboard windows, uniclipboard linux, appimage クリップボード同期",
+    "ogAlt": "macOS、Windows、Linux 用 UniClipboard をダウンロード",
+    "breadcrumbHome": "ホーム",
+    "breadcrumbCurrent": "ダウンロード",
+    "hero": {
+      "eyebrow": "UniClipboard を入手",
+      "title": "UniClipboard をダウンロード。",
+      "subtitle": "各デバイスに一度インストールしてペアリングすれば、クリップボードがついてきます。端末に合うインストーラーか、下のパッケージマネージャーを選んでください。",
+      "versionLabel": "最新安定版",
+      "publishedLabel": "公開日",
+      "stableTag": "安定版",
+      "releaseUnavailable": "リリース情報を一時的に取得できません。GitHub のリリースページには常に現在のインストーラーがあります。",
+      "badgeFree": "無料・オープンソース",
+      "badgeEncrypted": "エンドツーエンド暗号化",
+      "badgeSignedMac": "macOS 公証済み",
+      "badgeSignedWin": "Authenticode 署名済み",
+      "openLatest": "GitHub でリリースを開く"
+    },
+    "direct": {
+      "eyebrow": "直接ダウンロード",
+      "title": "プラットフォームを選択。",
+      "description": "各インストーラーは署名済みで、必要な最小 OS バージョンを明記しています。検出したプラットフォームを強調表示していますが、他の選択肢にもワンクリックでアクセスできます。",
+      "degradedNotice": "リリース情報を一時的に取得できません。代わりに下の GitHub リリースページをご利用ください。",
+      "noDownloads": "ダウンロードはまだありません。",
+      "downloadsUnavailable": "インストーラーのリンクを読み込めませんでした。GitHub から UniClipboard をダウンロードしてください。",
+      "fallback": "GitHub のすべてのリリース",
+      "downloadAction": "ダウンロード",
+      "recommended": "検出済み",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "iosBetaBadge": "パブリックベータ · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk",
+      "androidHintArm64": "現在の 64 ビット Android スマートフォン向け。最も高性能でファイルサイズも最小です。迷ったらこちらを選んでください。",
+      "androidHintArmV7": "古い 32 ビット Android スマートフォン専用。",
+      "androidHintX64": "Android エミュレーターや、一部の Intel 搭載端末向け。",
+      "androidHintUniversal": "すべてのアーキテクチャを収録。ファイルは最大ですが、どの構成にもインストールできます。",
+      "winPortableLabel": "ポータブル",
+      "winPortableHint": "インストール不要。展開して実行するだけです。USB メモリや管理者権限のないパソコンに便利です。",
+      "blockMacDescription": "macOS 12 Monterey 以降向け。署名・公証済み。",
+      "blockWinDescription": "Windows 10・11 用の Authenticode 署名済みインストーラーと、インストール不要のポータブル .zip を提供。",
+      "blockLinuxDescription": "glibc とアーキテクチャを自動検出し、~/.local にインストールします。",
+      "blockIosDescription": "iOS アプリは TestFlight でパブリックベータ公開中です。iPhone または iPad で下の招待リンクを開いてください。",
+      "blockAndroidDescription": "署名済み APK。現在の Android スマートフォンに直接インストールできます。",
+      "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
+      "linuxScriptSourceLabel": "スクリプトを読む",
+      "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
+      "detectedBadge": "検出済み",
+      "iosTestFlight": {
+        "joinCta": "TestFlight ベータに参加",
+        "joinHint": "TestFlight がまだない場合は、先に App Store から Apple の TestFlight アプリをインストールしてください。",
+        "shareLabel": "パソコンで閲覧中？ スマートフォン用リンクをコピー",
+        "copy": "リンクをコピー",
+        "copied": "コピーしました"
+      }
+    },
+    "pkg": {
+      "copy": "コマンドをコピー",
+      "copied": "コピーしました"
+    },
+    "sysreq": {
+      "eyebrow": "システム要件",
+      "title": "実行に必要な環境。",
+      "description": "UniClipboard は小さなデスクトップアプリです。待機中の CPU 使用量はごくわずかで、コピーしたときだけネットワークを使用します。",
+      "colPlatform": "プラットフォーム",
+      "colMinOS": "最小 OS",
+      "colArch": "アーキテクチャ",
+      "colMemory": "メモリ",
+      "colDisk": "ディスク",
+      "rows": [
+        {
+          "platform": "macOS",
+          "minOS": "macOS 12 Monterey 以降",
+          "arch": "Apple Silicon (arm64), Intel (x86_64)",
+          "memory": "待機中 約 60 MB",
+          "disk": "≈ 80 MB"
+        },
+        {
+          "platform": "Windows",
+          "minOS": "Windows 10（ビルド 19041 以降）または Windows 11",
+          "arch": "x86_64",
+          "memory": "待機中 約 70 MB",
+          "disk": "≈ 90 MB"
+        },
+        {
+          "platform": "Linux",
+          "minOS": "glibc 2.31 以降（Ubuntu 20.04、Debian 11、Fedora 35 相当）、X11・Wayland 対応",
+          "arch": "x86_64, ARM64 (.deb / .rpm / AppImage)",
+          "memory": "待機中 約 65 MB",
+          "disk": "≈ 85 MB"
+        },
+        {
+          "platform": "iOS",
+          "minOS": "iOS 16 以降（TestFlight パブリックベータ）",
+          "arch": "iPhone / iPad (Apple Silicon)",
+          "memory": "—",
+          "disk": "≈ 30 MB"
+        },
+        {
+          "platform": "Android",
+          "minOS": "Android 8.0（API 26）以降",
+          "arch": "arm64-v8a, armeabi-v7a, x86_64, universal",
+          "memory": "—",
+          "disk": "≈ 35 MB"
+        }
+      ]
+    },
+    "verify": {
+      "eyebrow": "ダウンロードを検証",
+      "title": "信頼したうえで、確かめる。",
+      "description": "すべてのリリースは公開前に署名されています。インストール前にローカルで真正性を確認できます。ファイルを入手した後は、以下の手順にインターネット接続は不要です。",
+      "items": [
+        {
+          "platform": "macOS",
+          "body": "インストーラーは Apple の公証済みです。.dmg を右クリックして「開く」を選ぶか、下のコマンドで開発者署名を確認してください。",
+          "command": "spctl -a -vvv -t install ~/Downloads/UniClipboard.dmg"
+        },
+        {
+          "platform": "Windows",
+          "body": ".exe は Authenticode 署名済みです。ファイルを右クリック → プロパティ → デジタル署名で証明書チェーンを確認できます。",
+          "command": "Get-AuthenticodeSignature .\\UniClipboard-Setup.exe"
+        },
+        {
+          "platform": "Linux",
+          "body": "GitHub リリースページの各 .deb、.rpm、.AppImage には対応する .sig 署名ファイルがあります。インストーラーと一緒にダウンロードし、リポジトリの README に掲載された公開鍵で検証してください。",
+          "command": "minisign -Vm UniClipboard_amd64.deb -P RWQ... # see README for the public key"
+        }
+      ]
+    },
+    "older": {
+      "eyebrow": "以前のバージョンをお探しですか？",
+      "title": "すべてのリリースを保存。",
+      "description": "過去のバージョンは削除しません。更新履歴をたどるか、GitHub のリリースページから必要なインストーラーを直接入手できます。",
+      "changelogCta": "更新履歴を見る",
+      "allReleasesCta": "GitHub のすべてのリリース"
+    },
+    "faq": {
+      "eyebrow": "インストール時の問題",
+      "title": "よくある疑問。",
+      "items": [
+        {
+          "q": "macOS で「UniClipboard.app は壊れているため開けません」と表示される。",
+          "a": "公証の確認前に、ダウンロードしたファイルに Gatekeeper の隔離属性が付くと表示されます。アプリを /Applications に移動し、xattr -dr com.apple.quarantine /Applications/UniClipboard.app を一度実行してください。以後、アプリ内更新機能からインストールする更新ではこの操作は不要です。"
+        },
+        {
+          "q": "Windows SmartScreen で「認識されないアプリ」と警告される。",
+          "a": "公開直後のバージョンでは、署名済みでもそのファイルに対する SmartScreen の評価がまだ蓄積されていません。「詳細情報」→「実行」を選択してください。通常はインストール数が増えるにつれ、数日で警告が表示されなくなります。"
+        },
+        {
+          "q": "Linux で AppImage を実行するには？",
+          "a": "ダウンロード後、chmod +x UniClipboard-x86_64.AppImage で実行権限を付け、ダブルクリックするかターミナルから実行します。アプリランチャーに登録するには AppImageLauncher または appimaged を使ってください。"
+        },
+        {
+          "q": "Snap パッケージに --classic は必要ですか？",
+          "a": "いいえ。標準の隔離設定で動作し、必要な network、home、password-manager-service インターフェースだけを要求します。snap connections uniclipboard で確認できます。"
+        },
+        {
+          "q": "Homebrew cask をアンインストールするには？",
+          "a": "brew uninstall --cask uniclipboard を実行します。tap も削除する場合は、続けて brew untap uniclipboard/tap を実行してください。ホームディレクトリのローカル履歴はこれらのコマンドでは削除されません。完全に初期化する場合は ~/Library/Application Support/UniClipboard を削除してください。"
+        }
+      ]
+    }
+  },
+  "compareHub": {
+    "seoTitle": "UniClipboard を比較 — オープンソースの同期と iCloud・Maccy などの違い",
+    "seoDescription": "UniClipboard と、iCloud ユニバーサルクリップボードや Maccy などのクリップボード管理・同期ツールを率直に比較します。最初に見つけたものではなく、自分に合うツールを選びましょう。",
+    "seoKeywords": "uniclipboard 代替, クリップボード管理 比較, iCloud ユニバーサルクリップボード 代替, maccy 代替, クロスプラットフォーム同期 比較, オープンソース クリップボード管理",
+    "ogAlt": "UniClipboard と iCloud・Maccy などのクリップボードツールを比較",
+    "breadcrumbHome": "ホーム",
+    "breadcrumbCurrent": "比較",
+    "eyebrow": "比較",
+    "title": "UniClipboard と他のツールの違い。",
+    "subtitle": "おなじみのクリップボード管理・同期ツールと項目ごとに比較。足りない点も隠さず、どのツールが誰に向いているかを明確にします。",
+    "categoryLabel": "比較",
+    "readMore": "比較を読む",
+    "countLabel": "{count, plural, =0 {比較記事はまだありません} other {比較記事 # 件}}",
+    "emptyState": "比較記事はまだありません。後日またご覧ください。"
+  },
+  "blogHub": {
+    "seoTitle": "UniClipboard ブログ — クリップボード同期、暗号化、デバイス間ワークフロー",
+    "seoDescription": "UniClipboard の内部動作、新機能、デバイス間同期の設計上の判断を詳しく紹介。技術の詳細を知りたいエンジニア向けの記事です。",
+    "seoKeywords": "uniclipboard ブログ, クリップボード同期 仕組み, エンドツーエンド暗号化, クロスプラットフォーム 開発, オープンソース クリップボード 更新",
+    "ogAlt": "UniClipboard ブログ — クリップボード同期の技術ノート",
+    "breadcrumbHome": "ホーム",
+    "breadcrumbCurrent": "ブログ",
+    "eyebrow": "ブログ",
+    "title": "チームからのノート。",
+    "subtitle": "UniClipboard の開発、新機能、デバイス間同期の設計上の判断を、詳しく知りたいエンジニアに向けて紹介します。",
+    "categoryLabel": "記事",
+    "tableOfContents": "このページの内容",
+    "readMore": "記事を読む",
+    "countLabel": "{count, plural, =0 {記事はまだありません} other {記事 # 件}}",
+    "emptyState": "記事はまだありません。後日またご覧ください。"
+  },
+  "changelogHub": {
+    "seoTitle": "UniClipboard 更新履歴 — すべてのリリース、修正、破壊的変更",
+    "seoDescription": "macOS、Windows、Linux 向け UniClipboard の各リリースでの機能追加、修正、破壊的変更を紹介。安定版の公開ごとに自動更新されます。",
+    "seoKeywords": "uniclipboard 更新履歴, uniclipboard リリースノート, uniclipboard 更新, クリップボード同期 リリース, uniclipboard バージョン",
+    "ogAlt": "UniClipboard 更新履歴 — すべてのバージョンのリリースノート",
+    "breadcrumbHome": "ホーム",
+    "breadcrumbCurrent": "更新履歴",
+    "eyebrow": "更新履歴",
+    "title": "すべてのリリースを記録。",
+    "subtitle": "追加したもの、修正したもの、壊してしまったもの。リリースフィードから直接取得する、正式な更新情報です。",
+    "latestLabel": "最新安定版",
+    "downloadLabel": "ダウンロード",
+    "downloadShort": "入手",
+    "permalink": "固定リンク",
+    "viewVersion": "v{version} を見る",
+    "emptyState": "リリースはまだありません。しばらくしてからご覧ください。",
+    "releasedOn": "公開日",
+    "olderRelease": "以前のリリース",
+    "newerRelease": "新しいリリース",
+    "backToList": "すべてのリリース",
+    "notFoundTitle": "リリースが見つかりません",
+    "detailSeoTitle": "UniClipboard v{version} — リリースノート",
+    "detailSeoDescription": "UniClipboard v{version} のリリースノート（{date} 公開）。新機能、修正、互換性に影響する変更。"
+  },
+  "useCasesHub": {
+    "seoTitle": "UniClipboard 活用ガイド — デバイス間クリップボードの実践ガイド",
+    "seoDescription": "Mac から Windows へのコピー、SSH・tmux での作業、同僚との暗号化クリップボード共有など、UniClipboard の実際の使い方を手順付きで紹介。ショートカットも具体的に示します。",
+    "seoKeywords": "uniclipboard 活用, mac windows クリップボード ガイド, ssh クリップボード tmux, クロスプラットフォーム チュートリアル, デバイス間 コピー 貼り付け",
+    "ogAlt": "UniClipboard 活用ガイド — デバイス間クリップボードを使いこなす",
+    "breadcrumbHome": "ホーム",
+    "breadcrumbCurrent": "活用ガイド",
+    "eyebrow": "活用ガイド",
+    "title": "UniClipboard はこんな場面で。",
+    "subtitle": "実際の作業を具体的な手順で紹介。ショートカットを明記し、暗号化の仕組みもあわせて説明します。",
+    "categoryLabel": "活用例",
+    "readMore": "ガイドを読む",
+    "countLabel": "{count, plural, =0 {ガイドはまだありません} other {ガイド # 件}}",
+    "emptyState": "ガイドはまだありません。後日またご覧ください。"
+  },
+  "sponsorClaim": {
+    "title": "スポンサープロフィールを完成させる",
+    "subtitle": "UniClipboard へのご支援ありがとうございます！スポンサー一覧での表示方法を選んでください。",
+    "badgeGold": "ゴールドスポンサー招待",
+    "badgeRegular": "スポンサー招待",
+    "tierGold": "ゴールドスポンサー",
+    "tierRegular": "支援する",
+    "welcomeTitle": "心から、ありがとうございます。",
+    "welcomeBody": "スポンサー一覧に名前を残すための簡単な手順です。1 分ほどで完了します。",
+    "welcomeCta": "始める",
+    "welcomeHint": "このリンクは一度だけ使える、あなた専用のリンクです。",
+    "stepOf": "ステップ {current} / {total}",
+    "back": "戻る",
+    "continue": "続ける",
+    "stepIdentityTitle": "あなたについて教えてください",
+    "stepIdentitySubtitle": "アバターとお名前がスポンサー一覧に表示されます。",
+    "stepMessageTitle": "ひとことメッセージを",
+    "stepMessageSubtitle": "どちらも任意です。入力せずに進むこともできます。",
+    "stepReviewTitle": "あなたのスポンサーカード",
+    "stepReviewSubtitle": "内容を確認して送信してください。近日中に確認します。",
+    "reviewPendingNote": "掲載内容は手動で確認します。承認後、スポンサー一覧に表示されます。",
+    "errorUrl": "リンクは http:// または https:// で始めてください",
+    "viewWallCta": "スポンサー一覧を見る",
+    "plaqueEyebrow": "支援の記念プレート",
+    "plaqueBody": "UniClipboard の一員になってくださりありがとうございます。この支援は記録に残ります。",
+    "proSeatTitle": "Pro 利用権を確保しました",
+    "proSeatBody": "基本機能は永久に無料です。有料 Pro プランを提供した際は、初期スポンサーの皆さんは追加料金なしで利用できます。",
+    "perksTitle": "スポンサー特典",
+    "perkVote": "アイデアを優先的に受け止めます",
+    "perkContact": "問題があれば開発者に直接連絡できます",
+    "perkBadge": "あなた専用のスポンサーバッジ",
+    "perkMission": "UniClipboard の無料・オープン・広告なしを支えます",
+    "nameLabel": "表示名",
+    "namePlaceholder": "スポンサー一覧で表示するお名前",
+    "githubLabel": "GitHub ユーザー名（任意）",
+    "githubHint": "GitHub から名前とアバターを取得するか、下に手動で入力してください。",
+    "githubButton": "取得",
+    "githubFetching": "取得中…",
+    "githubEmpty": "先に GitHub ユーザー名を入力してください",
+    "githubFound": "読み込み完了：{name}",
+    "avatarLabel": "アバター",
+    "avatarHint": "画像をアップロードすると 160×160 の正方形に自動で切り抜かれます。空欄にするとイニシャルを表示します。",
+    "avatarUrlPlaceholder": "または画像の URL を貼り付け",
+    "avatarRemove": "アバターを削除",
+    "avatarTooLarge": "画像が大きすぎます（最大 6 MB）",
+    "noteLabel": "ひとことメッセージ（任意）",
+    "notePlaceholder": "名前の下に表示する短いメッセージ",
+    "urlLabel": "ホームページ・プロフィールのリンク（任意）",
+    "submit": "送信",
+    "submitting": "送信中…",
+    "successTitle": "送信しました。ありがとうございます！",
+    "successBody": "プロフィールを受け付けました。確認後、スポンサー一覧に掲載されます。このページは閉じて構いません。",
+    "errorRequired": "表示名を入力してください",
+    "errorGeneric": "送信に失敗しました。もう一度お試しください。",
+    "invalidTitle": "このリンクは利用できません",
+    "invalidUsed": "この招待リンクは使用済みです。",
+    "invalidExpired": "この招待リンクは期限切れです。チームに新しいリンクを依頼してください。",
+    "invalidNotFound": "この招待リンクは無効です。URL を確認してください。",
+    "backHome": "ホームに戻る"
+  },
+  "try": {
+    "seoTitle": "オンラインで試す — 2 つのブラウザ間でテキスト・画像・ファイルを送信",
+    "seoDescription": "リンクや QR コードで、テキスト・画像・ファイルをブラウザからブラウザへ送信。エンドツーエンド暗号化、インストールもアカウントも不要。tailcat を利用したウェブデモです。",
+    "compose": {
+      "title": "何でも別のデバイスへ送れます。",
+      "replyTitle": "相手のデバイスに返信",
+      "placeholder": "ここに貼り付け、ドロップ、または入力",
+      "textLabel": "送信する内容",
+      "attach": "ファイルを添付",
+      "remove": "{name} を削除",
+      "pastedImage": "貼り付けた画像",
+      "send": "送信",
+      "sendReply": "返信を送信",
+      "cancelReply": "戻る",
+      "size": "{size} / {limit}",
+      "tooLarge": "{limit} を超えています。",
+      "getApp": "大きなファイルはアプリで",
+      "empty": "先にテキストかファイルを追加してください。",
+      "dropHint": "ドロップして添付",
+      "autoCopy": "受信したらクリップボードにコピー",
+      "tooMany": "{max} 件を超えています。いくつか削除するか、1 つのファイルに圧縮してください。"
+    },
+    "preparing": {
+      "title": "安全なリンクを準備しています…",
+      "loading": "安全な接続を読み込み中 · {percent}%",
+      "loadingUnknown": "安全な接続を読み込み中…",
+      "relay": "リレーに接続しています…"
+    },
+    "ready": {
+      "title": "もう一方のデバイスで開いてください。",
+      "scan": "相手のデバイスのカメラでスキャンするか、リンクを送ってください。",
+      "qrLabel": "接続リンクの QR コード",
+      "copyLink": "リンクをコピー",
+      "linkCopied": "リンクをコピーしました",
+      "shareLink": "リンクを共有",
+      "note": "リンクは 1 回だけ使えます。次の送信では新しいリンクになります。",
+      "waiting": "待機中 · このタブを開いたままにしてください",
+      "cancel": "キャンセル"
+    },
+    "code": {
+      "haveCode": "コードをお持ちですか？",
+      "inputLabel": "6 桁のコード",
+      "receive": "受信",
+      "checking": "確認中…",
+      "startTitle": "もう一方のデバイスに表示されたコードを入力してください。",
+      "sendInstead": "代わりに何かを送る",
+      "scanOrEnter": "スキャンするか、このコードを入力",
+      "expiresIn": "あと <time>{remaining}</time> で失効",
+      "oneUse": "1 回限り",
+      "refreshing": "新しいコードを取得中…",
+      "unavailable": "現在コードを取得できません",
+      "tryAgain": "再試行",
+      "noteReady": "このコードが失効するか使用されると、新しいコードが自動で表示されます。",
+      "noteRefreshing": "新しいコードの読み込み中も、QR コードとリンクは使えます。",
+      "noteUnavailable": "QR コードのスキャンやリンクは引き続き使えます。これらにコードは不要です。",
+      "sendingNote": "完了するまでこのタブを開いたままにしてください。次の送信では新しいコードになります。",
+      "errors": {
+        "incomplete": "6 桁すべてを入力してください。",
+        "expired": "このコードは失効したか、すでに使用されています。新しいコードをもらってください。",
+        "invalid": "無効なコードです。数字を確認してもう一度お試しください。",
+        "rate-limited": "試行回数が多すぎます。1 分ほど待ってからお試しください。",
+        "unavailable": "現在コードを確認できません。送信者にリンクか QR コードをもらってください。"
+      }
+    },
+    "sending": {
+      "title": "もう一方のデバイスへ送信中…",
+      "replyTitle": "返信を送信中…",
+      "note": "完了するまでこのタブを開いたままにしてください。",
+      "cancel": "キャンセル"
+    },
+    "delivered": {
+      "title": "送信しました",
+      "replyHint": "このタブを開いている間、相手のデバイスから返信できます。",
+      "replyIncoming": "返信を受信中 · {done} / {total}",
+      "replyFrom": "相手のデバイスからの返信",
+      "replyFailed": "返信を受け取れませんでした。",
+      "sendNew": "新しく送る",
+      "replyDeliveredTitle": "返信を送信しました"
+    },
+    "receiving": {
+      "connecting": "接続中…",
+      "connectingHint": "暗号化されたリレー経由で送信者に接続しています。",
+      "title": "受信中…",
+      "progress": "{done} / {total}",
+      "cancel": "キャンセル"
+    },
+    "received": {
+      "title": "受信しました",
+      "copyText": "テキストをコピー",
+      "copyImage": "画像をコピー",
+      "copied": "クリップボードにコピーしました",
+      "copyFailed": "自動でコピーできませんでした。ボタンを使ってください。",
+      "save": "保存",
+      "saveName": "{name} を保存",
+      "reply": "返信",
+      "imagePreview": "受信した画像のプレビュー",
+      "text": "テキスト"
+    },
+    "summary": {
+      "text": "テキスト",
+      "images": "{count, plural, other {画像 # 枚}}",
+      "files": "{count, plural, other {ファイル # 件}}"
+    },
+    "errors": {
+      "title": "問題が発生しました",
+      "busy": "このリンクはすでに使用されています。新しいリンクをもらってください。",
+      "connect-failed": "接続できませんでした。送信者にページを開いたままにしてもらい、もう一度お試しください。",
+      "peer-cancelled": "相手のデバイスが転送をキャンセルしました。",
+      "connection-lost": "転送の完了前に接続が切れました。もう一度お試しください。",
+      "timeout": "相手のデバイスが応答しなくなりました。もう一度お試しください。",
+      "integrity": "受信した内容が破損していたため破棄しました。もう一度お試しください。",
+      "too-large": "20 MB を超えています。大きなファイルはアプリをお使いください。",
+      "rejected": "相手のデバイスが転送を拒否しました。",
+      "protocol": "転送に失敗しました。もう一度お試しください。",
+      "invalid-link": "このリンクは不完全です。新しいリンクをもらってください。",
+      "listen-failed": "リレーに接続できませんでした。しばらくしてからお試しください。",
+      "load-failed": "安全な接続を読み込めませんでした。ネットワークを確認してもう一度お試しください。",
+      "unsupported": "このブラウザではデモを実行できません。最新の Chrome、Edge、Firefox、Safari をお試しください。",
+      "tryAgain": "再試行",
+      "startOver": "最初からやり直す"
+    },
+    "footer": {
+      "demo": "tailcat を利用したウェブデモ",
+      "e2e": "公開リレー経由でエンドツーエンド暗号化",
+      "notApp": "UniClipboard アプリとは連携しません",
+      "getApp": "アプリを入手",
+      "forSync": "（常時同期）",
+      "license": "tailcat ライセンス（BSD-3-Clause）"
+    },
+    "header": {
+      "tagline": "ウェブ転送 · エンドツーエンド暗号化",
+      "languageSearch": "言語を検索",
+      "languageSuggested": "ブラウザの設定から",
+      "languageAll": "すべての言語",
+      "languageEmpty": "一致する言語がありません",
+      "languageClose": "言語リストを閉じる"
+    }
+  },
+  "languagePicker": {
+    "label": "言語",
+    "search": "言語を検索",
+    "empty": "該当する言語がありません",
+    "recommended": "ブラウザーの推奨言語",
+    "articleAvailability": "記事本文は英語と簡体字中国語で提供しています。その他の言語ではカテゴリの概要を開きます。",
+    "contentAvailability": "記事は次の言語で提供しています：",
+    "notesAvailability": "リリースノートは英語で提供しています。",
+    "draft": "機械翻訳を利用した草稿です。ネイティブ話者による確認はまだ行っていません。"
+  },
+  "errors": {
+    "notFound": "ページが見つかりません",
+    "unavailable": "このページはこの言語では利用できません。",
+    "home": "ホームに戻る",
+    "title": "問題が発生しました",
+    "description": "もう一度お試しください。",
+    "retry": "再試行"
+  }
+}

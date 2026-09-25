@@ -1,0 +1,383 @@
+{
+  "compare": {
+    "icloud": {
+      "seoTitle": "UniClipboard vs iCloud Universal Clipboard — open-source alternative for Mac, Windows & Linux",
+      "seoDescription": "iCloud Universal Clipboard only works between Apple devices and has no clipboard history. UniClipboard is the open-source, end-to-end encrypted alternative that covers macOS, Windows, and Linux — with searchable history, no account, and no server.",
+      "seoKeywords": "iCloud universal clipboard alternative, iCloud universal clipboard windows, iCloud universal clipboard linux, copy from mac to windows, cross-platform clipboard sync, open source iCloud clipboard, clipboard sync mac windows, UniClipboard vs iCloud",
+      "ogAlt": "UniClipboard vs iCloud Universal Clipboard — open-source alternative for Mac, Windows & Linux",
+      "breadcrumbHome": "Home",
+      "breadcrumbCompare": "Compare",
+      "breadcrumbCurrent": "iCloud Universal Clipboard",
+      "eyebrow": "Compare · UniClipboard vs iCloud Universal Clipboard",
+      "title": "UniClipboard vs iCloud Universal Clipboard",
+      "subtitle": "Why people switch the moment a Windows or Linux machine joins the workflow.",
+      "lede": "UniClipboard is the open-source, cross-platform alternative to Apple's iCloud Universal Clipboard. It ships signed desktop apps for macOS, Windows, and Linux (built on Rust + Tauri), keeps a searchable end-to-end encrypted history, and pairs devices without any cloud account. iCloud Universal Clipboard, by contrast, only syncs between Apple devices, has no clipboard history, and its encryption is closed-source.",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "The 30-second answer.",
+      "tldrItems": [
+        "iCloud Universal Clipboard only works between Apple devices (Mac, iPhone, iPad).",
+        "It has no clipboard history — you only get the most recent copy.",
+        "UniClipboard ships desktop apps for macOS, Windows, and Linux.",
+        "UniClipboard keeps a searchable, end-to-end encrypted clipboard history on every device.",
+        "Both products are free. UniClipboard is open source under AGPL-3.0 and the encryption is auditable.",
+        "iCloud requires an Apple ID. UniClipboard requires no account — devices pair via public-key exchange."
+      ],
+      "section1Eyebrow": "Where iCloud is enough",
+      "section1Title": "When iCloud Universal Clipboard works fine",
+      "section1Body": "If your daily workflow lives entirely inside the Apple ecosystem — Mac plus iPhone plus iPad — and you never need to find something you copied an hour ago, iCloud Universal Clipboard is a solid zero-configuration option. Apple ships it with the operating system. It Just Works as long as your devices are signed into the same Apple ID, on the same Wi-Fi, with Bluetooth enabled, and within roughly ten metres of each other.",
+      "section2Eyebrow": "Where iCloud breaks down",
+      "section2Title": "When you need UniClipboard instead",
+      "section2Body": "The moment a non-Apple device enters the picture — a Windows laptop for work, a Linux server for development, a desktop you built yourself — iCloud Universal Clipboard is no longer an option. The same is true if you want to find that snippet you copied two hours ago, copy text between rooms over different Wi-Fi networks, or audit the encryption yourself before trusting it with a password. UniClipboard is built for these cases: open-source code, signed desktop apps for macOS, Windows, and Linux (Rust + Tauri), end-to-end encryption with keys that never leave your devices, and an encrypted local history index searchable in milliseconds.",
+      "tableEyebrow": "Side-by-side",
+      "tableTitle": "Feature-by-feature comparison.",
+      "tableNote": "Comparison reflects publicly documented behaviour as of 2026-05.",
+      "tableHeader": {
+        "feature": "Feature",
+        "uc": "UniClipboard",
+        "other": "iCloud Universal Clipboard"
+      },
+      "rows": [
+        {
+          "feature": "Supported platforms",
+          "uc": "macOS, Windows, Linux (native)",
+          "other": "macOS and iOS only"
+        },
+        {
+          "feature": "Cross-network sync",
+          "uc": "P2P + NAT hole-punching + encrypted relay fallback",
+          "other": "Same Wi-Fi proximity only"
+        },
+        {
+          "feature": "Clipboard history",
+          "uc": "Searchable, encrypted at rest",
+          "other": "No history — only the latest copy"
+        },
+        {
+          "feature": "Encryption",
+          "uc": "XChaCha20-Poly1305 AEAD, open source",
+          "other": "End-to-end, closed source"
+        },
+        {
+          "feature": "Source code",
+          "uc": "AGPL-3.0, fully auditable",
+          "other": "Proprietary"
+        },
+        {
+          "feature": "Account required",
+          "uc": "None — public-key device pairing",
+          "other": "Apple ID required"
+        },
+        {
+          "feature": "File transfer",
+          "uc": "Text, images, and files (streaming for large files)",
+          "other": "Text and images only"
+        },
+        {
+          "feature": "CLI / scripting",
+          "uc": "Headless uniclip CLI for SSH, tmux, scripts",
+          "other": "Not supported"
+        },
+        {
+          "feature": "Price",
+          "uc": "Free",
+          "other": "Free"
+        }
+      ],
+      "switchEyebrow": "Migrating",
+      "switchTitle": "How to move from iCloud Universal Clipboard.",
+      "switchSteps": [
+        "Install UniClipboard on each device — macOS, Windows, or Linux. Each installer is signed and works alongside iCloud, so you don't need to disable anything.",
+        "Pair the devices with a short-lived invitation code generated on one device. No email, no Apple ID, no phone number — just a public-key handshake.",
+        "Keep using ⌘C / Ctrl-C and ⌘V / Ctrl-V exactly as before. UniClipboard extends the system clipboard; it does not replace it."
+      ],
+      "verdictEyebrow": "Verdict",
+      "verdictTitle": "When to choose what.",
+      "verdictBody": "If you only own Apple devices and don't care about clipboard history, iCloud Universal Clipboard is the easiest answer. For everyone else — anyone with a Windows or Linux machine in the workflow, anyone who wants searchable history, anyone who wants to audit the encryption code — UniClipboard is the open-source alternative built for all three desktop platforms.",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "Frequently asked.",
+      "faqItems": [
+        {
+          "q": "Can I use UniClipboard and iCloud Universal Clipboard at the same time?",
+          "a": "Yes. They run independently. iCloud will keep syncing your latest copy between your Apple devices on the same Wi-Fi; UniClipboard adds Windows / Linux support, history, and cross-network sync on top."
+        },
+        {
+          "q": "Does UniClipboard work without an internet connection?",
+          "a": "Yes. Devices on the same Wi-Fi connect peer-to-peer and never need a relay. Sync continues even when the public internet is unreachable, as long as the devices can see each other on the local network."
+        },
+        {
+          "q": "Is my clipboard content sent to UniClipboard's servers?",
+          "a": "No. Content is encrypted on the source device with a key that lives in the system keyring. The relay, when used at all, only ever sees ciphertext. Plain text never leaves your devices."
+        },
+        {
+          "q": "How is this different from a local clipboard manager like Pastebot or Maccy?",
+          "a": "Local clipboard managers store history on a single device. UniClipboard syncs across multiple devices and operating systems, with end-to-end encrypted transfer and shared history."
+        },
+        {
+          "q": "Will UniClipboard work between a Mac and a Windows machine on different Wi-Fi networks?",
+          "a": "Yes. UniClipboard uses NAT hole-punching to establish a direct connection between devices on different networks, and falls back to an encrypted relay when direct connection fails."
+        },
+        {
+          "q": "Does installing UniClipboard affect iCloud Universal Clipboard?",
+          "a": "No. UniClipboard does not modify iCloud or change any iCloud settings. You can install, use, or uninstall UniClipboard at any time without affecting iCloud."
+        }
+      ],
+      "ctaEyebrow": "Get UniClipboard",
+      "ctaTitle": "Free, open source, ready to install.",
+      "ctaBody": "macOS 12+, Windows 10/11, Linux x86_64 / ARM64. No account, no email, no setup beyond pairing.",
+      "ctaPrimary": "See downloads",
+      "ctaSecondary": "Read the whitepaper",
+      "lastUpdatedLabel": "Last updated",
+      "lastUpdatedDate": "2026-05-04"
+    },
+    "maccy": {
+      "seoTitle": "UniClipboard vs Maccy — open-source clipboard manager with cross-device sync",
+      "seoDescription": "Maccy is the popular open-source clipboard manager for macOS — local, fast, and lovingly maintained. UniClipboard keeps that open-source posture and adds end-to-end encrypted sync to Windows and Linux. Run them side by side.",
+      "seoKeywords": "maccy alternative, maccy clipboard sync, maccy multiple devices, maccy windows, maccy linux, open source clipboard manager mac, cross-platform maccy, UniClipboard vs Maccy, mac windows clipboard manager",
+      "ogAlt": "UniClipboard vs Maccy — open-source clipboard manager with cross-device sync",
+      "breadcrumbHome": "Home",
+      "breadcrumbCompare": "Compare",
+      "breadcrumbCurrent": "Maccy",
+      "eyebrow": "Compare · UniClipboard vs Maccy",
+      "title": "UniClipboard vs Maccy",
+      "subtitle": "Maccy is the open-source clipboard for one Mac. UniClipboard is the open-source clipboard for all your machines.",
+      "lede": "Maccy is a beloved open-source clipboard manager for macOS — local-only by design, fast, and tastefully simple. UniClipboard shares the same open-source ethos and adds what Maccy intentionally does not: end-to-end encrypted sync of clipboard content across macOS, Windows, and Linux. The two tools are happy to coexist on the same Mac, and many people run both.",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "The 30-second answer.",
+      "tldrItems": [
+        "Maccy is a local-only clipboard manager for a single Mac. UniClipboard is the cross-device extension of that idea — same open-source posture, plus sync.",
+        "Maccy is MIT-licensed; UniClipboard is AGPL-3.0. Both ship full source code and accept community contributions.",
+        "Maccy stores history on the Mac it runs on. UniClipboard keeps an end-to-end encrypted history per device and syncs new copies across paired devices.",
+        "Maccy is on the Mac App Store and via Homebrew. UniClipboard is distributed as signed, notarized direct downloads and via a Homebrew cask (Mac App Store is not currently supported).",
+        "You can run both side-by-side. Maccy keeps doing what it does on the Mac; UniClipboard adds Windows and Linux to the picture.",
+        "If you only ever use one Mac, Maccy alone is plenty. The moment a second machine joins your workflow, UniClipboard is the upgrade path."
+      ],
+      "section1Eyebrow": "Where Maccy is great",
+      "section1Title": "What Maccy does well",
+      "section1Body": "Maccy is the kind of tool open-source enthusiasts love: small, fast, native Swift, opinionated in the right places. It sits in the menu bar, opens with ⌘⇧C, lets you pin frequent items, search history, and filter by content type. The MIT license is friendly to anyone who wants to fork it. For a single Mac that does not need cross-device sync, Maccy is genuinely hard to beat — and recommending it for that case is the honest answer.",
+      "section2Eyebrow": "Where UniClipboard adds the missing piece",
+      "section2Title": "What UniClipboard adds on top",
+      "section2Body": "The thing Maccy does not do — by design — is leave the Mac. The moment you add a Windows laptop, a Linux desktop, or even a second Mac to your daily setup, the clipboard history splinters. UniClipboard is built for that case: end-to-end encrypted sync of clipboard content with XChaCha20-Poly1305 AEAD, desktop apps for macOS, Windows, and Linux, no cloud account, P2P on the same Wi-Fi with NAT hole-punching across networks, and a per-device encrypted history index.",
+      "tableEyebrow": "Side-by-side",
+      "tableTitle": "Maccy and UniClipboard compared.",
+      "tableNote": "Comparison reflects publicly documented behaviour as of 2026-05. Maccy facts verified against github.com/p0deje/Maccy.",
+      "tableHeader": {
+        "feature": "Feature",
+        "uc": "UniClipboard",
+        "other": "Maccy"
+      },
+      "rows": [
+        {
+          "feature": "Supported platforms",
+          "uc": "macOS, Windows, Linux (native)",
+          "other": "macOS only"
+        },
+        {
+          "feature": "License",
+          "uc": "AGPL-3.0",
+          "other": "MIT"
+        },
+        {
+          "feature": "Cross-device sync",
+          "uc": "End-to-end encrypted sync across paired devices",
+          "other": "Not by design — local-only on a single Mac"
+        },
+        {
+          "feature": "Clipboard history",
+          "uc": "Encrypted local index, per-device, searchable",
+          "other": "Local history, searchable, with pin and filters"
+        },
+        {
+          "feature": "Distribution",
+          "uc": "Signed direct downloads + Homebrew cask (mac) + Snap (linux)",
+          "other": "Mac App Store, Homebrew, build from source"
+        },
+        {
+          "feature": "Pin / favorite items",
+          "uc": "Not yet — on the roadmap",
+          "other": "Yes — first-class feature"
+        },
+        {
+          "feature": "Account required",
+          "uc": "None — public-key device pairing",
+          "other": "None — local-only"
+        },
+        {
+          "feature": "Encryption",
+          "uc": "XChaCha20-Poly1305 AEAD in transit and at rest",
+          "other": "Local storage only — no network transit to encrypt"
+        },
+        {
+          "feature": "Price",
+          "uc": "Free",
+          "other": "Free from source / Homebrew; paid on the Mac App Store"
+        }
+      ],
+      "switchEyebrow": "Setup",
+      "switchTitle": "Three steps. You can keep Maccy.",
+      "switchSteps": [
+        "Keep Maccy installed if you like it. UniClipboard does not interfere with Maccy's history or its keyboard shortcut — they observe the same system clipboard from different angles and coexist cleanly.",
+        "Install UniClipboard on your Mac and on whichever non-Mac device you want to sync with — Windows or Linux. Each installer is signed and notarized; no account, no email.",
+        "Pair the devices once with a short-lived invitation code. From then on, anything you copy on one device is available on the others, while Maccy continues to maintain its own local history on the Mac."
+      ],
+      "verdictEyebrow": "Verdict",
+      "verdictTitle": "When to pick what.",
+      "verdictBody": "If you only ever use one Mac, Maccy is the right answer — full stop. Pick UniClipboard when a second device joins the picture (Windows, Linux, or another Mac) and you want clipboard content to follow you. The two are not really competitors: Maccy is the local layer; UniClipboard is the sync layer. Many people use both.",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "Frequently asked.",
+      "faqItems": [
+        {
+          "q": "Can I run Maccy and UniClipboard at the same time?",
+          "a": "Yes. They observe the same macOS clipboard and do not interfere with each other. Maccy keeps its local history; UniClipboard keeps its encrypted per-device history and syncs copies to your other devices. Many users run both."
+        },
+        {
+          "q": "Does sync only go from Mac to Windows, or in both directions?",
+          "a": "Both directions. UniClipboard's clipboard is symmetric: a copy on the Windows side is available on the Mac, and vice versa. Maccy continues to record only what happens on the Mac it runs on."
+        },
+        {
+          "q": "How does clipboard history retention compare?",
+          "a": "Maccy lets you configure how many items to keep, stored locally on that Mac. UniClipboard keeps an encrypted local history per device with a configurable retention window (default 30 days). The two histories are independent — Maccy does not see UniClipboard's, and vice versa."
+        },
+        {
+          "q": "Is the license difference between MIT and AGPL-3.0 a problem?",
+          "a": "For end-users, no — both let you read, modify, and share the code. AGPL-3.0 only adds obligations if you modify UniClipboard and run it as a network service for others. Personal and team use is unaffected. Maccy's MIT license is more permissive for embedding in a closed-source product, but UniClipboard is a standalone app, so that distinction rarely matters in practice."
+        },
+        {
+          "q": "Is UniClipboard available on the Mac App Store?",
+          "a": "Not currently. UniClipboard ships as signed, notarized direct downloads from the website, and as a Homebrew cask via brew install --cask uniclipboard/tap/uniclipboard. Maccy is on the Mac App Store (paid) and also free from Homebrew or source. If Mac App Store distribution specifically matters to you, that is still a real point in Maccy's favour today."
+        },
+        {
+          "q": "Will UniClipboard be as fast as Maccy on a Mac?",
+          "a": "For local clipboard history search the two are comparable — both index locally and search in milliseconds. UniClipboard adds a network step when syncing to other devices, but the local UX on the Mac stays instant: the system clipboard updates as soon as ⌘C fires."
+        }
+      ],
+      "ctaEyebrow": "Get UniClipboard",
+      "ctaTitle": "The cross-device companion to your local clipboard manager.",
+      "ctaBody": "macOS 12+, Windows 10/11, Linux x86_64 / ARM64. Free, open source, end-to-end encrypted. Coexists with Maccy.",
+      "ctaPrimary": "See downloads",
+      "ctaSecondary": "Read the whitepaper",
+      "lastUpdatedLabel": "Last updated",
+      "lastUpdatedDate": "2026-05-04"
+    }
+  },
+  "useCases": {
+    "macToWindows": {
+      "seoTitle": "How to copy text, images, and files from a Mac to a Windows PC",
+      "seoDescription": "UniClipboard lets you copy on your Mac with ⌘C and paste on Windows with Ctrl+V — text, images, files. Open source, end-to-end encrypted, no cloud account, no server. The cross-platform replacement for Apple's Universal Clipboard.",
+      "seoKeywords": "copy from mac to windows, copy paste mac to windows, mac windows clipboard, mac to pc clipboard, cross-platform clipboard, clipboard sync mac windows, transfer text mac to windows, send file mac to windows, mac windows shared clipboard",
+      "ogAlt": "Copy on your Mac, paste on Windows — UniClipboard cross-platform clipboard sync",
+      "breadcrumbHome": "Home",
+      "breadcrumbCategory": "Use cases",
+      "breadcrumbCurrent": "Mac → Windows clipboard",
+      "eyebrow": "Use case · Mac to Windows clipboard",
+      "title": "Copy on your Mac. Paste on Windows.",
+      "subtitle": "Without uploading to a cloud, emailing yourself, or running a server.",
+      "lede": "UniClipboard is the most direct way to move content between a Mac and a Windows PC — text, images, or files. Press ⌘C on the Mac, then Ctrl+V on Windows, and the content arrives. It is open source, end-to-end encrypted, requires no cloud account, and works on the same Wi-Fi peer-to-peer or across different networks via NAT hole-punching with an encrypted relay fallback.",
+      "tldrEyebrow": "TL;DR",
+      "tldrTitle": "What you need to know in 30 seconds.",
+      "tldrItems": [
+        "iCloud Universal Clipboard does not work between Mac and Windows — Apple ships it for Apple devices only.",
+        "Common workarounds (emailing yourself, cloud storage, chat self-DMs, OneDrive sync) are either slow, insecure, or both.",
+        "UniClipboard installs on macOS and Windows in a few minutes and pairs with a single short-lived invitation code.",
+        "After pairing, the system clipboard is shared: ⌘C on Mac → Ctrl+V on Windows, no menu, no upload step.",
+        "Content is end-to-end encrypted with XChaCha20-Poly1305 AEAD. Plain text never leaves your devices.",
+        "Same Wi-Fi → direct P2P. Different networks → NAT hole-punching, with an encrypted relay only as a fallback."
+      ],
+      "section1Eyebrow": "Why workarounds break",
+      "section1Title": "The usual hacks all have a tax",
+      "section1Body": "Emailing yourself a snippet routes the content through a third-party server, costs you a tab switch, and breaks if the snippet is binary. Self-DMs in Slack or WeChat work but the content is stored on someone else's server and pasting an image often loses formatting. Uploading a file to OneDrive or Google Drive solves the file case but means waiting for sync — and gives the cloud provider another copy of your data. Each of these hacks asks you to trade speed for security, or security for speed.",
+      "section2Eyebrow": "What UniClipboard does",
+      "section2Title": "Same keystroke, encrypted, instant.",
+      "section2Body": "UniClipboard turns the Mac and Windows machines into a single shared clipboard. ⌘C on the Mac places the content into the system clipboard; UniClipboard immediately pushes the encrypted bytes to the Windows side; Ctrl+V on Windows pastes it. There is no upload, no third-party server in the path, no menu to open, no permission prompt per copy. Each device keeps its own searchable encrypted history, so you can also page back through earlier copies.",
+      "tableEyebrow": "Approaches",
+      "tableTitle": "How UniClipboard compares to the workarounds.",
+      "tableNote": "Comparison reflects publicly documented behaviour as of 2026-05.",
+      "tableHeader": {
+        "feature": "What you care about",
+        "uc": "UniClipboard",
+        "other": "Cloud / chat / email workarounds"
+      },
+      "rows": [
+        {
+          "feature": "Latency",
+          "uc": "Instant — same keystroke",
+          "other": "Seconds to minutes (upload + download)"
+        },
+        {
+          "feature": "Security",
+          "uc": "End-to-end encrypted, open source",
+          "other": "Content sits on a third-party server"
+        },
+        {
+          "feature": "Account / login",
+          "uc": "None — public-key device pairing",
+          "other": "Account required for every service"
+        },
+        {
+          "feature": "Files",
+          "uc": "Streaming transfer, no size cap from us",
+          "other": "Subject to provider attachment limits"
+        },
+        {
+          "feature": "Searchable history",
+          "uc": "Encrypted local index per device",
+          "other": "Search whatever inbox / chat you used"
+        },
+        {
+          "feature": "Works offline",
+          "uc": "Yes — same Wi-Fi P2P",
+          "other": "No — needs the cloud service"
+        },
+        {
+          "feature": "Different Wi-Fi networks",
+          "uc": "NAT hole-punching + encrypted relay",
+          "other": "Works as long as the cloud is reachable"
+        }
+      ],
+      "switchEyebrow": "How to set it up",
+      "switchTitle": "Three steps. About five minutes.",
+      "switchSteps": [
+        "Download UniClipboard for macOS and for Windows from the Downloads page. Each installer is signed — macOS uses notarization, Windows uses Authenticode signing.",
+        "Open UniClipboard on the Mac, generate a short-lived pairing code, then enter that code on the Windows machine. The two devices exchange a public key once over the local network. There is no email, no Apple ID, no phone number.",
+        "Copy on the Mac with ⌘C as you always have. Switch to Windows and paste with Ctrl+V. Text, images, and files all flow without any extra menu or permission prompt."
+      ],
+      "verdictEyebrow": "Verdict",
+      "verdictTitle": "What to use, and when.",
+      "verdictBody": "If you only ever need to send a single short snippet from your Mac to your Windows machine, the chat self-DM works. For everything else — repeated copies, images, files, content you don't want sitting on a third-party server, or anything that needs to feel as fast as the system clipboard — UniClipboard is what you want.",
+      "faqEyebrow": "FAQ",
+      "faqTitle": "Common questions.",
+      "faqItems": [
+        {
+          "q": "Is the paste a regular Ctrl+V, or do I need a special menu?",
+          "a": "Regular Ctrl+V. UniClipboard places the content into the Windows system clipboard, so any app that accepts a paste accepts UniClipboard's content."
+        },
+        {
+          "q": "Does this work between a Mac and a Windows machine on different Wi-Fi networks?",
+          "a": "Yes. UniClipboard performs NAT hole-punching to establish a direct connection, and falls back to an encrypted relay when direct connection fails. Either way the content stays end-to-end encrypted."
+        },
+        {
+          "q": "Can I copy a file, not just text?",
+          "a": "Yes. Files are transferred with streaming so they never have to fit entirely in memory. Drop a file onto the clipboard on one device and paste it on the other."
+        },
+        {
+          "q": "Does my clipboard go through the public internet?",
+          "a": "Only when it has to. If both devices are on the same Wi-Fi, the transfer is direct peer-to-peer. If they are on different networks, UniClipboard tries NAT hole-punching first; only when that fails does it fall back to an encrypted relay — and the relay only ever sees ciphertext."
+        },
+        {
+          "q": "Does it work on Windows 10, or only Windows 11?",
+          "a": "Both. UniClipboard supports Windows 10 and Windows 11 (x64). On the Mac side, macOS 12 (Monterey) and later are supported."
+        },
+        {
+          "q": "Does it work in the reverse direction — copy on Windows, paste on Mac?",
+          "a": "Yes. The clipboard is bidirectional and symmetric. ⌘V on the Mac will receive whatever was last copied on the Windows side, and vice versa."
+        }
+      ],
+      "ctaEyebrow": "Get UniClipboard",
+      "ctaTitle": "Free, open source, ready to install.",
+      "ctaBody": "macOS 12+, Windows 10/11. No account, no email, no setup beyond the one-time pairing.",
+      "ctaPrimary": "See downloads",
+      "ctaSecondary": "Read the whitepaper",
+      "lastUpdatedLabel": "Last updated",
+      "lastUpdatedDate": "2026-05-04"
+    }
+  }
+}

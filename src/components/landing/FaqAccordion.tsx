@@ -64,7 +64,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
               type="button"
               aria-expanded={isOpen}
               onClick={() => setOpen(isOpen ? -1 : i)}
-              className="text-foreground flex w-full cursor-pointer items-center justify-between bg-transparent py-5 text-left"
+              className="text-foreground flex w-full cursor-pointer items-center justify-between bg-transparent py-5 text-start"
               style={{
                 fontSize: 17,
                 fontWeight: 500,

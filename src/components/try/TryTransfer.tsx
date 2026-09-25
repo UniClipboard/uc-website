@@ -313,12 +313,17 @@ export function TryTransfer() {
     async (input: string): Promise<EntryError | null> => {
       const code = normalizeCode(input);
       if (!code) return "incomplete";
+      // A send or an opened link may start while the lookup is in flight;
+      // a late result must not tear that down.
+      const id = run.current;
       let target;
       try {
         target = await resolveCode(code);
       } catch (err) {
+        if (run.current !== id) return null;
         return err instanceof CodeError ? err.reason : "unavailable";
       }
+      if (run.current !== id) return null;
       void receive(target, code);
       return null;
     },

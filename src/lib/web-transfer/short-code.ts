@@ -113,6 +113,34 @@ async function post(
   }
 }
 
+/** The server's fixed code TTL (contract v1); no code lives longer. */
+const MAX_LIFETIME_MS = 300_000;
+/**
+ * The shortest lifetime this page assumes. It bounds how fast a sender whose
+ * clock runs ahead of the server's renews its code, and still admits the
+ * 5-second TTL of the local development service.
+ */
+const MIN_LIFETIME_MS = 5_000;
+
+/**
+ * Converts the server's `expiresAtMs` (its clock) into a deadline on this
+ * device's clock, since the two clocks can disagree and the server's `Date`
+ * header is not readable across origins. The lifetime is clamped: never past
+ * the fixed TTL from when the request was sent, never below a floor.
+ */
+export function localDeadline(
+  sentAtMs: number,
+  receivedAtMs: number,
+  serverExpiresAtMs: number,
+): number {
+  const lifetime = Math.max(
+    MIN_LIFETIME_MS,
+    Math.min(MAX_LIFETIME_MS, serverExpiresAtMs - receivedAtMs),
+  );
+  return Math.min(receivedAtMs + lifetime, sentAtMs + MAX_LIFETIME_MS);
+}
+
+/** `expiresAtMs` is on this device's clock; see `localDeadline`. */
 export type IssuedCode = { code: string; expiresAtMs: number };
 
 /** Registers a new code for a ticket. Every call gets a fresh code. */
@@ -120,6 +148,7 @@ export async function createCode(
   ticket: ConnectionTicket,
   signal?: AbortSignal,
 ): Promise<IssuedCode> {
+  const sentAtMs = Date.now();
   const data = (await post(
     "/v1/web-pairings",
     { ticket: encodeCodeTicket(ticket) },
@@ -130,7 +159,10 @@ export async function createCode(
   if (!code || typeof expiresAtMs !== "number" || !isFinite(expiresAtMs)) {
     throw new CodeError("unavailable");
   }
-  return { code, expiresAtMs };
+  return {
+    code,
+    expiresAtMs: localDeadline(sentAtMs, Date.now(), expiresAtMs),
+  };
 }
 
 /** Looks up a code. Does not use it up; see `consumeCode`. */

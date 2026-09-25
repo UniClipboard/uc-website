@@ -4,6 +4,7 @@
 import {
   displayCode,
   encodeCodeTicket,
+  localDeadline,
   normalizeCode,
   parseCodeTicket,
 } from "@/lib/web-transfer/short-code";
@@ -78,5 +79,32 @@ describe("code tickets", () => {
     ["a non-string address", ticket({ c: 42 })],
   ])("rejects %s", (_, raw) => {
     expect(parseCodeTicket(raw)).toBeNull();
+  });
+});
+
+describe("localDeadline", () => {
+  const sent = 1_000_000;
+  const received = sent + 200;
+
+  it("keeps the server lifetime when the clocks agree", () => {
+    expect(localDeadline(sent, received, received + 300_000)).toBe(
+      sent + 300_000,
+    );
+    expect(localDeadline(sent, received, received + 5_000)).toBe(
+      received + 5_000,
+    );
+  });
+
+  it("never outlives the fixed TTL when this clock is behind", () => {
+    expect(localDeadline(sent, received, received + 3_600_000)).toBe(
+      sent + 300_000,
+    );
+  });
+
+  it("keeps a minimum lifetime when this clock is ahead", () => {
+    // Ahead by 10 minutes: the raw expiry is already in the past here.
+    expect(localDeadline(sent, received, received - 300_000)).toBe(
+      received + 5_000,
+    );
   });
 });

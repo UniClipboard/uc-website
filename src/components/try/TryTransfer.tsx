@@ -101,7 +101,7 @@ const errorCode = (err: unknown, fallback: ErrorCode): ErrorCode => {
   return fallback;
 };
 
-export function TryTransfer() {
+export function TryTransfer({ linkPath = "/try" }: { linkPath?: string }) {
   const t = useTranslations("try");
   const locale = useLocale();
   const [view, setView] = useState<View>({ name: "compose", mode: "send" });
@@ -448,6 +448,7 @@ export function TryTransfer() {
         window.location.origin,
         localePathPrefix(locale),
         own,
+        linkPath,
       );
       setLinkCopied(false);
       setView({ name: "ready", link });

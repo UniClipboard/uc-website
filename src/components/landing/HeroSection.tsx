@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 import { isChinaIp } from "@/lib/geo/country";
@@ -7,6 +7,7 @@ import {
   getAndroidRelease,
   IOS_TESTFLIGHT_URL,
 } from "@/lib/mobile-releases";
+import { getTryHref } from "@/lib/try-site";
 
 import { HeroDownloadCta } from "./HeroDownloadCta";
 import { HeroTrustBar } from "./HeroTrustBar";
@@ -20,6 +21,7 @@ type Props = {
 };
 
 export async function HeroSection({ stars }: Props) {
+  const locale = await getLocale();
   const t = await getTranslations("landing.hero");
   const tDl = await getTranslations("landing.download");
   const defaultVideoSource: HeroVideoSource = (await isChinaIp())
@@ -154,7 +156,7 @@ export async function HeroSection({ stars }: Props) {
             />
 
             <Link
-              href="/try"
+              href={getTryHref(locale)}
               prefetch={false}
               className="border-border text-foreground hover:bg-foreground/5 mb-5 flex w-full items-center justify-center rounded-[10px] border px-5 py-3 text-[15px] font-medium transition-colors"
             >

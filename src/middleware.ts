@@ -8,6 +8,7 @@ import createIntlMiddleware from "next-intl/middleware";
 
 import { routing } from "./i18n/routing";
 import { acceptsMarkdown } from "./lib/markdown-negotiation";
+import { trySiteUrl } from "./lib/try-site";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -87,6 +88,20 @@ function applyPublicCdnCache(res: NextResponse): NextResponse {
 
 export default function middleware(req: NextRequest, event: NextFetchEvent) {
   const path = req.nextUrl.pathname;
+  // Redirect before intl routing, HTML, fragment capture or analytics. HTTP
+  // Location deliberately has no hash: browsers inherit the original fragment.
+  // Unlike next.config redirects, this response keeps explicit privacy/cache
+  // headers, and a temporary 307 permits immediate production rollback.
+  const legacyTry = path.match(/^\/(?:(en|zh|ru)\/)?try\/?$/);
+  if (trySiteUrl && legacyTry) {
+    const locale = legacyTry[1] || "en";
+    const target = new URL(locale === "en" ? "/" : `/${locale}`, trySiteUrl);
+    target.search = req.nextUrl.search;
+    const response = NextResponse.redirect(target, 307);
+    response.headers.set("cache-control", "no-store");
+    response.headers.set("referrer-policy", "no-referrer");
+    return response;
+  }
   if (isAdminRoute(path)) {
     return adminMiddleware(req, event);
   }

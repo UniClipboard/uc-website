@@ -11,6 +11,7 @@ import { LangSwitcher } from "@/components/landing/LangSwitcher";
 import { Link, usePathname } from "@/i18n/navigation";
 import { isArticleLocale } from "@/lib/article-content";
 import { getDocsHref } from "@/lib/docs-href";
+import { getTryHref, trySiteUrl } from "@/lib/try-site";
 
 function NavLinkPending() {
   const { pending } = useLinkStatus();
@@ -76,7 +77,13 @@ export function Navigation() {
   }[] = [
     // Not prefetched: fetching the /try route while the home page is still
     // painting measurably delayed the home LCP.
-    { href: "/try", label: t("try"), matchPrefix: "/try", noPrefetch: true },
+    {
+      href: getTryHref(locale),
+      label: t("try"),
+      matchPrefix: "/try",
+      noPrefetch: true,
+      external: !!trySiteUrl,
+    },
     ...(hasArticles
       ? [
           { href: "/blog", label: t("blog"), matchPrefix: "/blog" },

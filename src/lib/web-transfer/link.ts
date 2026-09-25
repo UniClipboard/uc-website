@@ -1,5 +1,5 @@
 /**
- * The connection link: `/<locale>/try#c=<tailcat address>&k=<token>`.
+ * Connection links carry a locale-aware page path and `#c=<address>&k=<token>`.
  *
  * Both values are secrets. The tailcat address embeds a WireGuard pre-shared
  * key and the token authorises the pull, so they travel only in the URL
@@ -22,8 +22,9 @@ export function buildLink(
   origin: string,
   localePrefix: string,
   ticket: ConnectionTicket,
+  path = "/try",
 ): string {
-  return `${origin}${localePrefix}/try#c=${ticket.addr}&k=${ticket.token}`;
+  return `${origin}${localePrefix}${path || (localePrefix ? "" : "/")}#c=${ticket.addr}&k=${ticket.token}`;
 }
 
 /**
@@ -62,10 +63,11 @@ declare global {
  * connection fragment into memory and strips it from the address bar. It
  * also strips fragments that arrive later (a link pasted into this tab):
  * its capture-phase popstate/hashchange listeners are registered before
- * gtag's history listeners, so they run first. Only on /try, so anchors on
- * other pages keep working after a client-side navigation away.
+ * gtag's history listeners, so they run first. Runs on /try in the marketing
+ * site, or on the dedicated transfer site (marked on its html element).
+ * Marketing page anchors keep working after client-side navigation away.
  */
-export const FRAGMENT_CAPTURE_SCRIPT = `(function(){function take(first){try{if(!/\\/try\\/?$/.test(location.pathname))return;var h=location.hash;if(!h)return;if(/(?:^#|&)c=/.test(h)){window.__ucTryFragment=h;if(first)document.documentElement.setAttribute("data-try-incoming","")}history.replaceState(history.state,"",location.pathname+location.search)}catch(e){}}take(true);addEventListener("popstate",function(){take(false)},true);addEventListener("hashchange",function(){take(false)},true)})();`;
+export const FRAGMENT_CAPTURE_SCRIPT = `(function(){function take(first){try{if(!document.documentElement.hasAttribute("data-try-site")&&!/\\/try\\/?$/.test(location.pathname))return;var h=location.hash;if(!h)return;if(/(?:^#|&)c=/.test(h)){window.__ucTryFragment=h;if(first)document.documentElement.setAttribute("data-try-incoming","")}history.replaceState(history.state,"",location.pathname+location.search)}catch(e){}}take(true);addEventListener("popstate",function(){take(false)},true);addEventListener("hashchange",function(){take(false)},true)})();`;
 
 /** Takes the captured fragment (or the live one), then strips it. */
 export function takeFragment(): string | null {

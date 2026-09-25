@@ -14,6 +14,17 @@ const DOCS_ORIGIN =
     ? "https://preview.docs.uniclipboard.app"
     : "https://docs.uniclipboard.app");
 
+const trySiteUrl = process.env.NEXT_PUBLIC_TRY_SITE_URL?.replace(/\/$/, "");
+if (
+  trySiteUrl &&
+  trySiteUrl !== "https://try.uniclipboard.app" &&
+  !/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(trySiteUrl)
+) {
+  throw new Error(
+    "NEXT_PUBLIC_TRY_SITE_URL must be the approved try origin or a local test server",
+  );
+}
+
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
   serverExternalPackages: ["@takumi-rs/core"],

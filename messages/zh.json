@@ -37,6 +37,8 @@
       "github": "GitHub",
       "menu": "菜单",
       "menuClose": "关闭菜单",
+      "language": "语言",
+      "theme": "主题",
       "themeSystem": "跟随系统",
       "themeLight": "浅色",
       "themeDark": "深色",

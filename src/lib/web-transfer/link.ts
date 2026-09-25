@@ -26,15 +26,24 @@ export function buildLink(
   return `${origin}${localePrefix}/try#c=${ticket.addr}&k=${ticket.token}`;
 }
 
-/** Parses a fragment (with or without the leading `#`). */
-export function parseFragment(fragment: string): ConnectionTicket | null {
-  const params = new URLSearchParams(fragment.replace(/^#/, ""));
-  const addr = params.get("c");
-  const token = params.get("k");
-  if (!addr || !token) return null;
+/**
+ * Checks an address and token from outside the page (a link or a code
+ * lookup). Only a ticket that passes may be dialled: see tailcat-address.ts.
+ */
+export function toConnectionTicket(
+  addr: unknown,
+  token: unknown,
+): ConnectionTicket | null {
+  if (typeof addr !== "string" || typeof token !== "string") return null;
   if (!ADDR_PATTERN.test(addr) || !TOKEN_PATTERN.test(token)) return null;
   if (!isWellFormedTailcatAddress(addr)) return null;
   return { addr, token };
+}
+
+/** Parses a fragment (with or without the leading `#`). */
+export function parseFragment(fragment: string): ConnectionTicket | null {
+  const params = new URLSearchParams(fragment.replace(/^#/, ""));
+  return toConnectionTicket(params.get("c"), params.get("k"));
 }
 
 /** True when the fragment looks like a connection link, valid or not. */

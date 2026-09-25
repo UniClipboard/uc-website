@@ -275,7 +275,7 @@ export function ComparisonTable({
         </h2>
         <div className="border-border overflow-x-auto rounded-[14px] border">
           <table
-            className="w-full border-collapse text-left"
+            className="w-full border-collapse text-start"
             style={{ minWidth: 640 }}
           >
             <thead>

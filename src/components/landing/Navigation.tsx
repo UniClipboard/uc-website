@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { Icons } from "@/components/icons";
 import { LangSwitcher } from "@/components/landing/LangSwitcher";
 import { Link, usePathname } from "@/i18n/navigation";
-import { isArticleLocale } from "@/lib/article-content";
 import { getDocsHref } from "@/lib/docs-href";
 import { getTryHref, trySiteUrl } from "@/lib/try-site";
 
@@ -19,7 +18,7 @@ function NavLinkPending() {
   return (
     <span
       aria-hidden
-      className="ml-1.5 inline-block size-1.5 animate-pulse rounded-full bg-current align-middle"
+      className="ms-1.5 inline-block size-1.5 animate-pulse rounded-full bg-current align-middle"
     />
   );
 }
@@ -63,10 +62,6 @@ export function Navigation() {
     <Icons.sun className="size-[14px]" />
   );
 
-  // The article sections only exist in the locales their content was authored
-  // in, so linking to them from a locale without content would be a dead link.
-  const hasArticles = isArticleLocale(locale);
-
   const navItems: {
     href: string;
     label: string;
@@ -84,17 +79,9 @@ export function Navigation() {
       noPrefetch: true,
       external: !!trySiteUrl,
     },
-    ...(hasArticles
-      ? [
-          { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
-          { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
-          {
-            href: "/use-cases",
-            label: t("useCases"),
-            matchPrefix: "/use-cases",
-          },
-        ]
-      : []),
+    { href: "/blog", label: t("blog"), matchPrefix: "/blog" },
+    { href: "/compare", label: t("compare"), matchPrefix: "/compare" },
+    { href: "/use-cases", label: t("useCases"), matchPrefix: "/use-cases" },
     {
       href: getDocsHref(locale),
       label: t("docs"),
@@ -151,11 +138,13 @@ export function Navigation() {
         </div>
 
         <div className="flex items-center gap-2.5">
-          <LangSwitcher placement="bottom" className="hidden sm:block" />
+          <div className="hidden sm:block">
+            <LangSwitcher placement="bottom" />
+          </div>
 
           <button
             type="button"
-            aria-label="Toggle theme"
+            aria-label={themeLabels[currentTheme]}
             title={mounted ? themeLabels[currentTheme] : undefined}
             onClick={() => setTheme(nextTheme)}
             className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground hidden size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors sm:inline-flex"
@@ -184,6 +173,7 @@ export function Navigation() {
 
           <button
             type="button"
+            data-testid="menu-toggle"
             aria-label={menuOpen ? t("menuClose") : t("menu")}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
@@ -255,7 +245,7 @@ export function Navigation() {
               <LangSwitcher placement="top" />
               <button
                 type="button"
-                aria-label="Toggle theme"
+                aria-label={themeLabels[currentTheme]}
                 title={mounted ? themeLabels[currentTheme] : undefined}
                 onClick={() => setTheme(nextTheme)}
                 className="border-border bg-foreground/5 text-muted-foreground hover:text-foreground inline-flex size-[30px] cursor-pointer items-center justify-center rounded-full border transition-colors"

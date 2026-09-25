@@ -1,9 +1,7 @@
 import { ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import { getPublishedArticlesByCategory } from "@/db/articles";
@@ -56,7 +54,7 @@ export async function buildHubMetadata(
     keywords,
     alternates: {
       canonical,
-      languages: localeAlternates(config.pagePath, ARTICLE_LOCALES),
+      languages: localeAlternates(config.pagePath),
     },
     openGraph: {
       title,
@@ -82,7 +80,37 @@ type HubProps = {
 };
 
 export async function ArticleHubLayout({ config, locale }: HubProps) {
-  if (!isArticleLocale(locale)) notFound();
+  if (!isArticleLocale(locale)) {
+    const t = await getTranslations({ locale, namespace: config.namespace });
+    const language = await getTranslations({
+      locale,
+      namespace: "languagePicker",
+    });
+    return (
+      <>
+        <Navigation />
+        <main className="landing-shell min-h-[60vh] pt-32 pb-20">
+          <h1 className="text-4xl font-semibold">{t("title")}</h1>
+          <p className="mt-6">{language("contentAvailability")}</p>
+          <ul className="mt-4 flex flex-wrap gap-6">
+            {ARTICLE_LOCALES.map((code) => (
+              <li key={code}>
+                <a
+                  href={`${localePathPrefix(code)}${config.pagePath}`}
+                  hrefLang={metaFor(code).inLanguage}
+                  lang={metaFor(code).inLanguage}
+                  className="underline"
+                >
+                  {code === "en" ? "English" : "简体中文"}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   const t = await getTranslations({ locale, namespace: config.namespace });
   const articles = await getPublishedArticlesByCategory(
@@ -167,10 +195,10 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
                 { label: t("breadcrumbCurrent") },
               ]}
             />
-            <AnimateIn variant="fade-in" duration={0.5}>
+            <div>
               <p className="landing-kicker">{t("eyebrow")}</p>
-            </AnimateIn>
-            <AnimateIn delay={0.05} duration={0.6}>
+            </div>
+            <div>
               <h1
                 className="text-foreground mt-3.5 mb-5"
                 style={{
@@ -184,16 +212,16 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
               >
                 {t("title")}
               </h1>
-            </AnimateIn>
-            <AnimateIn delay={0.1} duration={0.5}>
+            </div>
+            <div>
               <p
                 className="text-muted-foreground"
                 style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 720 }}
               >
                 {t("subtitle")}
               </p>
-            </AnimateIn>
-            <AnimateIn delay={0.16} duration={0.5}>
+            </div>
+            <div>
               <p
                 className="text-muted2 mt-8 inline-flex items-center gap-2"
                 style={{
@@ -204,7 +232,7 @@ export async function ArticleHubLayout({ config, locale }: HubProps) {
               >
                 <span>{t("countLabel", { count: articles.length })}</span>
               </p>
-            </AnimateIn>
+            </div>
           </div>
         </section>
 

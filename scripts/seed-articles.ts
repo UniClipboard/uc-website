@@ -190,10 +190,10 @@ const SEEDS: SeedSpec[] = [
 
 async function main() {
   const enRoot = JSON.parse(
-    readFileSync(resolve("messages/en.json"), "utf8"),
+    readFileSync(resolve("content/article-seeds/en.json"), "utf8"),
   ) as Record<string, unknown>;
   const zhRoot = JSON.parse(
-    readFileSync(resolve("messages/zh.json"), "utf8"),
+    readFileSync(resolve("content/article-seeds/zh.json"), "utf8"),
   ) as Record<string, unknown>;
 
   const client = postgres(url!, { max: 1 });

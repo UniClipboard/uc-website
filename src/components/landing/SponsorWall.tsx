@@ -52,7 +52,7 @@ function Nameplate({
     sponsor.note ?? (sponsor.since ? `${sinceLabel} ${sponsor.since}` : null);
 
   const cls = [
-    "flex flex-none items-center gap-3 rounded-full border py-2 pr-5 pl-2 transition-colors",
+    "flex flex-none items-center gap-3 rounded-full border py-2 pe-5 ps-2 transition-colors",
     gold
       ? "border-amber-500/35 bg-amber-400/[0.08] hover:border-amber-500/60"
       : "border-border bg-card hover:border-foreground/30",
@@ -61,7 +61,7 @@ function Nameplate({
   const inner = (
     <>
       <SponsorAvatar sponsor={sponsor} size={40} />
-      <span className="flex flex-col text-left">
+      <span className="flex flex-col text-start">
         <span className="flex items-center gap-1.5">
           <span
             className={
@@ -110,7 +110,7 @@ function JoinPlate({ href, label }: { href: string; label: string }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="border-border text-muted hover:border-foreground/40 hover:text-foreground flex flex-none items-center gap-2.5 rounded-full border border-dashed py-2 pr-5 pl-3 transition-colors"
+      className="border-border text-muted hover:border-foreground/40 hover:text-foreground flex flex-none items-center gap-2.5 rounded-full border border-dashed py-2 ps-3 pe-5 transition-colors"
     >
       <span className="bg-bg2 text-muted inline-flex size-9 flex-none items-center justify-center rounded-full">
         <Plus className="size-4" />
@@ -139,7 +139,7 @@ function MarqueeRow({
     <div
       aria-hidden={hidden || undefined}
       inert={hidden || undefined}
-      className="flex items-center gap-3 pr-3 md:gap-4 md:pr-4"
+      className="flex items-center gap-3 pe-3 md:gap-4 md:pe-4"
     >
       {Array.from({ length: copies }, (_, i) => {
         const dup = !hidden && i > 0;

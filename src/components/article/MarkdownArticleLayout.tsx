@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { Article, BreadcrumbBar, JsonLd } from "@/components/article/sections";
-import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import {
@@ -111,17 +110,17 @@ const proseClasses = [
   "[&_em]:italic",
   "[&_ul]:my-5",
   "[&_ul]:list-disc",
-  "[&_ul]:pl-6",
+  "[&_ul]:ps-6",
   "[&_ul]:text-foreground/90",
   "[&_ol]:my-5",
   "[&_ol]:list-decimal",
-  "[&_ol]:pl-6",
+  "[&_ol]:ps-6",
   "[&_ol]:text-foreground/90",
   "[&_li]:my-1.5",
   "[&_li]:leading-[1.65]",
-  "[&_blockquote]:border-l-2",
+  "[&_blockquote]:border-s-2",
   "[&_blockquote]:border-border",
-  "[&_blockquote]:pl-5",
+  "[&_blockquote]:ps-5",
   "[&_blockquote]:my-6",
   "[&_blockquote]:text-muted-foreground",
   "[&_blockquote]:italic",
@@ -151,7 +150,7 @@ const proseClasses = [
   "[&_table]:border-border",
   "[&_table]:rounded-lg",
   "[&_table]:overflow-hidden",
-  "[&_th]:text-left",
+  "[&_th]:text-start",
   "[&_th]:px-4",
   "[&_th]:py-3",
   "[&_th]:bg-bg2",
@@ -269,7 +268,7 @@ export async function MarkdownArticleLayout({
                 { label: content.meta.breadcrumbCurrent },
               ]}
             />
-            <AnimateIn variant="fade-in" duration={0.5}>
+            <div>
               <p
                 className="text-muted2 mb-3.5"
                 style={{
@@ -284,8 +283,8 @@ export async function MarkdownArticleLayout({
                   {content.meta.lastUpdatedDate}
                 </time>
               </p>
-            </AnimateIn>
-            <AnimateIn delay={0.05} duration={0.6}>
+            </div>
+            <div>
               <h1
                 className="text-foreground mb-5"
                 style={{
@@ -299,16 +298,16 @@ export async function MarkdownArticleLayout({
               >
                 {content.hero.title}
               </h1>
-            </AnimateIn>
+            </div>
             {content.hero.subtitle && (
-              <AnimateIn delay={0.1} duration={0.5}>
+              <div>
                 <p
                   className="text-muted-foreground"
                   style={{ fontSize: 18, lineHeight: 1.55, maxWidth: 720 }}
                 >
                   {content.hero.subtitle}
                 </p>
-              </AnimateIn>
+              </div>
             )}
           </div>
         </section>

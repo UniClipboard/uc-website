@@ -29,11 +29,12 @@
   --color-ink2: var(--ink2);
   --color-muted2: var(--muted2);
   --color-hair2: var(--hair2);
-  --font-sans: var(--font-sans), ui-sans-serif, -apple-system,
-    BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-    "Noto Sans CJK SC", system-ui, sans-serif;
-  --font-mono: var(--font-mono), "SF Mono", ui-monospace, Menlo, Consolas,
-    monospace;
+  --font-sans:
+    var(--font-sans), ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC",
+    system-ui, sans-serif;
+  --font-mono:
+    var(--font-mono), "SF Mono", ui-monospace, Menlo, Consolas, monospace;
   --font-serif: var(--font-serif), "Times New Roman", serif;
 }
 
@@ -70,7 +71,8 @@
   --footer-hair: rgba(255, 255, 255, 0.08);
   /* Hero spotlight — tinted radial glow fading down from the top-center.
      Uses a slight cool/violet tint so it's visible against #fafaf8. */
-  --hero-spotlight: radial-gradient(
+  --hero-spotlight:
+    radial-gradient(
       ellipse 70% 55% at 50% 8%,
       rgba(99, 102, 241, 0.1) 0%,
       rgba(99, 102, 241, 0) 60%
@@ -116,7 +118,8 @@
   --footer-fg-faint: rgba(255, 255, 255, 0.38);
   --footer-hair: rgba(255, 255, 255, 0.1);
   /* Hero spotlight — visible white glow on dark background, with subtle violet tint */
-  --hero-spotlight: radial-gradient(
+  --hero-spotlight:
+    radial-gradient(
       ellipse 60% 50% at 50% 8%,
       rgba(255, 255, 255, 0.18) 0%,
       rgba(255, 255, 255, 0) 60%
@@ -276,3 +279,59 @@
   background-color: var(--shiki-dark-bg);
 }
 
+/* Native glyph coverage for mono-styled prose, while executable strings keep
+   their original left-to-right direction. No extra scripts preload on Latin. */
+:lang(ar),
+:lang(hi),
+:lang(ja),
+:lang(ko),
+:lang(zh-TW) {
+  --font-mono: var(--font-sans), ui-monospace, monospace;
+}
+html[dir="rtl"] {
+  letter-spacing: normal;
+}
+html:lang(ar) *,
+html:lang(hi) * {
+  letter-spacing: normal !important;
+}
+code,
+pre,
+kbd {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+pre {
+  text-align: left;
+}
+.landing-shell {
+  overflow-wrap: anywhere;
+}
+
+/* Platform-native script fonts: no CJK/Arabic/Indic downloads on Latin pages.
+   Keep each locale's typography native, as in the independent transfer app. */
+html:lang(zh-CN) body {
+  --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+html:lang(zh-TW) body {
+  --font-sans:
+    "PingFang TC", "Microsoft JhengHei", "Noto Sans CJK TC", sans-serif;
+}
+html:lang(ja) body {
+  --font-sans:
+    "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", "Noto Sans CJK JP",
+    sans-serif;
+}
+html:lang(ko) body {
+  --font-sans:
+    "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans CJK KR", sans-serif;
+}
+html:lang(ar) body {
+  --font-sans:
+    "Geeza Pro", "Segoe UI", "Noto Sans Arabic", "Tahoma", sans-serif;
+}
+html:lang(hi) body {
+  --font-sans:
+    "Kohinoor Devanagari", "Nirmala UI", "Noto Sans Devanagari", "Mangal",
+    sans-serif;
+}

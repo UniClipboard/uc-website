@@ -8,6 +8,6 @@ type PageProps = {
 
 export default async function WhitepaperRedirect({ params }: PageProps) {
   const { locale } = await params;
-  const prefix = localePathPrefix(locale);
+  const prefix = localePathPrefix(locale === "zh" ? "zh" : "en");
   permanentRedirect(`${prefix}/blog/whitepaper`);
 }

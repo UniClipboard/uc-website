@@ -41,6 +41,7 @@ function BilibiliGlyph({ size = 13 }: { size?: number }) {
 export async function Footer() {
   const t = await getTranslations("landing.footer");
   const locale = await getLocale();
+  const language = await getTranslations("languagePicker");
   const docsHref = getDocsHref(locale);
   const sponsorHref = `${localePathPrefix(locale)}/sponsor`;
 
@@ -290,9 +291,12 @@ export async function Footer() {
           </div>
         </div>
 
+        {!["en", "zh", "ru"].includes(locale) && (
+          <p className="mt-10 text-sm opacity-75">{language("draft")}</p>
+        )}
         {/* Rule */}
         <div
-          className="mt-14 flex items-center justify-between pt-[22px]"
+          className="mt-14 flex flex-wrap items-center justify-between gap-4 pt-[22px]"
           style={{
             borderTop: "1px solid var(--footer-hair)",
             fontFamily: "var(--font-mono)",

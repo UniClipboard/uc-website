@@ -15,12 +15,11 @@ const PALETTE = {
 
 const FONT_SERIF = "Cormorant Garamond";
 
-// Noto Sans SC is only fetched for CJK cards (see `loadOgFonts`), so it is
-// named first there and left as a harmless tail fallback elsewhere.
+// Script-specific glyph subsets are loaded per card in `loadOgFonts`.
 const fontSans = (locale?: string) =>
-  locale && metaFor(locale).script === "cjk"
-    ? "Noto Sans SC, Inter Tight"
-    : "Inter Tight, Noto Sans SC";
+  locale && ["cjk", "arabic", "devanagari"].includes(metaFor(locale).script)
+    ? "Locale Sans, Inter Tight"
+    : "Inter Tight, Locale Sans";
 
 type OgFrameProps = {
   eyebrow: string;
@@ -31,7 +30,7 @@ type OgFrameProps = {
 };
 
 const cjkTextStyle = (locale?: string): CSSProperties =>
-  locale && metaFor(locale).script === "cjk"
+  locale && ["cjk", "arabic", "devanagari"].includes(metaFor(locale).script)
     ? { letterSpacing: 0, lineHeight: 1.18 }
     : {};
 
@@ -96,6 +95,7 @@ export function OgFrame({
               fontWeight: 600,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
+              ...cjkTextStyle(locale),
             }}
           >
             <span

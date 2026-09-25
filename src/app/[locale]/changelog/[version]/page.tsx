@@ -9,7 +9,6 @@ import {
   DownloadButtons,
   SectionSummaryRow,
 } from "@/components/changelog/sections";
-import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Footer } from "@/components/landing/Footer";
 import { Navigation } from "@/components/landing/Navigation";
 import {
@@ -137,6 +136,10 @@ export async function generateMetadata({
 
 export default async function ChangelogVersionPage({ params }: PageProps) {
   const { locale, version } = await params;
+  const language = await getTranslations({
+    locale,
+    namespace: "languagePicker",
+  });
   const t = await getTranslations({ locale, namespace: "changelogHub" });
 
   const release = await getReleaseByVersion(version);
@@ -169,7 +172,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
       version,
       date: formatDate(release.pubDate, locale),
     }),
-    inLanguage: metaFor(locale).inLanguage,
+    inLanguage: locale === "zh" ? "zh-CN" : "en",
     datePublished: release.pubDate.toISOString(),
     dateModified: release.updatedAt.toISOString(),
     mainEntityOfPage: pageUrl,
@@ -219,6 +222,11 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
       <main>
         <section className="border-border bg-background border-b pt-28 pb-12 md:pt-36 md:pb-14">
           <div className="landing-shell" style={{ maxWidth: 880 }}>
+            {locale !== "en" && locale !== "zh" && (
+              <p className="text-muted-foreground mb-6 text-sm" role="note">
+                {language("notesAvailability")}
+              </p>
+            )}
             <BreadcrumbBar
               items={[
                 { label: t("breadcrumbHome"), href: "/" },
@@ -226,10 +234,10 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
                 { label: `v${release.version}` },
               ]}
             />
-            <AnimateIn variant="fade-in" duration={0.5}>
+            <div>
               <p className="landing-kicker">{t("eyebrow")}</p>
-            </AnimateIn>
-            <AnimateIn delay={0.05} duration={0.6}>
+            </div>
+            <div>
               <h1
                 className="text-foreground mt-3.5 mb-4"
                 style={{
@@ -240,10 +248,10 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
                   lineHeight: 1.05,
                 }}
               >
-                v{release.version}
+                <bdi>v{release.version}</bdi>
               </h1>
-            </AnimateIn>
-            <AnimateIn delay={0.1} duration={0.5}>
+            </div>
+            <div>
               <p
                 className="text-muted2"
                 style={{
@@ -258,11 +266,11 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
                   {formatDate(release.pubDate, locale)}
                 </time>
               </p>
-            </AnimateIn>
+            </div>
             {summary.sections.length > 0 && (
-              <AnimateIn delay={0.16} duration={0.5}>
+              <div>
                 <SectionSummaryRow sections={summary.sections} />
-              </AnimateIn>
+              </div>
             )}
           </div>
         </section>
@@ -275,6 +283,8 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
             />
             <article
               className={`mt-10 ${changelogProseClasses}`}
+              lang={locale === "zh" ? "zh-CN" : "en"}
+              dir="ltr"
               dangerouslySetInnerHTML={{ __html: html }}
             />
           </div>
@@ -307,7 +317,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
                       fontWeight: 600,
                     }}
                   >
-                    v{older.version}
+                    <bdi>v{older.version}</bdi>
                   </span>
                   <span className="text-muted-foreground text-sm">
                     {formatDate(older.pubDate, locale)}
@@ -319,7 +329,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
               {newer ? (
                 <Link
                   href={`/changelog/${newer.version}`}
-                  className="border-border bg-background hover:bg-bg2 group flex flex-col items-end gap-1 rounded-[14px] border p-5 text-right transition-colors"
+                  className="border-border bg-background hover:bg-bg2 group flex flex-col items-end gap-1 rounded-[14px] border p-5 text-end transition-colors"
                 >
                   <span
                     className="text-muted2 inline-flex items-center gap-1.5"
@@ -340,7 +350,7 @@ export default async function ChangelogVersionPage({ params }: PageProps) {
                       fontWeight: 600,
                     }}
                   >
-                    v{newer.version}
+                    <bdi>v{newer.version}</bdi>
                   </span>
                   <span className="text-muted-foreground text-sm">
                     {formatDate(newer.pubDate, locale)}

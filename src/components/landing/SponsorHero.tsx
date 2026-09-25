@@ -1,7 +1,6 @@
 import { Github } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
-import { AnimateIn } from "@/components/landing/AnimateIn";
 import { Monogram } from "@/components/landing/Monogram";
 import {
   GITHUB_REPO_URL,
@@ -14,7 +13,8 @@ import { getPublicSponsors } from "@/lib/sponsors-store";
 export async function SponsorHero() {
   const t = await getTranslations("landing.sponsor.hero");
   const sponsors = await getPublicSponsors();
-  const primary = sponsorPrimaryChannel(await getLocale());
+  const locale = await getLocale();
+  const primary = sponsorPrimaryChannel(locale);
   const count = sponsors.length;
   const preview = sponsors.slice(0, 6);
 
@@ -57,15 +57,15 @@ export async function SponsorHero() {
         style={{ background: "var(--hero-spotlight)" }}
       />
       <div className="landing-shell relative flex flex-col items-center pt-28 pb-16 text-center md:pt-40 md:pb-24">
-        <AnimateIn>
+        <div>
           <p className="landing-kicker mb-5">{t("eyebrow")}</p>
-        </AnimateIn>
-        <AnimateIn delay={0.06}>
+        </div>
+        <div>
           <h1 className="text-foreground mx-auto max-w-3xl text-4xl leading-[1.06] font-semibold tracking-tight text-balance md:text-5xl lg:text-6xl">
             {t("title")} <span className="text-muted">{t("titleLine2")}</span>
           </h1>
-        </AnimateIn>
-        <AnimateIn delay={0.12}>
+        </div>
+        <div>
           {/* The full pitch is too long for a phone screen — swap in a short
               version below `sm` instead of clamping mid-sentence. */}
           <p className="text-muted mx-auto mt-6 max-w-2xl text-base leading-relaxed sm:hidden">
@@ -74,8 +74,8 @@ export async function SponsorHero() {
           <p className="text-muted mx-auto mt-6 hidden max-w-2xl text-base leading-relaxed sm:block md:text-lg">
             {t("description")}
           </p>
-        </AnimateIn>
-        <AnimateIn delay={0.18}>
+        </div>
+        <div>
           <div className="mt-9 flex w-full max-w-xs flex-col gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
             {primary && (
               <a
@@ -97,9 +97,9 @@ export async function SponsorHero() {
               {t("secondaryCta")}
             </a>
           </div>
-        </AnimateIn>
+        </div>
         {count > 0 && (
-          <AnimateIn delay={0.24}>
+          <div>
             {showMilestone ? (
               <div className="mt-10 w-full max-w-md">
                 <div className="flex items-center justify-between gap-3 text-sm">
@@ -108,7 +108,9 @@ export async function SponsorHero() {
                     <span className="text-muted">{t("count", { count })}</span>
                   </span>
                   <span className="text-muted2">
-                    {t("milestoneTarget", { target })}
+                    {t("milestoneTarget", {
+                      target: new Intl.NumberFormat(locale).format(target),
+                    })}
                   </span>
                 </div>
                 <div className="bg-border mt-3 h-1.5 w-full overflow-hidden rounded-full">
@@ -119,12 +121,12 @@ export async function SponsorHero() {
                 </div>
               </div>
             ) : (
-              <div className="border-border bg-card text-muted mt-9 inline-flex items-center gap-3 rounded-full border py-2 pr-5 pl-2.5 text-sm">
+              <div className="border-border bg-card text-muted mt-9 inline-flex items-center gap-3 rounded-full border py-2 ps-2.5 pe-5 text-sm">
                 {avatars}
                 <span>{t("count", { count })}</span>
               </div>
             )}
-          </AnimateIn>
+          </div>
         )}
       </div>
     </section>

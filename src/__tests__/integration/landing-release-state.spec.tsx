@@ -1,6 +1,7 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import enMessages from "../../../messages/en.json";
-import ruMessages from "../../../messages/ru.json";
-import zhMessages from "../../../messages/zh.json";
 
 jest.mock("../../lib/site-config", () => ({
   siteConfig: {
@@ -29,11 +30,18 @@ jest.mock(
   { virtual: true },
 );
 
-const messagesByLocale: Record<string, unknown> = {
-  en: enMessages,
-  zh: zhMessages,
-  ru: ruMessages,
-};
+// Read from disk for every routed locale, so adding a locale without its
+// message file fails here instead of silently echoing key paths.
+const messagesByLocale: Record<string, unknown> = Object.fromEntries(
+  routing.locales.flatMap((locale) => {
+    try {
+      const file = join(__dirname, "../../../messages", `${locale}.json`);
+      return [[locale, JSON.parse(readFileSync(file, "utf8"))]];
+    } catch {
+      return [];
+    }
+  }),
+);
 
 let currentLocale = "en";
 

@@ -142,7 +142,7 @@ function HeroBlock({
                   {t(`${ns}.b${i}Title`)}
                 </span>
                 <span
-                  className="text-muted-foreground ml-2.5"
+                  className="text-muted-foreground ms-2.5"
                   style={{ fontSize: 14, lineHeight: 1.55 }}
                 >
                   {t(`${ns}.b${i}Desc`)}
@@ -254,7 +254,7 @@ function FeatureBlockMobile({
                   {t(`${ns}.b${i}Title`)}
                 </span>
                 <span
-                  className="text-muted-foreground ml-2"
+                  className="text-muted-foreground ms-2"
                   style={{ fontSize: 13, lineHeight: 1.55 }}
                 >
                   {t(`${ns}.b${i}Desc`)}

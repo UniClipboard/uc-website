@@ -1,0 +1,868 @@
+{
+  "seo": {
+    "title": "UniClipboard | Área de transferência criptografada entre dispositivos",
+    "titleTemplate": "%s | UniClipboard",
+    "description": "Sincronize sua área de transferência entre Mac, Windows, Linux, iPhone e Android. Código aberto e criptografia de ponta a ponta, sem conta na nuvem nem servidor para administrar.",
+    "softwareDescription": "Área de transferência universal gratuita, de código aberto e com criptografia de ponta a ponta para macOS, Windows, Linux, iOS e Android. Copie em um dispositivo e cole em outro, sem conta nem servidor.",
+    "keywords": "UniClipboard, área de transferência universal, sincronizar área de transferência, área de transferência multiplataforma, área de transferência Mac Windows, sincronização Linux, área de transferência iPhone, área de transferência Android, sincronização móvel, código aberto, criptografia de ponta a ponta, alternativa à área de transferência universal do iCloud, gerenciador de área de transferência, copiar e colar entre dispositivos",
+    "ogAlt": "UniClipboard — uma área de transferência para todos os seus dispositivos"
+  },
+  "og": {
+    "home": {
+      "eyebrow": "ÁREA DE TRANSFERÊNCIA UNIVERSAL",
+      "title": "Uma área de transferência. Todos os seus dispositivos.",
+      "subtitle": "Código aberto, criptografia de ponta a ponta. Mac, Windows, Linux, iPhone e Android.",
+      "alt": "UniClipboard — uma área de transferência para todos os seus dispositivos"
+    },
+    "download": {
+      "eyebrow": "BAIXAR",
+      "title": "UniClipboard em todas as plataformas",
+      "subtitle": "Instaladores assinados, Homebrew e Snap. Gratuito e de código aberto.",
+      "alt": "Baixar UniClipboard para Mac, Windows e Linux"
+    },
+    "blog": {
+      "eyebrow": "BLOG",
+      "subtitle": "UniClipboard",
+      "alt": "Artigo do blog UniClipboard"
+    }
+  },
+  "landing": {
+    "navigation": {
+      "blog": "Blog",
+      "compare": "Comparações",
+      "useCases": "Casos de uso",
+      "docs": "Documentação",
+      "changelog": "Histórico de versões",
+      "download": "Instalar",
+      "github": "GitHub",
+      "menu": "Menu",
+      "menuClose": "Fechar menu",
+      "language": "Idioma",
+      "theme": "Tema",
+      "themeSystem": "Sistema",
+      "themeLight": "Claro",
+      "themeDark": "Escuro",
+      "sponsor": "Apoiar",
+      "try": "Testar on-line"
+    },
+    "hero": {
+      "eyebrow": "Código aberto · Criptografia de ponta a ponta · 5 plataformas · Sem conta",
+      "title": "Uma área de transferência.",
+      "titleLine2": "Todos os seus dispositivos.",
+      "description": "UniClipboard é uma área de transferência de código aberto com criptografia de ponta a ponta que sincroniza textos, imagens e arquivos entre Mac, Windows, Linux, iPhone e Android. Sem conta na nuvem nem servidor intermediário.",
+      "descriptionMobile": "Uma área de transferência para todos os seus dispositivos. Código aberto, criptografia de ponta a ponta, sem conta.",
+      "mobileBadge": "Como funciona no meu celular? →",
+      "mobileBadgeIOS": "Participar do beta para iOS no TestFlight →",
+      "mobileBadgeAndroid": "Baixar para Android",
+      "secondaryCta": "Documento técnico",
+      "starsSuffix": "no GitHub",
+      "starsFallback": "GitHub",
+      "free": "Gratuito e de código aberto",
+      "e2e": "Criptografia de ponta a ponta",
+      "videoLabel": "uniclipboard — demo.mp4",
+      "videoPlay": "Reproduzir demonstração",
+      "videoPause": "Pausar",
+      "videoDuration": "00:60",
+      "videoSeek": "Posição da reprodução",
+      "videoOpen": "Ver demonstração",
+      "videoClose": "Fechar vídeo",
+      "videoSourceYoutube": "YouTube",
+      "videoSourceBilibili": "Bilibili",
+      "videoFallbackHint": "Player incorporado indisponível — reproduzindo cópia local.",
+      "tryCta": "Experimentar no navegador →"
+    },
+    "features": {
+      "eyebrow": "Recursos",
+      "title": "Sua área de transferência do sistema — agora multiplataforma, pesquisável e com criptografia de ponta a ponta.",
+      "moreEyebrow": "Mais",
+      "moreTitle": "Outros recursos que podem ser úteis.",
+      "h1": {
+        "eyebrow": "02 — Privacidade em primeiro lugar",
+        "title": "O retransmissor só vê dados criptografados.",
+        "lede": "O conteúdo é criptografado na origem e descriptografado apenas nos seus dispositivos. As chaves ficam no chaveiro do sistema e nunca saem da máquina. Código aberto e auditável.",
+        "b1Title": "Criptografia de ponta a ponta",
+        "b1Desc": "XChaCha20-Poly1305 AEAD: criptografia em trânsito e em repouso.",
+        "b2Title": "Sem conta na nuvem",
+        "b2Desc": "Sem e-mail nem telefone — apenas dois dispositivos trocando uma chave pública.",
+        "b3Title": "Código auditável",
+        "b3Desc": "Código aberto sob AGPL-3.0. Leia e verifique a criptografia por conta própria."
+      },
+      "h2": {
+        "eyebrow": "01 — Cinco plataformas",
+        "title": "Copie uma vez, cole nas cinco.",
+        "lede": "Três plataformas de desktop com Rust + Tauri. iOS em beta público no TestFlight e app Android nativo disponível. P2P no mesmo Wi-Fi, travessia de NAT entre redes e modo somente LAN quando precisar.",
+        "b1Title": "Três plataformas de desktop",
+        "b1Desc": "Feito com Rust + Tauri — inicialização rápida, baixo consumo e integração à barra de menus e à bandeja do sistema.",
+        "b2Title": "Apps nativos para iOS e Android",
+        "b2Desc": "Beta público do iOS com convite aberto no TestFlight; Android disponível como APK assinado para download direto. Prefere não instalar um app nativo? O protocolo aberto SyncClipboard continua funcionando.",
+        "b3Title": "Direto · Travessia de NAT · Somente LAN",
+        "b3Desc": "P2P no mesmo Wi-Fi, travessia de NAT entre redes e retransmissão criptografada como alternativa. Ative o modo somente LAN para desativar totalmente a retransmissão."
+      },
+      "h3": {
+        "eyebrow": "03 — Para quem quer ir além",
+        "title": "Painel rápido, busca em texto completo e CLI — tudo incluído.",
+        "lede": "Um painel por atalho para visualizar o histórico, busca em milissegundos entre dezenas de milhares de itens e uma CLI sem interface gráfica para terminais, SSH e tmux. Mais possibilidades do que parece à primeira vista.",
+        "b1Title": "Painel rápido",
+        "b1Desc": "Painel por atalho com prévias de textos, links, imagens, código e arquivos.",
+        "b2Title": "Busca local em texto completo",
+        "b2Desc": "Pesquise todo o histórico em milissegundos, mesmo com dezenas de milhares de entradas. O índice permanece criptografado no disco.",
+        "b3Title": "CLI uniclip",
+        "b3Desc": "Os recursos da interface em um comando — sem interface gráfica para terminais, SSH, scripts e fluxos com tmux."
+      },
+      "more": {
+        "f1Title": "Atalhos conhecidos",
+        "f1Desc": "⌘C / Ctrl-C para copiar, ⌘V / Ctrl-V para colar — sem reaprender hábitos. Uma extensão da área de transferência do sistema, não mais um app para operar.",
+        "f4Title": "Reconexão automática",
+        "f4Desc": "Reconecta após trocar de Wi-Fi, suspender e retomar ou sofrer uma breve interrupção. Sem novo pareamento.",
+        "f6Title": "Textos, imagens e arquivos",
+        "f6Desc": "Copie em um dispositivo e cole em outro. Arquivos grandes são transferidos em fluxo, sem precisar caber inteiros na memória.",
+        "f5Title": "Controle de sincronização por dispositivo",
+        "f5Desc": "Defina a direção de envio e recebimento e os tipos permitidos — texto, imagens e arquivos — para cada dispositivo pareado. Perdeu um dispositivo? Revogue o acesso a partir de outro.",
+        "f7Title": "Sincronização em tempo real",
+        "f7Desc": "Copiou, enviou — sem acionamento manual nem confirmação. A área de transferência fica sincronizada automaticamente em todos os dispositivos.",
+        "f9Title": "Retenção de histórico ajustável",
+        "f9Desc": "30 dias por padrão; escolha 7 dias ou para sempre. Limpe por dispositivo ou tipo, ou apague todo o histórico quando quiser.",
+        "f10Title": "Apps nativos para iOS e Android",
+        "f10Desc": "Beta público do iOS no TestFlight com convite aberto; Android disponível como APK assinado para download direto. Prefere não instalar um app nativo? O protocolo aberto SyncClipboard continua funcionando com Atalhos do iPhone e clientes Android.",
+        "f11Title": "Formatação preservada",
+        "f11Desc": "Texto rico e HTML mantêm o formato original, sem virar texto simples — inclusive entre plataformas: texto rico do Windows, URLs não inglesas no Linux e UTF-8 chegam intactos.",
+        "f12Title": "Status de sincronização visível",
+        "f12Desc": "Cada entrada mostra o dispositivo de origem e o status em cada dispositivo pareado. O que não chegou pode ser reenviado com um toque.",
+        "f13Title": "Do seu jeito",
+        "f13Desc": "Configure os temas claro e escuro separadamente, personalize as cores de destaque, fundo e primeiro plano ou siga o sistema."
+      }
+    },
+    "comparison": {
+      "eyebrow": "Comparações",
+      "title": "Por que não iCloud? Por que não hospedar por conta própria?",
+      "subtitle": "Se algum destes pontos importa para você, a área de transferência universal do iCloud e as ferramentas que exigem servidor próprio não bastam.",
+      "tools": {
+        "uc": "UniClipboard",
+        "icloud": "Área de transferência universal do iCloud",
+        "selfhost": "Hospedagem própria (ex.: ClipCascade)",
+        "manager": "Paste (pago · somente Apple)"
+      },
+      "toolsShort": {
+        "uc": "UC",
+        "icloud": "iCloud",
+        "selfhost": "Hospedagem própria",
+        "manager": "Paste"
+      },
+      "rows": {
+        "crossPlatform": {
+          "label": "macOS / Windows / Linux / iOS / Android",
+          "labelMobile": "Multiplataforma",
+          "uc": "Desktop e celular, todas as 5",
+          "icloud": "Somente Apple",
+          "selfhost": "Depende",
+          "manager": "Somente Apple"
+        },
+        "e2e": {
+          "label": "Criptografia E2E auditável",
+          "labelMobile": "E2E e auditoria",
+          "uc": "Código aberto",
+          "icloud": "E2E de código fechado",
+          "selfhost": "Depende",
+          "manager": "Código fechado"
+        },
+        "infra": {
+          "label": "Sem servidor para administrar",
+          "labelMobile": "Sem infraestrutura",
+          "uc": "Pronto para usar",
+          "icloud": "Pronto para usar",
+          "selfhost": "Hospedagem própria",
+          "manager": "Pronto para usar"
+        },
+        "history": {
+          "label": "Histórico pesquisável",
+          "labelMobile": "Com busca",
+          "uc": "Índice local criptografado",
+          "icloud": "Sem histórico",
+          "selfhost": "Depende",
+          "manager": "Com busca"
+        },
+        "noAccount": {
+          "label": "Sem conta ou e-mail",
+          "labelMobile": "Sem conta",
+          "uc": "Pareamento por chave pública",
+          "icloud": "Exige ID Apple",
+          "selfhost": "Depende",
+          "manager": "Exige ID Apple"
+        },
+        "transport": {
+          "label": "Direto no Wi-Fi, retransmissão entre redes e opção somente LAN",
+          "labelMobile": "Direto e retransmissão",
+          "uc": "P2P e retransmissão · Opção somente LAN",
+          "icloud": "Somente por proximidade",
+          "selfhost": "Geralmente apenas por servidor",
+          "manager": "Nuvem iCloud"
+        },
+        "price": {
+          "label": "Preço",
+          "labelMobile": "Preço",
+          "uc": "Gratuito · Código aberto",
+          "icloud": "Gratuito",
+          "selfhost": "Gratuito + custo do servidor",
+          "manager": "US$ 30/ano"
+        }
+      },
+      "footnote": "Comparação baseada em informações públicas de maio de 2026. Encontrou algo incorreto? Abra uma issue no GitHub."
+    },
+    "howItWorks": {
+      "eyebrow": "Como funciona",
+      "title": "Pareie uma vez. Depois, basta copiar e colar.",
+      "step1Title": "Pareamento local",
+      "step1Desc": "Os dispositivos trocam uma chave pública uma única vez, localmente — sem conta na nuvem nem e-mail. Gere um código de convite temporário em um dispositivo; o novo entra com esse código e a frase secreta do espaço.",
+      "step2Title": "Transporte criptografado",
+      "step2Desc": "O conteúdo é criptografado na origem. Os dados criptografados seguem por P2P direto, no mesmo Wi-Fi ou por travessia de NAT. Se a conexão direta falhar, entra a retransmissão criptografada. Mesmo um retransmissor mal-intencionado só vê dados criptografados.",
+      "step3Title": "Descriptografia e armazenamento locais",
+      "step3Desc": "A descriptografia ocorre apenas nos seus dispositivos. O histórico local e o índice de busca ficam criptografados em repouso. As conexões se recuperam automaticamente após trocar de Wi-Fi, suspender e retomar ou sofrer breves interrupções."
+    },
+    "download": {
+      "eyebrow": "Baixar a versão mais recente",
+      "title": "Escolha sua plataforma.",
+      "description": "Detectamos sua plataforma. Se precisar, escolha outra abaixo. Cada instalador informa desde o início o sistema operacional exigido.",
+      "descriptionMobile": "No iPhone, use o TestFlight; no Android, instale o APK diretamente. Mac, Windows e Linux têm instaladores assinados.",
+      "mobileAndroidAllArchs": "Ver todas as arquiteturas",
+      "mobileDesktopPlatforms": "Mac · Windows · Linux",
+      "mobileDesktopHint": "Instaladores de desktop são executados em um computador. Envie o link para seu computador e continue por lá.",
+      "versionLabel": "Versão",
+      "publishedLabel": "Publicação",
+      "channelLabel": "Canal",
+      "channelStable": "estável",
+      "openRelease": "Abrir versão mais recente",
+      "shareLinkIdle": "Enviar link para o computador",
+      "shareLinkCopied": "Link copiado",
+      "shareLinkTitle": "UniClipboard — área de transferência universal",
+      "fallback": "Todas as versões",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "downloadAction": "Baixar",
+      "recommended": "Recomendado",
+      "noDownloads": "Nenhum download disponível ainda.",
+      "degradedNotice": "Os detalhes da versão estão temporariamente indisponíveis.",
+      "metadataUnavailable": "Metadados indisponíveis",
+      "unavailableValue": "Indisponível",
+      "ctaPrimaryGeneric": "Baixar agora",
+      "ctaPrimaryWith": "Baixar para",
+      "ctaOtherPlatforms": "Outras plataformas",
+      "ctaLinuxX64": "Linux · x64",
+      "ctaLinuxArm": "Linux · ARM64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "iosBetaBadge": "Beta público · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk"
+    },
+    "faq": {
+      "eyebrow": "Perguntas frequentes",
+      "title": "O que você provavelmente quer saber.",
+      "docsHelpLede": "Não encontrou a resposta?",
+      "docsHelpCta": "Ler a documentação →",
+      "item1": {
+        "q": "Por que não usar apenas a área de transferência universal do iCloud?",
+        "a": "Se você só usa dispositivos Apple, não precisa de histórico e confia totalmente na criptografia de ponta a ponta de código fechado da Apple, o iCloud serve. Ao adicionar um computador Windows ou Linux, querer histórico pesquisável ou verificar a criptografia, você precisa de outra solução."
+      },
+      "item2": {
+        "q": "Por que não usar sincronização com hospedagem própria, como ClipCascade?",
+        "a": "Hospedagem própria significa administrar um servidor. UniClipboard funciona de imediato: prioriza P2P direto e usa retransmissão criptografada apenas como alternativa. Você não precisa manter infraestrutura."
+      },
+      "item3": {
+        "q": "Funciona totalmente offline ou somente na LAN?",
+        "a": "Sim. Dispositivos no mesmo Wi-Fi se conectam diretamente, sem retransmissão. Há também um modo somente LAN nas configurações de rede: todos os dispositivos pareados usam apenas descoberta local e conexões diretas. A retransmissão e outros serviços públicos ficam totalmente desativados nesse modo."
+      },
+      "item4": {
+        "q": "Onde fica meu histórico da área de transferência?",
+        "a": "Apenas nos seus dispositivos. O armazenamento local é criptografado em repouso com uma chave que nunca sai do chaveiro do sistema. Nenhum servidor UniClipboard recebe ou armazena o conteúdo da sua área de transferência."
+      },
+      "item5": {
+        "q": "Há suporte para iOS e Android?",
+        "a": "Sim, com apps nativos para ambos. O iOS está em beta público no TestFlight com convite aberto; o Android está disponível como APK assinado para download direto, ambos na página de downloads. Prefere não instalar um app nativo? O protocolo aberto SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) continua compatível: no iPhone, use Atalhos com uma configuração rápida pelo desktop; no Android, qualquer cliente SyncClipboard. Sem conta na nuvem, com conteúdo restrito à LAN.",
+        "downloadCta": "Obter o beta do iOS e o APK Android na página de downloads →"
+      },
+      "item6": {
+        "q": "A AGPL-3.0 afeta o uso dentro de uma empresa?",
+        "a": "Não. A AGPL se aplica se você modificar o código-fonte e depois redistribuí-lo como serviço de rede. Instalar para uso pessoal ou da equipe é como usar qualquer outro app gratuito — não é necessário abrir o código da sua empresa."
+      },
+      "item7": {
+        "q": "Qual é a diferença para KDE Connect ou Mouse Without Borders?",
+        "a": "KDE Connect e Mouse Without Borders são ótimos, mas funcionam como ferramentas KVM: compartilham também mouse, teclado, arquivos e notificações e geralmente exigem a mesma LAN ou Tailscale adicional. UniClipboard se concentra na área de transferência, funciona pela internet sem VPN e inclui histórico pesquisável. Se você só quer copiar aqui e colar ali sem compartilhar o resto, ele é para você."
+      },
+      "item8": {
+        "q": "Posso hospedar por conta própria ou usar meu servidor ou retransmissor?",
+        "a": "Não é necessário: UniClipboard usa conexão ponto a ponto por padrão e só recorre à retransmissão criptografada se a conexão direta falhar. Não há infraestrutura para operar. Mas há opções avançadas: usar seu próprio retransmissor com teste de conectividade integrado, executar UniClipboard como nó servidor sem interface gráfica com configurações Docker e Caddy para VPS, ou expor a sincronização móvel por uma URL pública no seu servidor ou em um proxy seguro."
+      }
+    },
+    "finalCta": {
+      "title": "Programe, escreva, crie — cole em qualquer lugar.",
+      "subtitle": "Gratuito, de código aberto e com criptografia de ponta a ponta. Instale em cada dispositivo e sua área de transferência acompanha você.",
+      "primary": "Baixar UniClipboard",
+      "secondary": "Ver código no GitHub",
+      "platformsLine": "macOS · Windows · Linux · iOS · Android",
+      "versionPrefix": "Mais recente"
+    },
+    "footer": {
+      "thanksTitle": "Obrigado",
+      "thanksDesc": "Sincronização entre dispositivos — criptografia de ponta a ponta, código aberto e auditável. O conteúdo circula entre suas próprias máquinas, sem conta na nuvem no caminho.",
+      "linksTitle": "Links",
+      "repo": "Repositório",
+      "issues": "Issues",
+      "releases": "Versões",
+      "docs": "Documentação",
+      "stackTitle": "Feito com",
+      "contactTitle": "Contato",
+      "twitter": "X · @uniclipboard",
+      "authorTwitter": "X · @mkdir700",
+      "bilibili": "Bilibili · @mkdir700",
+      "email": "hello@uniclipboard.app",
+      "copyright": "© 2026 mkdir700",
+      "rustNote": "feito com Rust 🦀 · AGPL-3.0",
+      "sponsor": "Apoiar"
+    },
+    "sponsor": {
+      "seoTitle": "Apoiar o UniClipboard",
+      "seoDescription": "UniClipboard é uma área de transferência gratuita e de código aberto para todos os seus dispositivos. Se ele ajuda você, seu apoio permite que continue melhorando.",
+      "seoKeywords": "apoiar UniClipboard, apoiar código aberto, doar para desenvolvedor, financiamento open source, afdian",
+      "ogAlt": "Apoiar o UniClipboard",
+      "hero": {
+        "eyebrow": "Apoiar o projeto",
+        "title": "Boas ferramentas merecem",
+        "titleLine2": "continuar boas.",
+        "description": "UniClipboard é gratuito, de código aberto e sem anúncios — e sempre será. Uma única pessoa o desenvolve e mantém, em servidores que eu mesmo pago. Se ele faz parte do seu dia, apoiar é a forma mais direta de melhorá-lo: sincronização mais confiável, atualizações mais rápidas e novos recursos.",
+        "descriptionShort": "UniClipboard é gratuito, de código aberto e sem anúncios, feito por uma pessoa. Se ele faz parte do seu dia, apoiar é a forma mais direta de mantê-lo vivo.",
+        "primaryCta": "Tornar-se apoiador",
+        "secondaryCta": "Dar uma estrela no GitHub",
+        "count": "{count, plural, one {# pessoa já contribui} other {# pessoas já contribuem}}",
+        "milestoneTarget": "Meta: {target}"
+      },
+      "benefits": {
+        "eyebrow": "Benefícios para apoiadores",
+        "title": "Um pequeno agradecimento, na prática",
+        "subtitle": "Sem níveis nem valor mínimo — qualquer contribuição dá direito a tudo isso.",
+        "items": {
+          "b1": {
+            "title": "Seu nome, bem aqui",
+            "desc": "Seu nome entra no mural de apoiadores abaixo e permanece lá — um agradecimento público duradouro."
+          },
+          "b2": {
+            "title": "Seu acesso Pro gratuito",
+            "desc": "O núcleo será sempre gratuito. Se uma assinatura ou versão Pro for lançada, você a receberá automaticamente como apoiador inicial, sem custo extra."
+          },
+          "b3": {
+            "title": "Suas ideias em primeiro lugar",
+            "desc": "Seus pedidos e comentários ganham prioridade e influenciam diretamente os próximos passos do projeto."
+          },
+          "b4": {
+            "title": "Contato direto comigo",
+            "desc": "Quando algo falhar, fale comigo diretamente para receber uma resposta mais rápida."
+          },
+          "b5": {
+            "title": "Um selo de apoiador",
+            "desc": "Um pequeno selo na comunidade mostra que você ajudou a manter o código aberto vivo."
+          },
+          "b6": {
+            "title": "Gratuito para todos os outros",
+            "desc": "Seu apoio mantém o UniClipboard gratuito, de código aberto e sem anúncios para todos."
+          }
+        }
+      },
+      "wall": {
+        "eyebrow": "Mural de apoiadores",
+        "title": "Obrigado, pessoal",
+        "subtitle": "UniClipboard chegou até aqui graças a vocês. Esta lista continuará crescendo, um nome de cada vez.",
+        "supporters": "{count, plural, one {# apoiador} other {# apoiadores}}",
+        "goldLabel": "Apoiadores ouro",
+        "backerLabel": "Apoiadores",
+        "sinceLabel": "desde",
+        "viewProfile": "Ver perfil",
+        "becomeTitle": "Você pode ser o próximo",
+        "becomeDesc": "Junte-se a eles e ajude o projeto a ir mais longe.",
+        "emptyTitle": "Seja o primeiro apoiador",
+        "emptyDesc": "Este mural ainda está vazio — eu adoraria ver seu nome primeiro."
+      },
+      "cta": {
+        "title": "Ajude o projeto a continuar",
+        "subtitle": "Se UniClipboard economiza seu tempo, um pequeno apoio já ajuda muito a mantê-lo vivo. Cada contribuição tem valor para mim.",
+        "primary": "Apoiar agora",
+        "secondary": "Dar uma estrela no GitHub",
+        "note": "Apoio voluntário · Cancele quando quiser",
+        "claimNoteBefore": "Já apoiou? Envie um e-mail para",
+        "claimNoteAfter": "para receber seu link de perfil no mural.",
+        "claimMailSubject": "Quero entrar no mural de apoiadores do UniClipboard",
+        "claimMailBody": "Olá, apoiei o UniClipboard e gostaria de receber o link do meu perfil no mural de apoiadores. /  / Plataforma de apoio: / Nome do apoiador / informações do pedido: /  / Obrigado!"
+      }
+    }
+  },
+  "downloadPage": {
+    "seoTitle": "Baixar UniClipboard — instaladores para macOS, Windows e Linux + Homebrew e Snap",
+    "seoDescription": "Baixe a versão assinada mais recente do UniClipboard para macOS, Windows e Linux. Instale com Homebrew no Mac, Snap no Linux ou pelo instalador direto. Gratuito, de código aberto e com criptografia de ponta a ponta.",
+    "seoKeywords": "baixar uniclipboard, instalar uniclipboard, brew install uniclipboard, snap install uniclipboard, uniclipboard mac, uniclipboard windows, uniclipboard linux, sincronização área de transferência appimage",
+    "ogAlt": "Baixar UniClipboard para macOS, Windows e Linux",
+    "breadcrumbHome": "Início",
+    "breadcrumbCurrent": "Baixar",
+    "hero": {
+      "eyebrow": "Obter UniClipboard",
+      "title": "Baixe o UniClipboard.",
+      "subtitle": "Instale em cada dispositivo, pareie uma vez e sua área de transferência acompanha você. Escolha o instalador para sua máquina ou use um gerenciador de pacotes abaixo.",
+      "versionLabel": "Estável mais recente",
+      "publishedLabel": "Publicação",
+      "stableTag": "estável",
+      "releaseUnavailable": "Os detalhes da versão estão temporariamente indisponíveis. A página de versões do GitHub sempre tem os instaladores atuais.",
+      "badgeFree": "Gratuito e de código aberto",
+      "badgeEncrypted": "Criptografia de ponta a ponta",
+      "badgeSignedMac": "Reconhecido pela Apple no macOS",
+      "badgeSignedWin": "Assinado com Authenticode",
+      "openLatest": "Abrir versão no GitHub"
+    },
+    "direct": {
+      "eyebrow": "Downloads diretos",
+      "title": "Escolha sua plataforma.",
+      "description": "Cada instalador é assinado e informa a versão mínima do sistema. Destacamos a plataforma detectada, mas todas as opções ficam a um clique.",
+      "degradedNotice": "Os detalhes da versão estão temporariamente indisponíveis. Use a página de versões do GitHub abaixo.",
+      "noDownloads": "Nenhum download disponível ainda.",
+      "downloadsUnavailable": "Não foi possível carregar os links dos instaladores agora. Baixe o UniClipboard pelo GitHub.",
+      "fallback": "Todas as versões no GitHub",
+      "downloadAction": "Baixar",
+      "recommended": "Detectado",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "iosBetaBadge": "Beta público · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk",
+      "androidHintArm64": "Celulares Android modernos de 64 bits — melhor desempenho e menor tamanho. Escolha esta versão em caso de dúvida.",
+      "androidHintArmV7": "Somente para celulares Android antigos de 32 bits.",
+      "androidHintX64": "Emuladores Android ou dispositivos Intel menos comuns.",
+      "androidHintUniversal": "Inclui todas as arquiteturas — arquivo maior, mas instala em qualquer uma.",
+      "winPortableLabel": "Portátil",
+      "winPortableHint": "Sem instalação — extraia e execute. Ideal para pendrives ou máquinas sem permissão de administrador.",
+      "blockMacDescription": "Assinado e reconhecido pela Apple para macOS 12 Monterey ou posterior.",
+      "blockWinDescription": "Instalador assinado com Authenticode para Windows 10 e 11, além de um .zip portátil que dispensa instalação.",
+      "blockLinuxDescription": "Detecta glibc e arquitetura automaticamente e instala em ~/.local.",
+      "blockIosDescription": "O app iOS está em beta público no TestFlight. Abra o convite abaixo no seu iPhone ou iPad.",
+      "blockAndroidDescription": "APK assinado. Instale diretamente em um celular Android moderno.",
+      "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
+      "linuxScriptSourceLabel": "Ler o script",
+      "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
+      "detectedBadge": "Detectado",
+      "iosTestFlight": {
+        "joinCta": "Participar do beta no TestFlight",
+        "joinHint": "Se ainda não tiver, instale primeiro o app TestFlight da Apple pela App Store.",
+        "shareLabel": "No computador? Copie o link para o celular",
+        "copy": "Copiar link",
+        "copied": "Copiado"
+      }
+    },
+    "pkg": {
+      "copy": "Copiar comando",
+      "copied": "Copiado"
+    },
+    "sysreq": {
+      "eyebrow": "Requisitos do sistema",
+      "title": "O que você precisa para usar.",
+      "description": "UniClipboard é um pequeno app de desktop. Consome muito pouca CPU em repouso e só acessa a rede quando você copia algo.",
+      "colPlatform": "Plataforma",
+      "colMinOS": "Sistema mínimo",
+      "colArch": "Arquiteturas",
+      "colMemory": "Memória",
+      "colDisk": "Disco",
+      "rows": [
+        {
+          "platform": "macOS",
+          "minOS": "macOS 12 Monterey ou posterior",
+          "arch": "Apple Silicon (arm64), Intel (x86_64)",
+          "memory": "≈ 60 MB em repouso",
+          "disk": "≈ 80 MB"
+        },
+        {
+          "platform": "Windows",
+          "minOS": "Windows 10 (build 19041+) ou Windows 11",
+          "arch": "x86_64",
+          "memory": "≈ 70 MB em repouso",
+          "disk": "≈ 90 MB"
+        },
+        {
+          "platform": "Linux",
+          "minOS": "glibc 2.31+ (Ubuntu 20.04, Debian 11, Fedora 35 ou equivalente), com suporte a X11 e Wayland",
+          "arch": "x86_64, ARM64 (.deb / .rpm / AppImage)",
+          "memory": "≈ 65 MB em repouso",
+          "disk": "≈ 85 MB"
+        },
+        {
+          "platform": "iOS",
+          "minOS": "iOS 16 ou posterior (beta público no TestFlight)",
+          "arch": "iPhone / iPad (Apple Silicon)",
+          "memory": "—",
+          "disk": "≈ 30 MB"
+        },
+        {
+          "platform": "Android",
+          "minOS": "Android 8.0 (API 26) ou posterior",
+          "arch": "arm64-v8a, armeabi-v7a, x86_64, universal",
+          "memory": "—",
+          "disk": "≈ 35 MB"
+        }
+      ]
+    },
+    "verify": {
+      "eyebrow": "Verificar o download",
+      "title": "Confie, mas verifique.",
+      "description": "Cada versão é assinada antes de ser publicada. Você pode confirmar a autenticidade localmente antes de instalar. Com o arquivo em mãos, nenhuma etapa abaixo exige internet.",
+      "items": [
+        {
+          "platform": "macOS",
+          "body": "Os instaladores são reconhecidos pela Apple. Clique com o botão direito no .dmg e escolha Abrir, ou execute o comando abaixo para inspecionar a assinatura do desenvolvedor.",
+          "command": "spctl -a -vvv -t install ~/Downloads/UniClipboard.dmg"
+        },
+        {
+          "platform": "Windows",
+          "body": "O .exe é assinado com Authenticode. Clique com o botão direito no arquivo → Propriedades → Assinaturas Digitais para inspecionar a cadeia de certificados.",
+          "command": "Get-AuthenticodeSignature .\\UniClipboard-Setup.exe"
+        },
+        {
+          "platform": "Linux",
+          "body": "Cada .deb, .rpm e .AppImage na página de versões do GitHub acompanha um arquivo de assinatura .sig. Baixe-o junto com o instalador e verifique usando a chave pública publicada no README do repositório.",
+          "command": "minisign -Vm UniClipboard_amd64.deb -P RWQ... # see README for the public key"
+        }
+      ]
+    },
+    "older": {
+      "eyebrow": "Procurando uma versão antiga?",
+      "title": "Todas as versões, arquivadas.",
+      "description": "Nunca excluímos versões anteriores. Consulte o histórico de alterações ou vá diretamente às versões do GitHub para baixar o instalador desejado.",
+      "changelogCta": "Ver histórico de versões",
+      "allReleasesCta": "Todas as versões no GitHub"
+    },
+    "faq": {
+      "eyebrow": "Resolver problemas de instalação",
+      "title": "Dúvidas comuns.",
+      "items": [
+        {
+          "q": "O macOS diz que “UniClipboard.app está danificado e não pode ser aberto”.",
+          "a": "Isso ocorre quando o atributo de quarentena do Gatekeeper é aplicado ao arquivo baixado antes da verificação pela Apple. Arraste o app para /Applications e execute uma vez xattr -dr com.apple.quarantine /Applications/UniClipboard.app. Atualizações futuras instaladas pelo app não exigem essa etapa."
+        },
+        {
+          "q": "O Windows SmartScreen avisa “aplicativo não reconhecido”.",
+          "a": "Se a versão acabou de sair, o SmartScreen ainda não criou reputação para aquele arquivo específico, mesmo assinado. Clique em “Mais informações” → “Executar assim mesmo”. O aviso costuma desaparecer em poucos dias conforme aumentam as instalações."
+        },
+        {
+          "q": "Como executar uma AppImage no Linux?",
+          "a": "Após baixar, torne o arquivo executável com chmod +x UniClipboard-x86_64.AppImage e dê um clique duplo ou execute pelo terminal. Para registrá-lo no menu de aplicativos, use AppImageLauncher ou appimaged."
+        },
+        {
+          "q": "O pacote Snap precisa de confinamento --classic?",
+          "a": "Não. O snap usa o confinamento padrão e solicita apenas as interfaces necessárias: network, home e password-manager-service. Você pode verificá-las com snap connections uniclipboard."
+        },
+        {
+          "q": "Como desinstalar o cask do Homebrew?",
+          "a": "Execute brew uninstall --cask uniclipboard. Para remover também o tap, execute depois brew untap uniclipboard/tap. Seu histórico local na pasta pessoal não é removido por esses comandos. Para começar do zero, exclua ~/Library/Application Support/UniClipboard."
+        }
+      ]
+    }
+  },
+  "compareHub": {
+    "seoTitle": "Compare UniClipboard — sincronização de código aberto frente a iCloud, Maccy e outros",
+    "seoDescription": "Comparações honestas entre UniClipboard e gerenciadores ou ferramentas de sincronização que você talvez já use, como a área de transferência universal do iCloud e Maccy. Escolha a ferramenta certa, não apenas a primeira que encontrou.",
+    "seoKeywords": "alternativas uniclipboard, comparação gerenciadores área de transferência, alternativa área universal iCloud, alternativa maccy, comparar sincronização multiplataforma, gerenciador código aberto",
+    "ogAlt": "Compare UniClipboard com iCloud, Maccy e outras ferramentas de área de transferência",
+    "breadcrumbHome": "Início",
+    "breadcrumbCurrent": "Comparações",
+    "eyebrow": "Comparações",
+    "title": "Como UniClipboard se compara.",
+    "subtitle": "Comparações lado a lado com gerenciadores e ferramentas de sincronização que você talvez conheça. Com clareza sobre limitações e sobre o público ideal de cada opção.",
+    "categoryLabel": "Comparações",
+    "readMore": "Ler comparação",
+    "countLabel": "{count, plural, =0 {Ainda não há comparações} one {# comparação} other {# comparações}}",
+    "emptyState": "Nenhuma comparação publicada ainda. Volte em breve."
+  },
+  "blogHub": {
+    "seoTitle": "Blog UniClipboard — sincronização, criptografia e fluxos entre dispositivos",
+    "seoDescription": "Artigos detalhados sobre o funcionamento do UniClipboard, os próximos lançamentos e as escolhas por trás da sincronização entre dispositivos. Para quem quer entender os detalhes técnicos.",
+    "seoKeywords": "blog uniclipboard, funcionamento sincronização área de transferência, criptografia ponta a ponta, engenharia multiplataforma, novidades código aberto",
+    "ogAlt": "Blog UniClipboard — notas de engenharia sobre sincronização da área de transferência",
+    "breadcrumbHome": "Início",
+    "breadcrumbCurrent": "Blog",
+    "eyebrow": "Blog",
+    "title": "Notas da equipe.",
+    "subtitle": "Como desenvolvemos UniClipboard, o que lançamos e as escolhas por trás da sincronização entre dispositivos — para quem quer os detalhes técnicos.",
+    "categoryLabel": "Artigo",
+    "tableOfContents": "Nesta página",
+    "readMore": "Ler artigo",
+    "countLabel": "{count, plural, =0 {Ainda não há artigos} one {# artigo} other {# artigos}}",
+    "emptyState": "Nenhum artigo publicado ainda. Volte em breve."
+  },
+  "changelogHub": {
+    "seoTitle": "Histórico UniClipboard — cada versão, correção e mudança incompatível",
+    "seoDescription": "O que mudou em cada versão do UniClipboard: recursos, correções e mudanças incompatíveis para macOS, Windows e Linux. Atualizado automaticamente a cada versão estável.",
+    "seoKeywords": "histórico uniclipboard, notas de versão uniclipboard, atualizações uniclipboard, versões sincronização área de transferência, versões uniclipboard",
+    "ogAlt": "Histórico UniClipboard — notas de todas as versões",
+    "breadcrumbHome": "Início",
+    "breadcrumbCurrent": "Histórico de versões",
+    "eyebrow": "Histórico de versões",
+    "title": "Cada versão registrada.",
+    "subtitle": "O que lançamos, corrigimos e quebramos. Obtido diretamente do feed de versões — esta página é a referência.",
+    "latestLabel": "Estável mais recente",
+    "downloadLabel": "Baixar",
+    "downloadShort": "Obter",
+    "permalink": "Link permanente",
+    "viewVersion": "Ver v{version}",
+    "emptyState": "Nenhuma versão publicada ainda. Volte em breve.",
+    "releasedOn": "Lançado",
+    "olderRelease": "Anteriores",
+    "newerRelease": "Mais recentes",
+    "backToList": "Todas as versões",
+    "notFoundTitle": "Versão não encontrada",
+    "detailSeoTitle": "UniClipboard v{version} — notas da versão",
+    "detailSeoDescription": "Notas do UniClipboard v{version}, publicado em {date}. Recursos, correções e alterações incompatíveis."
+  },
+  "useCasesHub": {
+    "seoTitle": "Casos de uso UniClipboard — guias práticos de área de transferência entre dispositivos",
+    "seoDescription": "Guias passo a passo para tarefas reais com UniClipboard: copiar do Mac para Windows, trabalhar com SSH e tmux e compartilhar uma área de transferência criptografada com colegas. Com atalhos de teclado explícitos.",
+    "seoKeywords": "casos de uso uniclipboard, guia área de transferência mac windows, área de transferência ssh tmux, tutorial multiplataforma, guia copiar e colar entre dispositivos",
+    "ogAlt": "Casos de uso UniClipboard — guias práticos entre dispositivos",
+    "breadcrumbHome": "Início",
+    "breadcrumbCurrent": "Casos de uso",
+    "eyebrow": "Casos de uso",
+    "title": "Como as pessoas usam UniClipboard.",
+    "subtitle": "Passo a passo para fluxos reais, com atalhos explícitos e a criptografia sempre em foco.",
+    "categoryLabel": "Caso de uso",
+    "readMore": "Ler guia",
+    "countLabel": "{count, plural, =0 {Ainda não há guias} one {# guia} other {# guias}}",
+    "emptyState": "Nenhum guia publicado ainda. Volte em breve."
+  },
+  "sponsorClaim": {
+    "title": "Complete seu perfil de apoiador",
+    "subtitle": "Obrigado por apoiar o UniClipboard! Escolha como aparecer no mural de apoiadores.",
+    "badgeGold": "Convite para apoiador ouro",
+    "badgeRegular": "Convite para apoiador",
+    "tierGold": "Apoiador ouro",
+    "tierRegular": "Apoiar",
+    "welcomeTitle": "Obrigado. De verdade.",
+    "welcomeBody": "Poucos passos para deixar sua marca no mural de apoiadores — cerca de um minuto.",
+    "welcomeCta": "Começar",
+    "welcomeHint": "Este é seu link pessoal de uso único.",
+    "stepOf": "Etapa {current} de {total}",
+    "back": "Voltar",
+    "continue": "Continuar",
+    "stepIdentityTitle": "Vamos conhecer você",
+    "stepIdentitySubtitle": "Seu avatar e nome — é assim que você aparecerá no mural.",
+    "stepMessageTitle": "Deixe algumas palavras",
+    "stepMessageSubtitle": "Ambos são opcionais — pule se preferir.",
+    "stepReviewTitle": "Seu cartão de apoiador",
+    "stepReviewSubtitle": "Confira e envie. Vamos revisar em breve.",
+    "reviewPendingNote": "Revisamos os envios manualmente. Após a aprovação, você aparecerá no mural.",
+    "errorUrl": "O link deve começar com http:// ou https://",
+    "viewWallCta": "Ver mural de apoiadores",
+    "plaqueEyebrow": "Sua placa de lembrança",
+    "plaqueBody": "Obrigado por fazer parte do UniClipboard — seu apoio está registrado.",
+    "proSeatTitle": "Seu acesso Pro está reservado",
+    "proSeatBody": "Os recursos essenciais serão sempre gratuitos. Quando uma versão Pro paga for lançada, apoiadores iniciais como você terão acesso sem custo extra.",
+    "perksTitle": "Seus benefícios como apoiador",
+    "perkVote": "Suas ideias são ouvidas primeiro",
+    "perkContact": "Contato direto comigo para resolver problemas",
+    "perkBadge": "Um selo de apoiador só seu",
+    "perkMission": "Manter UniClipboard gratuito, aberto e sem anúncios",
+    "nameLabel": "Nome de exibição",
+    "namePlaceholder": "Como seu nome aparece no mural",
+    "githubLabel": "Usuário do GitHub (opcional)",
+    "githubHint": "Importe seu nome e avatar do GitHub ou preencha manualmente abaixo.",
+    "githubButton": "Buscar",
+    "githubFetching": "Buscando…",
+    "githubEmpty": "Digite primeiro um usuário do GitHub",
+    "githubFound": "Carregado: {name}",
+    "avatarLabel": "Avatar",
+    "avatarHint": "Envie uma imagem, recortada automaticamente em 160×160, ou deixe vazio para mostrar suas iniciais.",
+    "avatarUrlPlaceholder": "Ou cole a URL de uma imagem",
+    "avatarRemove": "Remover avatar",
+    "avatarTooLarge": "Imagem muito grande (máximo 6 MB)",
+    "noteLabel": "Mensagem curta (opcional)",
+    "notePlaceholder": "Uma mensagem breve sob seu nome",
+    "urlLabel": "Link do site ou perfil (opcional)",
+    "submit": "Enviar",
+    "submitting": "Enviando…",
+    "successTitle": "Enviado — obrigado!",
+    "successBody": "Recebemos seu perfil. Ele aparecerá no mural após a revisão. Você pode fechar esta página.",
+    "errorRequired": "O nome de exibição é obrigatório",
+    "errorGeneric": "Falha no envio. Tente novamente.",
+    "invalidTitle": "Este link não é mais válido",
+    "invalidUsed": "Este convite já foi usado.",
+    "invalidExpired": "Este convite expirou. Peça um novo à equipe.",
+    "invalidNotFound": "Este convite é inválido. Confira a URL.",
+    "backHome": "Voltar ao início"
+  },
+  "try": {
+    "seoTitle": "Experimente on-line — envie textos, imagens e arquivos entre dois navegadores",
+    "seoDescription": "Envie textos, imagens ou arquivos de um navegador para outro com um link ou QR code. Criptografia de ponta a ponta, sem instalar nada e sem conta. Uma demo web baseada no tailcat.",
+    "compose": {
+      "title": "Envie qualquer coisa para outro dispositivo.",
+      "replyTitle": "Responder ao outro dispositivo",
+      "placeholder": "Cole, arraste ou digite aqui",
+      "textLabel": "Conteúdo a enviar",
+      "attach": "Anexar arquivos",
+      "remove": "Remover {name}",
+      "pastedImage": "Imagem colada",
+      "send": "Enviar",
+      "sendReply": "Enviar resposta",
+      "cancelReply": "Voltar",
+      "size": "{size} de {limit}",
+      "tooLarge": "Passou de {limit}.",
+      "getApp": "Use o app para arquivos maiores",
+      "empty": "Adicione um texto ou arquivo primeiro.",
+      "dropHint": "Solte para anexar",
+      "autoCopy": "Copiar para a área de transferência ao receber algo",
+      "tooMany": "São mais de {max} itens. Remova alguns ou compacte tudo em um único arquivo."
+    },
+    "preparing": {
+      "title": "Preparando um link seguro…",
+      "loading": "Carregando a conexão segura · {percent}%",
+      "loadingUnknown": "Carregando a conexão segura…",
+      "relay": "Conectando ao relay…"
+    },
+    "ready": {
+      "title": "Abra isto no seu outro dispositivo.",
+      "scan": "Escaneie com a câmera do outro dispositivo ou envie o link para ele.",
+      "qrLabel": "QR code do link de conexão",
+      "copyLink": "Copiar link",
+      "linkCopied": "Link copiado",
+      "shareLink": "Compartilhar link",
+      "note": "O link funciona uma única vez. O próximo envio terá um link novo.",
+      "waiting": "Aguardando · mantenha esta aba aberta",
+      "cancel": "Cancelar"
+    },
+    "code": {
+      "haveCode": "Tem um código?",
+      "inputLabel": "Código de 6 dígitos",
+      "receive": "Receber",
+      "checking": "Verificando…",
+      "startTitle": "Digite o código do seu outro dispositivo.",
+      "sendInstead": "Enviar algo em vez disso",
+      "scanOrEnter": "Escaneie ou digite este código",
+      "expiresIn": "Expira em <time>{remaining}</time>",
+      "oneUse": "Uso único",
+      "refreshing": "Obtendo um código novo…",
+      "unavailable": "Não foi possível obter um código agora",
+      "tryAgain": "Tentar de novo",
+      "noteReady": "Um código novo aparece automaticamente quando este expirar ou for usado.",
+      "noteRefreshing": "O QR code e o link continuam funcionando enquanto o novo código carrega.",
+      "noteUnavailable": "Escanear o QR code ou abrir o link continua funcionando. Eles não precisam de código.",
+      "sendingNote": "Mantenha esta aba aberta até terminar. O próximo envio terá um código novo.",
+      "errors": {
+        "incomplete": "Digite os 6 dígitos.",
+        "expired": "Este código expirou ou já foi usado. Peça um novo.",
+        "invalid": "Esse código não é válido. Confira os dígitos e tente de novo.",
+        "rate-limited": "Tentativas demais. Aguarde um minuto e tente de novo.",
+        "unavailable": "Não é possível verificar códigos agora. Peça o link ou o QR code a quem enviou."
+      }
+    },
+    "sending": {
+      "title": "Enviando para o outro dispositivo…",
+      "replyTitle": "Enviando sua resposta…",
+      "note": "Mantenha esta aba aberta até terminar.",
+      "cancel": "Cancelar"
+    },
+    "delivered": {
+      "title": "Entregue",
+      "replyHint": "O outro dispositivo pode responder enquanto esta aba estiver aberta.",
+      "replyIncoming": "Chegando uma resposta · {done} de {total}",
+      "replyFrom": "Resposta do outro dispositivo",
+      "replyFailed": "A resposta não chegou.",
+      "sendNew": "Enviar algo novo",
+      "replyDeliveredTitle": "Resposta entregue"
+    },
+    "receiving": {
+      "connecting": "Conectando…",
+      "connectingHint": "Conectando a quem enviou por meio de um relay criptografado.",
+      "title": "Recebendo…",
+      "progress": "{done} de {total}",
+      "cancel": "Cancelar"
+    },
+    "received": {
+      "title": "Recebido",
+      "copyText": "Copiar texto",
+      "copyImage": "Copiar imagem",
+      "copied": "Copiado para a área de transferência",
+      "copyFailed": "Não foi possível copiar automaticamente. Use o botão.",
+      "save": "Salvar",
+      "saveName": "Salvar {name}",
+      "reply": "Responder",
+      "imagePreview": "Prévia da imagem recebida",
+      "text": "Texto"
+    },
+    "summary": {
+      "text": "Texto",
+      "images": "{count, plural, one {# imagem} other {# imagens}}",
+      "files": "{count, plural, one {# arquivo} other {# arquivos}}"
+    },
+    "errors": {
+      "title": "Algo deu errado",
+      "busy": "Este link já foi usado. Peça um novo.",
+      "connect-failed": "Não foi possível conectar. Peça a quem enviou para manter a página aberta e tente de novo.",
+      "peer-cancelled": "O outro dispositivo cancelou a transferência.",
+      "connection-lost": "A conexão caiu antes do fim da transferência. Tente de novo.",
+      "timeout": "O outro dispositivo parou de responder. Tente de novo.",
+      "integrity": "O conteúdo chegou corrompido e foi descartado. Tente de novo.",
+      "too-large": "Passou de 20 MB. Use o app para arquivos maiores.",
+      "rejected": "O outro dispositivo recusou a transferência.",
+      "protocol": "A transferência falhou. Tente de novo.",
+      "invalid-link": "Este link está incompleto. Peça um novo.",
+      "listen-failed": "Não foi possível alcançar o relay. Tente de novo daqui a pouco.",
+      "load-failed": "Não foi possível carregar a conexão segura. Verifique sua rede e tente de novo.",
+      "unsupported": "Este navegador não consegue rodar a demo. Tente uma versão recente do Chrome, Edge, Firefox ou Safari.",
+      "tryAgain": "Tentar de novo",
+      "startOver": "Recomeçar"
+    },
+    "footer": {
+      "demo": "Demo web baseada no tailcat",
+      "e2e": "criptografia de ponta a ponta via relays públicos",
+      "notApp": "independente dos apps do UniClipboard",
+      "getApp": "Baixe o app",
+      "forSync": "para sincronização contínua",
+      "license": "licença do tailcat (BSD-3-Clause)"
+    },
+    "header": {
+      "tagline": "Transferência web · criptografia de ponta a ponta",
+      "languageSearch": "Buscar idiomas",
+      "languageSuggested": "Do seu navegador",
+      "languageAll": "Todos os idiomas",
+      "languageEmpty": "Nenhum idioma encontrado",
+      "languageClose": "Fechar a lista de idiomas"
+    }
+  },
+  "languagePicker": {
+    "label": "Idioma",
+    "search": "Buscar idiomas",
+    "empty": "Nenhum idioma encontrado",
+    "recommended": "Recomendação do navegador",
+    "articleAvailability": "Os artigos estão disponíveis em inglês e chinês simplificado. Outros idiomas abrem a visão geral da seção.",
+    "contentAvailability": "Os artigos estão disponíveis nestes idiomas:",
+    "notesAvailability": "As notas da versão são fornecidas em inglês.",
+    "draft": "Rascunho de tradução assistida por máquina, ainda sem revisão de um falante nativo."
+  },
+  "errors": {
+    "notFound": "Página não encontrada",
+    "unavailable": "Esta página não está disponível neste idioma.",
+    "home": "Voltar ao início",
+    "title": "Algo deu errado",
+    "description": "Tente novamente.",
+    "retry": "Tentar novamente"
+  }
+}

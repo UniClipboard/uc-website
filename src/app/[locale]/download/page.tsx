@@ -359,10 +359,10 @@ export default async function DownloadPage({ params }: LocaleParam) {
                 { label: t("breadcrumbCurrent") },
               ]}
             />
-            <AnimateIn variant="fade-in" duration={0.5}>
+            <div>
               <p className="landing-kicker">{t("hero.eyebrow")}</p>
-            </AnimateIn>
-            <AnimateIn delay={0.05} duration={0.6}>
+            </div>
+            <div>
               <h1
                 className="text-foreground mt-3.5 mb-5"
                 style={{
@@ -376,17 +376,17 @@ export default async function DownloadPage({ params }: LocaleParam) {
               >
                 {t("hero.title")}
               </h1>
-            </AnimateIn>
-            <AnimateIn delay={0.1} duration={0.5}>
+            </div>
+            <div>
               <p
                 className="text-muted-foreground text-[15.5px] leading-[1.55] md:text-[18px]"
                 style={{ maxWidth: 720 }}
               >
                 {t("hero.subtitle")}
               </p>
-            </AnimateIn>
+            </div>
 
-            <AnimateIn delay={0.18} duration={0.5}>
+            <div>
               <div className="border-border bg-bg2/50 mt-7 flex flex-col gap-4 rounded-[14px] border p-5 md:mt-9 md:flex-row md:items-center md:justify-between md:gap-5 md:p-7">
                 <div className="flex flex-col gap-2.5">
                   <span
@@ -411,7 +411,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                           letterSpacing: "-0.01em",
                         }}
                       >
-                        v{release.version}
+                        <bdi dir="ltr">v{release.version}</bdi>
                       </span>
                       <span
                         className="text-muted2 inline-flex items-center gap-1.5"
@@ -481,7 +481,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
                   <ArrowUpRight size={14} />
                 </a>
               </div>
-            </AnimateIn>
+            </div>
           </div>
         </section>
 
@@ -592,7 +592,7 @@ export default async function DownloadPage({ params }: LocaleParam) {
               <div className="border-border bg-card overflow-hidden rounded-[14px] border">
                 {/* Desktop table */}
                 <div className="hidden md:block">
-                  <table className="w-full table-fixed border-collapse text-left">
+                  <table className="w-full table-fixed border-collapse text-start">
                     <thead>
                       <tr
                         className="text-muted2"

@@ -19,7 +19,8 @@ type LocaleMeta = {
    * Which glyphs this locale's text actually needs. Drives font subsetting —
    * a Latin page must not pay for CJK or Cyrillic bytes it never renders.
    */
-  script: "latin" | "cjk" | "cyrillic";
+  script: "latin" | "cjk" | "cyrillic" | "arabic" | "devanagari";
+  dir: "ltr" | "rtl";
 };
 
 // Every locale-dependent presentation value lives here, so adding a locale is
@@ -28,6 +29,7 @@ type LocaleMeta = {
 // English to any third locale instead of failing the build.
 export const localeMeta = {
   en: {
+    dir: "ltr",
     label: "EN",
     nativeName: "English",
     englishName: "English",
@@ -38,6 +40,7 @@ export const localeMeta = {
     script: "latin",
   },
   zh: {
+    dir: "ltr",
     label: "ZH",
     nativeName: "简体中文",
     englishName: "Simplified Chinese",
@@ -48,6 +51,7 @@ export const localeMeta = {
     script: "cjk",
   },
   ru: {
+    dir: "ltr",
     label: "RU",
     nativeName: "Русский",
     englishName: "Russian",
@@ -58,6 +62,105 @@ export const localeMeta = {
     inLanguage: "ru",
     dateLocale: "ru-RU",
     script: "cyrillic",
+  },
+  es: {
+    label: "ES",
+    nativeName: "Español",
+    englishName: "Spanish",
+    ogLocale: "es_ES",
+    inLanguage: "es",
+    dateLocale: "es",
+    script: "latin",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  fr: {
+    label: "FR",
+    nativeName: "Français",
+    englishName: "French",
+    ogLocale: "fr_FR",
+    inLanguage: "fr",
+    dateLocale: "fr",
+    script: "latin",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  de: {
+    label: "DE",
+    nativeName: "Deutsch",
+    englishName: "German",
+    ogLocale: "de_DE",
+    inLanguage: "de",
+    dateLocale: "de",
+    script: "latin",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  "pt-BR": {
+    label: "PT-BR",
+    nativeName: "Português (Brasil)",
+    englishName: "Brazilian Portuguese",
+    ogLocale: "pt_BR",
+    inLanguage: "pt-BR",
+    dateLocale: "pt-BR",
+    script: "latin",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  ja: {
+    label: "JA",
+    nativeName: "日本語",
+    englishName: "Japanese",
+    ogLocale: "ja_JP",
+    inLanguage: "ja",
+    dateLocale: "ja",
+    script: "cjk",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  ko: {
+    label: "KO",
+    nativeName: "한국어",
+    englishName: "Korean",
+    ogLocale: "ko_KR",
+    inLanguage: "ko",
+    dateLocale: "ko",
+    script: "cjk",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  ar: {
+    label: "AR",
+    nativeName: "العربية",
+    englishName: "Arabic",
+    ogLocale: "ar_SA",
+    inLanguage: "ar",
+    dateLocale: "ar",
+    script: "arabic",
+    dir: "rtl",
+    ogImage: "/og-en.jpg",
+  },
+  hi: {
+    label: "HI",
+    nativeName: "हिन्दी",
+    englishName: "Hindi",
+    ogLocale: "hi_IN",
+    inLanguage: "hi",
+    dateLocale: "hi",
+    script: "devanagari",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
+  },
+  "zh-TW": {
+    label: "ZH-TW",
+    nativeName: "繁體中文",
+    englishName: "Traditional Chinese",
+    ogLocale: "zh_TW",
+    inLanguage: "zh-TW",
+    dateLocale: "zh-TW",
+    script: "cjk",
+    dir: "ltr",
+    ogImage: "/og-en.jpg",
   },
 } satisfies Record<Locale, LocaleMeta>;
 
@@ -85,7 +188,8 @@ export const localeAlternates = (
   const suffix = path === "/" ? "" : path;
   const languages: Record<string, string> = {};
   for (const locale of locales) {
-    languages[locale] = `${localePathPrefix(locale)}${suffix}` || "/";
+    languages[metaFor(locale).inLanguage] =
+      `${localePathPrefix(locale)}${suffix}` || "/";
   }
   languages["x-default"] = suffix || "/";
   return languages;

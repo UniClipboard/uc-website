@@ -1,6 +1,5 @@
 import { Github, Lock, Sparkles } from "lucide-react";
-
-import { formatStars } from "@/lib/github-stars";
+import { useLocale } from "next-intl";
 
 type Props = {
   stars: number | null;
@@ -13,6 +12,7 @@ type Props = {
 };
 
 export function HeroTrustBar({ stars, labels }: Props) {
+  const locale = useLocale();
   return (
     <div
       className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-4 gap-y-2"
@@ -30,7 +30,9 @@ export function HeroTrustBar({ stars, labels }: Props) {
       >
         <Github className="size-[12px]" strokeWidth={1.6} />
         <span className="font-semibold">
-          {stars !== null ? `${formatStars(stars)} ★` : labels.starsFallback}
+          {stars !== null
+            ? `${new Intl.NumberFormat(locale, { notation: "compact", maximumFractionDigits: 1 }).format(stars)} ★`
+            : labels.starsFallback}
         </span>
         <span className="text-muted2">{labels.starsSuffix}</span>
       </a>

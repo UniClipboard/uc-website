@@ -1,0 +1,868 @@
+{
+  "seo": {
+    "title": "UniClipboard — 跨 Mac / Windows / Linux / iPhone / Android 的開源加密剪貼簿",
+    "titleTemplate": "%s | UniClipboard",
+    "description": "在 Mac、Windows、Linux、iPhone 與 Android 之間同步剪貼簿。開源、端到端加密，不需要雲端帳號，也不必自行架設伺服器。",
+    "softwareDescription": "免費、開源、端到端加密的通用剪貼簿，支援 macOS、Windows、Linux、iOS 與 Android。不需帳號或自行架設伺服器，在一部裝置複製，就能在另一部裝置貼上。",
+    "keywords": "UniClipboard, 剪貼簿同步, 剪貼簿同步, 跨裝置剪貼簿, Mac Windows 剪貼簿, Linux 剪貼簿同步, iPhone 剪貼簿同步, Android 剪貼簿同步, 手機電腦剪貼簿, 開源剪貼簿, 端到端加密剪貼簿, iCloud 通用剪貼簿替代, 通用剪貼簿, 剪貼簿管理器, 跨平台剪貼簿, 跨裝置複製貼上",
+    "ogAlt": "UniClipboard — 你的剪貼簿，在所有裝置上"
+  },
+  "og": {
+    "home": {
+      "eyebrow": "通用剪貼簿",
+      "title": "你的剪貼簿，在所有裝置上。",
+      "subtitle": "開源、端到端加密。Mac、Windows、Linux、iPhone、Android。",
+      "alt": "UniClipboard — 你的剪貼簿，在所有裝置上"
+    },
+    "download": {
+      "eyebrow": "下載",
+      "title": "為每個平台取得 UniClipboard",
+      "subtitle": "簽名安裝檔、Homebrew 與 Snap。免費且開源。",
+      "alt": "下載 UniClipboard,支援 Mac、Windows 與 Linux"
+    },
+    "blog": {
+      "eyebrow": "部落格",
+      "subtitle": "UniClipboard",
+      "alt": "UniClipboard 部落格文章"
+    }
+  },
+  "landing": {
+    "navigation": {
+      "blog": "部落格",
+      "compare": "比較",
+      "useCases": "使用情境",
+      "docs": "文件",
+      "changelog": "更新紀錄",
+      "download": "下載",
+      "github": "GitHub",
+      "menu": "選單",
+      "menuClose": "關閉選單",
+      "language": "語言",
+      "theme": "主題",
+      "themeSystem": "跟隨系統",
+      "themeLight": "淺色",
+      "themeDark": "深色",
+      "sponsor": "贊助",
+      "try": "線上試用"
+    },
+    "hero": {
+      "eyebrow": "開源 · 端到端加密 · 五端同步 · 無需帳號",
+      "title": "多臺裝置",
+      "titleLine2": "一個剪貼簿",
+      "description": "開源、端到端加密的通用剪貼簿。在 Mac、Windows、Linux、iPhone 與 Android 之間同步文字、圖片和檔案，不需雲端帳號或自行架設伺服器。",
+      "descriptionMobile": "即時同步你的剪貼簿到其他裝置。",
+      "mobileBadge": "瞭解手機如何接入 →",
+      "mobileBadgeIOS": "在 TestFlight 加入 iOS 公開測試 →",
+      "mobileBadgeAndroid": "下載 Android",
+      "secondaryCta": "技術白皮書",
+      "starsSuffix": "GitHub 星星",
+      "starsFallback": "GitHub",
+      "free": "免費 & 開源",
+      "e2e": "端到端加密",
+      "videoLabel": "uniclipboard — demo.mp4",
+      "videoPlay": "播放示範",
+      "videoPause": "暫停",
+      "videoDuration": "00:60",
+      "videoSeek": "拖動進度",
+      "videoOpen": "觀看示範",
+      "videoClose": "關閉影片",
+      "videoSourceYoutube": "YouTube",
+      "videoSourceBilibili": "嗶哩嗶哩",
+      "videoFallbackHint": "線上播放源不可用，已切換到本機影片。",
+      "tryCta": "在瀏覽器裡試試 →"
+    },
+    "features": {
+      "eyebrow": "核心功能",
+      "title": "你的系統剪貼簿，現在跨平台、可搜尋、端到端加密。",
+      "moreEyebrow": "更多功能",
+      "moreTitle": "你可能還想要這些。",
+      "h1": {
+        "eyebrow": "02 — 隱私優先",
+        "title": "中繼看到的，只有密文。",
+        "lede": "內容在源裝置加密，只在你的裝置上解密。金鑰存放在系統 Keyring 裡，永遠不離開本機。開源，可審計。",
+        "b1Title": "端到端加密",
+        "b1Desc": "XChaCha20-Poly1305 AEAD——傳輸和本機儲存均加密。",
+        "b2Title": "無需雲帳號",
+        "b2Desc": "不綁郵箱、不綁手機號——兩臺裝置交換一次公鑰就夠了。",
+        "b3Title": "程式碼可審計",
+        "b3Desc": "AGPL-3.0 開源。加密實現你可以自己讀、自己驗證。"
+      },
+      "h2": {
+        "eyebrow": "01 — 五端覆蓋",
+        "title": "一處複製，五端可粘。",
+        "lede": "桌面三端基於 Rust + Tauri，iOS 在 TestFlight 公開測試、Android 原生 App 已發布。同 Wi-Fi 直連、跨網 NAT 打洞、可一鍵切到 LAN-only。",
+        "b1Title": "桌面三端",
+        "b1Desc": "Rust + Tauri 構建，啟動快、佔用低，整合進系統選單欄與托盤。",
+        "b2Title": "iOS & Android 原生 App",
+        "b2Desc": "iOS 透過 TestFlight 公開測試，Android 提供簽名 APK 直鏈。不想裝原生 App？SyncClipboard 開放協議仍可用。",
+        "b3Title": "直連 · 打洞 · LAN-only 可切",
+        "b3Desc": "同 Wi-Fi 走 P2P，跨網自動 NAT 打洞，加密中繼兜底。一鍵 LAN-only 可徹底關掉中繼。"
+      },
+      "h3": {
+        "eyebrow": "03 — 重度使用者友好",
+        "title": "Quick Panel、本機全文搜尋、CLI——一個都不少。",
+        "lede": "浮層即刻預覽歷史，上萬條記錄毫秒級搜尋，終端 / SSH / tmux 裡還有無頭 CLI。比看上去更能打。",
+        "b1Title": "快速面板",
+        "b1Desc": "快捷鍵喚起的懸浮面板，文字、連結、圖片、程式碼、檔案都有內聯預覽。",
+        "b2Title": "本機全文搜尋",
+        "b2Desc": "上萬條記錄毫秒級搜遍歷史，索引在磁碟上同樣保持加密。",
+        "b3Title": "uniclip CLI",
+        "b3Desc": "圖形介面的能力一行命令搞定，無頭執行——為終端、SSH、指令碼和 tmux 而生。"
+      },
+      "more": {
+        "f1Title": "熟悉的快捷鍵",
+        "f1Desc": "⌘C / Ctrl-C 複製，⌘V / Ctrl-V 貼上，肌肉記憶零成本。是系統剪貼簿的延伸，不是又一個 App。",
+        "f4Title": "自動恢復",
+        "f4Desc": "Wi-Fi 切換、休眠喚醒、短暫掉線後自動重連，無需重新配對。",
+        "f6Title": "文字、圖片與檔案",
+        "f6Desc": "一臺複製，另一臺貼上。大檔案採用流式傳輸，不必整個載入到記憶體。",
+        "f5Title": "按裝置控制同步",
+        "f5Desc": "每臺配對裝置可單獨設定收發方向與內容型別（文字 / 圖片 / 檔案）。裝置丟了？任意裝置一鍵吊銷。",
+        "f7Title": "即時同步",
+        "f7Desc": "複製即推送，無需手動觸發。所有裝置自動保持一致。",
+        "f9Title": "可控的歷史保留",
+        "f9Desc": "預設保留 30 天，可調整為 7 天 / 永久；可按裝置/型別清理；任何時候隨手清空。",
+        "f10Title": "iOS & Android 原生 App",
+        "f10Desc": "iOS 透過 TestFlight 公開測試，Android 提供簽名 APK 直鏈。不想裝原生 App？SyncClipboard 開放協議（iPhone「快捷指令」+ Android 客戶端）仍可用。",
+        "f11Title": "格式不降級",
+        "f11Desc": "富文字和 HTML 按原格式還原，不被壓成純文字。跨平台同樣保真：Windows 富文字、Linux 非英文 URL、UTF-8 都原樣送達。",
+        "f12Title": "同步狀態一目瞭然",
+        "f12Desc": "每條記錄顯示來源裝置和各端同步狀態，未送達的可一鍵重發。",
+        "f13Title": "可定製的外觀",
+        "f13Desc": "淺色 / 深色主題分別預設，強調色、背景、前景自定義，也可跟隨系統。"
+      }
+    },
+    "comparison": {
+      "eyebrow": "對比",
+      "title": "為什麼不是 iCloud？為什麼不是自託管？",
+      "subtitle": "只要以下任意一條對你重要，iCloud 通用剪貼簿和自己運維的方案就都不夠用。",
+      "tools": {
+        "uc": "UniClipboard",
+        "icloud": "iCloud 通用剪貼簿",
+        "selfhost": "自託管 (ClipCascade 等)",
+        "manager": "Paste（付費 · 僅 Apple）"
+      },
+      "toolsShort": {
+        "uc": "UC",
+        "icloud": "iCloud",
+        "selfhost": "自託管",
+        "manager": "Paste"
+      },
+      "rows": {
+        "crossPlatform": {
+          "label": "macOS / Windows / Linux / iOS / Android",
+          "labelMobile": "跨平台",
+          "uc": "桌面 + 移動 5 端",
+          "icloud": "僅 Apple",
+          "selfhost": "看實現",
+          "manager": "僅 Apple"
+        },
+        "e2e": {
+          "label": "端到端加密 + 可審計",
+          "labelMobile": "E2E + 開源",
+          "uc": "開源可讀",
+          "icloud": "閉源 E2E",
+          "selfhost": "看實現",
+          "manager": "閉源"
+        },
+        "infra": {
+          "label": "無需自己運維伺服器",
+          "labelMobile": "免運維",
+          "uc": "開箱即用",
+          "icloud": "開箱即用",
+          "selfhost": "需自託管",
+          "manager": "開箱即用"
+        },
+        "history": {
+          "label": "可搜尋的歷史記錄",
+          "labelMobile": "可搜歷史",
+          "uc": "本機加密索引",
+          "icloud": "無歷史",
+          "selfhost": "看實現",
+          "manager": "可搜尋歷史"
+        },
+        "noAccount": {
+          "label": "無需註冊 / 郵箱",
+          "labelMobile": "免帳號",
+          "uc": "公鑰配對",
+          "icloud": "需要 Apple ID",
+          "selfhost": "看實現",
+          "manager": "需 Apple ID"
+        },
+        "transport": {
+          "label": "同 Wi-Fi 直連，跨網中繼回退，可強制 LAN-only",
+          "labelMobile": "跨網路",
+          "uc": "P2P + 中繼 · 可切 LAN-only",
+          "icloud": "僅近場",
+          "selfhost": "通常僅伺服器",
+          "manager": "iCloud 雲同步"
+        },
+        "price": {
+          "label": "價格",
+          "labelMobile": "價格",
+          "uc": "免費 · 開源",
+          "icloud": "免費",
+          "selfhost": "免費 + 伺服器成本",
+          "manager": "$30/年訂閱"
+        }
+      },
+      "footnote": "對比基於 2026-05 公開資訊，如有出入歡迎在 GitHub 上提 Issue。"
+    },
+    "howItWorks": {
+      "eyebrow": "工作原理",
+      "title": "配對一次，之後只剩複製和貼上。",
+      "step1Title": "本機配對",
+      "step1Desc": "裝置本機交換一次公鑰，無需雲帳號或郵箱。已有裝置生成短期邀請碼，新裝置輸入邀請碼和 Space 口令即可加入。",
+      "step2Title": "加密傳輸",
+      "step2Desc": "內容在源裝置加密，密文走 P2P 直連（同 Wi-Fi 或跨網 NAT 打洞），連不通才回退加密中繼。即便中繼被攻陷，也只能看到密文。",
+      "step3Title": "本機解密、本機儲存",
+      "step3Desc": "解密只在你自己的裝置上完成。本機歷史與全文搜尋索引在磁碟上同樣加密。Wi-Fi 切換、休眠喚醒或短暫掉線後會自動恢復連線。"
+    },
+    "download": {
+      "eyebrow": "下載最新版本",
+      "title": "選擇你的平台。",
+      "description": "已自動識別你的平台，不對可在下面切換。每個安裝檔都標註了系統要求。",
+      "descriptionMobile": "iPhone 走 TestFlight 內測，Android 直接裝 APK，桌面三端有完整簽名安裝檔。",
+      "mobileAndroidAllArchs": "檢視全部架構",
+      "mobileDesktopPlatforms": "Mac · Windows · Linux",
+      "mobileDesktopHint": "桌面端要在電腦上裝。把連結發到桌面，到電腦前繼續。",
+      "versionLabel": "版本",
+      "publishedLabel": "發布時間",
+      "channelLabel": "通道",
+      "channelStable": "穩定版",
+      "openRelease": "檢視發布頁",
+      "shareLinkIdle": "把連結發到桌面",
+      "shareLinkCopied": "連結已複製",
+      "shareLinkTitle": "UniClipboard — 跨平台剪貼簿",
+      "fallback": "所有版本",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "downloadAction": "下載",
+      "recommended": "推薦",
+      "noDownloads": "暫無可用下載。",
+      "degradedNotice": "版本詳情暫時不可用。",
+      "metadataUnavailable": "後設資料不可用",
+      "unavailableValue": "不可用",
+      "ctaPrimaryGeneric": "立即下載",
+      "ctaPrimaryWith": "下載",
+      "ctaOtherPlatforms": "其它平台",
+      "ctaLinuxX64": "Linux · x64",
+      "ctaLinuxArm": "Linux · ARM64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "iosBetaBadge": "公開測試版 · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk"
+    },
+    "faq": {
+      "eyebrow": "常見問題",
+      "title": "你可能想問的幾件事。",
+      "docsHelpLede": "沒在這裡找到答案？",
+      "docsHelpCta": "檢視完整文件 →",
+      "item1": {
+        "q": "為什麼不直接用 iCloud 通用剪貼簿？",
+        "a": "只用 Apple 裝置、不需要歷史、又完全信任 Apple 閉源加密的話，iCloud 夠用。但只要你多了一臺 Windows 或 Linux 機器、想要可搜尋的歷史，或想自己審計加密實現，就得換方案。"
+      },
+      "item2": {
+        "q": "為什麼不用自託管的剪貼簿同步（例如 ClipCascade）？",
+        "a": "自託管意味著你得自己運維伺服器。UniClipboard 開箱即用：P2P 直連為主，加密中繼兜底，不用維護任何基礎設施。"
+      },
+      "item3": {
+        "q": "可以純離線 / 只在區域網內工作嗎？",
+        "a": "可以。同一 Wi-Fi 下的裝置直接互聯，不經過中繼。「網路」設定裡還有 LAN-only Mode 開關，開啟後所有裝置只走區域網發現和直連，中繼及公網服務全部關閉。"
+      },
+      "item4": {
+        "q": "剪貼簿歷史到底存在哪裡？",
+        "a": "只在你自己的裝置上。本機資料加密儲存，金鑰放在系統 Keyring 內、永不離開本機。UniClipboard 的伺服器不會接收或儲存任何剪貼簿內容。"
+      },
+      "item5": {
+        "q": "支援移動端（iOS / Android）嗎？",
+        "a": "都有原生 App。iOS 在 TestFlight 公開測試、Android 提供簽名 APK 直鏈，下載頁都能拿到。不想裝原生 App 的話，相容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT）開放協議的路線仍然保留：iPhone 走系統「快捷指令」+ 桌面端給的一段配置，Android 用 SyncClipboard 的任意客戶端，無需雲帳號，內容只在區域網內流轉。",
+        "downloadCta": "去下載頁拿 iOS Beta 和 Android APK →"
+      },
+      "item6": {
+        "q": "AGPL-3.0 會影響我在公司裡用嗎？",
+        "a": "不會。AGPL 只約束「修改原始碼後再以網路服務形式分發」的場景。直接安裝、自用或團隊使用，跟普通免費軟體沒區別，不需要開源公司任何程式碼。"
+      },
+      "item7": {
+        "q": "和 KDE Connect、Mouse Without Borders 比有什麼不一樣？",
+        "a": "KDE Connect 和 Mouse Without Borders 都是好工具，但屬於 KVM 那一類，會把滑鼠、鍵盤、檔案、通知一起共享，且通常要在同一區域網（或疊一層 Tailscale）。UniClipboard 只做剪貼簿，走公網也能用、不需要 VPN，自帶可搜尋的歷史。只想「這邊複製那邊粘」、不想搬別的東西，它就夠了。"
+      },
+      "item8": {
+        "q": "可以自託管嗎？能跑自己的伺服器或中繼嗎？",
+        "a": "預設不需要：UniClipboard 走 P2P 直連，連不通才回退加密中繼，無需運維。需要時進階用法也都留好了：指向自己的中繼節點（帶連通性測試）；把 UniClipboard 作為無介面伺服器節點常駐（內建 Docker 與 Caddy 配置，方便部署到 VPS）；移動端同步還能暴露公開 URL，透過自託管伺服器或安全代理實現跨網訪問。"
+      }
+    },
+    "finalCta": {
+      "title": "複製在這邊，貼上在那邊。",
+      "subtitle": "免費、開源、端到端加密。每臺裝置裝一次，剪貼簿自動跟著你走。",
+      "primary": "下載 UniClipboard",
+      "secondary": "在 GitHub 上看原始碼",
+      "platformsLine": "macOS · Windows · Linux · iOS · Android",
+      "versionPrefix": "最新版"
+    },
+    "footer": {
+      "thanksTitle": "致謝",
+      "thanksDesc": "跨裝置剪貼簿同步，端到端加密、開源可審計。資料只在你的裝置間流動，不經過任何雲帳號。",
+      "linksTitle": "連結",
+      "repo": "倉庫",
+      "issues": "問題回報",
+      "releases": "版本發布",
+      "docs": "文件",
+      "stackTitle": "技術棧",
+      "contactTitle": "聯絡",
+      "twitter": "X · @uniclipboard",
+      "authorTwitter": "X · @mkdir700",
+      "bilibili": "B站 · @mkdir700",
+      "email": "hello@uniclipboard.app",
+      "copyright": "© 2026 mkdir700",
+      "rustNote": "以 Rust 打造 🦀 · AGPL-3.0",
+      "sponsor": "贊助支援"
+    },
+    "sponsor": {
+      "seoTitle": "贊助 UniClipboard",
+      "seoDescription": "UniClipboard 是一款免費、開源、跨裝置的剪貼簿工具。如果它幫到了你，你的贊助會讓它走得更遠。",
+      "seoKeywords": "UniClipboard 贊助,支援開源,贊助開發者,愛發電,開源捐贈",
+      "ogAlt": "贊助 UniClipboard",
+      "hero": {
+        "eyebrow": "支援這個專案",
+        "title": "讓好用的東西，",
+        "titleLine2": "一直好用下去。",
+        "description": "UniClipboard 免費、開源、沒有廣告——以後也是。它由我一個人開發和維護，伺服器也是自己的。如果它幫到了你，贊助是讓它走得更遠的最直接方式：更穩的同步、更快的更新，以及更多還在路上的功能。",
+        "descriptionShort": "UniClipboard 免費、開源、沒有廣告——由我一個人開發和維護。如果它幫到了你，贊助就是讓它走得更遠的最直接方式。",
+        "primaryCta": "成為贊助者",
+        "secondaryCta": "在 GitHub 上 Star",
+        "count": "已有 {count} 位朋友在支援",
+        "milestoneTarget": "目標 {target} 位"
+      },
+      "benefits": {
+        "eyebrow": "贊助權益",
+        "title": "一點心意，一點回饋",
+        "subtitle": "不分檔位、不設門檻——無論贊助多少，這些都屬於每一位支持者。",
+        "items": {
+          "b1": {
+            "title": "名字留在這裡",
+            "desc": "你的名字會出現在下方的贊助牆上，長期留著，作為一份公開的謝意。"
+          },
+          "b2": {
+            "title": "免費獲得 Pro 席位",
+            "desc": "核心功能永遠免費。將來若上線訂閱或 Pro 版，你作為早期贊助者將直接獲得，無需額外付費。"
+          },
+          "b3": {
+            "title": "你的想法被優先聽見",
+            "desc": "你提的功能和反饋會被優先排進開發計劃，真正影響它接下來的走向。"
+          },
+          "b4": {
+            "title": "有問題直接找我",
+            "desc": "遇到問題不用繞彎，可以直接聯絡到我，得到更快的回應。"
+          },
+          "b5": {
+            "title": "一枚贊助者徽章",
+            "desc": "在社群裡有一枚專屬標識，代表你對開源的那份支援。"
+          },
+          "b6": {
+            "title": "讓它對所有人免費",
+            "desc": "你的支援，讓 UniClipboard 能一直免費、開源、沒有廣告地走下去。"
+          }
+        }
+      },
+      "wall": {
+        "eyebrow": "贊助牆",
+        "title": "感謝這些朋友",
+        "subtitle": "正是因為有你們，UniClipboard 才走到了今天。這份名單，會一直寫下去。",
+        "supporters": "{count, plural, other {# 位贊助者}}",
+        "goldLabel": "金牌贊助",
+        "backerLabel": "支持者",
+        "sinceLabel": "自",
+        "viewProfile": "檢視主頁",
+        "becomeTitle": "下一個就是你",
+        "becomeDesc": "加入他們，一起讓它走得更遠。",
+        "emptyTitle": "成為第一位贊助者",
+        "emptyDesc": "這面牆還空著——很期待第一個名字是你。"
+      },
+      "cta": {
+        "title": "讓它繼續走下去",
+        "subtitle": "如果 UniClipboard 幫你省下了時間，一點點支援，就能讓它走得更遠。每一份，我都記得。",
+        "primary": "去贊助",
+        "secondary": "在 GitHub 上 Star",
+        "note": "贊助為自願 · 隨時可取消",
+        "claimNoteBefore": "已贊助？發郵件到",
+        "claimNoteAfter": "領取贊助牆填寫連結。",
+        "claimMailSubject": "領取 UniClipboard 贊助牆填寫連結",
+        "claimMailBody": "你好，我已經贊助 UniClipboard，想領取贊助牆資料填寫連結。\n\n贊助平台：\n贊助暱稱 / 訂單資訊：\n\n謝謝！"
+      }
+    }
+  },
+  "downloadPage": {
+    "seoTitle": "下載 UniClipboard — macOS / Windows / Linux 安裝檔 + Homebrew & Snap",
+    "seoDescription": "下載最新簽名的 UniClipboard：macOS、Windows、Linux 都提供簽名安裝檔。Mac 可用 Homebrew，Linux 可用 Snap，也支援直鏈安裝檔。免費、開源、端到端加密。",
+    "seoKeywords": "UniClipboard 下載, 安裝 UniClipboard, brew install uniclipboard, snap install uniclipboard, UniClipboard mac, UniClipboard windows, UniClipboard linux, AppImage 剪貼簿",
+    "ogAlt": "下載 UniClipboard for macOS / Windows / Linux",
+    "breadcrumbHome": "首頁",
+    "breadcrumbCurrent": "下載",
+    "hero": {
+      "eyebrow": "取得 UniClipboard",
+      "title": "下載 UniClipboard。",
+      "subtitle": "每臺裝置裝一次，配對之後剪貼簿就跟著你走。挑你的裝置，或者用下面的套件管理器一行命令搞定。",
+      "versionLabel": "最新穩定版",
+      "publishedLabel": "發布於",
+      "stableTag": "穩定版",
+      "releaseUnavailable": "暫時無法取得版本資訊。您隨時可以前往 GitHub 版本頁面下載目前的安裝檔。",
+      "badgeFree": "免費 & 開源",
+      "badgeEncrypted": "端到端加密",
+      "badgeSignedMac": "macOS 公證簽名",
+      "badgeSignedWin": "Authenticode 簽名",
+      "openLatest": "在 GitHub 查看版本"
+    },
+    "direct": {
+      "eyebrow": "直鏈下載",
+      "title": "選你的平台。",
+      "description": "每個安裝檔都已簽名，標註了所需的最低系統版本。我們會高亮當前識別到的平台，但其他選項也都一鍵可達。",
+      "degradedNotice": "release 後設資料暫不可用，可以用底部的 GitHub releases 連結作為兜底。",
+      "noDownloads": "暫無可下載的版本。",
+      "downloadsUnavailable": "安裝檔連結暫時無法載入，請前往 GitHub 下載 UniClipboard。",
+      "fallback": "在 GitHub 檢視全部 releases",
+      "downloadAction": "下載",
+      "recommended": "已識別",
+      "platformMacOS": "macOS",
+      "platformWindows": "Windows",
+      "platformLinux": "Linux",
+      "platformIOS": "iOS",
+      "platformAndroid": "Android",
+      "archArm": "Apple Silicon",
+      "archIntel": "Intel",
+      "archX64": "x64",
+      "archAppimage": "x64",
+      "minOSMac": "macOS 12+",
+      "minOSWin": "Windows 10/11",
+      "minOSLinuxX64": ".deb / .rpm / AppImage · x86_64",
+      "minOSLinuxArm": ".deb / .rpm / AppImage · ARM64",
+      "iosBetaBadge": "公開測試版 · TestFlight",
+      "androidMinOS": "Android 8+",
+      "androidExtLabel": ".apk",
+      "androidHintArm64": "現代 64 位安卓手機，效能最好、體積較小。不確定就選這個。",
+      "androidHintArmV7": "僅老式 32 位安卓手機需要。",
+      "androidHintX64": "安卓模擬器或少數 Intel 架構裝置。",
+      "androidHintUniversal": "含全部架構，體積最大但相容性最好。",
+      "winPortableLabel": "便攜版",
+      "winPortableHint": "免安裝，解壓即用。適合 U 盤隨身攜帶或沒有管理員許可權的電腦。",
+      "blockMacDescription": "已簽名並經蘋果公證，支援 macOS 12 Monterey 及以上。",
+      "blockWinDescription": "Authenticode 簽名安裝檔，支援 Windows 10 / 11；另提供免安裝的便攜版 .zip。",
+      "blockLinuxDescription": "自動識別 glibc 與 CPU 架構，安裝到 ~/.local。",
+      "blockIosDescription": "iOS App 處於 TestFlight Public Beta，用 iPhone 或 iPad 開啟下方邀請連結即可加入。",
+      "blockAndroidDescription": "簽名 APK，可直接在任意現代安卓手機上側載安裝。",
+      "linuxInstallCommand": "curl -fsSL https://uniclipboard.app/install.sh | bash",
+      "linuxScriptSourceLabel": "檢視指令碼原始碼",
+      "linuxScriptSourceUrl": "https://github.com/UniClipboard/UniClipboard/blob/main/scripts/install.sh",
+      "detectedBadge": "已識別",
+      "iosTestFlight": {
+        "joinCta": "在 TestFlight 中加入公開測試",
+        "joinHint": "如果沒裝過 TestFlight，請先在 App Store 安裝蘋果官方的 TestFlight。",
+        "shareLabel": "在電腦上看？複製連結發到手機",
+        "copy": "複製連結",
+        "copied": "已複製"
+      }
+    },
+    "pkg": {
+      "copy": "複製命令",
+      "copied": "已複製"
+    },
+    "sysreq": {
+      "eyebrow": "系統要求",
+      "title": "執行所需的環境。",
+      "description": "UniClipboard 是個輕量桌面應用，空閒時幾乎不佔 CPU，只在你複製內容時才會和網路互動。",
+      "colPlatform": "平台",
+      "colMinOS": "最低系統",
+      "colArch": "支援架構",
+      "colMemory": "記憶體",
+      "colDisk": "佔用",
+      "rows": [
+        {
+          "platform": "macOS",
+          "minOS": "macOS 12 Monterey 或更新",
+          "arch": "Apple Silicon (arm64)、Intel (x86_64)",
+          "memory": "空閒約 60 MB",
+          "disk": "約 80 MB"
+        },
+        {
+          "platform": "Windows",
+          "minOS": "Windows 10（19041+）或 Windows 11",
+          "arch": "x86_64",
+          "memory": "空閒約 70 MB",
+          "disk": "約 90 MB"
+        },
+        {
+          "platform": "Linux",
+          "minOS": "glibc 2.31+（Ubuntu 20.04 / Debian 11 / Fedora 35 等），支援 X11 與 Wayland",
+          "arch": "x86_64、ARM64（.deb / .rpm / AppImage）",
+          "memory": "空閒約 65 MB",
+          "disk": "約 85 MB"
+        },
+        {
+          "platform": "iOS",
+          "minOS": "iOS 16 或更新（TestFlight Public Beta）",
+          "arch": "iPhone / iPad（Apple Silicon）",
+          "memory": "—",
+          "disk": "約 30 MB"
+        },
+        {
+          "platform": "Android",
+          "minOS": "Android 8.0（API 26）或更新",
+          "arch": "arm64-v8a、armeabi-v7a、x86_64、universal",
+          "memory": "—",
+          "disk": "約 35 MB"
+        }
+      ]
+    },
+    "verify": {
+      "eyebrow": "校驗下載",
+      "title": "信任，但請驗證。",
+      "description": "每個版本在發布前都會簽名。你可以在本機確認安裝檔是否被篡改——下面的步驟拿到檔案之後就能離線完成。",
+      "items": [
+        {
+          "platform": "macOS",
+          "body": "安裝檔都經過 Apple 公證。可以右鍵 .dmg 選「開啟」，或執行下方命令檢查開發者簽名。",
+          "command": "spctl -a -vvv -t install ~/Downloads/UniClipboard.dmg"
+        },
+        {
+          "platform": "Windows",
+          "body": ".exe 走的是 Authenticode 簽名。右鍵檔案 → 屬性 → 數字簽名，可以檢視完整證書鏈。",
+          "command": "Get-AuthenticodeSignature .\\UniClipboard-Setup.exe"
+        },
+        {
+          "platform": "Linux",
+          "body": "GitHub release 頁裡每個 .deb / .rpm / .AppImage 都附了對應的 .sig 簽名檔案。把 .sig 一併下下來，用倉庫 README 公佈的公鑰驗證即可。",
+          "command": "minisign -Vm UniClipboard_amd64.deb -P RWQ... # 公鑰見 README"
+        }
+      ]
+    },
+    "older": {
+      "eyebrow": "想找老版本？",
+      "title": "每個版本都留著。",
+      "description": "我們從不刪除歷史版本。在更新紀錄裡看 release notes，或者直接到 GitHub release 頁拿你需要的安裝檔。",
+      "changelogCta": "檢視更新紀錄",
+      "allReleasesCta": "GitHub 全部 releases"
+    },
+    "faq": {
+      "eyebrow": "安裝疑難",
+      "title": "常見問題。",
+      "items": [
+        {
+          "q": "macOS 提示「UniClipboard.app 已損壞，無法開啟」？",
+          "a": "這是 Gatekeeper 在公證檢查之前給檔案打了 quarantine 屬性導致的。先把 app 拖進 /Applications，然後執行一次 xattr -dr com.apple.quarantine /Applications/UniClipboard.app。後續透過應用內更新裝的版本不會再遇到這個提示。"
+        },
+        {
+          "q": "Windows SmartScreen 提示「未識別的應用」？",
+          "a": "新版本即使有簽名，SmartScreen 也需要時間為這個 exact 二進位制建立信譽。點「更多資訊」→「仍要執行」即可。隨著安裝量上升，幾天內提示就會消失。"
+        },
+        {
+          "q": "Linux 上怎麼執行 AppImage？",
+          "a": "下載後給檔案加可執行許可權：chmod +x UniClipboard-x86_64.AppImage，然後雙擊或在終端裡跑就行。想整合到應用啟動器，可以裝 AppImageLauncher 或 appimaged。"
+        },
+        {
+          "q": "Snap 包需要 --classic 模式嗎？",
+          "a": "不需要。snap 跑在標準 confinement 下，只申請它真正用得到的介面（network、home、password-manager-service）。可以用 snap connections uniclipboard 自查許可權。"
+        },
+        {
+          "q": "怎麼解除安裝 Homebrew 安裝的版本？",
+          "a": "執行 brew uninstall --cask uniclipboard。如果連 tap 也想清掉，再來一條 brew untap uniclipboard/tap。本機剪貼簿歷史在你的 home 目錄下，這兩條命令不會動它——想完全清空可以刪 ~/Library/Application Support/UniClipboard。"
+        }
+      ]
+    }
+  },
+  "compareHub": {
+    "seoTitle": "UniClipboard 對比 — 開源剪貼簿同步對比 iCloud / Maccy / 其它",
+    "seoDescription": "把 UniClipboard 和你可能正在用的那些剪貼簿管理器、同步工具一一擺在一起：iCloud 通用剪貼簿、Maccy 等等。挑出適合自己的那一個，而不是先看到的那一個。",
+    "seoKeywords": "UniClipboard 替代, 剪貼簿管理器對比, iCloud 通用剪貼簿 替代, Maccy 替代, 跨平台剪貼簿同步對比, 開源剪貼簿管理器",
+    "ogAlt": "UniClipboard 對比 iCloud、Maccy 等剪貼簿工具",
+    "breadcrumbHome": "首頁",
+    "breadcrumbCurrent": "對比",
+    "eyebrow": "對比",
+    "title": "UniClipboard 和別的工具怎麼比。",
+    "subtitle": "把它和你可能正在用的那些工具一一擺在一起：誠實地說出短板，明確每個工具適合誰。",
+    "categoryLabel": "對比",
+    "readMore": "閱讀對比",
+    "countLabel": "{count, plural, =0 {暫無對比文章} other {共 # 篇對比}}",
+    "emptyState": "暫無對比文章，過段時間再來看看。"
+  },
+  "blogHub": {
+    "seoTitle": "UniClipboard 部落格 — 關於剪貼簿同步、加密和跨裝置工作流",
+    "seoDescription": "聚焦 UniClipboard 的實現細節、最近的更新，以及跨裝置剪貼簿同步背後的權衡。寫給願意看細節的工程師。",
+    "seoKeywords": "UniClipboard 部落格, 剪貼簿同步原理, 端到端加密剪貼簿, 跨平台剪貼簿工程, 開源剪貼簿更新",
+    "ogAlt": "UniClipboard 部落格 — 關於剪貼簿同步的工程筆記",
+    "breadcrumbHome": "首頁",
+    "breadcrumbCurrent": "部落格",
+    "eyebrow": "部落格",
+    "title": "團隊筆記。",
+    "subtitle": "我們怎麼做 UniClipboard、最近在發什麼、跨裝置剪貼簿同步背後的取捨——寫給願意看細節的工程師。",
+    "categoryLabel": "文章",
+    "tableOfContents": "本頁目錄",
+    "readMore": "閱讀文章",
+    "countLabel": "{count, plural, =0 {暫無文章} other {共 # 篇文章}}",
+    "emptyState": "暫無文章，過段時間再來看看。"
+  },
+  "changelogHub": {
+    "seoTitle": "UniClipboard 更新紀錄 — 每個版本的新功能、修復與破壞性變更",
+    "seoDescription": "UniClipboard 每次穩定版的發布說明，涵蓋 macOS、Windows、Linux 三端的新功能、問題修復和破壞性變更。每次發版自動同步。",
+    "seoKeywords": "uniclipboard 更新紀錄, uniclipboard 發布說明, 剪貼簿同步更新, uniclipboard 版本",
+    "ogAlt": "UniClipboard 更新紀錄 — 每個版本的發布說明",
+    "breadcrumbHome": "首頁",
+    "breadcrumbCurrent": "更新紀錄",
+    "eyebrow": "更新紀錄",
+    "title": "每一次發版都在這裡。",
+    "subtitle": "我們做了什麼、修了什麼、破壞了什麼 —— 直接來自發布源，是版本變更的唯一真相。",
+    "latestLabel": "最新穩定版",
+    "downloadLabel": "下載",
+    "downloadShort": "取得",
+    "permalink": "永久連結",
+    "viewVersion": "檢視 v{version}",
+    "emptyState": "暫無發布版本，請稍後再來。",
+    "releasedOn": "發布於",
+    "olderRelease": "較早版本",
+    "newerRelease": "較新版本",
+    "backToList": "全部版本",
+    "notFoundTitle": "版本不存在",
+    "detailSeoTitle": "UniClipboard v{version} — 發布說明",
+    "detailSeoDescription": "UniClipboard v{version} 的完整發布說明，發布於 {date}，包含新功能、修復與破壞性變更。"
+  },
+  "useCasesHub": {
+    "seoTitle": "UniClipboard 使用場景 — 跨裝置剪貼簿的實操指南",
+    "seoDescription": "聚焦人們真正會做的幾件事：從 Mac 複製粘到 Windows、在 SSH / tmux 裡用剪貼簿、和同事共享一份加密的剪貼簿。每篇都給到具體的快捷鍵。",
+    "seoKeywords": "UniClipboard 使用場景, Mac Windows 剪貼簿指南, SSH tmux 剪貼簿, 跨平台剪貼簿教程, 跨裝置複製貼上 教程",
+    "ogAlt": "UniClipboard 使用場景 — 跨裝置剪貼簿實操指南",
+    "breadcrumbHome": "首頁",
+    "breadcrumbCurrent": "使用場景",
+    "eyebrow": "使用場景",
+    "title": "大家都拿 UniClipboard 來做什麼。",
+    "subtitle": "針對人們真正會用到的工作流，提供具體的步驟——明確給出快捷鍵，加密的部分始終在話題裡。",
+    "categoryLabel": "使用場景",
+    "readMore": "閱讀指南",
+    "countLabel": "{count, plural, =0 {暫無指南} other {共 # 篇指南}}",
+    "emptyState": "暫無指南，過段時間再來看看。"
+  },
+  "sponsorClaim": {
+    "title": "完善你的贊助者資料",
+    "subtitle": "感謝你支援 UniClipboard！請選擇你希望在贊助牆上展示的方式。",
+    "badgeGold": "金牌贊助者邀請",
+    "badgeRegular": "贊助者邀請",
+    "tierGold": "金牌贊助者",
+    "tierRegular": "贊助者",
+    "welcomeTitle": "謝謝你，真心的。",
+    "welcomeBody": "接下來幾步，幫你在贊助牆上留下自己的樣子——大概一分鐘就好。",
+    "welcomeCta": "開始",
+    "welcomeHint": "這是你的專屬連結，僅能使用一次。",
+    "stepOf": "步驟 {current} / {total}",
+    "back": "上一步",
+    "continue": "繼續",
+    "stepIdentityTitle": "先認識一下你",
+    "stepIdentitySubtitle": "頭像和名字，會是你留在牆上的樣子。",
+    "stepMessageTitle": "留下一句你的話",
+    "stepMessageSubtitle": "都可以留空，直接下一步也沒關係。",
+    "stepReviewTitle": "這就是你的贊助者名片",
+    "stepReviewSubtitle": "確認無誤後提交，我們會盡快確認。",
+    "reviewPendingNote": "提交後由我們人工確認，透過後會出現在贊助牆上。",
+    "errorUrl": "連結需以 http:// 或 https:// 開頭",
+    "viewWallCta": "去看看贊助牆",
+    "plaqueEyebrow": "專屬銘牌",
+    "plaqueBody": "感謝你成為 UniClipboard 的一份子——這份支援，我們記下了。",
+    "proSeatTitle": "Pro 席位已為你保留",
+    "proSeatBody": "核心功能會一直免費。將來上線付費 Pro 版時，作為早期贊助者，你可以直接免費解鎖，無需再單獨付費。",
+    "perksTitle": "你現在擁有的權益",
+    "perkVote": "你的想法會被優先聽見",
+    "perkContact": "遇到問題可以直接找我",
+    "perkBadge": "擁有一枚專屬贊助者徽章",
+    "perkMission": "讓 UniClipboard 保持免費、開源、無廣告",
+    "nameLabel": "展示名稱",
+    "namePlaceholder": "在贊助牆上顯示的名字",
+    "githubLabel": "GitHub 使用者名稱（可選）",
+    "githubHint": "可一鍵從 GitHub 取得暱稱與頭像，也可以在下方手動填寫。",
+    "githubButton": "取得",
+    "githubFetching": "取得中…",
+    "githubEmpty": "請先填寫 GitHub 使用者名稱",
+    "githubFound": "已取得：{name}",
+    "avatarLabel": "頭像",
+    "avatarHint": "上傳圖片（自動裁剪為 160×160 方形），留空則顯示首字母佔位。",
+    "avatarUrlPlaceholder": "或貼上頭像圖片 URL",
+    "avatarRemove": "移除頭像",
+    "avatarTooLarge": "圖片過大（上限 6MB）",
+    "noteLabel": "一句話致謝（可選）",
+    "notePlaceholder": "顯示在名字下方的一句話",
+    "urlLabel": "主頁 / 資料頁連結（可選）",
+    "submit": "提交",
+    "submitting": "提交中…",
+    "successTitle": "已提交，謝謝你！",
+    "successBody": "資料已收到，經我們確認後即會出現在贊助牆上。你可以關閉此頁面。",
+    "errorRequired": "展示名稱必填",
+    "errorGeneric": "提交失敗，請重試。",
+    "invalidTitle": "此連結已失效",
+    "invalidUsed": "該邀請連結已被使用。",
+    "invalidExpired": "該邀請連結已過期，請向我們索取新的連結。",
+    "invalidNotFound": "該邀請連結無效，請核對連結是否完整。",
+    "backHome": "返回首頁"
+  },
+  "try": {
+    "seoTitle": "線上試用 — 在兩個瀏覽器之間傳送文字、圖片和檔案",
+    "seoDescription": "透過連結或 QR 碼，把文字、圖片或檔案從一個瀏覽器傳到另一個瀏覽器。端對端加密，免安裝、免帳號。由 tailcat 驅動的網頁示範。",
+    "compose": {
+      "title": "把任何內容傳到另一台裝置。",
+      "replyTitle": "回覆另一台裝置",
+      "placeholder": "在這裡貼上、拖入或輸入",
+      "textLabel": "要傳送的內容",
+      "attach": "加入檔案",
+      "remove": "移除 {name}",
+      "pastedImage": "貼上的圖片",
+      "send": "傳送",
+      "sendReply": "傳送回覆",
+      "cancelReply": "返回",
+      "size": "{size} / {limit}",
+      "tooLarge": "超過 {limit} 了。",
+      "getApp": "較大的檔案請使用應用程式",
+      "empty": "請先加入文字或檔案。",
+      "dropHint": "放開以加入",
+      "autoCopy": "收到內容時自動複製到剪貼簿",
+      "tooMany": "超過 {max} 個項目了。請移除一些，或壓縮成一個檔案。"
+    },
+    "preparing": {
+      "title": "正在準備安全連結…",
+      "loading": "正在載入安全連線 · {percent}%",
+      "loadingUnknown": "正在載入安全連線…",
+      "relay": "正在連線到中繼…"
+    },
+    "ready": {
+      "title": "在另一台裝置上開啟。",
+      "scan": "用另一台裝置的相機掃描，或把連結傳給它。",
+      "qrLabel": "連線連結的 QR 碼",
+      "copyLink": "複製連結",
+      "linkCopied": "已複製連結",
+      "shareLink": "分享連結",
+      "note": "連結只能使用一次。下次傳送會產生新連結。",
+      "waiting": "等待中 · 請保持此分頁開啟",
+      "cancel": "取消"
+    },
+    "code": {
+      "haveCode": "有接收碼？",
+      "inputLabel": "6 位數接收碼",
+      "receive": "接收",
+      "checking": "正在確認…",
+      "startTitle": "輸入另一台裝置上顯示的接收碼。",
+      "sendInstead": "改為傳送內容",
+      "scanOrEnter": "掃描，或輸入這組接收碼",
+      "expiresIn": "<time>{remaining}</time> 後失效",
+      "oneUse": "僅限一次",
+      "refreshing": "正在取得新的接收碼…",
+      "unavailable": "目前無法取得接收碼",
+      "tryAgain": "重試",
+      "noteReady": "這組接收碼失效或被使用後，會自動產生新的接收碼。",
+      "noteRefreshing": "新接收碼載入期間，QR 碼和連結仍可使用。",
+      "noteUnavailable": "仍可掃描 QR 碼或開啟連結，這兩種方式不需要接收碼。",
+      "sendingNote": "傳送完成前請保持此分頁開啟。下次傳送會產生新的接收碼。",
+      "errors": {
+        "incomplete": "請輸入完整的 6 位數字。",
+        "expired": "這組接收碼已失效或已被使用。請索取新的接收碼。",
+        "invalid": "接收碼無效。請檢查數字後再試一次。",
+        "rate-limited": "嘗試次數過多。請稍候一分鐘再試。",
+        "unavailable": "目前無法確認接收碼。請向傳送方索取連結或 QR 碼。"
+      }
+    },
+    "sending": {
+      "title": "正在傳送到另一台裝置…",
+      "replyTitle": "正在傳送你的回覆…",
+      "note": "傳送完成前請保持此分頁開啟。",
+      "cancel": "取消"
+    },
+    "delivered": {
+      "title": "已送達",
+      "replyHint": "只要此分頁保持開啟，另一台裝置就能回覆你。",
+      "replyIncoming": "正在接收回覆 · {done} / {total}",
+      "replyFrom": "來自另一台裝置的回覆",
+      "replyFailed": "回覆沒有送達。",
+      "sendNew": "傳送新內容",
+      "replyDeliveredTitle": "回覆已送達"
+    },
+    "receiving": {
+      "connecting": "正在連線…",
+      "connectingHint": "正在透過加密中繼連線到傳送方。",
+      "title": "正在接收…",
+      "progress": "{done} / {total}",
+      "cancel": "取消"
+    },
+    "received": {
+      "title": "已接收",
+      "copyText": "複製文字",
+      "copyImage": "複製圖片",
+      "copied": "已複製到剪貼簿",
+      "copyFailed": "無法自動複製，請改用按鈕。",
+      "save": "儲存",
+      "saveName": "儲存 {name}",
+      "reply": "回覆",
+      "imagePreview": "收到的圖片預覽",
+      "text": "文字"
+    },
+    "summary": {
+      "text": "文字",
+      "images": "{count, plural, other {# 張圖片}}",
+      "files": "{count, plural, other {# 個檔案}}"
+    },
+    "errors": {
+      "title": "發生錯誤",
+      "busy": "這個連結已被使用。請索取新連結。",
+      "connect-failed": "無法連線。請傳送方保持頁面開啟，然後再試一次。",
+      "peer-cancelled": "另一台裝置取消了傳輸。",
+      "connection-lost": "傳輸完成前連線中斷了。請再試一次。",
+      "timeout": "另一台裝置沒有回應。請再試一次。",
+      "integrity": "收到的內容已損毀並被捨棄。請再試一次。",
+      "too-large": "超過 20 MB 了。較大的檔案請使用應用程式。",
+      "rejected": "另一台裝置拒絕了傳輸。",
+      "protocol": "傳輸失敗。請再試一次。",
+      "invalid-link": "這個連結不完整。請索取新連結。",
+      "listen-failed": "無法連線到中繼。請稍後再試。",
+      "load-failed": "無法載入安全連線。請檢查網路後再試一次。",
+      "unsupported": "這個瀏覽器無法執行示範。請改用新版 Chrome、Edge、Firefox 或 Safari。",
+      "tryAgain": "重試",
+      "startOver": "重新開始"
+    },
+    "footer": {
+      "demo": "由 tailcat 驅動的網頁示範",
+      "e2e": "透過公共中繼端對端加密",
+      "notApp": "與 UniClipboard 應用程式互不相通",
+      "getApp": "下載應用程式",
+      "forSync": "取得持續同步",
+      "license": "tailcat 授權條款（BSD-3-Clause）"
+    },
+    "header": {
+      "tagline": "網頁傳輸 · 端對端加密",
+      "languageSearch": "搜尋語言",
+      "languageSuggested": "來自瀏覽器設定",
+      "languageAll": "所有語言",
+      "languageEmpty": "沒有符合的語言",
+      "languageClose": "關閉語言清單"
+    }
+  },
+  "languagePicker": {
+    "label": "語言",
+    "search": "搜尋語言",
+    "empty": "沒有匹配的語言",
+    "recommended": "瀏覽器推薦",
+    "articleAvailability": "文章內文提供英文和簡體中文；其他語言將開啟欄目概覽。",
+    "contentAvailability": "文章提供以下語言：",
+    "notesAvailability": "發布說明以英文提供。",
+    "draft": "機器輔助翻譯草稿，尚未經過母語審校。"
+  },
+  "errors": {
+    "notFound": "找不到頁面",
+    "unavailable": "此頁面沒有當前語言版本。",
+    "home": "返回首頁",
+    "title": "出現錯誤",
+    "description": "請重試。",
+    "retry": "重試"
+  }
+}

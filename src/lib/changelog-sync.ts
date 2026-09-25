@@ -111,10 +111,3 @@ export async function syncLatestRelease(
   }
   return result;
 }
-
-export function syncLatestReleaseSafe(): Promise<SyncResult> {
-  return syncLatestRelease().catch((error) => ({
-    status: "skipped" as const,
-    reason: error instanceof Error ? error.message : "unknown error",
-  }));
-}

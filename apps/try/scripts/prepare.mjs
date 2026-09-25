@@ -8,6 +8,8 @@ import path from "node:path";
 const app = fileURLToPath(new URL("../", import.meta.url));
 const repo = path.resolve(app, "../..");
 await rm(path.join(app, ".shared"), { recursive: true, force: true });
+// Every repository input read below must also be listed in `ignoreCommand` in
+// ../vercel.json, or a change to it will not trigger a deployment.
 for (const source of [
   "src/components/try",
   "src/components/theme-provider.tsx",

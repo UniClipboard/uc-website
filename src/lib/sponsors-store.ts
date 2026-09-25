@@ -149,10 +149,9 @@ export async function listAllSponsors(): Promise<SponsorAdminRow[]> {
   return rows.map(toAdminRow);
 }
 
-/** Raw avatar bytes for the serving route. */
-export async function getSponsorAvatar(
+async function getSponsorAvatarRaw(
   id: string,
-): Promise<{ data: Buffer; mime: string } | null> {
+): Promise<{ data: string; mime: string } | null> {
   const [row] = await db
     .select({
       avatarData: sponsors.avatarData,
@@ -162,10 +161,26 @@ export async function getSponsorAvatar(
     .where(eq(sponsors.id, id))
     .limit(1);
   if (!row?.avatarData) return null;
-  return {
-    data: Buffer.from(row.avatarData, "base64"),
-    mime: row.avatarMime ?? "image/webp",
-  };
+  return { data: row.avatarData, mime: row.avatarMime ?? "image/webp" };
+}
+
+/**
+ * Raw avatar bytes for the serving route. Cached so a CDN miss (every new
+ * deployment and every region starts cold) skips the DB round trip. The key
+ * includes the `?v=updatedAt` cache-buster from the public URL, so an edited
+ * avatar is a new entry and never serves stale bytes.
+ */
+export async function getSponsorAvatar(
+  id: string,
+  version: string,
+): Promise<{ data: Buffer; mime: string } | null> {
+  const avatar = await unstable_cache(
+    () => getSponsorAvatarRaw(id),
+    ["sponsor-avatar", id, version],
+    { tags: [SPONSORS_PUBLIC_CACHE_TAG] },
+  )();
+  if (!avatar) return null;
+  return { data: Buffer.from(avatar.data, "base64"), mime: avatar.mime };
 }
 
 export type SponsorWrite = {

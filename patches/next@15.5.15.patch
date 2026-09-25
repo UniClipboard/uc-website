@@ -1,0 +1,32 @@
+diff --git a/dist/compiled/@next/font/dist/google/loader.js b/dist/compiled/@next/font/dist/google/loader.js
+index f8e585c491caac87501f66a307c0fac21e239c08..ee1ae6ced1589b870a3594dc487178dc21e6e743 100644
+--- a/dist/compiled/@next/font/dist/google/loader.js
++++ b/dist/compiled/@next/font/dist/google/loader.js
+@@ -55,6 +55,14 @@ function escapeStringRegexp(str) {
+     }
+     return str;
+ }
++function sniffFontExtension(buffer) {
++    const magic = buffer.subarray(0, 4).toString('latin1');
++    if (magic === 'wOFF') return 'woff';
++    if (magic === 'OTTO') return 'otf';
++    if (magic === 'true' || magic === '\u0000\u0001\u0000\u0000') return 'ttf';
++    // Next requests CSS with a woff2-capable user agent.
++    return 'woff2';
++}
+ const nextFontGoogleFontLoader = async ({ functionName, data, emitFontFile, isDev, isServer, }) => {
+     var _a;
+     const { fontFamily, weights, styles, display, preload, selectedVariableAxes, fallback, adjustFontFallback, variable, subsets, } = (0, validate_google_font_function_call_1.validateGoogleFontFunctionCall)(functionName, data[0]);
+@@ -119,7 +127,11 @@ const nextFontGoogleFontLoader = async ({ functionName, data, emitFontFile, isDe
+             if (fontFileBuffer == null) {
+                 (0, next_font_error_1.nextFontError)(`Failed to fetch \`${fontFamily}\` from Google Fonts.`);
+             }
+-            const ext = /\.(woff|woff2|eot|ttf|otf)$/.exec(googleFontFileUrl)[1];
++            // Google Fonts intermittently returns extensionless `/l/font?kit=`
++            // URLs (vercel/next.js#99114). Take the format from the file itself
++            // instead of crashing the build.
++            const ext = (/\.(woff|woff2|eot|ttf|otf)$/.exec(googleFontFileUrl) || [])[1] ||
++                sniffFontExtension(fontFileBuffer);
+             // Emit font file to .next/static/media
+             const selfHostedFileUrl = emitFontFile(fontFileBuffer, ext, preloadFontFile, !!adjustFontFallbackMetrics);
+             return {

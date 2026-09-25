@@ -16,6 +16,7 @@
   --try-btn-fg: #ffffff;
   --try-ghost: #d4d4d4;
   --try-error: #c62828;
+  --try-warn: #8a5a00;
   --try-on-accent: #ffffff;
 
   position: relative;
@@ -47,6 +48,7 @@
   --try-btn-fg: #0a0a0a;
   --try-ghost: #333333;
   --try-error: #f87171;
+  --try-warn: #f2d9a0;
   --try-on-accent: #0a0a0a;
 }
 
@@ -697,4 +699,203 @@
 
 [data-try-incoming] .try-page .try-incoming-placeholder {
   display: flex;
+}
+
+/* ---------- 6-digit code ---------- */
+
+.try-code-input {
+  width: 150px;
+  height: 44px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--try-fg);
+  background: var(--try-surface);
+  border: 1px solid var(--try-ghost);
+  border-radius: 10px;
+}
+
+.try-code-input::placeholder {
+  color: var(--try-muted);
+  opacity: 0.6;
+}
+
+.try-code-input:focus-visible {
+  outline: none;
+  border-color: var(--try-accent);
+  box-shadow: 0 0 0 3px var(--try-accent-ring);
+}
+
+.try-code-input[aria-invalid] {
+  border-color: var(--try-error);
+}
+
+.try-code-input--lg {
+  width: 100%;
+  height: 76px;
+  font-size: 36px;
+  letter-spacing: 0.18em;
+  border-radius: 14px;
+}
+
+.try-code-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 24px;
+  border-top: 1px solid var(--try-line);
+}
+
+.try-code-row-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.try-code-row-label {
+  flex-grow: 1;
+  font-size: 15px;
+  color: var(--try-body);
+}
+
+.try-code-row .try-btn--ghost {
+  height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+}
+
+.try-code-row .try-code-error {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.try-code-error {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.try-btn--block {
+  width: 100%;
+  height: 56px;
+  font-size: 16px;
+  border-radius: 14px;
+}
+
+/* Phones start on the code field; wide screens show the row instead. */
+.try-code-start {
+  display: none;
+}
+
+.try-code-start-alt {
+  align-self: center;
+}
+
+@media (max-width: 640px) {
+  .try-code-start {
+    display: flex;
+  }
+  [data-code-start] {
+    display: none;
+  }
+  .try-code-row-main {
+    flex-wrap: wrap;
+  }
+  .try-code-row-label {
+    flex-basis: 100%;
+  }
+  .try-code-row .try-code-input {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+}
+
+[data-try-incoming] .try-page .try-code-start {
+  display: none;
+}
+
+.try-code-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 260px;
+}
+
+.try-code-value {
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.try-code-value--empty {
+  color: var(--try-ghost);
+}
+
+.try-code-countdown {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  font-size: 13px;
+  color: var(--try-body);
+}
+
+.try-code-countdown-text {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.try-code-time {
+  color: var(--try-fg);
+}
+
+.try-code-countdown-bar {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--try-line);
+  overflow: hidden;
+}
+
+.try-code-countdown-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--try-accent);
+  transition: width 1s linear;
+}
+
+.try-code-unavailable {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--try-warn);
+}
+
+.try-code-retry {
+  height: 40px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+@media (max-width: 640px) {
+  .try-code-slot {
+    align-items: center;
+    min-width: 0;
+  }
+  .try-code-value {
+    font-size: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .try-code-countdown-bar > span {
+    transition: none;
+  }
 }

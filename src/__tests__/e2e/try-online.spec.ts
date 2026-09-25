@@ -567,3 +567,778 @@ test.describe("try transfer over the public relay", () => {
     });
   });
 });
+
+// ---------- 6-digit code ----------
+
+// playwright.config.ts points the page at this host; every request to it is
+// answered by the stub below, never by the real rendezvous service.
+const RENDEZVOUS = "https://rendezvous.e2e.test";
+
+// Set to a local uc-rendezvous origin to run the live tests at the end of
+// this file instead of the stubbed ones (see playwright.config.ts).
+const LIVE_RENDEZVOUS = process.env.TRY_E2E_RENDEZVOUS_URL?.replace(/\/+$/, "");
+
+type StubEntry = { ticket: string; expiresAtMs: number; consumed: boolean };
+
+/**
+ * An in-memory stand-in for the uc-rendezvous `/v1/web-pairings` routes,
+ * shared by every browser context it is installed on. `fail` forces a status
+ * for the next matching calls.
+ */
+class RendezvousStub {
+  readonly codes = new Map<string, StubEntry>();
+  readonly calls: { route: string; body: unknown; origin: string | null }[] =
+    [];
+  ttlMs = 300_000;
+  fail: Partial<Record<"create" | "resolve", number[]>> = {};
+
+  put(code: string, ticket: string) {
+    this.codes.set(code, {
+      ticket,
+      expiresAtMs: Date.now() + this.ttlMs,
+      consumed: false,
+    });
+  }
+
+  count = (route: string) => this.calls.filter((c) => c.route === route).length;
+
+  async install(ctx: BrowserContext) {
+    await ctx.route(`${RENDEZVOUS}/**`, async (route) => {
+      const req = route.request();
+      const origin = req.headers()["origin"] ?? null;
+      const cors = {
+        "access-control-allow-origin": origin ?? "*",
+        "access-control-allow-methods": "POST, OPTIONS",
+        "access-control-allow-headers": "content-type",
+        vary: "Origin",
+      };
+      if (req.method() === "OPTIONS") {
+        return route.fulfill({ status: 204, headers: cors });
+      }
+      const name = new URL(req.url()).pathname.replace("/v1/web-pairings", "");
+      const routeName =
+        name === "" ? "create" : name === "/resolve" ? "resolve" : "consume";
+      const body = req.postDataJSON() as Record<string, string>;
+      this.calls.push({ route: routeName, body, origin });
+      const reply = (status: number, json: unknown) =>
+        route.fulfill({ status, headers: cors, json });
+
+      const forced =
+        routeName === "consume" ? undefined : this.fail[routeName]?.shift();
+      if (forced) return reply(forced, { error: { code: "forced" } });
+
+      if (routeName === "create") {
+        let code;
+        do {
+          const n = String(Math.floor(Math.random() * 1e6)).padStart(6, "0");
+          code = `${n.slice(0, 3)}-${n.slice(3)}`;
+        } while (this.codes.has(code));
+        this.put(code, body.ticket);
+        return reply(200, {
+          code,
+          expiresAtMs: this.codes.get(code)!.expiresAtMs,
+        });
+      }
+      const entry = this.codes.get(body.code);
+      if (!entry) return reply(404, { error: { code: "pairing_not_found" } });
+      if (Date.now() >= entry.expiresAtMs) {
+        return reply(404, { error: { code: "pairing_expired" } });
+      }
+      if (entry.consumed) {
+        return reply(409, { error: { code: "pairing_already_consumed" } });
+      }
+      if (routeName === "consume") {
+        entry.consumed = true;
+        return reply(200, { ok: true });
+      }
+      return reply(200, {
+        ticket: entry.ticket,
+        expiresAtMs: entry.expiresAtMs,
+      });
+    });
+  }
+}
+
+const webTicket = (addr: string) =>
+  JSON.stringify({ v: 1, kind: "uc-web-try", c: addr, k: FAKE_TOKEN });
+
+const enterCode = async (
+  page: Page,
+  variant: "row" | "start",
+  code: string,
+) => {
+  const input = page.getByTestId(`try-code-input-${variant}`);
+  await input.fill(code);
+  await input.press("Enter");
+};
+
+test.describe("try 6-digit code: receiver", () => {
+  test.skip(({ browserName }) => browserName !== "chromium", "Chromium only");
+  test.skip(
+    !!LIVE_RENDEZVOUS,
+    "stub tests; live mode targets a real rendezvous",
+  );
+
+  test("lookup failures show inline copy and never load the wasm", async ({
+    browser,
+  }) => {
+    const stub = new RendezvousStub();
+    stub.put("111-111", webTicket(addressFor(1)));
+    stub.codes.get("111-111")!.consumed = true;
+    stub.put("222-222", "nodeabc123-native-looking-ticket");
+    stub.put("333-333", webTicket(MALFORMED_ADDR));
+
+    const cases = [
+      { mobile: false, code: "12345", reason: "incomplete" },
+      // Pasted with surrounding text: only the digits count.
+      { mobile: false, code: "Code: 999 999", reason: "expired" },
+      { mobile: false, code: "111111", reason: "expired" },
+      { mobile: false, code: "222 222", reason: "invalid" },
+      { mobile: true, code: "333333", reason: "invalid" },
+      { mobile: true, code: "444444", reason: "rate-limited", force: 429 },
+      { mobile: true, code: "555555", reason: "unavailable", force: 503 },
+    ];
+    const seen: Record<string, string> = {};
+    for (const mobile of [false, true]) {
+      const { ctx, page } = await newParty(browser, {
+        clipboard: false,
+        mobile,
+      });
+      await stub.install(ctx);
+      const requests: string[] = [];
+      page.on("request", (r) =>
+        requests.push(r.url() + " " + (r.postData() ?? "")),
+      );
+      await page.goto("/try");
+      const variant = mobile ? "start" : "row";
+      if (mobile) {
+        // Phones start on the code field; the compose card is one tap away.
+        await expect(
+          page.getByRole("heading", {
+            name: "Enter the code from your other device.",
+          }),
+        ).toBeVisible();
+        await expect(page.locator("textarea")).toBeHidden();
+      } else {
+        await expect(page.getByText("Have a code?")).toBeVisible();
+      }
+      for (const c of cases.filter((x) => x.mobile === mobile)) {
+        if (c.force) stub.fail.resolve = [c.force];
+        await enterCode(page, variant, c.code);
+        const error = page.getByTestId("try-code-error");
+        await expect(error).toHaveAttribute("data-reason", c.reason);
+        seen[c.code] = (await error.textContent()) ?? "";
+        await shot(page, `${mobile ? "mobile" : "desktop"}-code-${c.reason}`);
+      }
+      if (mobile) {
+        await page
+          .getByRole("button", { name: "Send something instead" })
+          .click();
+        await expect(page.locator("textarea")).toBeVisible();
+        await expect(page.getByTestId("try-code-input-row")).toBeVisible();
+      }
+      expect(requests.filter((r) => r.includes("/tailcat/"))).toEqual([]);
+      // The code goes to the rendezvous service and nowhere else.
+      const leaks = requests.filter(
+        (r) =>
+          !r.startsWith(RENDEZVOUS) && /999.?999|111.?111|222.?222/.test(r),
+      );
+      expect(leaks).toEqual([]);
+      await ctx.close();
+    }
+
+    expect(seen["Code: 999 999"]).toBe(
+      "This code has expired or was already used. Ask for a new one.",
+    );
+    expect(seen["222 222"]).toBe(
+      "That isn't a valid code. Check the digits and try again.",
+    );
+    expect(seen["444444"]).toBe("Too many tries. Wait a minute and try again.");
+    expect(seen["555555"]).toBe(
+      "Can't check codes right now. Ask the sender for the link or QR instead.",
+    );
+    // Every lookup went out as NNN-NNN with the page's origin (CORS).
+    const resolves = stub.calls.filter((c) => c.route === "resolve");
+    expect(resolves.map((c) => (c.body as { code: string }).code)).toEqual([
+      "999-999",
+      "111-111",
+      "222-222",
+      "333-333",
+      "444-444",
+      "555-555",
+    ]);
+    expect(new Set(resolves.map((c) => c.origin))).toEqual(
+      new Set(["http://127.0.0.1:3000"]),
+    );
+    expect(stub.count("consume")).toBe(0);
+    record("code-lookup-errors", { reasons: seen, tailcatRequests: 0 });
+  });
+});
+
+test.describe("try 6-digit code over the public relay", () => {
+  test.skip(({ browserName }) => browserName !== "chromium", "Chromium only");
+  test.skip(
+    !!LIVE_RENDEZVOUS,
+    "stub tests; live mode targets a real rendezvous",
+  );
+  test.skip(!hasWasmBuild, "run scripts/build-tailcat-wasm.sh first");
+  test.describe.configure({ mode: "serial", timeout: 240_000 });
+
+  test("a code resolves, transfers once and is used up", async ({
+    browser,
+  }) => {
+    const stub = new RendezvousStub();
+    const sender = await newParty(browser, { clipboard: false });
+    const receiver = await newParty(browser, {
+      clipboard: false,
+      mobile: true,
+    });
+    await stub.install(sender.ctx);
+    await stub.install(receiver.ctx);
+
+    const text = `Sent by code ${Date.now()}`;
+    await sender.page.goto("/try");
+    await sender.page.locator("textarea").fill(text);
+    await sender.page
+      .getByRole("button", { name: "Send", exact: true })
+      .click();
+    const value = sender.page.getByTestId("try-code-value");
+    await expect(value).toHaveText(/^\d{3} \d{3}$/, { timeout: 90_000 });
+    await expect(sender.page.getByText("One use")).toBeVisible();
+    await shot(sender.page, "desktop-code-ready");
+    const shown = (await value.textContent())!;
+    const created = stub.calls.find((c) => c.route === "create")!;
+    const ticket = JSON.parse((created.body as { ticket: string }).ticket);
+    expect(ticket).toMatchObject({ v: 1, kind: "uc-web-try" });
+    expect(ticket.c).toMatch(/^tc/);
+
+    await receiver.page.goto("/try");
+    await shot(receiver.page, "mobile-code-start");
+    await enterCode(receiver.page, "start", shown);
+    await expect(receiver.page.getByTestId("try-received")).toBeVisible({
+      timeout: 180_000,
+    });
+    await expect(receiver.page.getByTestId("try-received-text")).toHaveText(
+      text,
+    );
+    await shot(receiver.page, "mobile-code-received");
+    await expect(sender.page.getByTestId("try-delivered")).toBeVisible();
+
+    // Used up: both sides consume, and a second lookup is refused.
+    const code = shown.replace(" ", "-");
+    await expect.poll(() => stub.count("consume")).toBeGreaterThanOrEqual(1);
+    expect(stub.codes.get(code)!.consumed).toBe(true);
+    const third = await newParty(browser, { clipboard: false });
+    await stub.install(third.ctx);
+    await third.page.goto("/try");
+    await enterCode(third.page, "row", shown);
+    await expect(third.page.getByTestId("try-code-error")).toHaveAttribute(
+      "data-reason",
+      "expired",
+    );
+    expect(stub.count("create")).toBe(1);
+    record("code-round-trip", {
+      text: "match",
+      creates: stub.count("create"),
+      consumes: stub.count("consume"),
+      secondLookup: "expired",
+    });
+    await third.ctx.close();
+    await sender.ctx.close();
+    await receiver.ctx.close();
+  });
+
+  test("the sender recovers from an outage and renews an expired code", async ({
+    browser,
+  }) => {
+    const stub = new RendezvousStub();
+    stub.fail.create = [503];
+    stub.ttlMs = 4_000;
+    const sender = await newParty(browser, { clipboard: false });
+    await stub.install(sender.ctx);
+    await sender.page.goto("/try");
+    await sender.page.locator("textarea").fill("renewal");
+    await sender.page
+      .getByRole("button", { name: "Send", exact: true })
+      .click();
+
+    const slot = sender.page.getByTestId("try-sender-code");
+    await expect(slot).toHaveAttribute("data-status", "unavailable", {
+      timeout: 90_000,
+    });
+    await expect(
+      sender.page.getByText("Can't get a code right now"),
+    ).toBeVisible();
+    // The link still works while the code is unavailable.
+    await expect(sender.page.getByTestId("try-copy-link")).toBeVisible();
+    await shot(sender.page, "desktop-code-unavailable");
+
+    await slot.getByRole("button", { name: "Try again" }).click();
+    const value = sender.page.getByTestId("try-code-value");
+    await expect(value).toHaveText(/^\d{3} \d{3}$/);
+    const first = await value.textContent();
+    await sender.page.setViewportSize({ width: 390, height: 844 });
+    await shot(sender.page, "mobile-code-ready");
+    await sender.page.setViewportSize({ width: 1440, height: 900 });
+    await expect.poll(() => stub.count("create"), { timeout: 15_000 }).toBe(3);
+    await expect(value).toHaveText(/^\d{3} \d{3}$/);
+    expect(await value.textContent()).not.toBe(first);
+
+    // Cancelling uses up the live code so nobody can look it up afterwards.
+    stub.ttlMs = 300_000;
+    await expect.poll(() => stub.count("create"), { timeout: 15_000 }).toBe(4);
+    await expect(value).toHaveText(/^\d{3} \d{3}$/);
+    const last = (await value.textContent())!.replace(" ", "-");
+    await sender.page.getByRole("button", { name: "Cancel" }).click();
+    await expect.poll(() => stub.codes.get(last)?.consumed).toBe(true);
+    record("code-renewal", {
+      creates: stub.count("create"),
+      unavailableThenRetry: true,
+      consumedOnCancel: true,
+    });
+    await sender.ctx.close();
+  });
+});
+
+// ---------- 6-digit code against a live local rendezvous ----------
+
+/**
+ * Runs only with TRY_E2E_RENDEZVOUS_URL set to a local uc-rendezvous that
+ * implements the web pairing routes (contract v1). Nothing here is stubbed
+ * except the one 5xx case, which a healthy service cannot produce on demand.
+ * The 429 test runs last: it spends the resolve budget for this IP.
+ *
+ * TRY_E2E_SHORT_TTL_MS: the code TTL the local service was started with,
+ * when it was shortened for testing; the renewal test needs it.
+ */
+test.describe("try 6-digit code against a live rendezvous", () => {
+  test.skip(({ browserName }) => browserName !== "chromium", "Chromium only");
+  test.skip(!LIVE_RENDEZVOUS, "set TRY_E2E_RENDEZVOUS_URL to a local service");
+  test.describe.configure({ mode: "serial", timeout: 240_000 });
+
+  const SHORT_TTL_MS = Number(process.env.TRY_E2E_SHORT_TTL_MS) || 0;
+
+  // Node-side calls present a documentation-range client IP, which the local
+  // service honours, so they spend their own rate-limit bucket and not the
+  // browser's loopback one. The page itself never sends this header.
+  const API_CLIENT_IP = `2001:db8::${randomBytes(2).toString("hex")}`;
+
+  type ApiResult = {
+    status: number;
+    headers: Headers;
+    json: Record<string, unknown> | null;
+  };
+
+  const api = async (
+    method: "OPTIONS" | "POST",
+    route: string,
+    origin: string,
+    body?: unknown,
+  ): Promise<ApiResult> => {
+    const res = await fetch(`${LIVE_RENDEZVOUS}${route}`, {
+      method,
+      headers: {
+        origin,
+        "cf-connecting-ip": API_CLIENT_IP,
+        ...(method === "OPTIONS"
+          ? {
+              "access-control-request-method": "POST",
+              "access-control-request-headers": "content-type",
+            }
+          : { "content-type": "application/json" }),
+      },
+      body: body === undefined ? undefined : JSON.stringify(body),
+    });
+    const text = await res.text();
+    let json = null;
+    try {
+      json = text ? JSON.parse(text) : null;
+    } catch {
+      // Not JSON; the status says enough.
+    }
+    return { status: res.status, headers: res.headers, json };
+  };
+
+  const createWeb = async (origin: string, ticket: string) => {
+    const r = await api("POST", "/v1/web-pairings", origin, { ticket });
+    expect(r.status, JSON.stringify(r.json)).toBe(200);
+    expect(r.json?.code).toMatch(/^\d{3}-\d{3}$/);
+    return r.json!.code as string;
+  };
+
+  const errorCode = (r: ApiResult) =>
+    (r.json?.error as { code?: string } | undefined)?.code;
+
+  const randomCode = () => {
+    const n = String(Math.floor(Math.random() * 1e6)).padStart(6, "0");
+    return `${n.slice(0, 3)}-${n.slice(3)}`;
+  };
+
+  test("CORS, validation and code-pool isolation", async ({
+    browser,
+    baseURL,
+  }) => {
+    const origin = new URL(baseURL!).origin;
+    const evidence: Record<string, unknown> = { origin };
+
+    for (const route of [
+      "/v1/web-pairings",
+      "/v1/web-pairings/resolve",
+      "/v1/web-pairings/consume",
+    ]) {
+      const pre = await api("OPTIONS", route, origin);
+      expect(pre.status, route).toBe(204);
+      expect(pre.headers.get("access-control-allow-origin")).toBe(origin);
+      expect(pre.headers.get("access-control-allow-methods")).toContain("POST");
+      expect(
+        pre.headers.get("access-control-allow-headers")?.toLowerCase(),
+      ).toContain("content-type");
+      expect(pre.headers.get("access-control-allow-credentials")).toBeNull();
+      const foreign = await api("OPTIONS", route, "https://evil.example");
+      expect(foreign.headers.get("access-control-allow-origin")).not.toBe(
+        "https://evil.example",
+      );
+      evidence[`options ${route}`] = {
+        status: pre.status,
+        allowOrigin: pre.headers.get("access-control-allow-origin"),
+        maxAge: pre.headers.get("access-control-max-age"),
+        foreignAllowOrigin: foreign.headers.get("access-control-allow-origin"),
+      };
+    }
+
+    // Error responses carry CORS headers too.
+    const unknown = await api("POST", "/v1/web-pairings/resolve", origin, {
+      code: randomCode(),
+    });
+    expect(unknown.status).toBe(404);
+    expect(unknown.headers.get("access-control-allow-origin")).toBe(origin);
+    const tooLong = await api("POST", "/v1/web-pairings", origin, {
+      ticket: "x".repeat(4097),
+    });
+    expect(tooLong.status).toBe(400);
+    expect(tooLong.headers.get("access-control-allow-origin")).toBe(origin);
+    // The server fixes the TTL; a client value must not stretch it.
+    const stretched = await api("POST", "/v1/web-pairings", origin, {
+      ticket: "ttl-probe",
+      ttlSecs: 86_400,
+    });
+    if (stretched.status === 200) {
+      const ttl = (stretched.json!.expiresAtMs as number) - Date.now();
+      expect(ttl).toBeLessThanOrEqual(300_000 + 5_000);
+    } else {
+      expect(stretched.status).toBe(400);
+    }
+    evidence.errors = {
+      unknownResolve: [unknown.status, errorCode(unknown)],
+      ticket4097: [tooLong.status, errorCode(tooLong)],
+      clientTtl: stretched.status,
+    };
+
+    // Isolation: a web code is not a native code, and the other way round.
+    const nativeLooking = await createWeb(origin, "native-looking-ticket");
+    const viaNative = await api("POST", "/v1/pairings/resolve", origin, {
+      code: nativeLooking,
+    });
+    const native = await api("POST", "/v1/pairings", origin, {
+      sponsorDeviceId: "uc-website-e2e",
+      sponsorDeviceName: "uc-website e2e",
+      sponsorEndpointId: "uc-website-e2e",
+      sponsorTicket: "native-e2e-ticket",
+      ttlSecs: 60,
+      codeLength: 6,
+    });
+    expect(native.status, JSON.stringify(native.json)).toBe(200);
+    const nativeCode = native.json!.code as string;
+    const nativeViaWeb = await api("POST", "/v1/web-pairings/resolve", origin, {
+      code: nativeCode,
+    });
+    // The namespaces are separate, so the same digits may exist in both;
+    // what must never happen is one side returning the other's record.
+    expect(JSON.stringify(viaNative.json ?? {})).not.toContain(
+      "native-looking-ticket",
+    );
+    expect(JSON.stringify(nativeViaWeb.json ?? {})).not.toContain(
+      "native-e2e-ticket",
+    );
+    evidence.isolation = {
+      webCodeOnNativeRoute: viaNative.status,
+      nativeCodeOnWebRoute: nativeViaWeb.status,
+      crossRecordReturned: false,
+    };
+
+    // The page: a web code with a foreign ticket, and a native code.
+    const { ctx, page } = await newParty(browser, { clipboard: false });
+    const tailcat: string[] = [];
+    page.on("request", (r) => {
+      if (r.url().includes("/tailcat/")) tailcat.push(r.url());
+    });
+    await page.goto("/try");
+    await enterCode(page, "row", nativeLooking);
+    await expect(page.getByTestId("try-code-error")).toHaveAttribute(
+      "data-reason",
+      "invalid",
+    );
+    await shot(page, "live-desktop-code-invalid");
+    // A native code is unknown to the web pool (unless the same digits were
+    // independently issued there, which the service allows).
+    if (nativeViaWeb.status === 404) {
+      await enterCode(page, "row", nativeCode);
+      await expect(page.getByTestId("try-code-error")).toHaveAttribute(
+        "data-reason",
+        "expired",
+      );
+    }
+    expect(tailcat).toEqual([]);
+    await ctx.close();
+    evidence.page = {
+      webCodeWithForeignTicket: "invalid",
+      nativeCode: nativeViaWeb.status === 404 ? "expired" : "skipped",
+      tailcatRequests: 0,
+    };
+    record("live-cors-and-isolation", evidence);
+  });
+
+  test("register → resolve → transfer → consume", async ({
+    browser,
+    baseURL,
+  }) => {
+    const origin = new URL(baseURL!).origin;
+    const sender = await newParty(browser, { clipboard: false });
+    const receiver = await newParty(browser, {
+      clipboard: false,
+      mobile: true,
+    });
+    const seen: { url: string; status: number; allowOrigin: string | null }[] =
+      [];
+    let createdTicket: string | null = null;
+    for (const party of [sender, receiver]) {
+      party.page.on("response", (r) => {
+        if (!r.url().startsWith(LIVE_RENDEZVOUS!)) return;
+        seen.push({
+          url: new URL(r.url()).pathname,
+          status: r.status(),
+          allowOrigin: r.headers()["access-control-allow-origin"] ?? null,
+        });
+      });
+    }
+    sender.page.on("request", (r) => {
+      if (r.url() === `${LIVE_RENDEZVOUS}/v1/web-pairings`) {
+        createdTicket = (r.postDataJSON() as { ticket: string }).ticket;
+      }
+    });
+
+    const text = `Sent by code through a live rendezvous ${Date.now()}`;
+    await sender.page.goto("/try");
+    await sender.page.locator("textarea").fill(text);
+    await sender.page
+      .getByRole("button", { name: "Send", exact: true })
+      .click();
+    const value = sender.page.getByTestId("try-code-value");
+    await expect(value).toHaveText(/^\d{3} \d{3}$/, { timeout: 90_000 });
+    await shot(sender.page, "live-desktop-code-ready");
+    const shown = (await value.textContent())!;
+    const code = shown.replace(" ", "-");
+    expect(JSON.parse(createdTicket!)).toMatchObject({
+      v: 1,
+      kind: "uc-web-try",
+    });
+
+    await receiver.page.goto("/try");
+    await enterCode(receiver.page, "start", shown);
+    await expect(receiver.page.getByTestId("try-received")).toBeVisible({
+      timeout: 180_000,
+    });
+    await expect(receiver.page.getByTestId("try-received-text")).toHaveText(
+      text,
+    );
+    await shot(receiver.page, "live-mobile-code-received");
+    await expect(sender.page.getByTestId("try-delivered")).toBeVisible();
+
+    // Used up on the server: a later lookup is refused as consumed.
+    await expect
+      .poll(async () => {
+        const r = await api("POST", "/v1/web-pairings/resolve", origin, {
+          code,
+        });
+        return `${r.status} ${errorCode(r)}`;
+      })
+      .toBe("409 pairing_already_consumed");
+    const third = await newParty(browser, { clipboard: false });
+    await third.page.goto("/try");
+    await enterCode(third.page, "row", shown);
+    await expect(third.page.getByTestId("try-code-error")).toHaveAttribute(
+      "data-reason",
+      "expired",
+    );
+    await third.ctx.close();
+
+    // Every browser call succeeded across origins with the page's origin.
+    const routes = seen.map((s) => `${s.url} ${s.status}`);
+    expect(routes).toEqual(
+      expect.arrayContaining([
+        "/v1/web-pairings 200",
+        "/v1/web-pairings/resolve 200",
+        "/v1/web-pairings/consume 200",
+      ]),
+    );
+    for (const s of seen) expect(s.allowOrigin).toBe(origin);
+    record("live-round-trip", {
+      text: "match",
+      browserCalls: routes,
+      afterwards: "409 pairing_already_consumed",
+    });
+    await sender.ctx.close();
+    await receiver.ctx.close();
+  });
+
+  test("an expired code is replaced; cancel uses up the live one", async ({
+    browser,
+    baseURL,
+  }) => {
+    test.skip(
+      !SHORT_TTL_MS,
+      "set TRY_E2E_SHORT_TTL_MS to the local service's shortened TTL",
+    );
+    const origin = new URL(baseURL!).origin;
+    const sender = await newParty(browser, { clipboard: false });
+    const issued: { code: string; expiresAtMs: number; at: number }[] = [];
+    sender.page.on("response", async (r) => {
+      if (r.url() !== `${LIVE_RENDEZVOUS}/v1/web-pairings` || !r.ok()) return;
+      const body = (await r.json()) as { code: string; expiresAtMs: number };
+      issued.push({ ...body, at: Date.now() });
+    });
+    await sender.page.goto("/try");
+    await sender.page.locator("textarea").fill("renewal");
+    await sender.page
+      .getByRole("button", { name: "Send", exact: true })
+      .click();
+    const value = sender.page.getByTestId("try-code-value");
+    await expect(value).toHaveText(/^\d{3} \d{3}$/, { timeout: 90_000 });
+    const first = (await value.textContent())!.replace(" ", "-");
+
+    await expect
+      .poll(() => issued.length, { timeout: SHORT_TTL_MS + 20_000 })
+      .toBeGreaterThanOrEqual(2);
+    await expect(value).toHaveText(/^\d{3} \d{3}$/);
+    const expired = await api("POST", "/v1/web-pairings/resolve", origin, {
+      code: first,
+    });
+    expect(expired.status).toBe(404);
+    // The countdown follows the server's clock, not a client constant.
+    const ttl = issued[0].expiresAtMs - issued[0].at;
+    expect(Math.abs(ttl - SHORT_TTL_MS)).toBeLessThan(3_000);
+
+    // Expired outranks consumed on the server, so check the cancel while the
+    // code is fresh: wait for the next renewal, then cancel at once.
+    const before = issued.length;
+    await expect
+      .poll(() => issued.length, { timeout: SHORT_TTL_MS + 20_000 })
+      .toBeGreaterThan(before);
+    const fresh = issued.at(-1)!;
+    await expect(value).toHaveText(fresh.code.replace("-", " "));
+    await sender.page.getByRole("button", { name: "Cancel" }).click();
+    let afterCancel = 0;
+    while (Date.now() < fresh.expiresAtMs - 500) {
+      const r = await api("POST", "/v1/web-pairings/resolve", origin, {
+        code: fresh.code,
+      });
+      afterCancel = r.status;
+      if (r.status !== 200) break;
+      await sender.page.waitForTimeout(100);
+    }
+    expect(afterCancel).toBe(409);
+    record("live-renewal", {
+      ttlMs: ttl,
+      creates: issued.length,
+      firstAfterExpiry: [expired.status, errorCode(expired)],
+      cancelled: 409,
+    });
+    await sender.ctx.close();
+  });
+
+  test("outage copy, then 429 with CORS and Retry-After (runs last)", async ({
+    browser,
+    baseURL,
+  }) => {
+    const origin = new URL(baseURL!).origin;
+    const { ctx, page } = await newParty(browser, {
+      clipboard: false,
+      mobile: true,
+    });
+    await page.goto("/try");
+
+    // A healthy service cannot fail on demand: these two are simulated.
+    await page.route(`${LIVE_RENDEZVOUS}/v1/web-pairings/resolve`, (r) =>
+      r.fulfill({
+        status: 503,
+        headers: { "access-control-allow-origin": origin },
+        json: { error: { code: "internal" } },
+      }),
+    );
+    await enterCode(page, "start", "123456");
+    await expect(page.getByTestId("try-code-error")).toHaveAttribute(
+      "data-reason",
+      "unavailable",
+    );
+    await page.unroute(`${LIVE_RENDEZVOUS}/v1/web-pairings/resolve`);
+    await page.route(`${LIVE_RENDEZVOUS}/**`, (r) => r.abort("failed"));
+    await enterCode(page, "start", "123456");
+    await expect(page.getByTestId("try-code-error")).toHaveAttribute(
+      "data-reason",
+      "unavailable",
+    );
+    await page.unroute(`${LIVE_RENDEZVOUS}/**`);
+
+    // Real rate limiting: spend the budget from the page itself, so the
+    // service sees the same client as the next lookup. A readable status in
+    // the page already proves the CORS headers; Playwright's view of the
+    // response shows the raw headers, which page scripts cannot read.
+    // The local limiter uses minute-aligned windows: start well inside one,
+    // so the burst and the next lookup land in the same window.
+    const second = new Date().getSeconds();
+    if (second > 40) await page.waitForTimeout((61 - second) * 1000);
+    let limitedHeaders: Record<string, string> | null = null;
+    const onResponse = (r: import("@playwright/test").Response) => {
+      if (r.status() === 429 && !limitedHeaders) limitedHeaders = r.headers();
+    };
+    page.on("response", onResponse);
+    const burst = await page.evaluate(async (url) => {
+      const statuses: number[] = [];
+      for (let i = 0; i < 40; i++) {
+        const res = await fetch(`${url}/v1/web-pairings/resolve`, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ code: "000-000" }),
+        });
+        statuses.push(res.status);
+        if (res.status === 429) break;
+      }
+      return statuses;
+    }, LIVE_RENDEZVOUS!);
+    expect(burst.at(-1)).toBe(429);
+    await expect.poll(() => limitedHeaders).not.toBeNull();
+    page.off("response", onResponse);
+    const headers = limitedHeaders! as Record<string, string>;
+    expect(headers["access-control-allow-origin"]).toBe(origin);
+    expect(Number(headers["retry-after"])).toBeGreaterThan(0);
+    const limited = { retryAfter: headers["retry-after"] };
+
+    await enterCode(page, "start", "123456");
+    await expect(page.getByTestId("try-code-error")).toHaveAttribute(
+      "data-reason",
+      "rate-limited",
+    );
+    await expect(
+      page.getByText("Too many tries. Wait a minute and try again."),
+    ).toBeVisible();
+    await shot(page, "live-mobile-code-rate-limited");
+    record("live-errors", {
+      simulated5xx: "unavailable",
+      simulatedNetwork: "unavailable",
+      requestsUntil429: burst.length,
+      retryAfter: limited.retryAfter,
+      rateLimitedCopy: true,
+    });
+    await ctx.close();
+  });
+});

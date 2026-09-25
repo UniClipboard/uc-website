@@ -171,32 +171,43 @@ Artifacts: screenshots of each state at 1440 and 390 px, a JSON of the assertion
 - The home route stays ISR.
 
 #### T6 — 6-digit code (phase 2)
-**Depends on:** T4. **Blocked on** the rendezvous deployment answers below.
-- **Sender:** register `POST /v1/pairings` with `{ttlSecs:300, codeLength:6, sponsorDeviceId, sponsorDeviceName:"UniClipboard Web Demo", sponsorEndpointId, sponsorTicket}`.
-  - `sponsorTicket` is `JSON.stringify({v:1, kind:"uc-web-try", c:<tc>, k:<token>})`.
+**Depends on:** T4. **Blocked on** the rendezvous web routes below being deployed.
+
+**Findings and decisions (2026-09-24).** A probe of production `https://rendezvous.uniclipboard.app` sent OPTIONS only, plus one invalid `POST /v1/pairings/resolve {}`, and created no pairing. OPTIONS on `/v1/pairings`, `/resolve` and `/consume` returns 404, and no response carries CORS headers, so a browser on `https://www.uniclipboard.app` cannot use the native routes. The user decided:
+1. uc-rendezvous adds dedicated web routes with CORS. No edge-only rule and no Vercel proxy.
+2. Web codes get their own namespace and never resolve native pairings.
+3. Production has no rate limiting, so the web routes must add it before the flag is turned on.
+
+**Web route contract** (confirmed by the user on 2026-09-24; uc-rendezvous implements it, and changes go back to the user):
+- `POST /v1/web-pairings` `{ticket}` → `200 {code:"NNN-NNN", expiresAtMs}`. The server fixes TTL to 300 s and the code to 6 digits. `ticket` is opaque, up to 4096 bytes.
+- `POST /v1/web-pairings/resolve` `{code}` → `200 {ticket, expiresAtMs}`. It is repeatable until the code is consumed or expires.
+- `POST /v1/web-pairings/consume` `{code}` → `200 {ok:true}`.
+- Errors are `{error:{code}}`: 400 invalid, 404 unknown or expired, 409 consumed, 429 rate limited (with `Retry-After`), 5xx fault.
+- The Durable Object name is `web:<code>` or a separate binding, isolated from native codes.
+- CORS on every response of the three routes, errors and 429 included: echo `Access-Control-Allow-Origin` for an allow-listed origin, and send `Vary: Origin`. OPTIONS returns 204 with `Allow-Methods: POST, OPTIONS`, `Allow-Headers: content-type` and `Max-Age: 86400`. Allow-list: `https://www.uniclipboard.app` and `https://uniclipboard.app`; `http://localhost:*` only outside production. No credentials.
+- Rate limits per client IP, confirmed: create 10/min, resolve 20/min (wrong codes count), consume 20/min.
+- For website e2e: a non-production deployment that allows localhost, and a staging-only short TTL.
+
+**Website behaviour** (implemented behind `NEXT_PUBLIC_TRY_SHORT_CODE=1`; the base URL is `NEXT_PUBLIC_TRY_RENDEZVOUS_URL`, default production):
+- **Sender:** once the listener is up, register `ticket = JSON.stringify({v:1, kind:"uc-web-try", c:<tc>, k:<token>})`.
   - Show the code, a countdown from the server's `expiresAtMs`, and "One use".
-  - When the code expires with no transfer in flight, register a new code. During a transfer, show no code.
+  - When the code expires with no transfer in flight, register a new code. The check runs every second and on `visibilitychange`, so a backgrounded tab catches up.
+  - When a transfer starts, or the user cancels, stop showing codes and consume the live code as best effort.
   - If registration fails, show "Can't get a code right now" with Try again. The QR and link keep working.
-- **Receiver:**
-  1. Normalise the input to `XXX-XXX` and call `resolve`.
-  2. If the ticket is not JSON with `kind:"uc-web-try"`, show "That isn't a valid code".
+- **Receiver:** a "Have a code?" row under the compose card on wide screens. On phones (≤ 640 px) the start screen is the code field, with "Send something instead".
+  1. Normalise the input to `NNN-NNN` and call `resolve`. No wasm loads before this succeeds.
+  2. If the ticket is not a valid `uc-web-try` ticket (including every native ticket), show "That isn't a valid code".
   3. Dial.
   4. After `ACK`, call `consume` as best effort. Ignore its result for delivery status.
-- **Error copy:** expired or used (404 / 409), not a web code, too many tries (429), service unavailable (5xx or network), connection failed.
-- Behind the `NEXT_PUBLIC_TRY_SHORT_CODE` flag until the checks below are confirmed.
+- **Error copy under the field:** incomplete, expired or used (404 / 409), not a web code, too many tries (429), service unavailable (5xx, network or timeout). A failed dial uses the existing connection error view with Try again.
 
-**Blocking questions for the rendezvous owner** (from the t-0048 addendum):
-1. Does production have an edge layer that answers OPTIONS and sends CORS headers for the site origin on `/v1/pairings`, `/resolve` and `/consume`, including error responses? The bare Worker returns 404 to OPTIONS.
-2. Is there rate limiting or abuse protection in production?
-3. Is sharing the native pairing code pool acceptable, or is a web route or namespace required?
-
-**Accept:** once unblocked, E2E against a non-production rendezvous covers:
+**Accept:** once the routes are deployed to a non-production environment, E2E against it covers:
 - code register → resolve → transfer → consume;
 - expiry and auto re-registration;
 - 404 / 409 / 429 / 5xx copy;
 - a native-looking ticket rejected as "not a valid code".
 
-No production load testing.
+Until then, the page's own E2E stubs the three routes in the browser. No production load testing.
 
 ---
 

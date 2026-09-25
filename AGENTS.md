@@ -16,7 +16,8 @@ public page burns Active CPU. Keep public pages static and cached. Prior art: `g
 
 - Public `[locale]` pages MUST stay static — never `export const dynamic = "force-dynamic"`, and never read `headers()`, `cookies()`, or `searchParams`. Any one opts the whole subtree into per-request SSR.
 - Locale is primed once in `src/app/[locale]/layout.tsx` (`generateStaticParams` + `setRequestLocale`). Do not call `setRequestLocale` per page or resolve locale from headers.
-- Public pages MUST set explicit ISR: `export const revalidate = N` (home `3600`; content/hub/list pages `1800`).
+- Public pages MUST set explicit ISR: `export const revalidate = N` (home `3600`; content/hub/list pages `1800`; tag-invalidated detail pages that rarely change, such as changelog versions, `86400`).
+- Do not start DB writes or external syncs (`after(...)`) from a public render path; every ISR regeneration would repeat them. Use the cron or admin routes.
 - DB-backed public data MUST be read through `unstable_cache` with a cache tag (e.g. `SPONSORS_PUBLIC_CACHE_TAG`, `articleCacheTag`). Never query the DB directly in a public render path.
 - Every admin mutation route that changes cached public data MUST call `revalidateTag(...)` for that tag — see `src/app/api/admin/**`.
 - Cache expensive transforms (markdown / Shiki render) via `unstable_cache` keyed on content identity + the same tag.

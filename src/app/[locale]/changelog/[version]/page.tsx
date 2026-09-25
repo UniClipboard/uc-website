@@ -1,7 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { after } from "next/server";
 import { getTranslations } from "next-intl/server";
 
 import { BreadcrumbBar, JsonLd } from "@/components/article/sections";
@@ -28,7 +27,6 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { summarizeNotes } from "@/lib/changelog-parser";
 import { renderChangelogMarkdown } from "@/lib/changelog-render";
-import { syncLatestReleaseSafe } from "@/lib/changelog-sync";
 import { siteConfig } from "@/lib/site-config";
 
 type PageParams = { locale: string; version: string };
@@ -74,7 +72,11 @@ const pickNotes = (release: ReleaseRecord, locale: string) =>
 const stripVersionHeading = (notes: string) =>
   notes.replace(/^##\s+.+\s*\n+/m, "").trim();
 
-export const revalidate = 1800;
+// Published release notes rarely change, and every edit or new release already
+// purges these pages via `revalidateTag(RELEASES_CACHE_TAG)` (daily cron sync
+// and admin edits). A short timer only made crawlers of the long tail of
+// versions trigger a regeneration on nearly every visit.
+export const revalidate = 86400;
 
 export async function generateStaticParams() {
   const versions = await getAllReleaseVersions();
@@ -136,8 +138,6 @@ export async function generateMetadata({
 export default async function ChangelogVersionPage({ params }: PageProps) {
   const { locale, version } = await params;
   const t = await getTranslations({ locale, namespace: "changelogHub" });
-
-  after(() => syncLatestReleaseSafe());
 
   const release = await getReleaseByVersion(version);
   if (!release) notFound();

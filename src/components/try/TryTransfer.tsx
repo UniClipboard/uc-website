@@ -24,6 +24,15 @@ import {
   TransferError,
   type TransferErrorCode,
 } from "@/lib/web-transfer/protocol";
+import {
+  CodeError,
+  consumeCode,
+  createCode,
+  type IssuedCode,
+  normalizeCode,
+  resolveCode,
+  SHORT_CODE_ENABLED,
+} from "@/lib/web-transfer/short-code";
 import { loadTailcat, TailcatLoadError } from "@/lib/web-transfer/tailcat";
 
 import { ComposeCard } from "./ComposeCard";
@@ -34,6 +43,12 @@ import {
   copyToClipboard,
   ReceivedContent,
 } from "./ReceivedContent";
+import {
+  CodeEntry,
+  type CodeSlot,
+  type EntryError,
+  SenderCode,
+} from "./ShortCode";
 
 type ErrorCode =
   | TransferErrorCode
@@ -94,6 +109,9 @@ export function TryTransfer() {
   const [autoCopy, setAutoCopyState] = useState(true);
   const [linkCopied, setLinkCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
+  // Phones start on the code field; this switches them to the compose card.
+  const [sendFirst, setSendFirst] = useState(false);
+  const [codeSlot, setCodeSlot] = useState<CodeSlot | null>(null);
 
   // Everything tied to the current attempt. `run` increments on every
   // teardown so late callbacks from an abandoned attempt are ignored.
@@ -102,6 +120,12 @@ export function TryTransfer() {
   const listener = useRef<{ close(): void } | null>(null);
   const cancelActive = useRef<(() => Promise<void>) | null>(null);
   const ticket = useRef<ConnectionTicket | null>(null);
+  // The code the receiver typed for `ticket`, used up after delivery.
+  const ticketCode = useRef<string | null>(null);
+  // The sender's own ticket and the code currently registered for it.
+  const sendTicket = useRef<ConnectionTicket | null>(null);
+  const issuedCode = useRef<IssuedCode | null>(null);
+  const codeRequest = useRef<AbortController | null>(null);
   const autoCopyRef = useRef(true);
   const pendingFragment = useRef<string | null | undefined>(undefined);
 
@@ -115,8 +139,42 @@ export function TryTransfer() {
     }
   };
 
+  // Stops showing and renewing the sender's code. Using the live code up
+  // means nobody can look it up after the page moved on.
+  const stopCode = useCallback(() => {
+    codeRequest.current?.abort();
+    codeRequest.current = null;
+    const issued = issuedCode.current;
+    issuedCode.current = null;
+    if (issued && Date.now() < issued.expiresAtMs) {
+      void consumeCode(issued.code);
+    }
+    setCodeSlot(null);
+  }, []);
+
+  // Registers a fresh code for the sender's ticket; every call gets a new one.
+  const registerCode = useCallback(async () => {
+    const target = sendTicket.current;
+    if (!target) return;
+    codeRequest.current?.abort();
+    const request = new AbortController();
+    codeRequest.current = request;
+    issuedCode.current = null;
+    setCodeSlot({ status: "loading" });
+    try {
+      const issued = await createCode(target, request.signal);
+      if (request.signal.aborted) return;
+      issuedCode.current = issued;
+      setCodeSlot({ status: "ready", ...issued, issuedAtMs: Date.now() });
+    } catch {
+      if (!request.signal.aborted) setCodeSlot({ status: "unavailable" });
+    }
+  }, []);
+
   const teardown = useCallback(() => {
     run.current++;
+    stopCode();
+    sendTicket.current = null;
     // Close the listener only after the peer has been sent CANCEL: closing
     // it first tears down the tunnel and the peer just times out.
     const ln = listener.current;
@@ -127,7 +185,7 @@ export function TryTransfer() {
     listener.current = null;
     void cancelActive.current?.();
     cancelActive.current = null;
-  }, []);
+  }, [stopCode]);
 
   // Closing the listener tears down the tunnel, so wait for the last frame
   // (ACK or CANCEL, which can queue behind a backlog) to leave first.
@@ -140,6 +198,7 @@ export function TryTransfer() {
   const startOver = useCallback(() => {
     teardown();
     ticket.current = null;
+    ticketCode.current = null;
     setLinkCopied(false);
     setComposeKey((k) => k + 1);
     setView({ name: "compose", mode: "send" });
@@ -162,11 +221,12 @@ export function TryTransfer() {
   // ---------- Receiving (opened from a link) ----------
 
   const receive = useCallback(
-    async (target: ConnectionTicket) => {
+    async (target: ConnectionTicket, code: string | null = null) => {
       teardown();
       const id = run.current;
       const live = () => run.current === id;
       ticket.current = target;
+      ticketCode.current = code;
       setView({ name: "connecting", load: null });
 
       let stream;
@@ -209,6 +269,8 @@ export function TryTransfer() {
       cancelActive.current = handle.cancel;
       try {
         const items = await handle.result;
+        // Delivered and acknowledged: the code has done its job.
+        if (code) void consumeCode(code);
         if (!live()) return;
         cancelActive.current = null;
         setView({ name: "received", items, copy: "idle" });
@@ -243,6 +305,24 @@ export function TryTransfer() {
       }
     },
     [receive, teardown],
+  );
+
+  // Looks the code up without loading the wasm; only a valid web ticket
+  // goes on to connect.
+  const receiveCode = useCallback(
+    async (input: string): Promise<EntryError | null> => {
+      const code = normalizeCode(input);
+      if (!code) return "incomplete";
+      let target;
+      try {
+        target = await resolveCode(code);
+      } catch (err) {
+        return err instanceof CodeError ? err.reason : "unavailable";
+      }
+      void receive(target, code);
+      return null;
+    },
+    [receive],
   );
 
   useEffect(() => {
@@ -296,9 +376,11 @@ export function TryTransfer() {
 
       const token = newToken();
       const s = new SendSession(payload, token, {
-        onSendStart: (total) =>
-          live() &&
-          setView({ name: "sending", reply: false, summary, done: 0, total }),
+        onSendStart: (total) => {
+          if (!live()) return;
+          stopCode();
+          setView({ name: "sending", reply: false, summary, done: 0, total });
+        },
         onSendProgress: (done, total) =>
           live() &&
           setView({ name: "sending", reply: false, summary, done, total }),
@@ -356,12 +438,18 @@ export function TryTransfer() {
         return;
       }
       listener.current = ln;
-      const link = buildLink(window.location.origin, localePathPrefix(locale), {
-        addr: ln.addr,
-        token,
-      });
+      const own = { addr: ln.addr, token };
+      const link = buildLink(
+        window.location.origin,
+        localePathPrefix(locale),
+        own,
+      );
       setLinkCopied(false);
       setView({ name: "ready", link });
+      if (SHORT_CODE_ENABLED) {
+        sendTicket.current = own;
+        void registerCode();
+      }
     } catch (err) {
       if (live()) {
         setView({
@@ -463,10 +551,33 @@ export function TryTransfer() {
   // ---------- Views ----------
 
   switch (view.name) {
-    case "compose":
+    case "compose": {
+      const withCode = SHORT_CODE_ENABLED && view.mode === "send";
+      const codeStart = withCode && !sendFirst;
       return (
         <>
-          <div className="try-column" data-try-view="compose">
+          {codeStart && (
+            <div
+              className="try-column try-code-start"
+              data-try-view="code-start"
+            >
+              <Heading text={t("code.startTitle")} />
+              <CodeEntry variant="start" onReceive={receiveCode} />
+              {autoCopyToggle}
+              <button
+                type="button"
+                className="try-quiet try-code-start-alt"
+                onClick={() => setSendFirst(true)}
+              >
+                {t("code.sendInstead")}
+              </button>
+            </div>
+          )}
+          <div
+            className="try-column"
+            data-try-view="compose"
+            data-code-start={codeStart ? "" : undefined}
+          >
             <Heading
               text={
                 view.mode === "reply"
@@ -484,6 +595,7 @@ export function TryTransfer() {
                   : undefined
               }
             />
+            {withCode && <CodeEntry variant="row" onReceive={receiveCode} />}
             {autoCopyToggle}
           </div>
           <div
@@ -500,6 +612,7 @@ export function TryTransfer() {
           </div>
         </>
       );
+    }
 
     case "preparing":
       return (
@@ -533,12 +646,20 @@ export function TryTransfer() {
           <div className="try-card try-card--pad try-share">
             <QrCode value={view.link} label={t("ready.qrLabel")} />
             <div className="try-share-side">
-              <span
-                className="try-label"
-                style={{ fontSize: 15, lineHeight: 1.5 }}
-              >
-                {t("ready.scan")}
-              </span>
+              {codeSlot ? (
+                <SenderCode
+                  slot={codeSlot}
+                  onExpired={registerCode}
+                  onRetry={registerCode}
+                />
+              ) : (
+                <span
+                  className="try-label"
+                  style={{ fontSize: 15, lineHeight: 1.5 }}
+                >
+                  {t("ready.scan")}
+                </span>
+              )}
               {canShare ? (
                 <button
                   type="button"
@@ -565,7 +686,15 @@ export function TryTransfer() {
               </button>
             </div>
           </div>
-          <p className="try-note">{t("ready.note")}</p>
+          <p className="try-note">
+            {codeSlot?.status === "ready"
+              ? t("code.noteReady")
+              : codeSlot?.status === "loading"
+                ? t("code.noteRefreshing")
+                : codeSlot?.status === "unavailable"
+                  ? t("code.noteUnavailable")
+                  : t("ready.note")}
+          </p>
           <div className="try-row">
             <div className="try-status" role="status">
               <span className="try-dot" aria-hidden />
@@ -604,7 +733,11 @@ export function TryTransfer() {
             </div>
             <ProgressBar fraction={fraction} />
           </div>
-          <p className="try-note">{t("sending.note")}</p>
+          <p className="try-note">
+            {SHORT_CODE_ENABLED && !view.reply
+              ? t("code.sendingNote")
+              : t("sending.note")}
+          </p>
           <div className="try-row" style={{ justifyContent: "flex-end" }}>
             {cancelButton(t("sending.cancel"))}
           </div>
@@ -771,7 +904,10 @@ export function TryTransfer() {
               <button
                 type="button"
                 className="try-btn"
-                onClick={() => ticket.current && void receive(ticket.current)}
+                onClick={() =>
+                  ticket.current &&
+                  void receive(ticket.current, ticketCode.current)
+                }
               >
                 {t("errors.tryAgain")}
               </button>

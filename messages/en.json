@@ -1126,6 +1126,31 @@
       "waiting": "Waiting · keep this tab open",
       "cancel": "Cancel"
     },
+    "code": {
+      "haveCode": "Have a code?",
+      "inputLabel": "6-digit code",
+      "receive": "Receive",
+      "checking": "Checking…",
+      "startTitle": "Enter the code from your other device.",
+      "sendInstead": "Send something instead",
+      "scanOrEnter": "Scan, or enter this code",
+      "expiresIn": "Expires in <time>{remaining}</time>",
+      "oneUse": "One use",
+      "refreshing": "Getting a new code…",
+      "unavailable": "Can't get a code right now",
+      "tryAgain": "Try again",
+      "noteReady": "A new code appears automatically when this one expires or is used.",
+      "noteRefreshing": "The QR code and link keep working while the new code loads.",
+      "noteUnavailable": "Scanning the QR code or opening the link still works. They don't need a code.",
+      "sendingNote": "Keep this tab open until it finishes. Your next send gets a new code.",
+      "errors": {
+        "incomplete": "Enter all 6 digits.",
+        "expired": "This code has expired or was already used. Ask for a new one.",
+        "invalid": "That isn't a valid code. Check the digits and try again.",
+        "rate-limited": "Too many tries. Wait a minute and try again.",
+        "unavailable": "Can't check codes right now. Ask the sender for the link or QR instead."
+      }
+    },
     "sending": {
       "title": "Sending to the other device…",
       "replyTitle": "Sending your reply…",

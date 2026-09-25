@@ -11,6 +11,7 @@ const config = {
   preset: "ts-jest",
   testPathIgnorePatterns: [
     "<rootDir>/src/__tests__/e2e",
+    "<rootDir>/e2e/",
     "<rootDir>/.worktrees/",
   ],
   transform: {

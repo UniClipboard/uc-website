@@ -26,6 +26,29 @@ const eslintConfig = [
       "simple-import-sort/exports": "warn",
     },
   }),
+  // Public pages must stay static/ISR: reading request headers or cookies
+  // anywhere in their render tree opts the page into per-request SSR.
+  {
+    files: ["src/app/[[]locale]/**", "src/components/**", "src/lib/**"],
+    ignores: [
+      "src/app/[[]locale]/admin/**",
+      "src/app/[[]locale]/sponsor/invite/**",
+    ],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "next/headers",
+              message:
+                "Public pages must stay static; do not read request headers or cookies (see AGENTS.md).",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;

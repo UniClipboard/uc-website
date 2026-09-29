@@ -7,7 +7,10 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
-import { LangSheet, LangSwitcher } from "@/components/landing/LangSwitcher";
+import {
+  LangSheetButton,
+  LangSwitcher,
+} from "@/components/landing/LangSwitcher";
 import { Link, usePathname } from "@/i18n/navigation";
 import { getDocsHref } from "@/lib/docs-href";
 import { getTryHref, trySiteUrl } from "@/lib/try-site";
@@ -142,7 +145,7 @@ export function Navigation() {
             <LangSwitcher />
           </div>
           <div className="sm:hidden">
-            <LangSheet />
+            <LangSheetButton />
           </div>
 
           <button

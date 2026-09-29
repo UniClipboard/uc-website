@@ -9,6 +9,7 @@ import {
 import { getTryHref } from "@/lib/try-site";
 
 import { HeroDownloadCta } from "./HeroDownloadCta";
+import { HeroPlatformTitle } from "./HeroPlatformTitle";
 import { HeroTrustBar } from "./HeroTrustBar";
 import { HeroVideo } from "./HeroVideo";
 import type { HeroVideoSource } from "./HeroVideoModal";
@@ -34,6 +35,13 @@ export async function HeroSection({ stars }: Props) {
     secondaryHow: t("secondaryCta"),
     otherPlatforms: tDl("ctaOtherPlatforms"),
     tryOnline: t("tryCta"),
+  };
+
+  // Raw: the `{platform}` placeholder is filled client-side by the rotator.
+  const titleProps = {
+    copyTemplate: t.raw("titleCopy") as string,
+    pasteTemplate: t.raw("titlePaste") as string,
+    a11yLabel: t("titleA11y"),
   };
 
   const trustLabels = {
@@ -65,8 +73,7 @@ export async function HeroSection({ stars }: Props) {
                 textWrap: "balance",
               }}
             >
-              {t("title")}
-              <span style={{ color: "var(--muted2)" }}> {t("titleLine2")}</span>
+              <HeroPlatformTitle {...titleProps} />
             </h1>
 
             <p

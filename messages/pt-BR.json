@@ -49,8 +49,11 @@
       "eyebrow": "Código aberto · Criptografia de ponta a ponta · 5 plataformas · Sem conta",
       "title": "Uma área de transferência.",
       "titleLine2": "Todos os seus dispositivos.",
-      "description": "UniClipboard é uma área de transferência de código aberto com criptografia de ponta a ponta que sincroniza textos, imagens e arquivos entre Mac, Windows, Linux, iPhone e Android. Sem conta na nuvem nem servidor intermediário.",
-      "descriptionMobile": "Uma área de transferência para todos os seus dispositivos. Código aberto, criptografia de ponta a ponta, sem conta.",
+      "titleCopy": "Copie no {platform}",
+      "titlePaste": "cole no {platform}",
+      "titleA11y": "Copie em um dispositivo e cole em outro: Mac, Windows, Linux, iPhone e Android.",
+      "description": "Textos, imagens e arquivos circulam apenas entre os seus próprios dispositivos. Sem conta e sem servidor para manter.",
+      "descriptionMobile": "Textos, imagens e arquivos com criptografia de ponta a ponta. Sem conta.",
       "mobileBadge": "Como funciona no meu celular? →",
       "mobileBadgeIOS": "Participar do beta para iOS no TestFlight →",
       "mobileBadgeAndroid": "Baixar para Android",
@@ -79,53 +82,53 @@
       "h1": {
         "eyebrow": "02 — Privacidade em primeiro lugar",
         "title": "O retransmissor só vê dados criptografados.",
-        "lede": "O conteúdo é criptografado na origem e descriptografado apenas nos seus dispositivos. As chaves ficam no chaveiro do sistema e nunca saem da máquina. Código aberto e auditável.",
+        "lede": "O conteúdo é criptografado antes de sair do seu dispositivo e descriptografado apenas nos seus. As chaves nunca saem do chaveiro do sistema.",
         "b1Title": "Criptografia de ponta a ponta",
         "b1Desc": "XChaCha20-Poly1305 AEAD: criptografia em trânsito e em repouso.",
         "b2Title": "Sem conta na nuvem",
-        "b2Desc": "Sem e-mail nem telefone — apenas dois dispositivos trocando uma chave pública.",
+        "b2Desc": "Sem e-mail nem telefone. Os dispositivos são pareados trocando uma chave pública.",
         "b3Title": "Código auditável",
         "b3Desc": "Código aberto sob AGPL-3.0. Leia e verifique a criptografia por conta própria."
       },
       "h2": {
         "eyebrow": "01 — Cinco plataformas",
         "title": "Copie uma vez, cole nas cinco.",
-        "lede": "Três plataformas de desktop com Rust + Tauri. iOS em beta público no TestFlight e app Android nativo disponível. P2P no mesmo Wi-Fi, travessia de NAT entre redes e modo somente LAN quando precisar.",
+        "lede": "Desktop e celular rodam o mesmo mecanismo de sincronização, então seu celular nunca é um dispositivo de segunda classe.",
         "b1Title": "Três plataformas de desktop",
-        "b1Desc": "Feito com Rust + Tauri — inicialização rápida, baixo consumo e integração à barra de menus e à bandeja do sistema.",
-        "b2Title": "Apps nativos para iOS e Android",
-        "b2Desc": "Beta público do iOS com convite aberto no TestFlight; Android disponível como APK assinado para download direto. Prefere não instalar um app nativo? O protocolo aberto SyncClipboard continua funcionando.",
-        "b3Title": "Direto · Travessia de NAT · Somente LAN",
-        "b3Desc": "P2P no mesmo Wi-Fi, travessia de NAT entre redes e retransmissão criptografada como alternativa. Ative o modo somente LAN para desativar totalmente a retransmissão."
+        "b1Desc": "Mac, Windows e Linux — abre rápido, consome pouco e fica na barra de menus ou na bandeja do sistema.",
+        "b2Title": "Apps para iOS e Android",
+        "b2Desc": "iOS em beta público no TestFlight; Android para download direto.",
+        "b3Title": "Somente LAN quando você quiser",
+        "b3Desc": "Um único botão mantém todo o tráfego na sua rede local e desliga a retransmissão."
       },
       "h3": {
         "eyebrow": "03 — Para quem quer ir além",
         "title": "Painel rápido, busca em texto completo e CLI — tudo incluído.",
-        "lede": "Um painel por atalho para visualizar o histórico, busca em milissegundos entre dezenas de milhares de itens e uma CLI sem interface gráfica para terminais, SSH e tmux. Mais possibilidades do que parece à primeira vista.",
+        "lede": "Feito para quem vive na área de transferência.",
         "b1Title": "Painel rápido",
         "b1Desc": "Painel por atalho com prévias de textos, links, imagens, código e arquivos.",
         "b2Title": "Busca local em texto completo",
-        "b2Desc": "Pesquise todo o histórico em milissegundos, mesmo com dezenas de milhares de entradas. O índice permanece criptografado no disco.",
+        "b2Desc": "Pesquise dezenas de milhares de entradas em milissegundos. O índice permanece criptografado no disco.",
         "b3Title": "CLI uniclip",
-        "b3Desc": "Os recursos da interface em um comando — sem interface gráfica para terminais, SSH, scripts e fluxos com tmux."
+        "b3Desc": "Tudo o que a interface gráfica faz, pela linha de comando — para terminais, SSH e scripts."
       },
       "more": {
         "f1Title": "Atalhos conhecidos",
-        "f1Desc": "⌘C / Ctrl-C para copiar, ⌘V / Ctrl-V para colar — sem reaprender hábitos. Uma extensão da área de transferência do sistema, não mais um app para operar.",
+        "f1Desc": "⌘C / Ctrl-C para copiar, ⌘V / Ctrl-V para colar — como sempre. Nada novo para aprender.",
         "f4Title": "Reconexão automática",
         "f4Desc": "Reconecta após trocar de Wi-Fi, suspender e retomar ou sofrer uma breve interrupção. Sem novo pareamento.",
         "f6Title": "Textos, imagens e arquivos",
-        "f6Desc": "Copie em um dispositivo e cole em outro. Arquivos grandes são transferidos em fluxo, sem precisar caber inteiros na memória.",
+        "f6Desc": "Não só texto — imagens e arquivos também são sincronizados. Arquivos grandes são transferidos em fluxo, sem nunca precisar caber na memória.",
         "f5Title": "Controle de sincronização por dispositivo",
         "f5Desc": "Defina a direção de envio e recebimento e os tipos permitidos — texto, imagens e arquivos — para cada dispositivo pareado. Perdeu um dispositivo? Revogue o acesso a partir de outro.",
         "f7Title": "Sincronização em tempo real",
-        "f7Desc": "Copiou, enviou — sem acionamento manual nem confirmação. A área de transferência fica sincronizada automaticamente em todos os dispositivos.",
+        "f7Desc": "Copiou, já está nos seus outros dispositivos. Sem tocar em nada.",
         "f9Title": "Retenção de histórico ajustável",
         "f9Desc": "30 dias por padrão; escolha 7 dias ou para sempre. Limpe por dispositivo ou tipo, ou apague todo o histórico quando quiser.",
-        "f10Title": "Apps nativos para iOS e Android",
-        "f10Desc": "Beta público do iOS no TestFlight com convite aberto; Android disponível como APK assinado para download direto. Prefere não instalar um app nativo? O protocolo aberto SyncClipboard continua funcionando com Atalhos do iPhone e clientes Android.",
+        "f10Title": "Sincronização entre redes",
+        "f10Desc": "Notebook no Wi-Fi do escritório, celular nos dados móveis — tudo continua sincronizado. Conexão direta primeiro, retransmissão criptografada quando necessário.",
         "f11Title": "Formatação preservada",
-        "f11Desc": "Texto rico e HTML mantêm o formato original, sem virar texto simples — inclusive entre plataformas: texto rico do Windows, URLs não inglesas no Linux e UTF-8 chegam intactos.",
+        "f11Desc": "Texto rico e HTML são colados no formato original, sem virar texto simples.",
         "f12Title": "Status de sincronização visível",
         "f12Desc": "Cada entrada mostra o dispositivo de origem e o status em cada dispositivo pareado. O que não chegou pode ser reenviado com um toque.",
         "f13Title": "Do seu jeito",
@@ -135,12 +138,12 @@
     "comparison": {
       "eyebrow": "Comparações",
       "title": "Por que não iCloud? Por que não hospedar por conta própria?",
-      "subtitle": "Se algum destes pontos importa para você, a área de transferência universal do iCloud e as ferramentas que exigem servidor próprio não bastam.",
+      "subtitle": "Se algum destes pontos importa para você, o iCloud e as ferramentas auto-hospedadas não dão conta.",
       "tools": {
         "uc": "UniClipboard",
         "icloud": "Área de transferência universal do iCloud",
         "selfhost": "Hospedagem própria (ex.: ClipCascade)",
-        "manager": "Paste (pago · somente Apple)"
+        "manager": "Paste"
       },
       "toolsShort": {
         "uc": "UC",
@@ -190,8 +193,8 @@
           "manager": "Exige ID Apple"
         },
         "transport": {
-          "label": "Direto no Wi-Fi, retransmissão entre redes e opção somente LAN",
-          "labelMobile": "Direto e retransmissão",
+          "label": "Funciona entre redes",
+          "labelMobile": "Entre redes",
           "uc": "P2P e retransmissão · Opção somente LAN",
           "icloud": "Somente por proximidade",
           "selfhost": "Geralmente apenas por servidor",
@@ -274,11 +277,11 @@
       },
       "item2": {
         "q": "Por que não usar sincronização com hospedagem própria, como ClipCascade?",
-        "a": "Hospedagem própria significa administrar um servidor. UniClipboard funciona de imediato: prioriza P2P direto e usa retransmissão criptografada apenas como alternativa. Você não precisa manter infraestrutura."
+        "a": "Hospedagem própria significa manter um servidor. UniClipboard funciona de imediato — não há infraestrutura para operar."
       },
       "item3": {
         "q": "Funciona totalmente offline ou somente na LAN?",
-        "a": "Sim. Dispositivos no mesmo Wi-Fi se conectam diretamente, sem retransmissão. Há também um modo somente LAN nas configurações de rede: todos os dispositivos pareados usam apenas descoberta local e conexões diretas. A retransmissão e outros serviços públicos ficam totalmente desativados nesse modo."
+        "a": "Sim. Dispositivos no mesmo Wi-Fi se conectam diretamente. Ative o modo somente LAN nas configurações de rede e a retransmissão e todos os outros serviços públicos são desligados."
       },
       "item4": {
         "q": "Onde fica meu histórico da área de transferência?",
@@ -286,7 +289,7 @@
       },
       "item5": {
         "q": "Há suporte para iOS e Android?",
-        "a": "Sim, com apps nativos para ambos. O iOS está em beta público no TestFlight com convite aberto; o Android está disponível como APK assinado para download direto, ambos na página de downloads. Prefere não instalar um app nativo? O protocolo aberto SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) continua compatível: no iPhone, use Atalhos com uma configuração rápida pelo desktop; no Android, qualquer cliente SyncClipboard. Sem conta na nuvem, com conteúdo restrito à LAN.",
+        "a": "Sim — apps nativos para iOS e Android que rodam o mesmo mecanismo de sincronização do desktop, inclusive a sincronização entre redes. O iOS está em beta público no TestFlight; o Android é um APK para download direto. Prefere não instalar um app? Clientes do protocolo SyncClipboard também funcionam.",
         "downloadCta": "Obter o beta do iOS e o APK Android na página de downloads →"
       },
       "item6": {
@@ -295,16 +298,16 @@
       },
       "item7": {
         "q": "Qual é a diferença para KDE Connect ou Mouse Without Borders?",
-        "a": "KDE Connect e Mouse Without Borders são ótimos, mas funcionam como ferramentas KVM: compartilham também mouse, teclado, arquivos e notificações e geralmente exigem a mesma LAN ou Tailscale adicional. UniClipboard se concentra na área de transferência, funciona pela internet sem VPN e inclui histórico pesquisável. Se você só quer copiar aqui e colar ali sem compartilhar o resto, ele é para você."
+        "a": "São ferramentas do tipo KVM: compartilham mouse, teclado, arquivos e notificações e geralmente exigem a mesma LAN ou uma VPN. UniClipboard cuida só da área de transferência, funciona pela internet sem VPN e mantém um histórico pesquisável."
       },
       "item8": {
         "q": "Posso hospedar por conta própria ou usar meu servidor ou retransmissor?",
-        "a": "Não é necessário: UniClipboard usa conexão ponto a ponto por padrão e só recorre à retransmissão criptografada se a conexão direta falhar. Não há infraestrutura para operar. Mas há opções avançadas: usar seu próprio retransmissor com teste de conectividade integrado, executar UniClipboard como nó servidor sem interface gráfica com configurações Docker e Caddy para VPS, ou expor a sincronização móvel por uma URL pública no seu servidor ou em um proxy seguro."
+        "a": "Não precisa — ele funciona ponto a ponto e só recorre a uma retransmissão criptografada quando a conexão direta falha. Se quiser controle, aponte para o seu próprio retransmissor ou rode um nó servidor sem interface gráfica. A documentação explica a configuração."
       }
     },
     "finalCta": {
       "title": "Programe, escreva, crie — cole em qualquer lugar.",
-      "subtitle": "Gratuito, de código aberto e com criptografia de ponta a ponta. Instale em cada dispositivo e sua área de transferência acompanha você.",
+      "subtitle": "Instale uma vez em cada dispositivo. Depois disso, sua área de transferência acompanha você.",
       "primary": "Baixar UniClipboard",
       "secondary": "Ver código no GitHub",
       "platformsLine": "macOS · Windows · Linux · iOS · Android",
@@ -312,7 +315,7 @@
     },
     "footer": {
       "thanksTitle": "Obrigado",
-      "thanksDesc": "Sincronização entre dispositivos — criptografia de ponta a ponta, código aberto e auditável. O conteúdo circula entre suas próprias máquinas, sem conta na nuvem no caminho.",
+      "thanksDesc": "Sincronização da área de transferência entre seus próprios dispositivos. Desenvolvido de forma aberta.",
       "linksTitle": "Links",
       "repo": "Repositório",
       "issues": "Issues",

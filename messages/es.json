@@ -49,8 +49,11 @@
       "eyebrow": "Código abierto · Cifrado de extremo a extremo · 5 plataformas · Sin cuenta",
       "title": "Un portapapeles.",
       "titleLine2": "Todos tus dispositivos.",
-      "description": "UniClipboard es un portapapeles de código abierto con cifrado de extremo a extremo que sincroniza texto, imágenes y archivos entre Mac, Windows, Linux, iPhone y Android. Sin cuenta en la nube ni servidor intermediario.",
-      "descriptionMobile": "Un portapapeles para todos tus dispositivos. Código abierto, cifrado de extremo a extremo y sin cuenta.",
+      "titleCopy": "Copia en {platform}",
+      "titlePaste": "pega en {platform}",
+      "titleA11y": "Copia en un dispositivo y pega en otro: Mac, Windows, Linux, iPhone y Android.",
+      "description": "Texto, imágenes y archivos viajan solo entre tus propios dispositivos. Sin cuenta y sin servidores que mantener.",
+      "descriptionMobile": "Texto, imágenes y archivos, con cifrado de extremo a extremo. Sin cuenta.",
       "mobileBadge": "¿Cómo funciona en mi teléfono? →",
       "mobileBadgeIOS": "Únete a la beta de iOS en TestFlight →",
       "mobileBadgeAndroid": "Descargar para Android",
@@ -79,53 +82,53 @@
       "h1": {
         "eyebrow": "02 — La privacidad primero",
         "title": "El relé solo ve texto cifrado.",
-        "lede": "El contenido se cifra en origen y solo se descifra en tus dispositivos. Las claves permanecen en el llavero del sistema y nunca salen de tu equipo. Código abierto y auditable.",
+        "lede": "El contenido se cifra antes de salir de tu dispositivo y solo se descifra en los tuyos. Las claves nunca salen del llavero del sistema.",
         "b1Title": "Cifrado de extremo a extremo",
         "b1Desc": "XChaCha20-Poly1305 AEAD: cifrado en tránsito y en reposo.",
         "b2Title": "Sin cuenta en la nube",
-        "b2Desc": "Sin correo ni teléfono: solo dos dispositivos que intercambian una clave pública.",
+        "b2Desc": "Sin correo ni teléfono. Los dispositivos se emparejan intercambiando una clave pública.",
         "b3Title": "Código auditable",
         "b3Desc": "Código abierto AGPL-3.0. Lee y verifica el cifrado por tu cuenta."
       },
       "h2": {
         "eyebrow": "01 — Cinco plataformas",
         "title": "Copia una vez y pega en las cinco.",
-        "lede": "Tres aplicaciones de escritorio con Rust + Tauri. iOS en beta pública de TestFlight y aplicación nativa para Android disponible. P2P en la misma Wi-Fi, perforación NAT entre redes y modo solo LAN cuando lo necesites.",
+        "lede": "Escritorio y móvil usan el mismo motor de sincronización: tu teléfono nunca es un dispositivo de segunda.",
         "b1Title": "Tres sistemas de escritorio",
-        "b1Desc": "Hecho con Rust + Tauri: inicio rápido, consumo reducido e integración en la barra de menús y la bandeja.",
-        "b2Title": "Aplicaciones nativas para iOS y Android",
-        "b2Desc": "Beta pública de iOS mediante invitación abierta de TestFlight; Android se descarga directamente como APK firmado. ¿Prefieres no instalar una aplicación nativa? El protocolo abierto SyncClipboard sigue funcionando.",
-        "b3Title": "Directo · Perforación NAT · Solo LAN",
-        "b3Desc": "P2P en la misma Wi-Fi, perforación NAT entre redes y relé cifrado como alternativa. Activa el modo solo LAN para prescindir por completo del relé."
+        "b1Desc": "Mac, Windows y Linux: arranque rápido, bajo consumo y siempre a mano en la barra de menús o la bandeja.",
+        "b2Title": "Aplicaciones para iOS y Android",
+        "b2Desc": "iOS en beta pública en TestFlight; Android, en descarga directa.",
+        "b3Title": "Solo LAN cuando quieras",
+        "b3Desc": "Un solo interruptor mantiene todo el tráfico en tu red local y desactiva el relé."
       },
       "h3": {
         "eyebrow": "03 — Para usuarios avanzados",
         "title": "Panel rápido, búsqueda de texto completo y CLI, todo incluido.",
-        "lede": "Un panel con atajo para consultar el historial, búsqueda en milisegundos entre decenas de miles de elementos y una CLI sin interfaz gráfica para terminales, SSH y tmux. Más posibilidades de las que aparenta.",
+        "lede": "Hecho para quienes viven en su portapapeles.",
         "b1Title": "Panel rápido",
         "b1Desc": "Panel accesible por atajo con vistas previas de textos, enlaces, imágenes, código y archivos.",
         "b2Title": "Búsqueda local de texto completo",
-        "b2Desc": "Busca en todo el historial en milisegundos, incluso entre decenas de miles de entradas. El índice permanece cifrado en disco.",
+        "b2Desc": "Busca entre decenas de miles de entradas en milisegundos. El índice permanece cifrado en disco.",
         "b3Title": "CLI uniclip",
-        "b3Desc": "Funciones de la interfaz gráfica con un comando, sin interfaz para terminales, SSH, scripts y tmux."
+        "b3Desc": "Todo lo que hace la interfaz gráfica, desde la línea de comandos: para terminales, SSH y scripts."
       },
       "more": {
         "f1Title": "Atajos conocidos",
-        "f1Desc": "⌘C / Ctrl-C para copiar, ⌘V / Ctrl-V para pegar: sin reaprender atajos. Una extensión del portapapeles del sistema.",
+        "f1Desc": "⌘C / Ctrl-C para copiar, ⌘V / Ctrl-V para pegar, como siempre. Nada nuevo que aprender.",
         "f4Title": "Recuperación automática",
         "f4Desc": "Se reconecta tras cambiar de Wi-Fi, suspender o reactivar el equipo y sufrir cortes breves. Sin volver a emparejar.",
         "f6Title": "Texto, imágenes y archivos",
-        "f6Desc": "Copia en un dispositivo y pega en otro. Los archivos grandes se transfieren en streaming, sin tener que caber enteros en memoria.",
+        "f6Desc": "No solo texto: también se sincronizan imágenes y archivos. Los archivos grandes se transmiten en streaming, así que nunca tienen que caber en memoria.",
         "f5Title": "Controles de sincronización por dispositivo",
         "f5Desc": "Configura el envío, la recepción y los tipos de contenido permitidos —texto, imágenes y archivos— para cada dispositivo emparejado. ¿Perdiste uno? Revoca su acceso desde cualquier otro.",
         "f7Title": "Sincronización en tiempo real",
-        "f7Desc": "Al copiar, el contenido se envía sin acciones ni confirmaciones manuales. El portapapeles se mantiene sincronizado automáticamente en todos tus dispositivos.",
+        "f7Desc": "Copias y ya está en tus otros dispositivos. Sin tocar nada.",
         "f9Title": "Conservación del historial configurable",
         "f9Desc": "30 días por defecto; puedes elegir 7 días o conservarlo indefinidamente. Borra por dispositivo o tipo, o elimina todo el historial cuando quieras.",
-        "f10Title": "Aplicaciones nativas para iOS y Android",
-        "f10Desc": "Beta pública de iOS en TestFlight con invitación abierta; Android se descarga directamente como APK firmado. Si no quieres instalar una aplicación nativa, sigue disponible el protocolo abierto SyncClipboard con Atajos de iPhone y clientes de Android.",
+        "f10Title": "Sincronización entre redes",
+        "f10Desc": "Portátil en la Wi-Fi de la oficina, teléfono con datos móviles: siguen sincronizados. Primero conexión directa; relé cifrado solo si hace falta.",
         "f11Title": "El formato se conserva",
-        "f11Desc": "El texto enriquecido y el HTML conservan su formato original, sin convertirse en texto plano. El texto enriquecido de Windows, las URL no inglesas de Linux y UTF-8 llegan intactos entre plataformas.",
+        "f11Desc": "El texto enriquecido y el HTML se pegan con su formato original, sin quedar reducidos a texto plano.",
         "f12Title": "Estado de sincronización visible",
         "f12Desc": "Cada entrada muestra su dispositivo de origen y el estado de sincronización en cada destino. Reenvía lo que no haya llegado con un toque.",
         "f13Title": "A tu gusto",
@@ -135,12 +138,12 @@
     "comparison": {
       "eyebrow": "Comparar",
       "title": "¿Por qué no iCloud? ¿Por qué no alojarlo tú?",
-      "subtitle": "Si alguna de estas funciones te importa, el portapapeles universal de iCloud y las herramientas que requieren tu propio servidor se quedan cortos.",
+      "subtitle": "Si alguno de estos puntos te importa, iCloud y las herramientas autoalojadas se quedan cortos.",
       "tools": {
         "uc": "UniClipboard",
         "icloud": "Portapapeles universal de iCloud",
         "selfhost": "Alojamiento propio (p. ej., ClipCascade)",
-        "manager": "Paste (de pago · solo Apple)"
+        "manager": "Paste"
       },
       "toolsShort": {
         "uc": "UC",
@@ -190,8 +193,8 @@
           "manager": "Requiere Apple ID"
         },
         "transport": {
-          "label": "Conexión directa en Wi-Fi, relé entre redes y modo solo LAN opcional",
-          "labelMobile": "Directo y relé",
+          "label": "Funciona entre redes",
+          "labelMobile": "Entre redes",
           "uc": "P2P y relé · Opción solo LAN",
           "icloud": "Solo a corta distancia",
           "selfhost": "Normalmente solo mediante servidor",
@@ -274,11 +277,11 @@
       },
       "item2": {
         "q": "¿Por qué no alojar un servicio de sincronización propio, como ClipCascade?",
-        "a": "Alojarlo tú significa administrar un servidor. UniClipboard funciona de inmediato: primero P2P directo y, solo como alternativa, un relé cifrado. No necesitas gestionar infraestructura."
+        "a": "Autoalojar significa mantener un servidor. UniClipboard funciona desde el primer momento: no hay infraestructura que gestionar."
       },
       "item3": {
         "q": "¿Funciona totalmente sin Internet o solo en LAN?",
-        "a": "Sí. Los dispositivos en la misma Wi-Fi se conectan directamente, sin relé. En los ajustes de red hay un modo solo LAN: los dispositivos emparejados usan descubrimiento local y conexiones directas, y se desactivan por completo el relé y otros servicios públicos mientras está activo."
+        "a": "Sí. Los dispositivos en la misma Wi-Fi se conectan directamente. Activa el modo solo LAN en los ajustes de red y se desactivan el relé y todos los demás servicios públicos."
       },
       "item4": {
         "q": "¿Dónde se guarda realmente mi historial del portapapeles?",
@@ -286,7 +289,7 @@
       },
       "item5": {
         "q": "¿Es compatible con móviles iOS y Android?",
-        "a": "Sí, hay aplicaciones nativas para ambos. iOS está en beta pública de TestFlight con invitación abierta, y Android tiene un APK firmado de descarga directa. Ambos están en la página de descargas. También puedes usar el protocolo abierto SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT): Atajos integrado en iPhone con una breve configuración desde el ordenador, o cualquier cliente SyncClipboard en Android. Sin cuenta en la nube y con el contenido en la LAN.",
+        "a": "Sí: aplicaciones nativas para iOS y Android con el mismo motor de sincronización que el escritorio, sincronización entre redes incluida. iOS está en beta pública en TestFlight; Android se descarga directamente como APK. ¿Prefieres no instalar una aplicación? Los clientes del protocolo SyncClipboard también funcionan.",
         "downloadCta": "Obtén la beta de iOS y el APK de Android en descargas →"
       },
       "item6": {
@@ -295,16 +298,16 @@
       },
       "item7": {
         "q": "¿En qué se diferencia de KDE Connect o Mouse Without Borders?",
-        "a": "KDE Connect y Mouse Without Borders son herramientas de tipo KVM: también comparten ratón, teclado, archivos y notificaciones, y normalmente necesitan la misma LAN o Tailscale. UniClipboard se centra en el portapapeles, funciona por Internet sin VPN e incluye historial con búsqueda. Es para copiar aquí y pegar allí sin compartir nada más."
+        "a": "Son herramientas de tipo KVM: comparten ratón, teclado, archivos y notificaciones, y suelen necesitar la misma LAN o una VPN. UniClipboard se ocupa solo del portapapeles, funciona por Internet sin VPN y guarda un historial con búsqueda."
       },
       "item8": {
         "q": "¿Puedo usar mi propio servidor o relé?",
-        "a": "No es necesario: UniClipboard usa P2P por defecto y recurre al relé cifrado solo si falla la conexión directa. Si quieres más control, puedes configurar tu propio relé con prueba de conectividad integrada, ejecutar un nodo sin interfaz gráfica con las configuraciones Docker y Caddy incluidas para un VPS, y publicar la sincronización móvil en una URL pública mediante tu servidor o un proxy seguro."
+        "a": "No hace falta: funciona en P2P y solo recurre a un relé cifrado cuando falla la conexión directa. Si quieres más control, usa tu propio relé o ejecuta un nodo servidor sin interfaz gráfica. La documentación explica cómo configurarlo."
       }
     },
     "finalCta": {
       "title": "Programa, escribe y diseña; pega donde quieras.",
-      "subtitle": "Gratis, de código abierto y con cifrado de extremo a extremo. Instálalo en cada dispositivo y tu portapapeles te seguirá.",
+      "subtitle": "Instálalo una vez en cada dispositivo. A partir de ahí, tu portapapeles te sigue.",
       "primary": "Descargar UniClipboard",
       "secondary": "Ver el código en GitHub",
       "platformsLine": "macOS · Windows · Linux · iOS · Android",
@@ -312,7 +315,7 @@
     },
     "footer": {
       "thanksTitle": "Gracias",
-      "thanksDesc": "Sincronización del portapapeles entre dispositivos, con cifrado de extremo a extremo y código abierto auditable. Entre tus propios equipos, sin cuenta en la nube.",
+      "thanksDesc": "Sincronización del portapapeles entre tus propios dispositivos. Desarrollado en abierto.",
       "linksTitle": "Enlaces",
       "repo": "Repositorio",
       "issues": "Incidencias",

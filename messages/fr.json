@@ -49,8 +49,11 @@
       "eyebrow": "Open source · Chiffrement de bout en bout · 5 plateformes · Sans compte",
       "title": "Un seul presse-papiers.",
       "titleLine2": "Tous vos appareils.",
-      "description": "UniClipboard est un presse-papiers open source chiffré de bout en bout qui synchronise textes, images et fichiers entre Mac, Windows, Linux, iPhone et Android. Sans compte cloud ni serveur intermédiaire.",
-      "descriptionMobile": "Un presse-papiers pour tous vos appareils. Open source, chiffré de bout en bout, sans compte.",
+      "titleCopy": "Copiez sur {platform}",
+      "titlePaste": "collez sur {platform}",
+      "titleA11y": "Copiez sur un appareil, collez sur un autre : Mac, Windows, Linux, iPhone et Android.",
+      "description": "Textes, images et fichiers circulent uniquement entre vos propres appareils. Sans compte, sans serveur à gérer.",
+      "descriptionMobile": "Textes, images et fichiers, chiffrés de bout en bout. Aucun compte requis.",
       "mobileBadge": "Comment ça marche sur mon téléphone ? →",
       "mobileBadgeIOS": "Rejoindre la bêta iOS sur TestFlight →",
       "mobileBadgeAndroid": "Télécharger pour Android",
@@ -79,53 +82,53 @@
       "h1": {
         "eyebrow": "02 — La confidentialité d’abord",
         "title": "Le relais ne voit que des données chiffrées.",
-        "lede": "Le contenu est chiffré à la source et déchiffré uniquement sur vos appareils. Les clés restent dans le trousseau système et ne quittent jamais votre machine. Open source et vérifiable.",
+        "lede": "Le contenu est chiffré avant de quitter votre appareil et déchiffré uniquement sur les vôtres. Les clés ne quittent jamais le trousseau système.",
         "b1Title": "Chiffré de bout en bout",
         "b1Desc": "XChaCha20-Poly1305 AEAD : chiffrement en transit et au repos.",
         "b2Title": "Sans compte cloud",
-        "b2Desc": "Ni e-mail ni numéro de téléphone — seulement deux appareils qui échangent une clé publique.",
+        "b2Desc": "Ni e-mail ni numéro de téléphone. Les appareils s’appairent en échangeant une clé publique.",
         "b3Title": "Code vérifiable",
         "b3Desc": "Open source sous AGPL-3.0. Lisez et vérifiez vous-même le chiffrement."
       },
       "h2": {
         "eyebrow": "01 — Cinq plateformes",
         "title": "Copiez une fois, collez sur les cinq.",
-        "lede": "Trois plateformes de bureau avec Rust + Tauri. iOS en bêta publique sur TestFlight, application Android native disponible. P2P sur le même Wi-Fi, traversée NAT entre réseaux, mode réseau local uniquement si nécessaire.",
+        "lede": "Bureau et mobile utilisent le même moteur de synchronisation : votre téléphone n’est jamais un appareil de second rang.",
         "b1Title": "Trois plateformes de bureau",
-        "b1Desc": "Basé sur Rust + Tauri — démarrage rapide, faible empreinte, intégration à la barre de menus et à la zone de notification.",
-        "b2Title": "Applications natives iOS et Android",
-        "b2Desc": "Bêta publique iOS sur invitation ouverte TestFlight ; Android disponible en téléchargement direct d’un APK signé. Vous préférez éviter l’installation ? Le protocole ouvert SyncClipboard reste compatible.",
-        "b3Title": "Direct · Traversée NAT · Réseau local uniquement",
-        "b3Desc": "P2P sur le même Wi-Fi, traversée NAT entre réseaux et relais chiffré en secours. Activez le mode réseau local uniquement pour désactiver complètement le relais."
+        "b1Desc": "Mac, Windows et Linux — démarrage rapide, faible consommation, dans la barre de menus ou la zone de notification.",
+        "b2Title": "Applications iOS et Android",
+        "b2Desc": "iOS en bêta publique sur TestFlight ; Android en téléchargement direct.",
+        "b3Title": "Réseau local uniquement, si vous le souhaitez",
+        "b3Desc": "Un seul interrupteur garde tout le trafic sur votre réseau local et désactive le relais."
       },
       "h3": {
         "eyebrow": "03 — Pour les utilisateurs avancés",
         "title": "Panneau rapide, recherche plein texte, CLI — tout est inclus.",
-        "lede": "Un panneau accessible par raccourci pour prévisualiser l’historique, une recherche en millisecondes parmi des dizaines de milliers d’éléments et une CLI sans interface pour les terminaux, SSH et tmux. Plus de possibilités qu’il n’y paraît.",
+        "lede": "Conçu pour celles et ceux qui vivent dans leur presse-papiers.",
         "b1Title": "Panneau rapide",
         "b1Desc": "Un panneau accessible par raccourci avec aperçu du texte, des liens, images, code et fichiers.",
         "b2Title": "Recherche plein texte locale",
-        "b2Desc": "Parcourez tout l’historique en quelques millisecondes, même avec des dizaines de milliers d’entrées. L’index reste chiffré sur le disque.",
+        "b2Desc": "Recherchez parmi des dizaines de milliers d’entrées en quelques millisecondes. L’index reste chiffré sur le disque.",
         "b3Title": "CLI uniclip",
-        "b3Desc": "Les fonctions de l’interface en une commande — sans interface graphique pour les terminaux, SSH, scripts et flux de travail tmux."
+        "b3Desc": "Tout ce que fait l’interface, en ligne de commande — pour les terminaux, SSH et les scripts."
       },
       "more": {
         "f1Title": "Vos raccourcis habituels",
-        "f1Desc": "⌘C / Ctrl-C pour copier, ⌘V / Ctrl-V pour coller — rien à réapprendre. Une extension du presse-papiers système, pas une application de plus à manipuler.",
+        "f1Desc": "⌘C / Ctrl-C pour copier, ⌘V / Ctrl-V pour coller — comme toujours. Rien de nouveau à apprendre.",
         "f4Title": "Reconnexion automatique",
         "f4Desc": "La connexion se rétablit après un changement de Wi-Fi, une mise en veille ou une brève coupure. Aucun nouvel appairage nécessaire.",
         "f6Title": "Texte, images et fichiers",
-        "f6Desc": "Copiez sur un appareil, collez sur un autre. Les gros fichiers sont transférés en flux, sans devoir tenir entièrement en mémoire.",
+        "f6Desc": "Pas seulement du texte — images et fichiers se synchronisent aussi. Les gros fichiers sont transférés en flux, sans jamais devoir tenir en mémoire.",
         "f5Title": "Contrôle par appareil",
         "f5Desc": "Définissez le sens d’envoi et de réception ainsi que les contenus autorisés — texte, images, fichiers — pour chaque appareil appairé. Appareil perdu ? Révoquez-le depuis un autre.",
         "f7Title": "Synchronisation en temps réel",
-        "f7Desc": "Copiez, c’est envoyé — sans action manuelle ni confirmation. Le presse-papiers reste automatiquement synchronisé entre tous vos appareils.",
+        "f7Desc": "Copiez, et c’est déjà sur vos autres appareils. Rien à toucher.",
         "f9Title": "Conservation de l’historique réglable",
         "f9Desc": "30 jours par défaut ; choisissez 7 jours ou une durée illimitée ; supprimez par appareil ou par type, ou effacez tout à tout moment.",
-        "f10Title": "Applications natives iOS et Android",
-        "f10Desc": "Bêta publique iOS sur TestFlight avec invitation ouverte ; Android disponible en APK signé à télécharger directement. Vous préférez éviter une application native ? Le protocole ouvert SyncClipboard reste compatible avec les Raccourcis iPhone et les clients Android.",
+        "f10Title": "Synchronisation entre réseaux",
+        "f10Desc": "Ordinateur sur le Wi-Fi du bureau, téléphone en données mobiles — toujours synchronisés. Connexion directe d’abord, relais chiffré si nécessaire.",
         "f11Title": "Mise en forme préservée",
-        "f11Desc": "Le texte enrichi et le HTML conservent leur format d’origine, sans conversion en texte brut, même entre plateformes : texte enrichi Windows, URL non anglaises sous Linux et UTF-8 restent intacts.",
+        "f11Desc": "Le texte enrichi et le HTML se collent dans leur format d’origine, sans être réduits à du texte brut.",
         "f12Title": "État de synchronisation visible",
         "f12Desc": "Chaque entrée affiche son appareil source et son état de synchronisation sur chaque appareil associé. Un élément manquant se renvoie d’un geste.",
         "f13Title": "À votre image",
@@ -135,12 +138,12 @@
     "comparison": {
       "eyebrow": "Comparatifs",
       "title": "Pourquoi pas iCloud ? Pourquoi pas l’auto-hébergement ?",
-      "subtitle": "Si l’un de ces critères compte pour vous, le presse-papiers universel iCloud et les outils nécessitant votre propre serveur ne suffiront pas.",
+      "subtitle": "Si l’un de ces points compte pour vous, iCloud et les outils auto-hébergés ne suffisent pas.",
       "tools": {
         "uc": "UniClipboard",
         "icloud": "Presse-papiers universel iCloud",
         "selfhost": "Auto-hébergé (ex. ClipCascade)",
-        "manager": "Paste (payant · Apple uniquement)"
+        "manager": "Paste"
       },
       "toolsShort": {
         "uc": "UC",
@@ -190,8 +193,8 @@
           "manager": "Identifiant Apple requis"
         },
         "transport": {
-          "label": "Direct en Wi-Fi, relais entre réseaux, réseau local seul en option",
-          "labelMobile": "Direct et relais",
+          "label": "Fonctionne entre réseaux",
+          "labelMobile": "Entre réseaux",
           "uc": "P2P et relais · Option réseau local seul",
           "icloud": "À proximité uniquement",
           "selfhost": "Généralement via serveur uniquement",
@@ -274,11 +277,11 @@
       },
       "item2": {
         "q": "Pourquoi pas une synchronisation auto-hébergée, comme ClipCascade ?",
-        "a": "L’auto-hébergement implique de gérer un serveur. UniClipboard fonctionne immédiatement : P2P direct en priorité, relais chiffré uniquement en secours. Vous n’avez aucune infrastructure à exploiter."
+        "a": "L’auto-hébergement implique de gérer un serveur. UniClipboard fonctionne immédiatement — aucune infrastructure à exploiter."
       },
       "item3": {
         "q": "Peut-il fonctionner entièrement hors ligne ou sur le réseau local uniquement ?",
-        "a": "Oui. Les appareils sur le même Wi-Fi se connectent directement, sans relais. Le mode réseau local uniquement, dans les paramètres réseau, limite aussi tous les appareils appairés à la découverte locale et aux connexions directes. Le relais et les autres services publics sont entièrement désactivés pendant son utilisation."
+        "a": "Oui. Les appareils sur le même Wi-Fi se connectent directement. Activez le mode réseau local uniquement dans les paramètres réseau : le relais et tous les autres services publics sont alors désactivés."
       },
       "item4": {
         "q": "Où se trouve réellement l’historique de mon presse-papiers ?",
@@ -286,7 +289,7 @@
       },
       "item5": {
         "q": "Les appareils mobiles iOS et Android sont-ils pris en charge ?",
-        "a": "Oui, avec des applications natives pour les deux. iOS est en bêta publique sur TestFlight avec invitation ouverte ; Android est disponible en APK signé à télécharger directement. Les deux figurent sur la page de téléchargement. Vous préférez éviter une application native ? Le protocole ouvert SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) reste pris en charge : sur iPhone via Raccourcis et une courte configuration depuis le bureau, sur Android via tout client SyncClipboard. Aucun compte cloud, le contenu reste sur le réseau local.",
+        "a": "Oui — des applications natives iOS et Android qui utilisent le même moteur de synchronisation que le bureau, synchronisation entre réseaux comprise. iOS est en bêta publique sur TestFlight ; Android se télécharge directement en APK. Vous préférez ne pas installer d’application ? Les clients compatibles avec le protocole SyncClipboard fonctionnent aussi.",
         "downloadCta": "Obtenir la bêta iOS et l’APK Android sur la page de téléchargement →"
       },
       "item6": {
@@ -295,16 +298,16 @@
       },
       "item7": {
         "q": "Quelle différence avec KDE Connect ou Mouse Without Borders ?",
-        "a": "KDE Connect et Mouse Without Borders sont d’excellents outils de type KVM : ils partagent aussi souris, clavier, fichiers et notifications, et nécessitent généralement le même réseau local ou Tailscale en complément. UniClipboard se concentre sur le presse-papiers, fonctionne sur Internet sans VPN et inclut un historique avec recherche. Pour copier ici et coller là sans partager le reste, il est fait pour vous."
+        "a": "Ce sont des outils de type KVM : ils partagent souris, clavier, fichiers et notifications, et exigent généralement le même réseau local ou un VPN. UniClipboard se consacre au seul presse-papiers, fonctionne via Internet sans VPN et conserve un historique consultable."
       },
       "item8": {
         "q": "Puis-je l’auto-héberger ou utiliser mon propre serveur ou relais ?",
-        "a": "Ce n’est pas nécessaire : UniClipboard fonctionne par défaut en pair à pair et n’utilise un relais chiffré que si la connexion directe échoue. Vous n’avez rien à gérer. Des options avancées restent disponibles : utiliser votre propre relais avec test de connectivité intégré, exécuter UniClipboard comme nœud serveur sans interface avec les configurations Docker et Caddy fournies pour un VPS, ou exposer la synchronisation mobile via une URL publique sur votre serveur ou un proxy sécurisé."
+        "a": "Inutile — il fonctionne en pair à pair et ne passe par un relais chiffré que si la connexion directe échoue. Pour garder la main, utilisez votre propre relais ou exécutez un nœud serveur sans interface. La documentation explique la configuration."
       }
     },
     "finalCta": {
       "title": "Codez, écrivez, créez — collez partout.",
-      "subtitle": "Gratuit, open source, chiffré de bout en bout. Installez-le sur chaque appareil et votre presse-papiers vous suit.",
+      "subtitle": "Installez-le une fois sur chaque appareil. Ensuite, votre presse-papiers vous suit.",
       "primary": "Télécharger UniClipboard",
       "secondary": "Voir le code sur GitHub",
       "platformsLine": "macOS · Windows · Linux · iOS · Android",
@@ -312,7 +315,7 @@
     },
     "footer": {
       "thanksTitle": "Merci",
-      "thanksDesc": "Synchronisation du presse-papiers entre appareils — chiffrée de bout en bout, open source et vérifiable. Le contenu circule entre vos machines, sans compte cloud intermédiaire.",
+      "thanksDesc": "Synchronisation du presse-papiers entre vos propres appareils. Développé en toute transparence.",
       "linksTitle": "Liens",
       "repo": "Dépôt",
       "issues": "Tickets",

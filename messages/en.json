@@ -49,8 +49,11 @@
       "eyebrow": "Open source · End-to-end encrypted · 5 platforms · No account",
       "title": "One clipboard.",
       "titleLine2": "Every device you own.",
-      "description": "UniClipboard is the open-source, end-to-end encrypted clipboard that syncs text, images, and files across Mac, Windows, Linux, iPhone, and Android. No cloud account, no server in the middle.",
-      "descriptionMobile": "One clipboard across all your devices. Open source, end-to-end encrypted, no account.",
+      "titleCopy": "Copy on {platform}",
+      "titlePaste": "paste on {platform}",
+      "titleA11y": "Copy on one device, paste on any other — Mac, Windows, Linux, iPhone, and Android.",
+      "description": "Text, images, and files move only between your own devices. No account, no server to run.",
+      "descriptionMobile": "Text, images, and files, end-to-end encrypted. No account needed.",
       "mobileBadge": "How does it work on my phone? →",
       "mobileBadgeIOS": "Join the iOS Beta on TestFlight →",
       "mobileBadgeAndroid": "Download Android",
@@ -79,53 +82,53 @@
       "h1": {
         "eyebrow": "02 — Privacy first",
         "title": "The relay only sees ciphertext.",
-        "lede": "Content is encrypted at the source and decrypted only on your devices. Keys live in the system keyring and never leave your machine. Open source, auditable.",
+        "lede": "Content is encrypted before it leaves your device and decrypted only on yours. Keys never leave the system keyring.",
         "b1Title": "End-to-end encrypted",
         "b1Desc": "XChaCha20-Poly1305 AEAD — encrypted in transit and at rest.",
         "b2Title": "No cloud account",
-        "b2Desc": "No email, no phone number — just two devices exchanging a public key.",
+        "b2Desc": "No email, no phone number. Devices pair by exchanging a public key.",
         "b3Title": "Auditable code",
         "b3Desc": "AGPL-3.0 open source. Read and verify the crypto yourself."
       },
       "h2": {
         "eyebrow": "01 — Five platforms",
         "title": "Copy once, paste on all five.",
-        "lede": "Three desktops on Rust + Tauri. iOS in TestFlight Public Beta, Android native app shipped. Same-Wi-Fi P2P, NAT hole-punching across networks, LAN-only when you need it.",
+        "lede": "Desktop and mobile run the same sync engine, so your phone is never a second-class device.",
         "b1Title": "Three desktops",
-        "b1Desc": "Built on Rust + Tauri — fast launch, low footprint, menu-bar and tray integrated.",
-        "b2Title": "iOS & Android native apps",
-        "b2Desc": "iOS Public Beta via TestFlight's open invite; Android ships as a signed APK direct download. Rather not install a native app? The SyncClipboard open protocol still works.",
-        "b3Title": "Direct · hole-punch · LAN-only",
-        "b3Desc": "P2P on the same Wi-Fi, NAT hole-punching across networks, encrypted relay as fallback. Flip LAN-only Mode to drop the relay entirely."
+        "b1Desc": "Mac, Windows, and Linux — fast to launch, light on resources, living in the menu bar or tray.",
+        "b2Title": "iOS & Android apps",
+        "b2Desc": "iOS in public beta on TestFlight; Android as a direct download.",
+        "b3Title": "LAN-only when you want it",
+        "b3Desc": "One switch keeps all traffic on your local network and turns the relay off."
       },
       "h3": {
         "eyebrow": "03 — Power-user friendly",
         "title": "Quick Panel, full-text search, CLI — all included.",
-        "lede": "A shortcut overlay to preview history, millisecond search across tens of thousands of items, a headless CLI for terminals, SSH, and tmux. Deeper than its surface lets on.",
+        "lede": "Built for people who live in their clipboard.",
         "b1Title": "Quick Panel",
         "b1Desc": "Shortcut overlay with inline previews for text, links, images, code, and files.",
         "b2Title": "Local full-text search",
-        "b2Desc": "Search the full history in milliseconds — even with tens of thousands of entries. The index stays encrypted on disk.",
+        "b2Desc": "Search tens of thousands of entries in milliseconds. The index stays encrypted on disk.",
         "b3Title": "uniclip CLI",
-        "b3Desc": "GUI features, one command — runs headlessly for terminals, SSH, scripts, and tmux workflows."
+        "b3Desc": "Everything the GUI does, from the command line — for terminals, SSH, and scripts."
       },
       "more": {
         "f1Title": "Familiar shortcuts",
-        "f1Desc": "⌘C / Ctrl-C to copy, ⌘V / Ctrl-V to paste — no muscle-memory taxes. An extension of the system clipboard, not another app.",
+        "f1Desc": "⌘C / Ctrl-C to copy, ⌘V / Ctrl-V to paste — same as always. Nothing new to learn.",
         "f4Title": "Self-healing",
         "f4Desc": "Reconnects automatically after Wi-Fi switches, sleep/wake, and brief disconnects. No re-pairing.",
         "f6Title": "Text, images & files",
-        "f6Desc": "Copy on one device, paste on another. Large files use streaming transfer so they never have to fit in memory.",
+        "f6Desc": "Not just text — images and files sync too. Large files stream, so they never need to fit in memory.",
         "f5Title": "Per-device sync gates",
         "f5Desc": "Set send/receive direction and allowed content types — text, images, files — per paired device. Lost a device? Revoke it from any other.",
         "f7Title": "Real-time sync",
-        "f7Desc": "Copy and it pushes — no manual trigger, no confirmation. Clipboard stays in sync across every device, automatically.",
+        "f7Desc": "Copy, and it's already on your other devices. Nothing to tap.",
         "f9Title": "Tunable history retention",
         "f9Desc": "Default 30 days; switch to 7 / forever; clear by device or type; wipe history at any time.",
-        "f10Title": "iOS & Android native apps",
-        "f10Desc": "iOS Public Beta on TestFlight (open invite); Android ships as a signed APK direct download. Rather not install a native app? The SyncClipboard open protocol (iPhone Shortcuts, Android clients) still works.",
+        "f10Title": "Sync across networks",
+        "f10Desc": "Laptop on office Wi-Fi, phone on mobile data — still in sync. Direct connection first, encrypted relay when needed.",
         "f11Title": "Formatting stays intact",
-        "f11Desc": "Rich text and HTML come back in their original format, not flattened to plain text — and stay faithful across platforms: Windows rich text, non-English URLs on Linux, and UTF-8 all arrive intact.",
+        "f11Desc": "Rich text and HTML paste back in their original format, not flattened to plain text.",
         "f12Title": "Visible sync status",
         "f12Desc": "Every entry shows its source device and sync status on each peer — anything that didn't arrive re-sends in one tap.",
         "f13Title": "Make it yours",
@@ -135,12 +138,12 @@
     "comparison": {
       "eyebrow": "Compare",
       "title": "Why not iCloud? Why not self-hosted?",
-      "subtitle": "If any of these matters to you — iCloud Universal Clipboard and \"run-your-own-server\" tools won't cut it.",
+      "subtitle": "If any of these matter, iCloud and self-hosted tools fall short.",
       "tools": {
         "uc": "UniClipboard",
         "icloud": "iCloud Universal",
         "selfhost": "Self-hosted (e.g. ClipCascade)",
-        "manager": "Paste (paid · Apple-only)"
+        "manager": "Paste"
       },
       "toolsShort": {
         "uc": "UC",
@@ -190,8 +193,8 @@
           "manager": "Apple ID required"
         },
         "transport": {
-          "label": "Direct on Wi-Fi, relay across networks, optional LAN-only",
-          "labelMobile": "Direct + relay",
+          "label": "Works across networks",
+          "labelMobile": "Across networks",
           "uc": "P2P + relay · LAN-only switch",
           "icloud": "Proximity only",
           "selfhost": "Server-only typically",
@@ -274,11 +277,11 @@
       },
       "item2": {
         "q": "Why not a self-hosted clipboard sync (e.g. ClipCascade)?",
-        "a": "Self-hosted means you operate a server. UniClipboard works out of the box — direct P2P first, encrypted relay only as a fallback. You never have to run any infrastructure."
+        "a": "Self-hosting means running a server. UniClipboard works out of the box — there's no infrastructure to operate."
       },
       "item3": {
         "q": "Does it work fully offline / LAN-only?",
-        "a": "Yes. Devices on the same Wi-Fi connect directly without going through the relay. There's also an explicit LAN-only Mode in Network settings that keeps every paired peer on local-network discovery and direct connections — the relay and other public services are turned off entirely while it's on."
+        "a": "Yes. Devices on the same Wi-Fi connect directly. Turn on LAN-only Mode in Network settings and the relay and all other public services are switched off."
       },
       "item4": {
         "q": "Where does my clipboard history actually live?",
@@ -286,7 +289,7 @@
       },
       "item5": {
         "q": "Do you support mobile (iOS / Android)?",
-        "a": "Yes — native apps for both. iOS is in Public Beta on TestFlight (open invite), Android ships as a signed APK direct download — both on the download page. Rather not install a native app? The SyncClipboard (github.com/Jeric-X/SyncClipboard, MIT) open-protocol path is still supported: iPhone via built-in Shortcuts with a short config from your desktop, Android via any SyncClipboard client — no cloud account, content stays on LAN.",
+        "a": "Yes — native iOS and Android apps that run the same sync engine as the desktop, cross-network sync included. iOS is in public beta on TestFlight; Android is a direct APK download. Rather not install an app? SyncClipboard-protocol clients work too.",
         "downloadCta": "Get the iOS beta and Android APK on the download page →"
       },
       "item6": {
@@ -295,16 +298,16 @@
       },
       "item7": {
         "q": "How is this different from KDE Connect or Mouse Without Borders?",
-        "a": "KDE Connect and Mouse Without Borders are great, but they're KVM-style tools — they share your mouse, keyboard, files, and notifications too, and they typically need devices on the same LAN (or Tailscale on top). UniClipboard is clipboard-only, works across the public internet without a VPN, and ships with searchable history. If you just want copy-here-paste-there with nothing else moving, this is for you."
+        "a": "Those are KVM-style tools: they share your mouse, keyboard, files, and notifications, and usually need a shared LAN or a VPN. UniClipboard does only the clipboard, works across the internet without a VPN, and keeps searchable history."
       },
       "item8": {
         "q": "Can I self-host it — run my own server or relay?",
-        "a": "You don't have to — UniClipboard is peer-to-peer by default and only falls back to an encrypted relay when a direct connection fails, so there's nothing to operate. But the advanced paths are there if you want control: point it at your own relay node (with a built-in connectivity test), run UniClipboard as a headless server node (ships with Docker and Caddy configs for a VPS), and expose mobile sync over a full public URL via your own server or a secure proxy."
+        "a": "You don't need to — it's peer-to-peer and only falls back to an encrypted relay when a direct connection fails. If you want control, point it at your own relay or run a headless server node. The docs cover setup."
       }
     },
     "finalCta": {
       "title": "Code, write, design — paste anywhere.",
-      "subtitle": "Free, open source, end-to-end encrypted. Install once per device and your clipboard just follows you.",
+      "subtitle": "Install it once on each device. After that, your clipboard follows you.",
       "primary": "Download UniClipboard",
       "secondary": "View source on GitHub",
       "platformsLine": "macOS · Windows · Linux · iOS · Android",
@@ -312,7 +315,7 @@
     },
     "footer": {
       "thanksTitle": "Thanks",
-      "thanksDesc": "Cross-device clipboard sync — end-to-end encrypted, open source, auditable. Flows between your own machines, with no cloud account in between.",
+      "thanksDesc": "Clipboard sync between your own devices. Built in the open.",
       "linksTitle": "Links",
       "repo": "Repository",
       "issues": "Issues",

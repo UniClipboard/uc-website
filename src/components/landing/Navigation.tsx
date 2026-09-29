@@ -7,7 +7,10 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 import { Icons } from "@/components/icons";
-import { LangSwitcher } from "@/components/landing/LangSwitcher";
+import {
+  LangSheetButton,
+  LangSwitcher,
+} from "@/components/landing/LangSwitcher";
 import { Link, usePathname } from "@/i18n/navigation";
 import { getDocsHref } from "@/lib/docs-href";
 import { getTryHref, trySiteUrl } from "@/lib/try-site";
@@ -139,7 +142,10 @@ export function Navigation() {
 
         <div className="flex items-center gap-2.5">
           <div className="hidden sm:block">
-            <LangSwitcher placement="bottom" />
+            <LangSwitcher />
+          </div>
+          <div className="sm:hidden">
+            <LangSheetButton />
           </div>
 
           <button
@@ -242,7 +248,6 @@ export function Navigation() {
             })}
 
             <div className="border-border mt-4 flex items-center gap-3 border-t pt-5">
-              <LangSwitcher placement="top" />
               <button
                 type="button"
                 aria-label={themeLabels[currentTheme]}

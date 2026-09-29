@@ -97,6 +97,48 @@ describe("Navigation", () => {
     expect(replace).not.toHaveBeenCalled();
   });
 
+  describe("mobile language sheet", () => {
+    const openSheet = async () => {
+      fireEvent.click(screen.getByTestId("language-sheet-trigger"));
+      return screen.findByRole("dialog");
+    };
+
+    it("shows the current locale code on the header trigger", () => {
+      render(<Navigation />);
+
+      expect(screen.getByTestId("language-sheet-trigger")).toHaveTextContent(
+        localeMeta.en.label,
+      );
+    });
+
+    it("lists one row per routed locale once opened", async () => {
+      render(<Navigation />);
+      const sheet = await openSheet();
+
+      for (const locale of routing.locales) {
+        expect(
+          sheet.querySelector(`[data-locale="${locale}"]`),
+        ).toHaveTextContent(localeMeta[locale].nativeName);
+      }
+    });
+
+    it("switches locale from a row", async () => {
+      render(<Navigation />);
+      const sheet = await openSheet();
+
+      fireEvent.click(sheet.querySelector('[data-locale="ja"]')!);
+      expect(replace).toHaveBeenCalledWith("/", { locale: "ja" });
+    });
+
+    it("does not call replace when choosing the active locale", async () => {
+      render(<Navigation />);
+      const sheet = await openSheet();
+
+      fireEvent.click(sheet.querySelector('[data-locale="en"]')!);
+      expect(replace).not.toHaveBeenCalled();
+    });
+  });
+
   it("keeps the article sections in locales without article content", () => {
     // Their hubs explain which languages the articles are available in.
     mockUseLocale.mockReturnValue("ru");

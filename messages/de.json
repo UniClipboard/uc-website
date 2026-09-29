@@ -49,8 +49,11 @@
       "eyebrow": "Open Source · Ende-zu-Ende-verschlüsselt · 5 Plattformen · Ohne Konto",
       "title": "Eine Zwischenablage.",
       "titleLine2": "Alle deine Geräte.",
-      "description": "UniClipboard ist eine quelloffene, Ende-zu-Ende-verschlüsselte Zwischenablage, die Texte, Bilder und Dateien zwischen Mac, Windows, Linux, iPhone und Android synchronisiert. Ohne Cloud-Konto und ohne zwischengeschalteten Server.",
-      "descriptionMobile": "Eine Zwischenablage für alle deine Geräte. Quelloffen, Ende-zu-Ende-verschlüsselt, ohne Konto.",
+      "titleCopy": "Auf {platform} kopieren,",
+      "titlePaste": "auf {platform} einfügen.",
+      "titleA11y": "Auf einem Gerät kopieren, auf einem anderen einfügen – Mac, Windows, Linux, iPhone und Android.",
+      "description": "Texte, Bilder und Dateien wandern nur zwischen deinen eigenen Geräten. Kein Konto, kein Server, den du betreiben musst.",
+      "descriptionMobile": "Texte, Bilder und Dateien, Ende-zu-Ende-verschlüsselt. Kein Konto nötig.",
       "mobileBadge": "Wie funktioniert das auf meinem Handy? →",
       "mobileBadgeIOS": "An der iOS-Beta auf TestFlight teilnehmen →",
       "mobileBadgeAndroid": "Für Android herunterladen",
@@ -79,53 +82,53 @@
       "h1": {
         "eyebrow": "02 — Datenschutz zuerst",
         "title": "Das Relay sieht nur verschlüsselte Daten.",
-        "lede": "Inhalte werden an der Quelle verschlüsselt und nur auf deinen Geräten entschlüsselt. Schlüssel bleiben im Schlüsselspeicher des Systems und verlassen nie deinen Rechner. Quelloffen und überprüfbar.",
+        "lede": "Inhalte werden verschlüsselt, bevor sie dein Gerät verlassen, und nur auf deinen Geräten entschlüsselt. Die Schlüssel verlassen nie den Schlüsselbund des Systems.",
         "b1Title": "Ende-zu-Ende-verschlüsselt",
         "b1Desc": "XChaCha20-Poly1305 AEAD – Verschlüsselung bei der Übertragung und Speicherung.",
         "b2Title": "Ohne Cloud-Konto",
-        "b2Desc": "Keine E-Mail, keine Telefonnummer — nur zwei Geräte, die einen öffentlichen Schlüssel austauschen.",
+        "b2Desc": "Keine E-Mail, keine Telefonnummer. Geräte koppeln sich über den Austausch eines öffentlichen Schlüssels.",
         "b3Title": "Überprüfbarer Code",
         "b3Desc": "Open Source unter AGPL-3.0. Lies den Code und prüfe die Verschlüsselung selbst."
       },
       "h2": {
         "eyebrow": "01 — Fünf Plattformen",
         "title": "Einmal kopieren, auf allen fünf einfügen.",
-        "lede": "Drei Desktop-Plattformen mit Rust + Tauri. iOS als öffentliche TestFlight-Beta, native Android-App verfügbar. P2P im selben WLAN, NAT-Hole-Punching zwischen Netzwerken und bei Bedarf reiner LAN-Betrieb.",
+        "lede": "Desktop und Mobilgerät laufen mit derselben Sync-Engine — dein Smartphone ist nie ein Gerät zweiter Klasse.",
         "b1Title": "Drei Desktop-Plattformen",
-        "b1Desc": "Mit Rust + Tauri — schneller Start, geringer Ressourcenbedarf, in Menüleiste und Infobereich integriert.",
-        "b2Title": "Native Apps für iOS und Android",
-        "b2Desc": "Öffentliche iOS-Beta über die offene TestFlight-Einladung; Android als signierte APK direkt herunterladen. Lieber keine native App installieren? Das offene SyncClipboard-Protokoll funktioniert weiterhin.",
-        "b3Title": "Direkt · Hole-Punching · Nur LAN",
-        "b3Desc": "P2P im selben WLAN, NAT-Hole-Punching zwischen Netzwerken und verschlüsseltes Relay als Rückfalloption. Im Nur-LAN-Modus wird das Relay vollständig abgeschaltet."
+        "b1Desc": "Mac, Windows und Linux — startet schnell, schont Ressourcen und lebt in Menüleiste oder Infobereich.",
+        "b2Title": "Apps für iOS und Android",
+        "b2Desc": "iOS als öffentliche Beta über TestFlight, Android als direkter Download.",
+        "b3Title": "Nur LAN, wenn du willst",
+        "b3Desc": "Ein Schalter hält den gesamten Verkehr in deinem lokalen Netzwerk und schaltet das Relay ab."
       },
       "h3": {
         "eyebrow": "03 — Für anspruchsvolle Workflows",
         "title": "Schnellpanel, Volltextsuche, CLI — alles dabei.",
-        "lede": "Ein Tastenkürzel öffnet die Verlaufsvorschau, die Suche findet in Millisekunden unter Zehntausenden Einträgen, und die CLI läuft ohne Oberfläche in Terminal, SSH und tmux. Mehr Möglichkeiten, als man auf den ersten Blick sieht.",
+        "lede": "Gemacht für Menschen, die in ihrer Zwischenablage leben.",
         "b1Title": "Schnellpanel",
         "b1Desc": "Per Tastenkürzel erreichbares Panel mit Vorschau für Text, Links, Bilder, Code und Dateien.",
         "b2Title": "Lokale Volltextsuche",
-        "b2Desc": "Durchsuche den gesamten Verlauf in Millisekunden, auch bei Zehntausenden Einträgen. Der Index bleibt auf der Festplatte verschlüsselt.",
+        "b2Desc": "Durchsuche Zehntausende Einträge in Millisekunden. Der Index bleibt auf der Festplatte verschlüsselt.",
         "b3Title": "uniclip-CLI",
-        "b3Desc": "Die GUI-Funktionen als Befehl — ohne grafische Oberfläche für Terminal, SSH, Skripte und tmux-Workflows."
+        "b3Desc": "Alles, was die GUI kann, auf der Kommandozeile — für Terminal, SSH und Skripte."
       },
       "more": {
         "f1Title": "Vertraute Tastenkürzel",
-        "f1Desc": "⌘C / Ctrl-C zum Kopieren, ⌘V / Ctrl-V zum Einfügen — ohne Umgewöhnung. Eine Erweiterung der Systemzwischenablage, keine weitere App zum Bedienen.",
+        "f1Desc": "⌘C / Ctrl-C zum Kopieren, ⌘V / Ctrl-V zum Einfügen — wie immer. Nichts Neues zu lernen.",
         "f4Title": "Automatische Wiederverbindung",
         "f4Desc": "Verbindet sich nach WLAN-Wechsel, Ruhezustand und kurzen Unterbrechungen automatisch neu. Erneutes Koppeln ist nicht nötig.",
         "f6Title": "Text, Bilder und Dateien",
-        "f6Desc": "Auf einem Gerät kopieren, auf einem anderen einfügen. Große Dateien werden gestreamt und müssen nicht vollständig in den Arbeitsspeicher passen.",
+        "f6Desc": "Nicht nur Text — auch Bilder und Dateien werden synchronisiert. Große Dateien werden gestreamt und müssen nie in den Arbeitsspeicher passen.",
         "f5Title": "Synchronisierung pro Gerät steuern",
         "f5Desc": "Lege Sende- und Empfangsrichtung sowie erlaubte Inhalte — Text, Bilder, Dateien — für jedes gekoppelte Gerät fest. Gerät verloren? Entziehe ihm von einem anderen Gerät aus den Zugriff.",
         "f7Title": "Synchronisierung in Echtzeit",
-        "f7Desc": "Kopieren genügt — ohne manuelles Auslösen oder Bestätigen. Die Zwischenablage bleibt auf allen Geräten automatisch synchron.",
+        "f7Desc": "Kopieren, und es ist schon auf deinen anderen Geräten. Kein Tippen nötig.",
         "f9Title": "Verlauf nach deinen Vorgaben",
         "f9Desc": "Standardmäßig 30 Tage; wähle 7 Tage oder unbegrenzt. Lösche nach Gerät oder Typ oder leere den gesamten Verlauf jederzeit.",
-        "f10Title": "Native Apps für iOS und Android",
-        "f10Desc": "Öffentliche iOS-Beta auf TestFlight mit offener Einladung; Android als signierte APK direkt verfügbar. Lieber keine native App installieren? Das offene SyncClipboard-Protokoll mit iPhone-Kurzbefehlen und Android-Clients funktioniert weiterhin.",
+        "f10Title": "Sync über Netzwerke hinweg",
+        "f10Desc": "Laptop im Büro-WLAN, Smartphone im Mobilfunknetz — trotzdem synchron. Zuerst direkte Verbindung, verschlüsseltes Relay nur bei Bedarf.",
         "f11Title": "Formatierung bleibt erhalten",
-        "f11Desc": "Rich Text und HTML behalten ihr Originalformat, statt zu reinem Text zu werden — auch plattformübergreifend: Windows-Rich-Text, nicht englische URLs unter Linux und UTF-8 kommen unverändert an.",
+        "f11Desc": "Rich Text und HTML werden im Originalformat eingefügt, nicht zu reinem Text plattgedrückt.",
         "f12Title": "Sichtbarer Synchronisierungsstatus",
         "f12Desc": "Jeder Eintrag zeigt sein Quellgerät und den Status auf jedem verbundenen Gerät. Fehlende Inhalte lassen sich mit einem Tippen erneut senden.",
         "f13Title": "Ganz nach deinem Geschmack",
@@ -135,12 +138,12 @@
     "comparison": {
       "eyebrow": "Vergleiche",
       "title": "Warum nicht iCloud? Warum nicht selbst hosten?",
-      "subtitle": "Wenn dir einer dieser Punkte wichtig ist, reichen die universelle iCloud-Zwischenablage und Werkzeuge mit eigenem Server nicht aus.",
+      "subtitle": "Wenn dir einer dieser Punkte wichtig ist, reichen iCloud und selbst gehostete Tools nicht aus.",
       "tools": {
         "uc": "UniClipboard",
         "icloud": "Universelle iCloud-Zwischenablage",
         "selfhost": "Selbst gehostet (z. B. ClipCascade)",
-        "manager": "Paste (kostenpflichtig · nur Apple)"
+        "manager": "Paste"
       },
       "toolsShort": {
         "uc": "UC",
@@ -190,8 +193,8 @@
           "manager": "Apple-ID erforderlich"
         },
         "transport": {
-          "label": "Direkt im WLAN, Relay zwischen Netzwerken, optional nur LAN",
-          "labelMobile": "Direkt und Relay",
+          "label": "Funktioniert über Netzwerke hinweg",
+          "labelMobile": "Netzwerkübergreifend",
           "uc": "P2P und Relay · Nur-LAN-Schalter",
           "icloud": "Nur in der Nähe",
           "selfhost": "Meist nur über Server",
@@ -274,11 +277,11 @@
       },
       "item2": {
         "q": "Warum keine selbst gehostete Zwischenablage-Synchronisierung wie ClipCascade?",
-        "a": "Selbst hosten bedeutet, einen Server zu betreiben. UniClipboard funktioniert sofort: zuerst direktes P2P, verschlüsseltes Relay nur als Rückfalloption. Du musst keine Infrastruktur betreiben."
+        "a": "Selbst hosten heißt, einen Server zu betreiben. UniClipboard funktioniert sofort — es gibt keine Infrastruktur zu betreiben."
       },
       "item3": {
         "q": "Funktioniert es vollständig offline oder nur im LAN?",
-        "a": "Ja. Geräte im selben WLAN verbinden sich direkt ohne Relay. In den Netzwerkeinstellungen gibt es außerdem einen ausdrücklichen Nur-LAN-Modus. Er beschränkt alle gekoppelten Geräte auf lokale Erkennung und Direktverbindungen; Relay und andere öffentliche Dienste sind dabei vollständig ausgeschaltet."
+        "a": "Ja. Geräte im selben WLAN verbinden sich direkt. Aktiviere den Nur-LAN-Modus in den Netzwerkeinstellungen, und Relay sowie alle anderen öffentlichen Dienste sind abgeschaltet."
       },
       "item4": {
         "q": "Wo liegt mein Zwischenablageverlauf wirklich?",
@@ -286,7 +289,7 @@
       },
       "item5": {
         "q": "Werden iOS und Android unterstützt?",
-        "a": "Ja, mit nativen Apps für beide. iOS ist als öffentliche TestFlight-Beta mit offener Einladung verfügbar, Android als signierte APK zum direkten Download — beides auf der Downloadseite. Lieber keine native App? Das offene SyncClipboard-Protokoll (github.com/Jeric-X/SyncClipboard, MIT) wird weiterhin unterstützt: auf dem iPhone über Kurzbefehle mit kurzer Einrichtung am Desktop, auf Android mit jedem SyncClipboard-Client. Ohne Cloud-Konto, die Inhalte bleiben im LAN.",
+        "a": "Ja — native Apps für iOS und Android mit derselben Sync-Engine wie auf dem Desktop, inklusive Synchronisierung über Netzwerke hinweg. iOS ist als öffentliche Beta auf TestFlight verfügbar, Android als APK zum direkten Download. Lieber keine App installieren? Clients für das SyncClipboard-Protokoll funktionieren ebenfalls.",
         "downloadCta": "iOS-Beta und Android-APK auf der Downloadseite erhalten →"
       },
       "item6": {
@@ -295,16 +298,16 @@
       },
       "item7": {
         "q": "Was ist der Unterschied zu KDE Connect oder Mouse Without Borders?",
-        "a": "KDE Connect und Mouse Without Borders sind gute KVM-artige Werkzeuge: Sie teilen auch Maus, Tastatur, Dateien und Benachrichtigungen und benötigen meist dasselbe LAN oder zusätzlich Tailscale. UniClipboard konzentriert sich auf die Zwischenablage, funktioniert über das Internet ohne VPN und bietet einen durchsuchbaren Verlauf. Wenn du nur hier kopieren und dort einfügen möchtest, ohne alles andere zu teilen, passt es zu dir."
+        "a": "Das sind KVM-artige Werkzeuge: Sie teilen Maus, Tastatur, Dateien und Benachrichtigungen und brauchen meist dasselbe LAN oder ein VPN. UniClipboard macht nur die Zwischenablage, funktioniert über das Internet ohne VPN und hat einen durchsuchbaren Verlauf."
       },
       "item8": {
         "q": "Kann ich es selbst hosten oder meinen eigenen Server bzw. mein eigenes Relay nutzen?",
-        "a": "Du musst nicht: UniClipboard arbeitet standardmäßig Peer-to-Peer und nutzt ein verschlüsseltes Relay nur, wenn die Direktverbindung scheitert. Es gibt nichts zu betreiben. Für mehr Kontrolle stehen erweiterte Optionen bereit: ein eigenes Relay mit integriertem Verbindungstest, UniClipboard als Serverknoten ohne Oberfläche mit Docker- und Caddy-Konfigurationen für einen VPS sowie mobile Synchronisierung über eine öffentliche URL auf deinem Server oder einem sicheren Proxy."
+        "a": "Musst du nicht — es arbeitet Peer-to-Peer und nutzt ein verschlüsseltes Relay nur, wenn keine Direktverbindung zustande kommt. Für mehr Kontrolle kannst du ein eigenes Relay angeben oder einen Serverknoten ohne Oberfläche betreiben. Die Dokumentation erklärt die Einrichtung."
       }
     },
     "finalCta": {
       "title": "Programmieren, schreiben, gestalten — überall einfügen.",
-      "subtitle": "Kostenlos, quelloffen, Ende-zu-Ende-verschlüsselt. Einmal pro Gerät installieren, und deine Zwischenablage begleitet dich.",
+      "subtitle": "Einmal auf jedem Gerät installieren. Danach folgt dir deine Zwischenablage.",
       "primary": "UniClipboard herunterladen",
       "secondary": "Quellcode auf GitHub ansehen",
       "platformsLine": "macOS · Windows · Linux · iOS · Android",
@@ -312,7 +315,7 @@
     },
     "footer": {
       "thanksTitle": "Danke",
-      "thanksDesc": "Geräteübergreifende Zwischenablage — Ende-zu-Ende-verschlüsselt, quelloffen und überprüfbar. Inhalte fließen zwischen deinen eigenen Geräten, ohne Cloud-Konto dazwischen.",
+      "thanksDesc": "Zwischenablage-Sync zwischen deinen eigenen Geräten. Offen entwickelt.",
       "linksTitle": "Links",
       "repo": "Repository",
       "issues": "Issues",

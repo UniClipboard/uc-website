@@ -4,7 +4,7 @@
     "titleTemplate": "%s | UniClipboard",
     "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone、Android 之间实时同步——无需账号，也不经过任何第三方服务器。iCloud 通用剪贴板的跨平台开源替代。",
     "softwareDescription": "免费、开源、端到端加密的跨平台通用剪贴板。文本、图片、文件在 macOS、Windows、Linux、iPhone、Android 之间实时同步,无需账号、无需服务器。",
-    "keywords": "UniClipboard, 剪贴板同步, 剪贴板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪贴板同步, iPhone 剪贴板同步, Android 剪贴板同步, 手机电脑剪贴板, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪贴板, 跨设备复制粘贴",
+    "keywords": "UniClipboard, 剪贴板同步, 跨设备剪贴板, Mac Windows 剪贴板, Linux 剪贴板同步, iPhone 剪贴板同步, Android 剪贴板同步, 手机电脑剪贴板, 开源剪贴板, 端到端加密剪贴板, iCloud 通用剪贴板替代, 通用剪贴板, 剪贴板管理器, 跨平台剪贴板, 跨设备复制粘贴",
     "ogAlt": "UniClipboard — 你的剪贴板，在所有设备上"
   },
   "og": {
@@ -49,8 +49,11 @@
       "eyebrow": "开源 · 端到端加密 · 五端同步 · 无需账号",
       "title": "多台设备",
       "titleLine2": "一个剪贴板",
-      "description": "开源、端到端加密的通用剪贴板。文本、图片、文件在 Mac、Windows、Linux、iPhone 与 Android 之间实时同步——无需账号，也不经过任何第三方服务器。",
-      "descriptionMobile": "实时同步你的剪贴板到其他设备。",
+      "titleCopy": "在 {platform} 上复制，",
+      "titlePaste": "在 {platform} 上粘贴。",
+      "titleA11y": "在一台设备上复制，在另一台上粘贴——Mac、Windows、Linux、iPhone、Android 通用。",
+      "description": "文字、图片、文件，只在你自己的设备之间流转。无需账号，开箱即用。",
+      "descriptionMobile": "文本、图片、文件，端到端加密同步，无需账号。",
       "mobileBadge": "了解手机如何接入 →",
       "mobileBadgeIOS": "在 TestFlight 加入 iOS 公测 →",
       "mobileBadgeAndroid": "下载 Android",
@@ -79,7 +82,7 @@
       "h1": {
         "eyebrow": "02 — 隐私优先",
         "title": "中继看到的，只有密文。",
-        "lede": "内容在源设备加密，只在你的设备上解密。密钥存放在系统 Keyring 里，永远不离开本机。开源，可审计。",
+        "lede": "内容离开设备前就已加密，只在你的设备上解密；密钥始终留在系统钥匙串里。",
         "b1Title": "端到端加密",
         "b1Desc": "XChaCha20-Poly1305 AEAD——传输和本地存储均加密。",
         "b2Title": "无需云账号",
@@ -90,46 +93,46 @@
       "h2": {
         "eyebrow": "01 — 五端覆盖",
         "title": "一处复制，五端可粘。",
-        "lede": "桌面三端基于 Rust + Tauri，iOS 在 TestFlight 公测、Android 原生 App 已发布。同 Wi-Fi 直连、跨网 NAT 打洞、可一键切到 LAN-only。",
+        "lede": "桌面端和手机共用同一套同步内核，手机不是二等公民。",
         "b1Title": "桌面三端",
-        "b1Desc": "Rust + Tauri 构建，启动快、占用低，集成进系统菜单栏与托盘。",
-        "b2Title": "iOS & Android 原生 App",
-        "b2Desc": "iOS 通过 TestFlight 公测，Android 提供签名 APK 直链。不想装原生 App？SyncClipboard 开放协议仍可用。",
-        "b3Title": "直连 · 打洞 · LAN-only 可切",
-        "b3Desc": "同 Wi-Fi 走 P2P，跨网自动 NAT 打洞，加密中继兜底。一键 LAN-only 可彻底关掉中继。"
+        "b1Desc": "Mac、Windows、Linux 全覆盖，启动快、占用低，常驻菜单栏或托盘。",
+        "b2Title": "iOS & Android App",
+        "b2Desc": "iOS 正在 TestFlight 公测，Android 可直接下载安装。",
+        "b3Title": "需要时只走局域网",
+        "b3Desc": "打开 LAN-only 模式，所有流量只在局域网内，中继彻底关闭。"
       },
       "h3": {
         "eyebrow": "03 — 重度用户友好",
         "title": "Quick Panel、本地全文搜索、CLI——一个都不少。",
-        "lede": "浮层即刻预览历史，上万条记录毫秒级搜索，终端 / SSH / tmux 里还有无头 CLI。比看上去更能打。",
+        "lede": "给离不开剪贴板的人准备的。",
         "b1Title": "Quick Panel",
         "b1Desc": "快捷键唤起的悬浮面板，文本、链接、图片、代码、文件都有内联预览。",
         "b2Title": "本地全文搜索",
-        "b2Desc": "上万条记录毫秒级搜遍历史，索引在磁盘上同样保持加密。",
+        "b2Desc": "上万条记录毫秒级搜索，索引在磁盘上同样加密。",
         "b3Title": "uniclip CLI",
-        "b3Desc": "图形界面的能力一行命令搞定，无头运行——为终端、SSH、脚本和 tmux 而生。"
+        "b3Desc": "图形界面能做的，命令行都能做，终端、SSH、脚本里随手用。"
       },
       "more": {
         "f1Title": "熟悉的快捷键",
-        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴，肌肉记忆零成本。是系统剪贴板的延伸，不是又一个 App。",
+        "f1Desc": "⌘C / Ctrl-C 复制，⌘V / Ctrl-V 粘贴，照旧就行，不用学新操作。",
         "f4Title": "自动恢复",
         "f4Desc": "Wi-Fi 切换、休眠唤醒、短暂掉线后自动重连，无需重新配对。",
         "f6Title": "文本、图片与文件",
-        "f6Desc": "一台复制，另一台粘贴。大文件采用流式传输，不必整个加载到内存。",
+        "f6Desc": "不只是文本，图片和文件也能同步。大文件流式传输，不会占满内存。",
         "f5Title": "按设备控制同步",
         "f5Desc": "每台配对设备可单独设定收发方向与内容类型（文本 / 图片 / 文件）。设备丢了？任意设备一键吊销。",
         "f7Title": "实时同步",
-        "f7Desc": "复制即推送，无需手动触发。所有设备自动保持一致。",
+        "f7Desc": "复制完，其他设备上就已经有了。",
         "f9Title": "可控的历史保留",
         "f9Desc": "默认保留 30 天，可调整为 7 天 / 永久；可按设备/类型清理；任何时候随手清空。",
-        "f10Title": "iOS & Android 原生 App",
-        "f10Desc": "iOS 通过 TestFlight 公测，Android 提供签名 APK 直链。不想装原生 App？SyncClipboard 开放协议（iPhone「快捷指令」+ Android 客户端）仍可用。",
+        "f10Title": "跨网也能同步",
+        "f10Desc": "电脑连公司 Wi-Fi、手机用流量，照样同步。能直连就直连，不行再走加密中继。",
         "f11Title": "格式不降级",
-        "f11Desc": "富文本和 HTML 按原格式还原，不被压成纯文本。跨平台同样保真：Windows 富文本、Linux 非英文 URL、UTF-8 都原样送达。",
+        "f11Desc": "富文本和 HTML 按原格式还原，不会被压成纯文本。",
         "f12Title": "同步状态一目了然",
         "f12Desc": "每条记录显示来源设备和各端同步状态，未送达的可一键重发。",
         "f13Title": "可定制的外观",
-        "f13Desc": "浅色 / 深色主题分别预设，强调色、背景、前景自定义，也可跟随系统。"
+        "f13Desc": "浅色、深色主题可分别配色，强调色、背景、前景都能自定义，也可跟随系统。"
       }
     },
     "comparison": {
@@ -140,7 +143,7 @@
         "uc": "UniClipboard",
         "icloud": "iCloud 通用剪贴板",
         "selfhost": "自托管 (ClipCascade 等)",
-        "manager": "Paste（付费 · 仅 Apple）"
+        "manager": "Paste"
       },
       "toolsShort": {
         "uc": "UC",
@@ -190,7 +193,7 @@
           "manager": "需 Apple ID"
         },
         "transport": {
-          "label": "同 Wi-Fi 直连，跨网中继回退，可强制 LAN-only",
+          "label": "跨网络可用",
           "labelMobile": "跨网络",
           "uc": "P2P + 中继 · 可切 LAN-only",
           "icloud": "仅近场",
@@ -222,7 +225,7 @@
       "eyebrow": "下载最新版本",
       "title": "选择你的平台。",
       "description": "已自动识别你的平台，不对可在下面切换。每个安装包都标注了系统要求。",
-      "descriptionMobile": "iPhone 走 TestFlight 内测，Android 直接装 APK，桌面三端有完整签名安装包。",
+      "descriptionMobile": "iPhone 走 TestFlight 公测，Android 直接装 APK，桌面三端有完整签名安装包。",
       "mobileAndroidAllArchs": "查看全部架构",
       "mobileDesktopPlatforms": "Mac · Windows · Linux",
       "mobileDesktopHint": "桌面端要在电脑上装。把链接发到桌面，到电脑前继续。",
@@ -274,19 +277,19 @@
       },
       "item2": {
         "q": "为什么不用自托管的剪贴板同步（例如 ClipCascade）？",
-        "a": "自托管意味着你得自己运维服务器。UniClipboard 开箱即用：P2P 直连为主，加密中继兜底，不用维护任何基础设施。"
+        "a": "自托管就得自己运维服务器。UniClipboard 开箱即用，不用维护任何基础设施。"
       },
       "item3": {
         "q": "可以纯离线 / 只在局域网内工作吗？",
-        "a": "可以。同一 Wi-Fi 下的设备直接互联，不经过中继。「网络」设置里还有 LAN-only Mode 开关，打开后所有设备只走局域网发现和直连，中继及公网服务全部关闭。"
+        "a": "可以。同一 Wi-Fi 下的设备直接互联。在「网络」设置里打开 LAN-only 模式，中继和其他公网服务都会关闭。"
       },
       "item4": {
         "q": "剪贴板历史到底存在哪里？",
-        "a": "只在你自己的设备上。本地数据加密保存，密钥放在系统 Keyring 内、永不离开本机。UniClipboard 的服务器不会接收或存储任何剪贴板内容。"
+        "a": "只在你自己的设备上。本地数据加密保存，密钥放在系统钥匙串里、永不离开本机。UniClipboard 的服务器不会接收或存储任何剪贴板内容。"
       },
       "item5": {
         "q": "支持移动端（iOS / Android）吗？",
-        "a": "都有原生 App。iOS 在 TestFlight 公测、Android 提供签名 APK 直链，下载页都能拿到。不想装原生 App 的话，兼容 SyncClipboard（github.com/Jeric-X/SyncClipboard，MIT）开放协议的路线仍然保留：iPhone 走系统「快捷指令」+ 桌面端给的一段配置，Android 用 SyncClipboard 的任意客户端，无需云账号，内容只在局域网内流转。",
+        "a": "支持。iOS 和 Android 都有原生 App，与桌面端共用同一套同步内核，跨网同步同样可用。iOS 在 TestFlight 公测，Android 直接下载 APK。不想装 App，也可以用兼容 SyncClipboard 协议的客户端。",
         "downloadCta": "去下载页拿 iOS Beta 和 Android APK →"
       },
       "item6": {
@@ -295,16 +298,16 @@
       },
       "item7": {
         "q": "和 KDE Connect、Mouse Without Borders 比有什么不一样？",
-        "a": "KDE Connect 和 Mouse Without Borders 都是好工具，但属于 KVM 那一类，会把鼠标、键盘、文件、通知一起共享，且通常要在同一局域网（或叠一层 Tailscale）。UniClipboard 只做剪贴板，走公网也能用、不需要 VPN，自带可搜索的历史。只想「这边复制那边粘」、不想搬别的东西，它就够了。"
+        "a": "那两个属于 KVM 类工具，鼠标、键盘、文件、通知一起共享，通常还要求同一局域网或叠一层 VPN。UniClipboard 只做剪贴板，跨公网直接可用，还带可搜索的历史。"
       },
       "item8": {
         "q": "可以自托管吗？能跑自己的服务器或中继吗？",
-        "a": "默认不需要：UniClipboard 走 P2P 直连，连不通才回退加密中继，无需运维。需要时进阶用法也都留好了：指向自己的中继节点（带连通性测试）；把 UniClipboard 作为无界面服务器节点常驻（内置 Docker 与 Caddy 配置，方便部署到 VPS）；移动端同步还能暴露公开 URL，通过自托管服务器或安全代理实现跨网访问。"
+        "a": "不需要。默认 P2P 直连，连不通才走加密中继。想自己掌控的话，可以接入自建中继，或部署无界面的服务器节点，具体见文档。"
       }
     },
     "finalCta": {
       "title": "复制在这边，粘贴在那边。",
-      "subtitle": "免费、开源、端到端加密。每台设备装一次，剪贴板自动跟着你走。",
+      "subtitle": "每台设备装一次，之后剪贴板就跟着你走。",
       "primary": "下载 UniClipboard",
       "secondary": "在 GitHub 上看源码",
       "platformsLine": "macOS · Windows · Linux · iOS · Android",
@@ -312,7 +315,7 @@
     },
     "footer": {
       "thanksTitle": "致谢",
-      "thanksDesc": "跨设备剪贴板同步，端到端加密、开源可审计。数据只在你的设备间流动，不经过任何云账号。",
+      "thanksDesc": "在你自己的设备之间同步剪贴板，开源开发。",
       "linksTitle": "链接",
       "repo": "仓库",
       "issues": "Issues",

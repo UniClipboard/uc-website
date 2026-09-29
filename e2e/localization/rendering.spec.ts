@@ -113,16 +113,15 @@ for (const locale of ["de", "ar", "hi", "ja"]) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/${locale}`);
     await page.screenshot({ path: `${library}/${locale}-390-first-fold.png` });
-    // Below `sm` the switcher lives in the mobile menu, not the header.
-    await page.getByTestId("menu-toggle").click();
-    await page
-      .getByTestId("language-trigger")
-      .filter({ visible: true })
-      .click();
-    const input = page.locator('input[role="combobox"]');
-    await expect(input).toBeFocused();
-    await input.fill("en");
-    await expect(page.locator('[data-locale="en"]')).toBeVisible();
+    // Below `sm` the header shows a language button that opens a bottom sheet.
+    const trigger = page.getByTestId("language-sheet-trigger");
+    await trigger.click();
+    const sheet = page.getByRole("dialog");
+    await expect(sheet.locator('[data-locale="en"]')).toBeVisible();
+    await expect(sheet.locator(`[data-locale="${locale}"]`)).toHaveAttribute(
+      "aria-current",
+      "true",
+    );
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth - innerWidth,
@@ -132,8 +131,7 @@ for (const locale of ["de", "ar", "hi", "ja"]) {
       path: `${library}/${locale}-390-language-panel.png`,
     });
     await page.keyboard.press("Escape");
-    await expect(
-      page.getByTestId("language-trigger").filter({ visible: true }),
-    ).toBeFocused();
+    await expect(sheet).toBeHidden();
+    await expect(trigger).toBeFocused();
   });
 }

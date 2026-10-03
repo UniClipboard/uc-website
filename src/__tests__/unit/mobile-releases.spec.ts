@@ -17,7 +17,8 @@ const manifest = (overrides: Record<string, unknown> = {}) => ({
   assets: [
     {
       name: "UniClip-2.0.0-arm64-v8a.apk",
-      sha256: "5e3251e5d87b227328388ba1898e9842d45598c0413bd32fb2e2b0f1f0d619c6",
+      sha256:
+        "5e3251e5d87b227328388ba1898e9842d45598c0413bd32fb2e2b0f1f0d619c6",
     },
   ],
   confirmation_required: false,
@@ -25,7 +26,10 @@ const manifest = (overrides: Record<string, unknown> = {}) => ({
   ...overrides,
 });
 
-function respondWith(body: unknown, init: { ok?: boolean; status?: number } = {}) {
+function respondWith(
+  body: unknown,
+  init: { ok?: boolean; status?: number } = {},
+) {
   const fetchMock = jest.fn(async () => ({
     ok: init.ok ?? true,
     status: init.status ?? 200,
@@ -78,7 +82,9 @@ describe("getAndroidRelease", () => {
       "universal",
     ]);
     for (const item of release.items) {
-      expect(item.url.startsWith(`${RELEASE_HOST}/android/artifacts/`)).toBe(true);
+      expect(item.url.startsWith(`${RELEASE_HOST}/android/artifacts/`)).toBe(
+        true,
+      );
       expect(item.url).not.toContain("github.com");
     }
     expect(release.items.filter((item) => item.recommended)).toHaveLength(1);
@@ -125,7 +131,9 @@ describe("getAndroidRelease", () => {
       const release = await getAndroidRelease();
       expect(release.items.length).toBeGreaterThan(0);
       for (const item of release.items) {
-        expect(item.url.startsWith(`${RELEASE_HOST}/android/artifacts/`)).toBe(true);
+        expect(item.url.startsWith(`${RELEASE_HOST}/android/artifacts/`)).toBe(
+          true,
+        );
       }
       expect(getAndroidPrimaryDownloadUrl(release)).toContain(RELEASE_HOST);
     }
@@ -166,7 +174,9 @@ describe("Android download group", () => {
   it("hands the release host links to the download page and the hero button", async () => {
     respondWith(manifest());
     const release = await getAndroidRelease();
-    const android = buildMobileGroups(labels, release).find((group) => group.os === "android");
+    const android = buildMobileGroups(labels, release).find(
+      (group) => group.os === "android",
+    );
     expect(android?.items[0]?.url).toBe(
       `${RELEASE_HOST}/android/artifacts/v2.0.0.186/UniClip-2.0.0-arm64-v8a.apk`,
     );

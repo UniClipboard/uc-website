@@ -34,38 +34,16 @@ export const IOS_RELEASE: IosRelease = {
   minOS: "iOS 16+",
 };
 
-// Used only if the GitHub Releases fetch below fails (network error, rate
-// limit, unexpected asset naming). Update when the fallback drifts too far
-// from reality — see getAndroidRelease() for the live source of truth.
-const ANDROID_RELEASE_FALLBACK: AndroidRelease = {
-  channel: "stable",
-  version: "1.2.0",
-  releasePageUrl: "https://github.com/UniClipboard/UniClip/releases/tag/v1.2.0",
-  items: [
-    {
-      arch: "arm64-v8a",
-      url: "https://github.com/UniClipboard/UniClip/releases/download/v1.2.0/UniClip-1.2.0-arm64-v8a.apk",
-      recommended: true,
-    },
-    {
-      arch: "armeabi-v7a",
-      url: "https://github.com/UniClipboard/UniClip/releases/download/v1.2.0/UniClip-1.2.0-armeabi-v7a.apk",
-    },
-    {
-      arch: "x86_64",
-      url: "https://github.com/UniClipboard/UniClip/releases/download/v1.2.0/UniClip-1.2.0-x86_64.apk",
-    },
-    {
-      arch: "universal",
-      url: "https://github.com/UniClipboard/UniClip/releases/download/v1.2.0/UniClip-1.2.0-universal.apk",
-    },
-  ],
-  minOS: "Android 8+",
-};
-
-const ANDROID_GITHUB_REPO = "UniClipboard/UniClip";
-const ANDROID_RELEASE_FEED_URL = `https://api.github.com/repos/${ANDROID_GITHUB_REPO}/releases/latest`;
+// Every Android download goes through the release host (FlareRelease), the same
+// place the Android app updates from. Besides one source of truth it lets the
+// release host send users in mainland China to a mirror, which a direct GitHub
+// link can never do. GitHub is only used for the release notes page.
+const RELEASE_HOST = "https://release.uniclipboard.app";
+const ANDROID_MANIFEST_URL = `${RELEASE_HOST}/android/stable.json`;
+const ANDROID_RELEASE_PAGE_BASE =
+  "https://github.com/UniClipboard/UniClip/releases/tag";
 const ANDROID_RELEASE_REVALIDATE_SECONDS = 60 * 60;
+const ANDROID_RELEASE_TIMEOUT_MS = 5000;
 const ANDROID_ARCHES = [
   "arm64-v8a",
   "armeabi-v7a",
@@ -74,42 +52,63 @@ const ANDROID_ARCHES = [
 ] as const;
 const ANDROID_RECOMMENDED_ARCH: (typeof ANDROID_ARCHES)[number] = "arm64-v8a";
 
-const githubReleaseSchema = z.object({
-  tag_name: z.string().min(1),
-  html_url: z.string().url(),
-  assets: z.array(
-    z.object({
-      name: z.string(),
-      browser_download_url: z.string().url(),
-    }),
-  ),
+// The tag and the file names end up in a URL path, so only plain ones are used.
+const SAFE_ANDROID_TAG = /^v[0-9][0-9A-Za-z.-]*$/;
+const SAFE_APK_NAME = /^[0-9A-Za-z._-]+\.apk$/;
+
+function androidArtifactUrl(tag: string, name: string): string {
+  return `${RELEASE_HOST}/android/artifacts/${tag}/${name}`;
+}
+
+// Used only if the manifest fetch below fails (network error, timeout, an
+// unexpected shape). Update when the fallback drifts too far from reality - see
+// getAndroidRelease() for the live source of truth.
+const ANDROID_RELEASE_FALLBACK: AndroidRelease = {
+  channel: "stable",
+  version: "2.0.0.186",
+  releasePageUrl: `${ANDROID_RELEASE_PAGE_BASE}/v2.0.0.186`,
+  items: [
+    {
+      arch: "arm64-v8a",
+      url: androidArtifactUrl("v2.0.0.186", "UniClip-2.0.0-arm64-v8a.apk"),
+      recommended: true,
+    },
+  ],
+  minOS: "Android 8+",
+};
+
+const androidManifestSchema = z.object({
+  version: z.string().min(1),
+  tagName: z.string().regex(SAFE_ANDROID_TAG),
+  assets: z.array(z.object({ name: z.string() })),
 });
 
-// Fetches the latest Android release straight from GitHub Releases so the
-// download link stays current without a cron job or DB write — the fetch
-// result itself is cached by Next.js's data cache for
-// ANDROID_RELEASE_REVALIDATE_SECONDS, so this hits the GitHub API at most
-// once per revalidate window regardless of traffic.
+// Reads the stable channel manifest of the release host so the download links
+// stay current without a cron job or DB write. The fetch result is cached by
+// Next.js's data cache for ANDROID_RELEASE_REVALIDATE_SECONDS, so the release
+// host is hit at most once per window regardless of traffic.
 export async function getAndroidRelease(): Promise<AndroidRelease> {
   try {
-    const response = await fetch(ANDROID_RELEASE_FEED_URL, {
+    const response = await fetch(ANDROID_MANIFEST_URL, {
       next: { revalidate: ANDROID_RELEASE_REVALIDATE_SECONDS },
-      headers: { accept: "application/vnd.github+json" },
+      headers: { accept: "application/json" },
+      signal: AbortSignal.timeout(ANDROID_RELEASE_TIMEOUT_MS),
     });
     if (!response.ok) return ANDROID_RELEASE_FALLBACK;
 
-    const parsed = githubReleaseSchema.safeParse(await response.json());
+    const parsed = androidManifestSchema.safeParse(await response.json());
     if (!parsed.success) return ANDROID_RELEASE_FALLBACK;
 
+    const { tagName, version, assets } = parsed.data;
     const items: AndroidApk[] = [];
     for (const arch of ANDROID_ARCHES) {
-      const asset = parsed.data.assets.find((a) =>
-        a.name.endsWith(`-${arch}.apk`),
+      const asset = assets.find(
+        (a) => SAFE_APK_NAME.test(a.name) && a.name.endsWith(`-${arch}.apk`),
       );
       if (!asset) continue;
       items.push({
         arch,
-        url: asset.browser_download_url,
+        url: androidArtifactUrl(tagName, asset.name),
         recommended: arch === ANDROID_RECOMMENDED_ARCH,
       });
     }
@@ -117,8 +116,8 @@ export async function getAndroidRelease(): Promise<AndroidRelease> {
 
     return {
       channel: "stable",
-      version: parsed.data.tag_name.replace(/^v/, ""),
-      releasePageUrl: parsed.data.html_url,
+      version,
+      releasePageUrl: `${ANDROID_RELEASE_PAGE_BASE}/${tagName}`,
       items,
       minOS: ANDROID_RELEASE_FALLBACK.minOS,
     };

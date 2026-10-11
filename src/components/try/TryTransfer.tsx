@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Copy, Share2 } from "lucide-react";
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -101,7 +102,15 @@ const errorCode = (err: unknown, fallback: ErrorCode): ErrorCode => {
   return fallback;
 };
 
-export function TryTransfer({ linkPath = "/try" }: { linkPath?: string }) {
+export function TryTransfer({
+  linkPath = "/try",
+  entryMode,
+  modePaths,
+}: {
+  linkPath?: string;
+  entryMode?: "send" | "receive";
+  modePaths?: { send: string; receive: string };
+}) {
   const t = useTranslations("try");
   const locale = useLocale();
   const [view, setView] = useState<View>({ name: "compose", mode: "send" });
@@ -559,51 +568,78 @@ export function TryTransfer({ linkPath = "/try" }: { linkPath?: string }) {
   switch (view.name) {
     case "compose": {
       const withCode = SHORT_CODE_ENABLED && view.mode === "send";
-      const codeStart = withCode && !sendFirst;
+      // Explicit receive URLs always expose the code field. The legacy
+      // adaptive entry continues to follow the short-code rollout switch.
+      const codeStart =
+        view.mode === "send" &&
+        (entryMode === "receive" ||
+          (withCode && entryMode !== "send" && !sendFirst));
       return (
         <>
           {codeStart && (
             <div
               className="try-column try-code-start"
               data-try-view="code-start"
+              data-entry-mode={entryMode}
             >
               <Heading text={t("code.startTitle")} />
               <CodeEntry variant="start" onReceive={receiveCode} />
               {autoCopyToggle}
-              <button
-                type="button"
-                className="try-quiet try-code-start-alt"
-                onClick={() => setSendFirst(true)}
-              >
-                {t("code.sendInstead")}
-              </button>
+              {modePaths ? (
+                <Link
+                  className="try-quiet try-code-start-alt"
+                  href={modePaths.send}
+                  prefetch={false}
+                >
+                  {t("code.sendInstead")}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="try-quiet try-code-start-alt"
+                  onClick={() => setSendFirst(true)}
+                >
+                  {t("code.sendInstead")}
+                </button>
+              )}
             </div>
           )}
-          <div
-            className="try-column"
-            data-try-view="compose"
-            data-code-start={codeStart ? "" : undefined}
-          >
-            <Heading
-              text={
-                view.mode === "reply"
-                  ? t("compose.replyTitle")
-                  : t("compose.title")
-              }
-            />
-            <ComposeCard
-              key={composeKey}
-              mode={view.mode}
-              onSubmit={view.mode === "reply" ? sendReply : send}
-              onBack={
-                view.mode === "reply"
-                  ? () => setView({ name: "compose", mode: "send" })
-                  : undefined
-              }
-            />
-            {withCode && <CodeEntry variant="row" onReceive={receiveCode} />}
-            {autoCopyToggle}
-          </div>
+          {(entryMode !== "receive" || view.mode === "reply") && (
+            <div
+              className="try-column"
+              data-try-view="compose"
+              data-code-start={codeStart ? "" : undefined}
+            >
+              <Heading
+                text={
+                  view.mode === "reply"
+                    ? t("compose.replyTitle")
+                    : t("compose.title")
+                }
+              />
+              <ComposeCard
+                key={composeKey}
+                mode={view.mode}
+                onSubmit={view.mode === "reply" ? sendReply : send}
+                onBack={
+                  view.mode === "reply"
+                    ? () => setView({ name: "compose", mode: "send" })
+                    : undefined
+                }
+              />
+              {withCode && <CodeEntry variant="row" onReceive={receiveCode} />}
+              {view.mode === "send" && modePaths && (
+                <Link
+                  className="try-quiet try-code-start-alt"
+                  href={modePaths.receive}
+                  prefetch={false}
+                >
+                  {t("code.haveCode")}
+                </Link>
+              )}
+              {autoCopyToggle}
+            </div>
+          )}
           <div
             className="try-column try-incoming-placeholder"
             role="status"

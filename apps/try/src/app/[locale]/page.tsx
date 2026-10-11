@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { TryTransfer } from "@/components/try/TryTransfer";
@@ -7,28 +8,38 @@ import { localeAlternates, localePathPrefix } from "@/i18n/locale-meta";
 import { Header } from "../../components/Header";
 
 export const revalidate = 3600;
-type Props = { params: Promise<{ locale: string }> };
+type Props = { params: Promise<{ locale: string; mode?: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale, mode } = await params;
+  const suffix = mode ? `/${mode}` : "";
   const t = await getTranslations({ locale, namespace: "try" });
   return {
     title: t("seoTitle"),
     description: t("seoDescription"),
     alternates: {
-      canonical: localePathPrefix(locale) || "/",
-      languages: localeAlternates("/"),
+      canonical: `${localePathPrefix(locale)}${suffix}` || "/",
+      languages: localeAlternates(suffix || "/"),
     },
   };
 }
 export default async function Page({ params }: Props) {
-  const { locale } = await params;
+  const { locale, mode } = await params;
+  if (mode !== undefined && mode !== "send" && mode !== "receive") notFound();
   const t = await getTranslations({ locale, namespace: "try.footer" });
   return (
     <>
       <Header />
       <div className="try-frame">
         <main className="try-main">
-          <TryTransfer linkPath="" />
+          <TryTransfer
+            key={mode || "default"}
+            linkPath=""
+            entryMode={mode}
+            modePaths={{
+              send: `${localePathPrefix(locale)}/send`,
+              receive: `${localePathPrefix(locale)}/receive`,
+            }}
+          />
         </main>
         <p className="try-foot">
           <span>

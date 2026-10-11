@@ -57,6 +57,15 @@ export function ComposeCard({ mode, onSubmit, onBack }: Props) {
   // attachments, and text outside the text area is appended to it.
   useEffect(() => {
     const onPaste = (e: ClipboardEvent) => {
+      // Other editable controls own their paste, including the receive code
+      // field when this card is hidden on phones.
+      if (
+        e.defaultPrevented ||
+        (e.target instanceof Element &&
+          e.target !== textRef.current &&
+          e.target.closest("input, textarea, [contenteditable]"))
+      )
+        return;
       const data = e.clipboardData;
       if (!data) return;
       const files = Array.from(data.files);

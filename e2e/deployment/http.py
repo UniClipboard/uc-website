@@ -1,5 +1,6 @@
 """Exercise the installed deployment program against disposable Docker projects."""
 import argparse
+import hashlib
 from contextlib import closing
 from concurrent.futures import ThreadPoolExecutor
 import json
@@ -23,6 +24,18 @@ results = []
 
 def command(args, **kw):
     return subprocess.run(args, check=True, text=True, capture_output=True, **kw).stdout
+
+
+def data_signatures(db, columns=None):
+    tables = ['articles', 'article_translations', 'api_tokens', 'releases', 'founders', 'ios_beta_signups', 'sponsors', 'sponsor_invites']
+    columns = columns or {table: [row[1] for row in db.execute(f'PRAGMA table_info("{table}")')] for table in tables}
+    signatures = {}
+    for table in tables:
+        selection = ','.join('"' + column.replace('"', '""') + '"' for column in columns[table])
+        rows = db.execute(f'SELECT {selection} FROM "{table}"').fetchall()
+        encoded = '\n'.join(sorted(json.dumps(row, ensure_ascii=True, default=lambda value: value.hex()) for row in rows))
+        signatures[table] = hashlib.sha256(encoded.encode()).hexdigest()
+    return columns, signatures
 
 
 def deploy(manifest, expected=0):
@@ -52,7 +65,7 @@ try:
             (site / 'data').mkdir()
             with closing(sqlite3.connect(a.database)) as source, closing(sqlite3.connect(site / 'data/website.sqlite')) as target:
                 source.backup(target)
-                before = target.execute('SELECT count(*) FROM articles').fetchone()[0]
+                before_columns, before_signatures = data_signatures(target)
             os.chown(site / 'data', 1000, 1000)
             os.chown(site / 'data/website.sqlite', 1000, 1000)
             (site / 'website.env').write_text((Path(a.runtime_env).read_text() if a.runtime_env else '') + '\nWEBSITE_READ_ONLY=1\nAPP_URL=https://www.uniclipboard.app\n')
@@ -94,11 +107,11 @@ try:
         results.append({'name': app + ' concurrent upgrades serialize and preserve newest release', 'status': 'PASS'})
     if a.app == 'website':
         with closing(sqlite3.connect(root / 'website/data/website.sqlite')) as db:
-            assert db.execute('SELECT count(*) FROM articles').fetchone()[0] == before
+            assert data_signatures(db, before_columns)[1] == before_signatures
             assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
         assert 'WEBSITE_READ_ONLY=1' in (root / 'website/website.env').read_text().splitlines()
         assert 'scheduler' not in command(['docker', 'compose', '--project-directory', str(root / 'website'), '--profile', 'jobs', 'ps', '--status', 'running', '--services'])
-        results.append({'name': 'SQLite data, read-only configuration and stopped scheduler preserved', 'status': 'PASS'})
+        results.append({'name': 'all eight SQLite table values, read-only configuration and stopped scheduler preserved', 'status': 'PASS'})
     else:
         assert list((root / 'assets-try/assets/tailcat').glob('main.*.wasm.gz'))
         assert list((root / 'assets-try/legacy-assets/_next/static').rglob('*.js'))

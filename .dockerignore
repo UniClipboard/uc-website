@@ -4,6 +4,7 @@ node_modules
 .env*
 .vercel
 .migration
+.deployment
 .build-inputs
 .planning
 .agents

@@ -104,6 +104,7 @@ jobs:
           chmod 777 .migration/ci
           cp .build-inputs/public.sqlite .migration/ci/website.sqlite
           chmod 666 .migration/ci/website.sqlite
+          docker run --rm --user "$(id -u):$(id -g)" -e SQLITE_PATH=/fixture/website.sqlite -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migrate.ts
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migration/fixture.ts /fixture/website.sqlite /fixture/fixture.env
           docker run -d --name migration-e2e -p 127.0.0.1:3317:3000 -v "$PWD/.migration/ci:/data" --env-file .build-inputs/build.env -e CRON_SECRET=migration-fixture-secret "$WEBSITE_IMAGE"
           if docker run --rm -e SQLITE_PATH=/data/missing.sqlite "$WEBSITE_IMAGE"; then

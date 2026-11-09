@@ -188,6 +188,21 @@ Keep the www CNAME pointing to the apex.
 Change only the website apex origin A record during the first cutover.
 Do not change try, docs, cloud, relay, release, or rendezvous records.
 
+## First-cutover static asset compatibility
+
+Preserve the old website's public hashed assets before changing the origin.
+Run `scripts/migration/preserve-assets.py` with a consistent source snapshot, a new output directory, and the old deployment ID.
+The command reads public HTML, CSS references, and the reviewed webpack dynamic-chunk map.
+The receipt records each asset's path, size, and SHA-256 digest.
+The command does not use authentication cookies or private admin pages.
+
+Install only the generated `_next` directory under `/opt/1panel/www/sites/www.uniclipboard.app/legacy-assets`.
+The OpenResty virtual host serves new assets from the application first.
+If the application returns 404 for an old hashed asset, OpenResty serves the preserved copy.
+Keep this directory through the rollback window and browser acceptance.
+Remove this migration-specific directory only after reviewing its receipt and the retention deadline.
+Do not treat preserved static assets as a replacement for browser acceptance across the deployment.
+
 ## Rollback boundary
 
 Before new SQLite writes, the old website and Neon can provide a platform rollback after the source gate release.

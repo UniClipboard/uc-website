@@ -1,0 +1,409 @@
+{
+  "source": "18a0a44ed6ffcac7e07d4db6196df551bff95671",
+  "image": "ghcr.io/uniclipboard/uc-try@sha256:d1a1d7c229eb50895d444a9528afc68bf60904387d3759eff8c14aa557045311",
+  "buildConfig": {
+    "NEXT_PUBLIC_TRY_SHORT_CODE": "1",
+    "NEXT_PUBLIC_TRY_RENDEZVOUS_URL": "https://rendezvous.uniclipboard.app"
+  },
+  "state": "LIVE_USER_BROWSER_ACCEPTANCE_PENDING",
+  "recordedAt": "2026-11-09T07:12:48.841698+00:00",
+  "ci": "https://github.com/UniClipboard/uc-website/actions/runs/42576979253",
+  "originalVercelSource": "f2a17b8e5c26beeeca273bcb839851649bb5f66c",
+  "sourceCompatibility": "Six transfer input files restored byte-for-byte from original deployed source before packaging.",
+  "routing": {
+    "timestamp": "2026-11-09T07:07:38.759Z",
+    "recordId": "e9735ea6f80f765f58712776190a5138",
+    "name": "try.uniclipboard.app",
+    "before": {
+      "type": "CNAME",
+      "content": "8bd919a994d2d6d7.vercel-dns-017.com",
+      "proxied": false,
+      "ttl": 1
+    },
+    "after": {
+      "type": "A",
+      "content": "172.245.178.48",
+      "proxied": false,
+      "ttl": 300
+    }
+  },
+  "ciHttp": {
+    "timestamp": "2026-11-09T07:06:14.411Z",
+    "origin": "http://127.0.0.1:3321",
+    "results": [
+      {
+        "name": "en static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "zh static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "zh-Hant static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ja static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ko static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "es static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "fr static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "de static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "pt-BR static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ru static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "it static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "tr static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "vi static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "id static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ar static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "hi static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "th static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "pl static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "nl static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "uk static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "locale and legacy redirects omit fragments",
+        "status": "PASS"
+      },
+      {
+        "name": "all HTML-referenced static assets load",
+        "assets": 17,
+        "status": "PASS"
+      },
+      {
+        "name": "pinned WASM and runtime digests and gzip semantics",
+        "source": "83921d7141b80db20fd733ee195c805d2721e489",
+        "status": "PASS"
+      },
+      {
+        "name": "health and missing asset behavior",
+        "status": "PASS"
+      }
+    ],
+    "browserAcceptance": "NOT_RUN_USER_OWNED",
+    "productionTransfer": "NOT_PROVEN_BY_HTTP"
+  },
+  "originHttp": {
+    "timestamp": "2026-11-09T07:07:20.093Z",
+    "origin": "https://try.uniclipboard.app",
+    "results": [
+      {
+        "name": "en static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "zh static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "zh-Hant static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ja static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ko static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "es static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "fr static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "de static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "pt-BR static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ru static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "it static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "tr static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "vi static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "id static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ar static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "hi static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "th static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "pl static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "nl static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "uk static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "locale and legacy redirects omit fragments",
+        "status": "PASS"
+      },
+      {
+        "name": "all HTML-referenced static assets load",
+        "assets": 17,
+        "status": "PASS"
+      },
+      {
+        "name": "pinned WASM and runtime digests and gzip semantics",
+        "source": "83921d7141b80db20fd733ee195c805d2721e489",
+        "status": "PASS"
+      },
+      {
+        "name": "health and missing asset behavior",
+        "status": "PASS"
+      }
+    ],
+    "browserAcceptance": "NOT_RUN_USER_OWNED",
+    "productionTransfer": "NOT_PROVEN_BY_HTTP"
+  },
+  "publicHttp": {
+    "timestamp": "2026-11-09T07:08:03.500Z",
+    "origin": "https://try.uniclipboard.app",
+    "results": [
+      {
+        "name": "en static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "zh static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "zh-Hant static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ja static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ko static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "es static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "fr static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "de static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "pt-BR static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ru static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "it static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "tr static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "vi static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "id static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "ar static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "hi static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "th static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "pl static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "nl static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "uk static pages and send/receive routes",
+        "status": "PASS"
+      },
+      {
+        "name": "locale and legacy redirects omit fragments",
+        "status": "PASS"
+      },
+      {
+        "name": "all HTML-referenced static assets load",
+        "assets": 17,
+        "status": "PASS"
+      },
+      {
+        "name": "pinned WASM and runtime digests and gzip semantics",
+        "source": "83921d7141b80db20fd733ee195c805d2721e489",
+        "status": "PASS"
+      },
+      {
+        "name": "health and missing asset behavior",
+        "status": "PASS"
+      }
+    ],
+    "browserAcceptance": "NOT_RUN_USER_OWNED",
+    "productionTransfer": "NOT_PROVEN_BY_HTTP"
+  },
+  "cors": {
+    "timestamp": "2026-11-09T07:09:16.666169+00:00",
+    "results": [
+      {
+        "path": "/v1/web-pairings",
+        "status": 204,
+        "allowOrigin": "https://try.uniclipboard.app",
+        "result": "PASS"
+      },
+      {
+        "path": "/v1/web-pairings/resolve",
+        "status": 204,
+        "allowOrigin": "https://try.uniclipboard.app",
+        "result": "PASS"
+      },
+      {
+        "path": "/v1/web-pairings/consume",
+        "status": 204,
+        "allowOrigin": "https://try.uniclipboard.app",
+        "result": "PASS"
+      }
+    ],
+    "realTicketTransfer": "NOT_RUN_USER_OWNED"
+  },
+  "containerRestartVerifiedInCI": true,
+  "certificate": {
+    "authority": "Let's Encrypt YE2",
+    "domain": "try.uniclipboard.app",
+    "notAfter": "2027-02-07T06:02:50Z",
+    "fingerprintSha256": "16:14:F3:85:A7:69:C6:62:E5:4A:4C:76:22:D3:37:F4:0F:AB:65:8E:43:2C:B5:28:1F:5C:AD:D9:7E:BD:B9:20",
+    "renewalAuthenticator": "webroot",
+    "reconfigureStagingValidation": "PASS",
+    "timer": "enabled",
+    "deployHookStagingValidation": "PASS",
+    "openRestyReloadAfterDryRun": "PASS",
+    "renewalTimer": "active",
+    "validationCompletedAt": "2026-11-09T07:12:06Z"
+  },
+  "oldAssets": {
+    "status": "UNAVAILABLE",
+    "reason": "Old public origin already returned 402 DEPLOYMENT_DISABLED before DNS cutover; Vercel deployment files API returned 404.",
+    "oldDeployment": "dpl_BBgfFKC6emarwsvceDB1XxFzQaop",
+    "compatibilityNotClaimed": true
+  },
+  "manualBrowserAcceptance": "PENDING",
+  "productionTransfer": "NOT_RUN_USER_OWNED",
+  "oldVercelProject": {
+    "id": "prj_ukfEDK4xcDqnSOjBrzRIrOP1ECpJ",
+    "action": "Retain until user transfer acceptance; pause afterward."
+  },
+  "website": {
+    "deploymentUnchanged": true,
+    "readOnly": true
+  },
+  "runtime": {
+    "container": "uc-try-try-1",
+    "imageReference": "ghcr.io/uniclipboard/uc-try@sha256:d1a1d7c229eb50895d444a9528afc68bf60904387d3759eff8c14aa557045311",
+    "serverImageId": "sha256:d1a1d7c229eb50895d444a9528afc68bf60904387d3759eff8c14aa557045311",
+    "source": "18a0a44ed6ffcac7e07d4db6196df551bff95671",
+    "health": "healthy"
+  }
+}

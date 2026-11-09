@@ -1,0 +1,10 @@
+{
+  "sourceDeployment": "dpl_Eu3dZLz1KQZZrjDKDWD9yyS6S65P",
+  "assetsVerified": 57,
+  "bytesVerified": 1849443,
+  "allDigestsMatch": true,
+  "unknownAssetStatus": 404,
+  "transport": "server-loopback HTTPS with Origin CA validation",
+  "openrestyConfigSha256": "db22611dea7a0b34da0fc95d2b5c49d56199d890d9e233bb572542f3854d57bc",
+  "recordedAt": "2026-11-09T05:29:10.011028+00:00"
+}

@@ -1,153 +1,176 @@
+import { randomUUID } from "node:crypto";
+
 import { sql } from "drizzle-orm";
 import {
-  boolean,
   check,
   index,
   integer,
-  jsonb,
-  pgEnum,
-  pgTable,
   primaryKey,
+  sqliteTable,
   text,
-  timestamp,
   uniqueIndex,
-  uuid,
-} from "drizzle-orm/pg-core";
+} from "drizzle-orm/sqlite-core";
 
-export const articleCategoryEnum = pgEnum("article_category", [
-  "compare",
-  "use-cases",
-  "blog",
-]);
+export const articleCategoryEnum = ["compare", "use-cases", "blog"] as const;
 
-export const articleStatusEnum = pgEnum("article_status", [
-  "draft",
-  "published",
-]);
+export const articleStatusEnum = ["draft", "published"] as const;
 
-export const articleLocaleEnum = pgEnum("article_locale", ["en", "zh"]);
+export const articleLocaleEnum = ["en", "zh"] as const;
 
-export const sponsorTierEnum = pgEnum("sponsor_tier", ["gold", "regular"]);
+export const sponsorTierEnum = ["gold", "regular"] as const;
 
 /**
  * Publication state of a sponsor row. Admin-created rows default to "published"
  * and show on the wall immediately; self-service submissions (via an invite
  * link) start as "pending" and only appear once an admin approves them.
  */
-export const sponsorStatusEnum = pgEnum("sponsor_status", [
-  "pending",
-  "published",
-]);
+export const sponsorStatusEnum = ["pending", "published"] as const;
 
-export const articles = pgTable(
+export const articles = sqliteTable(
   "articles",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     slug: text("slug").notNull(),
-    category: articleCategoryEnum("category").notNull(),
+    category: text("category", { enum: articleCategoryEnum }).notNull(),
     datePublished: text("date_published").notNull(),
-    status: articleStatusEnum("status").notNull().default("draft"),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    status: text("status", { enum: articleStatusEnum })
       .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .default("draft"),
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
+      .notNull()
+      .$defaultFn(() => new Date()),
   },
   (table) => [
     uniqueIndex("articles_category_slug_idx").on(table.category, table.slug),
     index("articles_status_idx").on(table.status),
+    check(
+      "articles_category_check",
+      sql`${table.category} in ('compare', 'use-cases', 'blog')`,
+    ),
+    check(
+      "articles_status_check",
+      sql`${table.status} in ('draft', 'published')`,
+    ),
   ],
 );
 
-export const articleTranslations = pgTable(
+export const articleTranslations = sqliteTable(
   "article_translations",
   {
-    articleId: uuid("article_id")
+    articleId: text("article_id")
       .notNull()
       .references(() => articles.id, { onDelete: "cascade" }),
-    locale: articleLocaleEnum("locale").notNull(),
-    payload: jsonb("payload").notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
+    locale: text("locale", { enum: articleLocaleEnum }).notNull(),
+    payload: text("payload", { mode: "json" }).notNull(),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
   },
   (table) => [
     primaryKey({ columns: [table.articleId, table.locale] }),
     index("article_translations_article_id_idx").on(table.articleId),
+    check(
+      "article_translations_locale_check",
+      sql`${table.locale} in ('en', 'zh')`,
+    ),
+    check(
+      "article_translations_payload_check",
+      sql`json_valid(${table.payload})`,
+    ),
   ],
 );
 
-export const apiTokens = pgTable(
+export const apiTokens = sqliteTable(
   "api_tokens",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     tokenHash: text("token_hash").notNull(),
     label: text("label").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
-    lastUsedAt: timestamp("last_used_at", { withTimezone: true }),
-    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+      .$defaultFn(() => new Date()),
+    lastUsedAt: integer("last_used_at", { mode: "timestamp_ms" }),
+    revokedAt: integer("revoked_at", { mode: "timestamp_ms" }),
   },
   (table) => [uniqueIndex("api_tokens_token_hash_idx").on(table.tokenHash)],
 );
 
-export const releases = pgTable(
+export const releases = sqliteTable(
   "releases",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     version: text("version").notNull(),
-    pubDate: timestamp("pub_date", { withTimezone: true }).notNull(),
+    pubDate: integer("pub_date", { mode: "timestamp_ms" }).notNull(),
     notesEn: text("notes_en").notNull(),
     notesZh: text("notes_zh").notNull(),
-    platforms: jsonb("platforms").notNull(),
-    rawPayload: jsonb("raw_payload").notNull(),
-    manualOverride: boolean("manual_override").notNull().default(false),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    platforms: text("platforms", { mode: "json" }).notNull(),
+    rawPayload: text("raw_payload", { mode: "json" }).notNull(),
+    manualOverride: integer("manual_override", { mode: "boolean" })
       .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .default(false),
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
+      .notNull()
+      .$defaultFn(() => new Date()),
   },
   (table) => [
     uniqueIndex("releases_version_idx").on(table.version),
     index("releases_pub_date_idx").on(table.pubDate),
+    check("releases_platforms_check", sql`json_valid(${table.platforms})`),
+    check("releases_raw_payload_check", sql`json_valid(${table.rawPayload})`),
+    check(
+      "releases_manual_override_check",
+      sql`${table.manualOverride} in (0, 1)`,
+    ),
   ],
 );
 
-export const founders = pgTable(
+export const founders = sqliteTable(
   "founders",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     name: text("name").notNull(),
     platform: text("platform").notNull(),
     joinedAt: text("joined_at").notNull(),
     note: text("note"),
     displayOrder: integer("display_order").notNull().default(0),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
   },
   (table) => [index("founders_display_order_idx").on(table.displayOrder)],
 );
 
-export const iosBetaSignups = pgTable(
+export const iosBetaSignups = sqliteTable(
   "ios_beta_signups",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     email: text("email").notNull(),
     locale: text("locale"),
     userAgent: text("user_agent"),
     note: text("note"),
-    invitedAt: timestamp("invited_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    invitedAt: integer("invited_at", { mode: "timestamp_ms" }),
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
   },
   (table) => [
     uniqueIndex("ios_beta_signups_email_idx").on(table.email),
@@ -155,19 +178,23 @@ export const iosBetaSignups = pgTable(
   ],
 );
 
-export const sponsors = pgTable(
+export const sponsors = sqliteTable(
   "sponsors",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     name: text("name").notNull(),
     /** Optional homepage / profile link shown on the wall. */
     url: text("url"),
-    tier: sponsorTierEnum("tier").notNull().default("regular"),
+    tier: text("tier", { enum: sponsorTierEnum }).notNull().default("regular"),
     /**
      * Publication state. Admin-created rows are "published"; self-service
      * submissions via an invite link start "pending" until an admin approves.
      */
-    status: sponsorStatusEnum("status").notNull().default("published"),
+    status: text("status", { enum: sponsorStatusEnum })
+      .notNull()
+      .default("published"),
     /** Month they started sponsoring, e.g. "2026-01". */
     since: text("since"),
     /** One-line public shout-out shown under the name. */
@@ -183,16 +210,21 @@ export const sponsors = pgTable(
     /** Content-type for the uploaded avatar, e.g. "image/webp". */
     avatarMime: text("avatar_mime"),
     displayOrder: integer("display_order").notNull().default(0),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
-    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
   },
   (table) => [
     index("sponsors_display_order_idx").on(table.displayOrder),
     index("sponsors_status_idx").on(table.status),
+    check("sponsors_tier_check", sql`${table.tier} in ('gold', 'regular')`),
+    check(
+      "sponsors_status_check",
+      sql`${table.status} in ('pending', 'published')`,
+    ),
     // Monetary integrity: amount is either unset (NULL) or non-negative.
     check("sponsors_amount_cents_non_negative", sql`${table.amountCents} >= 0`),
   ],
@@ -206,33 +238,39 @@ export const sponsors = pgTable(
  * never sees or edits those. A link is consumed (`usedAt`) the moment a sponsor
  * submits, which creates a "pending" sponsor row referenced by `sponsorId`.
  */
-export const sponsorInvites = pgTable(
+export const sponsorInvites = sqliteTable(
   "sponsor_invites",
   {
-    id: uuid("id").primaryKey().defaultRandom(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
     /** SHA-256 hash of the raw token; the raw token is shown to the admin once. */
     tokenHash: text("token_hash").notNull(),
     /** Admin-only memo, e.g. who the link was sent to. */
     label: text("label"),
     /** Tier the resulting sponsor row inherits. */
-    tier: sponsorTierEnum("tier").notNull().default("regular"),
+    tier: text("tier", { enum: sponsorTierEnum }).notNull().default("regular"),
     /** Sponsorship amount in cents (CNY) the resulting row inherits. Admin-only. */
     amountCents: integer("amount_cents"),
     /** When the link stops being valid. NULL means it never expires. */
-    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    expiresAt: integer("expires_at", { mode: "timestamp_ms" }),
     /** When the link was consumed. NULL means still usable. */
-    usedAt: timestamp("used_at", { withTimezone: true }),
+    usedAt: integer("used_at", { mode: "timestamp_ms" }),
     /** The sponsor row created when the link was consumed. */
-    sponsorId: uuid("sponsor_id").references(() => sponsors.id, {
+    sponsorId: text("sponsor_id").references(() => sponsors.id, {
       onDelete: "set null",
     }),
-    createdAt: timestamp("created_at", { withTimezone: true })
+    createdAt: integer("created_at", { mode: "timestamp_ms" })
       .notNull()
-      .defaultNow(),
+      .$defaultFn(() => new Date()),
   },
   (table) => [
     uniqueIndex("sponsor_invites_token_hash_idx").on(table.tokenHash),
     index("sponsor_invites_created_at_idx").on(table.createdAt),
+    check(
+      "sponsor_invites_tier_check",
+      sql`${table.tier} in ('gold', 'regular')`,
+    ),
     check(
       "sponsor_invites_amount_cents_non_negative",
       sql`${table.amountCents} >= 0`,
@@ -256,5 +294,3 @@ export type Sponsor = typeof sponsors.$inferSelect;
 export type NewSponsor = typeof sponsors.$inferInsert;
 export type SponsorInvite = typeof sponsorInvites.$inferSelect;
 export type NewSponsorInvite = typeof sponsorInvites.$inferInsert;
-
-export const updateUpdatedAt = sql`now()`;

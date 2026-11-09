@@ -1,0 +1,16 @@
+{
+  "website": {
+    "directory": "/opt/uc-website",
+    "staticRoot": "/opt/1panel/www/sites/www.uniclipboard.app",
+    "port": 3320,
+    "publicUrl": "https://www.uniclipboard.app",
+    "container": "uc-website-website-1"
+  },
+  "try": {
+    "directory": "/opt/uc-try",
+    "staticRoot": "/opt/1panel/www/sites/try.uniclipboard.app",
+    "port": 3321,
+    "publicUrl": "https://try.uniclipboard.app",
+    "container": "uc-try-try-1"
+  }
+}

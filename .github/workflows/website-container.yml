@@ -1,0 +1,234 @@
+name: Website container
+on:
+  push:
+    branches: [main, feat/primaryserver-sqlite-migration]
+    paths-ignore: ["apps/try/**", "docs/**", ".planning/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: website-container-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    outputs:
+      website: ${{ steps.website.outputs.digest }}
+      scheduler: ${{ steps.scheduler.outputs.digest }}
+      maintenance: ${{ steps.maintenance.outputs.digest }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download the public build snapshot
+        env:
+          BUILD_KEY: ${{ secrets.WEBSITE_BUILD_SSH_KEY }}
+          BUILD_TARGET: ${{ secrets.WEBSITE_BUILD_TARGET }}
+          BUILD_PORT: ${{ secrets.WEBSITE_BUILD_PORT }}
+          BUILD_HOSTS: ${{ secrets.WEBSITE_BUILD_KNOWN_HOSTS }}
+          BUILD_ENV: ${{ secrets.WEBSITE_BUILD_ENV }}
+        run: |
+          set -euo pipefail
+          install -d -m 700 .build-inputs
+          printf '%s\n' "$BUILD_KEY" > .build-inputs/key
+          printf '%s\n' "$BUILD_HOSTS" > .build-inputs/known_hosts
+          printf '%s\n' "$BUILD_ENV" > .build-inputs/build.env
+          chmod 600 .build-inputs/*
+          ssh -i .build-inputs/key -p "$BUILD_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=.build-inputs/known_hosts "$BUILD_TARGET" > .build-inputs/public.sqlite
+          test -s .build-inputs/public.sqlite
+          gzip -c .build-inputs/public.sqlite > .build-inputs/public.sqlite.gz
+          digest=$(cat .build-inputs/public.sqlite .build-inputs/build.env | sha256sum | cut -d ' ' -f 1)
+          echo "BUILD_INPUT_DIGEST=$digest" >> "$GITHUB_ENV"
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish website
+        id: website
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: website
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/uniclipboard/uc-website:${{ github.sha }}
+          build-args: |
+            SOURCE_REVISION=${{ github.sha }}
+            BUILD_INPUT_DIGEST=${{ env.BUILD_INPUT_DIGEST }}
+          secret-files: |
+            build_db=.build-inputs/public.sqlite.gz
+            build_env=.build-inputs/build.env
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build and publish scheduler
+        id: scheduler
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: scheduler
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/uniclipboard/uc-website-scheduler:${{ github.sha }}
+          build-args: |
+            SOURCE_REVISION=${{ github.sha }}
+            BUILD_INPUT_DIGEST=${{ env.BUILD_INPUT_DIGEST }}
+          secret-files: |
+            build_db=.build-inputs/public.sqlite.gz
+            build_env=.build-inputs/build.env
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build and publish database maintenance image
+        id: maintenance
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: maintenance
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/uniclipboard/uc-website-maintenance:${{ github.sha }}
+          build-args: SOURCE_REVISION=${{ github.sha }}
+          cache-from: type=gha
+      - name: Validate the production container through HTTP
+        env:
+          WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
+        run: |
+          set -euo pipefail
+          trap 'status=$?; if [ "$status" -ne 0 ]; then docker logs migration-e2e 2>&1 || true; docker logs migration-restored 2>&1 || true; fi; exit "$status"' EXIT
+          docker buildx build --load --target maintenance -t uc-website-maintenance .
+          mkdir -p .migration/ci
+          chmod 777 .migration/ci
+          cp .build-inputs/public.sqlite .migration/ci/website.sqlite
+          chmod 666 .migration/ci/website.sqlite
+          docker run --rm --user "$(id -u):$(id -g)" -e SQLITE_PATH=/fixture/website.sqlite -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migrate.ts
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migration/fixture.ts /fixture/website.sqlite /fixture/fixture.env
+          docker run -d --name migration-e2e -p 127.0.0.1:3317:3000 -v "$PWD/.migration/ci:/data" --env-file .build-inputs/build.env -e CRON_SECRET=migration-fixture-secret "$WEBSITE_IMAGE"
+          if docker run --rm -e SQLITE_PATH=/data/missing.sqlite "$WEBSITE_IMAGE"; then
+            echo 'Missing database must fail startup'
+            exit 1
+          fi
+          for _attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
+            sleep 1
+          done
+          MIGRATION_E2E_URL=http://localhost:3317 node --env-file=.migration/ci/fixture.env e2e/migration/http.mjs
+          docker restart migration-e2e
+          for _attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:3317/api/health/ready
+          docker run --rm -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migration/database.ts backup /fixture/website.sqlite /fixture/restored.sqlite
+          sudo chmod 666 .migration/ci/restored.sqlite
+          docker rm -f migration-e2e
+          docker run -d --name migration-restored -p 127.0.0.1:3317:3000 -v "$PWD/.migration/ci:/data" --env-file .build-inputs/build.env -e SQLITE_PATH=/data/restored.sqlite -e CRON_SECRET=migration-fixture-secret "$WEBSITE_IMAGE"
+          for _attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
+            sleep 1
+          done
+          node --env-file=.migration/ci/fixture.env --input-type=module - <<'JS'
+          import assert from 'node:assert/strict';
+          import {readFileSync,writeFileSync} from 'node:fs';
+          assert.equal((await fetch(`http://localhost:3317/api/sponsor-invite/${process.env.MIGRATION_E2E_INVITE}`)).status,410);
+          assert.equal((await fetch('http://localhost:3317/api/v1/articles',{headers:{authorization:`Bearer ${process.env.MIGRATION_E2E_TOKEN}`}})).status,200);
+          const receipt=JSON.parse(readFileSync('.migration/receipts/http.json'));
+          receipt.results.push({name:'container replacement and online backup restore preserve committed data',status:'PASS'});
+          writeFileSync('.migration/receipts/http.json',JSON.stringify(receipt,null,2)+'\n');
+          JS
+      - name: Verify deployment and rollback with disposable Docker projects
+        env:
+          WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
+          SCHEDULER_IMAGE: ghcr.io/uniclipboard/uc-website-scheduler@${{ steps.scheduler.outputs.digest }}
+          MAINTENANCE_IMAGE: ghcr.io/uniclipboard/uc-website-maintenance@${{ steps.maintenance.outputs.digest }}
+        run: |
+          set -euo pipefail
+          # Both apps use the same deployment program. Exercise the website here.
+          sudo python3 e2e/deployment/http.py --app website --website "$WEBSITE_IMAGE" --scheduler "$SCHEDULER_IMAGE" --maintenance "$MAINTENANCE_IMAGE" --source "$GITHUB_SHA" --database "$PWD/.build-inputs/public.sqlite" --runtime-env "$PWD/.build-inputs/build.env"
+      - name: Save deployment acceptance receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-deployment-e2e
+          path: .migration/receipts/deployment.json
+          if-no-files-found: ignore
+      - name: Save HTTP acceptance receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-http-acceptance
+          path: .migration/receipts/http.json
+          if-no-files-found: ignore
+      - name: Resolve immutable image configuration identities
+        env:
+          WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
+          SCHEDULER_IMAGE: ghcr.io/uniclipboard/uc-website-scheduler@${{ steps.scheduler.outputs.digest }}
+        run: |
+          set -euo pipefail
+          docker pull "$WEBSITE_IMAGE"
+          docker pull "$SCHEDULER_IMAGE"
+          website_id=$(docker inspect --format '{{.Id}}' "$WEBSITE_IMAGE")
+          scheduler_id=$(docker inspect --format '{{.Id}}' "$SCHEDULER_IMAGE")
+          echo "WEBSITE_LOCAL_ID=$website_id" >> "$GITHUB_ENV"
+          echo "SCHEDULER_LOCAL_ID=$scheduler_id" >> "$GITHUB_ENV"
+      - name: Record immutable image identities
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+          WEBSITE_DIGEST: ${{ steps.website.outputs.digest }}
+          SCHEDULER_DIGEST: ${{ steps.scheduler.outputs.digest }}
+          MAINTENANCE_DIGEST: ${{ steps.maintenance.outputs.digest }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          Path('image-receipt.json').write_text(json.dumps({
+            'source': os.environ['SOURCE_SHA'],
+            'website': 'ghcr.io/uniclipboard/uc-website@' + os.environ['WEBSITE_DIGEST'],
+            'scheduler': 'ghcr.io/uniclipboard/uc-website-scheduler@' + os.environ['SCHEDULER_DIGEST'],
+            'maintenance': 'ghcr.io/uniclipboard/uc-website-maintenance@' + os.environ['MAINTENANCE_DIGEST'],
+            'websiteLocalImageId': os.environ['WEBSITE_LOCAL_ID'],
+            'schedulerLocalImageId': os.environ['SCHEDULER_LOCAL_ID'],
+          }, indent=2) + '\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-image-receipt
+          path: image-receipt.json
+      - name: Remove temporary build inputs
+        if: always()
+        run: rm -rf .build-inputs
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: production-website
+      url: https://www.uniclipboard.app
+    concurrency:
+      group: production-website
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          app: website
+          source: ${{ github.sha }}
+          images: '{"website":"ghcr.io/uniclipboard/uc-website@${{ needs.build.outputs.website }}","scheduler":"ghcr.io/uniclipboard/uc-website-scheduler@${{ needs.build.outputs.scheduler }}","maintenance":"ghcr.io/uniclipboard/uc-website-maintenance@${{ needs.build.outputs.maintenance }}"}'
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          target: ${{ secrets.DEPLOY_TARGET }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          known-hosts: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-production-deployment
+          path: .deployment/*.json
+          if-no-files-found: ignore

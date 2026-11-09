@@ -1,0 +1,73 @@
+{
+  "source": "3ec6d890f61e1d2a1d4069eae034ae39d0220390",
+  "website": "ghcr.io/uniclipboard/uc-website@sha256:e0f14962ec584ff5b8b06da4fc87ad70e92866b6816db8f87fdb0c4fd35e3cc7",
+  "scheduler": "ghcr.io/uniclipboard/uc-website-scheduler@sha256:b0f0b98fb8d3d92a5cabb4eda937bc970a5cfb3c2b6c0f88b4c0221e84df27c6",
+  "websiteLocalImageId": "sha256:dfa27095667cdb68d4afacf843c7772ea67908ae760f1785b74b3f7b036096e9",
+  "schedulerLocalImageId": "sha256:26b7a89de985b6b2a012f242e2ba62e1b7be28b5d87e5dbbee6525ab42805775",
+  "status": "PRE_CUTOVER_ONLY",
+  "recordedAt": "2026-11-09T05:18:15.302089+00:00",
+  "ci": "https://github.com/UniClipboard/uc-website/actions/runs/42565448574",
+  "httpChecks": [
+    {
+      "name": "liveness and database readiness",
+      "status": "PASS"
+    },
+    {
+      "name": "unauthorized APIs and cron reject requests",
+      "status": "PASS"
+    },
+    {
+      "name": "active token and article creation",
+      "status": "PASS"
+    },
+    {
+      "name": "public content and representation isolation",
+      "status": "PASS"
+    },
+    {
+      "name": "article update invalidates public cache",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent invitation consumption is atomic",
+      "status": "PASS"
+    },
+    {
+      "name": "duplicate beta signup remains idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "public pages and metadata",
+      "status": "PASS"
+    },
+    {
+      "name": "fixture article deletion",
+      "status": "PASS"
+    },
+    {
+      "name": "container replacement and online backup restore preserve committed data",
+      "status": "PASS"
+    }
+  ],
+  "staging": {
+    "host": "primaryserver",
+    "port": "127.0.0.1:3320",
+    "readOnly": true,
+    "databaseSnapshotAt": "2026-11-09T04:35:26.844Z",
+    "originTls": "Server-loopback HTTPS verified with Cloudflare Origin CA",
+    "home": 200,
+    "apexRedirect": 308,
+    "adminSignInHttp": 200,
+    "homeOg": "200 image/png",
+    "downloadOg": "200 image/png"
+  },
+  "productionChanged": false,
+  "notRun": [
+    "R2 encrypted backup and restore",
+    "final source write freeze and export",
+    "final data promotion",
+    "website DNS cutover",
+    "canonical-host user browser acceptance",
+    "legacy client asset continuity at cutover"
+  ]
+}

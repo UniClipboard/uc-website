@@ -1,29 +1,25 @@
-import "dotenv/config";
+import { mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 
 import { config } from "dotenv";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { migrate } from "drizzle-orm/postgres-js/migrator";
-import postgres from "postgres";
+import { drizzle } from "drizzle-orm/better-sqlite3";
+import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 
-config({ path: ".env.local" });
-config({ path: ".env" });
+import { openSqlite } from "../src/db/connection";
 
-const url = process.env.DATABASE_URL;
-if (!url) {
-  throw new Error("DATABASE_URL is not set");
+config({ path: ".env.local", quiet: true });
+const path = process.env.SQLITE_PATH;
+if (!path) throw new Error("SQLITE_PATH is required");
+mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
+const client = openSqlite(path, true);
+try {
+  migrate(drizzle(client), { migrationsFolder: "./drizzle/sqlite" });
+  console.log(
+    JSON.stringify({
+      status: "migrated",
+      sqlite: client.prepare("select sqlite_version() as version").get(),
+    }),
+  );
+} finally {
+  client.close();
 }
-
-const client = postgres(url, { max: 1 });
-const db = drizzle(client);
-
-async function main() {
-  console.log("Running migrations...");
-  await migrate(db, { migrationsFolder: "./drizzle" });
-  console.log("Migrations complete.");
-  await client.end();
-}
-
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});

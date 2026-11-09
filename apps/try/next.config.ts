@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const config: NextConfig = {
+  output: "standalone",
   outputFileTracingRoot: process.cwd(),
   // Lint shared and app source with the repository's existing ESLint command;
   // this independent build does not install the website's lint toolchain.

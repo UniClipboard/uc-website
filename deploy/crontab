@@ -1,0 +1,7 @@
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/bin:/bin
+# UTC. flock prevents overlap; the job has a bounded HTTP timeout.
+0 3 * * * root flock -n /tmp/release-sync.lock node /app/deploy/jobs.mjs sync >/proc/1/fd/1 2>/proc/1/fd/2
+0 2 * * * root flock -n /tmp/backup.lock node --env-file=/run/secrets/backup_env /app/deploy/jobs.mjs backup >/proc/1/fd/1 2>/proc/1/fd/2
+0 4 * * 0 root flock -n /tmp/backup.lock node --env-file=/run/secrets/backup_env /app/deploy/jobs.mjs check >/proc/1/fd/1 2>/proc/1/fd/2
+

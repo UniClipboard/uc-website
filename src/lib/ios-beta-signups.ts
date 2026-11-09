@@ -50,7 +50,7 @@ export async function listIosBetaSignups(): Promise<IosBetaSignupRow[]> {
 
 export async function countIosBetaSignups(): Promise<number> {
   const [row] = await db
-    .select({ count: sql<number>`count(*)::int` })
+    .select({ count: sql<number>`count(*)` })
     .from(iosBetaSignups);
   return row?.count ?? 0;
 }

@@ -2,7 +2,9 @@
 
 ## Scope and state
 
-The migration is in progress. Use the final cutover receipt for activation evidence.
+The transfer site routes to primaryserver as of 2026-11-09T07:07:38Z.
+Automatic HTTP verification passes. User browser transfer acceptance remains pending.
+Use [the cutover receipt](receipts/2026-11-09-try-cutover.json) for source, image, and routing evidence.
 The independent application is `apps/try`.
 The canonical origin remains `https://try.uniclipboard.app`.
 The marketing website keeps its separate deployment and maintenance state.
@@ -66,7 +68,7 @@ Keep private keys at mode 0600.
 Keep the try record DNS-only.
 The initial certificate uses DNS-01 before the origin switch.
 Remove only the temporary TXT record created for that challenge.
-After the DNS switch, configure automated HTTP-01 renewal with Certbot's webroot authenticator.
+Certbot now uses the webroot authenticator for automated HTTP-01 renewal.
 Run a staging renewal before declaring automatic renewal ready.
 The deploy hook copies renewed files into the existing OpenResty mount and tests configuration before reload.
 Do not stop OpenResty to renew the certificate.
@@ -98,7 +100,7 @@ cd /opt/uc-try
 docker compose ps
 docker inspect uc-try-try-1 --format '{{.Config.Image}} {{index .Config.Labels "org.opencontainers.image.revision"}}'
 curl --fail http://127.0.0.1:3321/api/health/live
-certbot renew --cert-name try.uniclipboard.app --dry-run
+certbot renew --cert-name try.uniclipboard.app --dry-run --run-deploy-hooks --no-random-sleep-on-renew
 systemctl list-timers certbot.timer
 ```
 

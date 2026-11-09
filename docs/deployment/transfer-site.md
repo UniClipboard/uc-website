@@ -5,6 +5,13 @@
 Each has its own Vercel project and build. Do not alias the transfer domain to
 `uc-website`: that would expose the entire marketing site on the new origin.
 
+## Container migration
+
+The transfer site routes to primaryserver as of 2026-11-09T07:07:38Z.
+User browser transfer acceptance remains pending.
+Use [the primaryserver runbook](try-primaryserver-runbook.md) for the new deployment and verification commands.
+The Vercel instructions below describe the original deployment and recovery source.
+
 ## Source and dependency boundary
 
 The transfer app has its own `package.json` and `bun.lock`, pinned to the same

@@ -2,10 +2,13 @@
 
 ## Deployment state
 
-The migration is in progress.
-Do not treat this runbook as proof of production activation.
-Use the final acceptance receipt for source, image, data, and routing identities.
+The website routes to primaryserver as of 2026-11-09T06:19:47Z.
+The database remains read-only while the user checks the pages and admin login.
+Scheduled jobs remain stopped until that check passes.
+Use [the cutover receipt](receipts/2026-11-09-cutover.json) for source, image, data, and routing identities.
 The transfer site remains on Vercel.
+The old website project is paused.
+Neon remains frozen as a recovery source.
 
 ## Files and ownership
 
@@ -14,7 +17,7 @@ The deployment directory is `/opt/uc-website`.
 | Path                      | Owner or purpose                                               |
 | ------------------------- | -------------------------------------------------------------- |
 | `compose.yml`             | Compose service definitions from this repository.              |
-| `.env`                    | Immutable local Docker image IDs and the loopback port.        |
+| `.env`                    | Immutable registry manifest references and the loopback port.        |
 | `website.env`             | Restricted website runtime configuration.                      |
 | `data/website.sqlite`     | Persistent SQLite database; runtime UID/GID 1000.              |
 | `secrets/cron_secret`     | Credential for the release synchronization job.                |
@@ -206,6 +209,9 @@ Do not treat preserved static assets as a replacement for browser acceptance acr
 ## Rollback boundary
 
 Before new SQLite writes, the old website and Neon can provide a platform rollback after the source gate release.
+Resume the old website project before restoring its DNS route.
+Verify its direct deployment first; the old deployment returned `DEPLOYMENT_DISABLED` during the cutover check.
+Do not assume that resuming the project resolves a Vercel billing restriction.
 After new SQLite writes, prefer a compatible SQLite application image.
 Returning to Neon then requires data reconciliation.
 Do not reactivate consumed invitations or revoked tokens by restoring stale data.

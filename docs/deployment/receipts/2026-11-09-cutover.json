@@ -1,0 +1,319 @@
+{
+  "source": "edbee2920dcfbd497b4a5cce753baaadda042010",
+  "website": "ghcr.io/uniclipboard/uc-website@sha256:4f39c6edd05a60f78a6aa322ac6c79b39eac25c47f96242b4e176569a471863e",
+  "scheduler": "ghcr.io/uniclipboard/uc-website-scheduler@sha256:836ae57b531d68d20b001682dbbdd8fe00a2cda03dc36a26df2ed04de6a83f2c",
+  "websiteLocalImageId": "sha256:9604470cd247273c6914ead685d7addf70f4980f1a7ded286398c4be47028f46",
+  "schedulerLocalImageId": "sha256:9353120d47732b2e8922aad07ddffdc9285c86f9830b3d3829a85d85ed6f4d33",
+  "state": "LIVE_READ_ONLY_USER_ACCEPTANCE_PENDING",
+  "recordedAt": "2026-11-09T06:20:32.046782+00:00",
+  "ci": "https://github.com/UniClipboard/uc-website/actions/runs/42567585703",
+  "sourceFreeze": {
+    "timestamp": "2026-11-09T06:17:56.206Z",
+    "triggers": 9,
+    "oldDeploymentMutationStatus": 402,
+    "insertedRows": 0,
+    "directSqlWriteRejected": true,
+    "oldDeploymentDisabled": true,
+    "status": "PASS"
+  },
+  "database": {
+    "sourceSnapshot": "2026-11-09T06:17:25.076Z",
+    "normalizedTimestamps": "UTC epoch milliseconds",
+    "results": [
+      {
+        "table": "articles",
+        "rows": 15,
+        "digest": "97eb56b1c771f011a24a10f0e5dbb40658fa6502bdd796f45f4388650f9a0030",
+        "status": "PASS"
+      },
+      {
+        "table": "article_translations",
+        "rows": 30,
+        "digest": "0a8cc2448043ab9e2e0a23848a1b6781e7fad12fc0e867a8c9a37ecbb762e9a1",
+        "status": "PASS"
+      },
+      {
+        "table": "api_tokens",
+        "rows": 16,
+        "digest": "a1984574e94ab91651665cc92794a05afd55e4cf378516370f2801b4622a322e",
+        "status": "PASS"
+      },
+      {
+        "table": "releases",
+        "rows": 32,
+        "digest": "c529cb2634567f55deadfed649f45ff3e5275e2cbabd736c5334dee9780c0827",
+        "status": "PASS"
+      },
+      {
+        "table": "founders",
+        "rows": 1,
+        "digest": "da6d994718561fb148c01aa51865ff3f643459cba4ff12ff94a36a00d4722dfe",
+        "status": "PASS"
+      },
+      {
+        "table": "ios_beta_signups",
+        "rows": 16,
+        "digest": "037f160984f7db585ec4b5c0611f11dd2e03bcca2bcc1efa1f0f2e3e896225bc",
+        "status": "PASS"
+      },
+      {
+        "table": "sponsors",
+        "rows": 12,
+        "digest": "bef45a5e1aaef1f70d93ddc24ed460fd09acc50af24d30ab2b7c7cd594671a91",
+        "status": "PASS"
+      },
+      {
+        "table": "sponsor_invites",
+        "rows": 10,
+        "digest": "7f511e01f68a672b4a43a0d2af746cc2b6225e1bbc123c692b3b62d0d89fc0b7",
+        "status": "PASS"
+      }
+    ],
+    "integrity": "ok",
+    "foreignKeys": "ok"
+  },
+  "buildPublicData": "Row-digest equivalent to final source snapshot; no build data changed.",
+  "r2Restore": {
+    "timestamp": "2026-11-09T06:16:24.529Z",
+    "results": [
+      {
+        "table": "articles",
+        "rows": 15,
+        "digest": "97eb56b1c771f011a24a10f0e5dbb40658fa6502bdd796f45f4388650f9a0030",
+        "status": "PASS"
+      },
+      {
+        "table": "article_translations",
+        "rows": 30,
+        "digest": "0a8cc2448043ab9e2e0a23848a1b6781e7fad12fc0e867a8c9a37ecbb762e9a1",
+        "status": "PASS"
+      },
+      {
+        "table": "api_tokens",
+        "rows": 16,
+        "digest": "a1984574e94ab91651665cc92794a05afd55e4cf378516370f2801b4622a322e",
+        "status": "PASS"
+      },
+      {
+        "table": "releases",
+        "rows": 32,
+        "digest": "c529cb2634567f55deadfed649f45ff3e5275e2cbabd736c5334dee9780c0827",
+        "status": "PASS"
+      },
+      {
+        "table": "founders",
+        "rows": 1,
+        "digest": "da6d994718561fb148c01aa51865ff3f643459cba4ff12ff94a36a00d4722dfe",
+        "status": "PASS"
+      },
+      {
+        "table": "ios_beta_signups",
+        "rows": 16,
+        "digest": "037f160984f7db585ec4b5c0611f11dd2e03bcca2bcc1efa1f0f2e3e896225bc",
+        "status": "PASS"
+      },
+      {
+        "table": "sponsors",
+        "rows": 12,
+        "digest": "bef45a5e1aaef1f70d93ddc24ed460fd09acc50af24d30ab2b7c7cd594671a91",
+        "status": "PASS"
+      },
+      {
+        "table": "sponsor_invites",
+        "rows": 10,
+        "digest": "7f511e01f68a672b4a43a0d2af746cc2b6225e1bbc123c692b3b62d0d89fc0b7",
+        "status": "PASS"
+      }
+    ],
+    "integrity": "ok",
+    "foreignKeys": "ok"
+  },
+  "originHttp": {
+    "timestamp": "2026-11-09T06:19:20.735688+00:00",
+    "transport": "origin-loopback-https",
+    "results": [
+      {
+        "path": "/",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/zh",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/download",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/blog",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/changelog",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/sponsor",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/api/health/live",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/api/health/ready",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/admin/sign-in",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/opengraph-image",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "path": "/download/opengraph-image",
+        "status": 200,
+        "result": "PASS"
+      },
+      {
+        "name": "maintenance rejects writes",
+        "status": 500,
+        "result": "PASS"
+      }
+    ]
+  },
+  "publicHttp": {
+    "timestamp": "2026-11-09T06:20:01.038657+00:00",
+    "transport": "public-cloudflare-from-primaryserver",
+    "results": [
+      {
+        "path": "/api/health/ready",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/zh",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/download",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/blog",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/changelog",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/sponsor",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/sitemap.xml",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/robots.txt",
+        "status": 200,
+        "cache": "cf-cache-status: expired",
+        "result": "PASS"
+      },
+      {
+        "path": "/admin/sign-in",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      },
+      {
+        "path": "/opengraph-image",
+        "status": 200,
+        "cache": "cf-cache-status: dynamic",
+        "result": "PASS"
+      }
+    ],
+    "apexRedirect": "308 https://www.uniclipboard.app/",
+    "browserAcceptance": "USER_PENDING"
+  },
+  "legacyAssets": {
+    "sourceDeployment": "dpl_Eu3dZLz1KQZZrjDKDWD9yyS6S65P",
+    "assetsVerified": 57,
+    "bytesVerified": 1849443,
+    "allDigestsMatch": true,
+    "unknownAssetStatus": 404,
+    "transport": "server-loopback HTTPS with Origin CA validation"
+  },
+  "routing": {
+    "apex": "primaryserver",
+    "www": "proxied CNAME to apex",
+    "try": "Unchanged Vercel CNAME"
+  },
+  "manualAcceptance": "PENDING",
+  "jobs": "NOT_STARTED",
+  "writes": "READ_ONLY",
+  "oldVercelProject": {
+    "id": "prj_0p22vzspGH8sfxcpUACPNg1bAgqN",
+    "paused": true,
+    "autoAssignCustomDomains": false
+  },
+  "tryPreserved": {
+    "project": "prj_ukfEDK4xcDqnSOjBrzRIrOP1ECpJ",
+    "comparedFields": [
+      "id",
+      "name",
+      "autoAssignCustomDomains",
+      "targets",
+      "link",
+      "framework",
+      "rootDirectory",
+      "buildCommand",
+      "installCommand",
+      "outputDirectory",
+      "gitProviderOptions"
+    ],
+    "configurationAndProductionTargetUnchanged": true
+  }
+}

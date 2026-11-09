@@ -2,7 +2,10 @@
 
 ## Status and scope
 
-This document defines a migration plan, not a completed deployment.
+This document records the migration design and the original source review.
+The website switched to primaryserver on 2026-11-09T06:19:47Z.
+The database remains read-only pending user acceptance.
+See [the cutover receipt](receipts/2026-11-09-cutover.json) and [the operations runbook](primaryserver-runbook.md) for execution evidence.
 The user selected the scope on 2026-11-09, Asia/Shanghai.
 The reviewed source is `3cd7a923b3d36dd5f4a7b6de6c1ef4c82a3eebcb` on `main`.
 

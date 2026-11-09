@@ -196,7 +196,12 @@ class Deployment:
                 # Keep the old WAL connection alive during its online backup.
                 self.compose('up', '-d', '--force-recreate', 'website', readonly=True)
                 self.wait()
-                self.compose('run', '--rm', '--no-deps', 'scheduler', 'node', '--env-file=/run/secrets/backup_env', 'deploy/jobs.mjs', 'backup')
+                backup_container = 'uc-website-deploy-backup-' + timestamp.lower()
+                try:
+                    self.compose('run', '--name', backup_container, '--rm', '--no-deps', 'scheduler', 'node', '--env-file=/run/secrets/backup_env', 'deploy/jobs.mjs', 'backup')
+                finally:
+                    # A timed-out Docker client must not leave its backup job running.
+                    subprocess.run(['docker', 'rm', '-f', backup_container], capture_output=True)
                 self.compose('stop', 'website')
                 backup(self.site / 'data/website.sqlite', snapshot)
                 with closing(sqlite3.connect(snapshot)) as db:

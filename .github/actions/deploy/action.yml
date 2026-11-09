@@ -46,7 +46,7 @@ runs:
         import json,os
         from pathlib import Path
         assert os.environ['GITHUB_REF'] == 'refs/heads/main'
-        payload={'version':1,'app':os.environ['DEPLOY_APP'],'source':os.environ['DEPLOY_SOURCE'],'ref':os.environ['GITHUB_REF'],'runNumber':int(os.environ['GITHUB_RUN_NUMBER']),'images':json.loads(os.environ['DEPLOY_IMAGES'])}
+        payload={'version':1,'app':os.environ['DEPLOY_APP'],'source':os.environ['DEPLOY_SOURCE'],'ref':os.environ['GITHUB_REF'],'runNumber':int(os.environ['GITHUB_RUN_NUMBER']),'runAttempt':int(os.environ['GITHUB_RUN_ATTEMPT']),'images':json.loads(os.environ['DEPLOY_IMAGES'])}
         Path('.deployment/request.json').write_text(json.dumps(payload)+'\n')
         PY
         ssh -i .deployment/key -p "$DEPLOY_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=.deployment/known_hosts "$DEPLOY_TARGET" deploy < .deployment/request.json > .deployment/result.json

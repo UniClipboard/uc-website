@@ -58,13 +58,13 @@ jobs:
           trap 'status=$?; if [ "$status" -ne 0 ]; then docker logs try-migration-e2e || true; fi; exit "$status"' EXIT
           docker pull "$TRY_IMAGE"
           docker run -d --name try-migration-e2e -p 127.0.0.1:3321:3000 "$TRY_IMAGE"
-          for attempt in $(seq 1 60); do
+          for _attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:3321/api/health/live >/dev/null; then break; fi
             sleep 1
           done
           node apps/try/e2e/http.mjs
           docker restart try-migration-e2e
-          for attempt in $(seq 1 60); do
+          for _attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:3321/api/health/live >/dev/null; then break; fi
             sleep 1
           done

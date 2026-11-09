@@ -1,5 +1,7 @@
 """Exercise the installed deployment program against disposable Docker projects."""
 import argparse
+from contextlib import closing
+from concurrent.futures import ThreadPoolExecutor
 import json
 import os
 from pathlib import Path
@@ -25,13 +27,13 @@ def command(args, **kw):
 
 def deploy(manifest, expected=0):
     p = subprocess.run(['python3', str(repo / 'deploy/automation/deploy.py'), '--config', str(root / 'config.json'), '--app', manifest['app'], '--stdin'], input=json.dumps(manifest), text=True, capture_output=True)
-    if p.returncode != expected:
+    if expected is not None and p.returncode != expected:
         raise RuntimeError(p.stdout + p.stderr)
     return json.loads(p.stdout)
 
 
 def manifest(app, number):
-    return {'version': 1, 'app': app, 'ref': 'refs/heads/main', 'source': a.source if app == 'website' else a.try_source, 'runNumber': number, 'images': {'website': a.website, 'scheduler': a.scheduler, 'maintenance': a.maintenance} if app == 'website' else {'try': a.try_image}}
+    return {'version': 1, 'app': app, 'ref': 'refs/heads/main', 'source': a.source if app == 'website' else a.try_source, 'runNumber': number, 'runAttempt': 1, 'images': {'website': a.website, 'scheduler': a.scheduler, 'maintenance': a.maintenance} if app == 'website' else {'try': a.try_image}}
 
 
 try:
@@ -48,7 +50,7 @@ try:
         (site / '.env').write_text(f'WEBSITE_IMAGE={image}\nSCHEDULER_IMAGE={a.scheduler}\nWEBSITE_PORT={port}\n' if app == 'website' else f'TRY_IMAGE={image}\n')
         if app == 'website':
             (site / 'data').mkdir()
-            with sqlite3.connect(a.database) as source, sqlite3.connect(site / 'data/website.sqlite') as target:
+            with closing(sqlite3.connect(a.database)) as source, closing(sqlite3.connect(site / 'data/website.sqlite')) as target:
                 source.backup(target)
                 before = target.execute('SELECT count(*) FROM articles').fetchone()[0]
             os.chown(site / 'data', 1000, 1000)
@@ -77,8 +79,21 @@ try:
         r = deploy(manifest(app, 1), 1)
         assert r['status'] == 'REJECTED', r
         results.append({'name': app + ' rejects stale release', 'status': 'PASS'})
+        invalid = manifest(app, 3)
+        key = next(iter(invalid['images']))
+        invalid['images'][key] = invalid['images'][key].split('@')[0] + ':latest'
+        assert deploy(invalid, 1)['status'] == 'REJECTED'
+        invalid = manifest(app, 3)
+        invalid['ref'] = 'refs/heads/feature'
+        assert deploy(invalid, 1)['status'] == 'REJECTED'
+        results.append({'name': app + ' rejects mutable images and non-main requests', 'status': 'PASS'})
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            concurrent = list(pool.map(lambda number: deploy(manifest(app, number), None), [3, 4]))
+        assert all(item['status'] in ('DEPLOYED', 'REJECTED') for item in concurrent), concurrent
+        assert json.loads((Path(config[app]['directory']) / 'releases/current.json').read_text())['runNumber'] == 4
+        results.append({'name': app + ' concurrent upgrades serialize and preserve newest release', 'status': 'PASS'})
     if a.app == 'website':
-        with sqlite3.connect(root / 'website/data/website.sqlite') as db:
+        with closing(sqlite3.connect(root / 'website/data/website.sqlite')) as db:
             assert db.execute('SELECT count(*) FROM articles').fetchone()[0] == before
             assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
         assert 'WEBSITE_READ_ONLY=1' in (root / 'website/website.env').read_text().splitlines()

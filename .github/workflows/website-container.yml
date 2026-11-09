@@ -110,13 +110,13 @@ jobs:
             echo 'Missing database must fail startup'
             exit 1
           fi
-          for attempt in $(seq 1 60); do
+          for _attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
             sleep 1
           done
           MIGRATION_E2E_URL=http://localhost:3317 node --env-file=.migration/ci/fixture.env e2e/migration/http.mjs
           docker restart migration-e2e
-          for attempt in $(seq 1 60); do
+          for _attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
             sleep 1
           done
@@ -125,7 +125,7 @@ jobs:
           sudo chmod 666 .migration/ci/restored.sqlite
           docker rm -f migration-e2e
           docker run -d --name migration-restored -p 127.0.0.1:3317:3000 -v "$PWD/.migration/ci:/data" --env-file .build-inputs/build.env -e SQLITE_PATH=/data/restored.sqlite -e CRON_SECRET=migration-fixture-secret "$WEBSITE_IMAGE"
-          for attempt in $(seq 1 60); do
+          for _attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
             sleep 1
           done

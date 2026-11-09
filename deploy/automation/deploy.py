@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Deploy two fixed Compose applications using reviewed immutable image manifests."""
 import argparse
+from contextlib import closing
 from datetime import datetime, timezone
 import fcntl
 import hashlib
@@ -32,7 +33,7 @@ def save(path, value):
 
 
 def backup(source, target):
-    with sqlite3.connect(f'file:{source}?mode=ro', uri=True) as a, sqlite3.connect(target) as b:
+    with closing(sqlite3.connect(f'file:{source}?mode=ro', uri=True)) as a, closing(sqlite3.connect(target)) as b:
         a.backup(b)
         if b.execute('PRAGMA integrity_check').fetchone()[0] != 'ok' or b.execute('PRAGMA foreign_key_check').fetchall():
             raise RuntimeError('SQLite backup validation failed')
@@ -40,12 +41,12 @@ def backup(source, target):
 
 
 def validate(request, app):
-    required = {'version', 'app', 'ref', 'source', 'runNumber', 'images'}
+    required = {'version', 'app', 'ref', 'source', 'runNumber', 'runAttempt', 'images'}
     if set(request) != required or request['version'] != 1 or request['app'] != app or request['ref'] != 'refs/heads/main':
         raise ValueError('Invalid release protocol, application or production branch')
     if not isinstance(request['source'], str) or not re.fullmatch('[a-f0-9]{40}', request['source']):
         raise ValueError('Invalid source revision')
-    if type(request['runNumber']) is not int or request['runNumber'] < 1:
+    if any(type(request[k]) is not int or request[k] < 1 for k in ('runNumber', 'runAttempt')):
         raise ValueError('Invalid workflow run number')
     keys = {'website', 'scheduler', 'maintenance'} if app == 'website' else {'try'}
     if set(request['images']) != keys:
@@ -148,14 +149,16 @@ class Deployment:
         approved = self.state / 'approved.json'
         if approved.exists():
             previous_approved = json.loads(approved.read_text())
-            if release['runNumber'] < previous_approved['runNumber'] or (release['runNumber'] == previous_approved['runNumber'] and release != previous_approved):
+            order = (release['runNumber'], release['runAttempt'])
+            previous_order = (previous_approved['runNumber'], previous_approved['runAttempt'])
+            if order < previous_order or (order == previous_order and release != previous_approved):
                 raise ValueError('Stale or conflicting workflow release')
         timestamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
         work = self.state / f'{release["runNumber"]}-{timestamp}'
         work.mkdir(mode=0o700)
         self.log = work / 'deployment.log'
         self.log.touch(mode=0o600)
-        receipt = {'app': self.app, 'source': release['source'], 'images': release['images'], 'runNumber': release['runNumber'], 'startedAt': timestamp, 'log': str(self.log)}
+        receipt = {'app': self.app, 'source': release['source'], 'images': release['images'], 'runNumber': release['runNumber'], 'runAttempt': release['runAttempt'], 'startedAt': timestamp, 'log': str(self.log)}
         old_env = (self.site / '.env').read_text()
         old_values = dict(line.split('=', 1) for line in old_env.splitlines() if '=' in line)
         main_key = 'WEBSITE_IMAGE' if self.app == 'website' else 'TRY_IMAGE'
@@ -191,10 +194,10 @@ class Deployment:
                 changed = True
                 backup(self.site / 'data/website.sqlite', snapshot)
                 self.compose('run', '--rm', '--no-deps', 'scheduler', 'node', '--env-file=/run/secrets/backup_env', 'deploy/jobs.mjs', 'backup')
-                with sqlite3.connect(snapshot) as db:
+                with closing(sqlite3.connect(snapshot)) as db:
                     before = db.execute('SELECT hash FROM __drizzle_migrations ORDER BY id').fetchall()
                 self.migrate(release['images']['maintenance'], self.site / 'data')
-                with sqlite3.connect(self.site / 'data/website.sqlite') as db:
+                with closing(sqlite3.connect(self.site / 'data/website.sqlite')) as db:
                     schema_changed = before != db.execute('SELECT hash FROM __drizzle_migrations ORDER BY id').fetchall()
                 atomic(self.readonly, 'services:\n  website:\n    environment:\n      WEBSITE_READ_ONLY: "1"\n')
             replacements = {'WEBSITE_IMAGE': release['images']['website'], 'SCHEDULER_IMAGE': release['images']['scheduler']} if self.app == 'website' else {'TRY_IMAGE': release['images']['try']}

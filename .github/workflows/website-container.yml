@@ -83,6 +83,7 @@ jobs:
           WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
         run: |
           set -euo pipefail
+          trap 'status=$?; if [ "$status" -ne 0 ]; then docker logs migration-e2e 2>&1 || true; docker logs migration-restored 2>&1 || true; fi; exit "$status"' EXIT
           docker buildx build --load --target maintenance -t uc-website-maintenance .
           mkdir -p .migration/ci
           chmod 777 .migration/ci
@@ -129,24 +130,18 @@ jobs:
           name: website-http-acceptance
           path: .migration/receipts/http.json
           if-no-files-found: ignore
-      - name: Stage verified images on primaryserver
+      - name: Resolve immutable image configuration identities
         env:
-          LOAD_KEY: ${{ secrets.WEBSITE_IMAGE_LOAD_SSH_KEY }}
-          BUILD_TARGET: ${{ secrets.WEBSITE_BUILD_TARGET }}
-          BUILD_PORT: ${{ secrets.WEBSITE_BUILD_PORT }}
           WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
           SCHEDULER_IMAGE: ghcr.io/uniclipboard/uc-website-scheduler@${{ steps.scheduler.outputs.digest }}
         run: |
           set -euo pipefail
-          printf '%s\n' "$LOAD_KEY" > .build-inputs/load-key
-          chmod 600 .build-inputs/load-key
           docker pull "$WEBSITE_IMAGE"
           docker pull "$SCHEDULER_IMAGE"
           website_id=$(docker inspect --format '{{.Id}}' "$WEBSITE_IMAGE")
           scheduler_id=$(docker inspect --format '{{.Id}}' "$SCHEDULER_IMAGE")
           echo "WEBSITE_LOCAL_ID=$website_id" >> "$GITHUB_ENV"
           echo "SCHEDULER_LOCAL_ID=$scheduler_id" >> "$GITHUB_ENV"
-          docker save "$website_id" "$scheduler_id" | gzip | ssh -i .build-inputs/load-key -p "$BUILD_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=.build-inputs/known_hosts "$BUILD_TARGET"
       - name: Record immutable image identities
         env:
           SOURCE_SHA: ${{ github.sha }}

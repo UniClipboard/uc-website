@@ -53,14 +53,15 @@ The `Website container` workflow builds the website and scheduler images.
 The workflow reads only a sanitized public snapshot through a forced SSH command.
 BuildKit receives a compressed snapshot through a secret mount.
 The snapshot/configuration digest invalidates the build cache when those inputs change.
-The workflow runs HTTP acceptance and stages the verified images through a separate forced image-load command.
+The workflow runs HTTP acceptance and publishes the image digests and configuration IDs.
+The operator pulls the verified public image digests on primaryserver.
 The server does not retain a registry access token.
-Image staging does not activate a deployment.
+An image pull does not activate a deployment.
 
 After the workflow passes:
 
 1. Download its `website-image-receipt` artifact.
-2. Verify the source commit and both image IDs on primaryserver.
+2. Pull both registry manifest references and verify their source commit and image IDs on primaryserver.
 3. Run a verified backup with the current scheduler image.
 4. Save the current `.env` as the rollback manifest.
 5. Stop the website and scheduler before any schema migration.

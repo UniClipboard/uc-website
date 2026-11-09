@@ -14,7 +14,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ARG BUILD_INPUT_DIGEST
 RUN --mount=type=secret,id=build_db,required=true \
     --mount=type=secret,id=build_env,required=true \
-    test -n "$BUILD_INPUT_DIGEST" && cp /run/secrets/build_db /tmp/build.sqlite && \
+    test -n "$BUILD_INPUT_DIGEST" && gunzip -c /run/secrets/build_db > /tmp/build.sqlite && \
     SQLITE_PATH=/tmp/build.sqlite node --env-file=/run/secrets/build_env node_modules/next/dist/bin/next build && \
     rm -f /tmp/build.sqlite /tmp/build.sqlite-wal /tmp/build.sqlite-shm && \
     find .next/standalone -type f \( -name '*.sqlite' -o -name '*.sqlite-wal' -o -name '*.sqlite-shm' -o -name '.env*' \) -delete

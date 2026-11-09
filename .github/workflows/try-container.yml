@@ -11,6 +11,9 @@ on:
       - messages/**
       - public/tailcat/**
       - .github/workflows/try-container.yml
+      - .github/actions/deploy/**
+      - deploy/automation/**
+      - e2e/deployment/**
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,7 +24,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
+    outputs:
+      image: ${{ steps.image.outputs.digest }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
@@ -64,6 +69,17 @@ jobs:
             sleep 1
           done
           curl -fsS http://127.0.0.1:3321/api/health/live
+      - name: Verify deployment and rollback with disposable Docker projects
+        env:
+          TRY_IMAGE: ghcr.io/uniclipboard/uc-try@${{ steps.image.outputs.digest }}
+        run: sudo python3 e2e/deployment/http.py --app try --try-image "$TRY_IMAGE" --try-source "$GITHUB_SHA"
+      - name: Save deployment acceptance receipt
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: try-deployment-e2e
+          path: .migration/receipts/deployment.json
+          if-no-files-found: ignore
       - name: Record immutable source and image identity
         env:
           SOURCE_REVISION: ${{ github.sha }}
@@ -78,4 +94,36 @@ jobs:
         with:
           name: try-container-acceptance
           path: .migration/try/*.json
+          if-no-files-found: ignore
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: production-try
+      url: https://try.uniclipboard.app
+    concurrency:
+      group: production-try
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          app: try
+          source: ${{ github.sha }}
+          images: '{"try":"ghcr.io/uniclipboard/uc-try@${{ needs.build.outputs.image }}"}'
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          target: ${{ secrets.DEPLOY_TARGET }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          known-hosts: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: try-production-deployment
+          path: .deployment/*.json
           if-no-files-found: ignore

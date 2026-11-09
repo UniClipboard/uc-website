@@ -75,3 +75,6 @@ sitemap-*.xml
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+
+# Deployment SSH requests and receipts
+.deployment/

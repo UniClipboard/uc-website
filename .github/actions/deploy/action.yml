@@ -1,0 +1,53 @@
+name: Deploy verified images
+description: Send the main release manifest through a restricted SSH command
+inputs:
+  app:
+    required: true
+    description: Fixed application identifier
+  source:
+    required: true
+    description: Source commit
+  images:
+    required: true
+    description: Immutable image map as JSON
+  key:
+    required: true
+    description: App-specific environment SSH key
+  target:
+    required: true
+    description: SSH target
+  port:
+    required: true
+    description: SSH port
+  known-hosts:
+    required: true
+    description: Pinned server host key
+runs:
+  using: composite
+  steps:
+    - name: Deploy the verified release
+      shell: bash
+      env:
+        DEPLOY_APP: ${{ inputs.app }}
+        DEPLOY_SOURCE: ${{ inputs.source }}
+        DEPLOY_IMAGES: ${{ inputs.images }}
+        DEPLOY_KEY: ${{ inputs.key }}
+        DEPLOY_TARGET: ${{ inputs.target }}
+        DEPLOY_PORT: ${{ inputs.port }}
+        DEPLOY_HOSTS: ${{ inputs.known-hosts }}
+      run: |
+        set -euo pipefail
+        install -d -m 700 .deployment
+        trap 'rm -f .deployment/key' EXIT
+        printf '%s\n' "$DEPLOY_KEY" > .deployment/key
+        printf '%s\n' "$DEPLOY_HOSTS" > .deployment/known_hosts
+        chmod 600 .deployment/key .deployment/known_hosts
+        python3 - <<'PY'
+        import json,os
+        from pathlib import Path
+        assert os.environ['GITHUB_REF'] == 'refs/heads/main'
+        payload={'version':1,'app':os.environ['DEPLOY_APP'],'source':os.environ['DEPLOY_SOURCE'],'ref':os.environ['GITHUB_REF'],'runNumber':int(os.environ['GITHUB_RUN_NUMBER']),'images':json.loads(os.environ['DEPLOY_IMAGES'])}
+        Path('.deployment/request.json').write_text(json.dumps(payload)+'\n')
+        PY
+        ssh -i .deployment/key -p "$DEPLOY_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=.deployment/known_hosts "$DEPLOY_TARGET" deploy < .deployment/request.json > .deployment/result.json
+        cat .deployment/result.json

@@ -16,7 +16,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 35
+    outputs:
+      website: ${{ steps.website.outputs.digest }}
+      scheduler: ${{ steps.scheduler.outputs.digest }}
+      maintenance: ${{ steps.maintenance.outputs.digest }}
     steps:
       - uses: actions/checkout@v4
       - name: Download the public build snapshot
@@ -78,6 +82,17 @@ jobs:
             build_env=.build-inputs/build.env
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Build and publish database maintenance image
+        id: maintenance
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: maintenance
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/uniclipboard/uc-website-maintenance:${{ github.sha }}
+          build-args: SOURCE_REVISION=${{ github.sha }}
+          cache-from: type=gha
       - name: Validate the production container through HTTP
         env:
           WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
@@ -123,6 +138,22 @@ jobs:
           receipt.results.push({name:'container replacement and online backup restore preserve committed data',status:'PASS'});
           writeFileSync('.migration/receipts/http.json',JSON.stringify(receipt,null,2)+'\n');
           JS
+      - name: Verify deployment and rollback with disposable Docker projects
+        env:
+          WEBSITE_IMAGE: ghcr.io/uniclipboard/uc-website@${{ steps.website.outputs.digest }}
+          SCHEDULER_IMAGE: ghcr.io/uniclipboard/uc-website-scheduler@${{ steps.scheduler.outputs.digest }}
+          MAINTENANCE_IMAGE: ghcr.io/uniclipboard/uc-website-maintenance@${{ steps.maintenance.outputs.digest }}
+        run: |
+          set -euo pipefail
+          # Both apps use the same deployment program. Exercise the website here.
+          sudo python3 e2e/deployment/http.py --app website --website "$WEBSITE_IMAGE" --scheduler "$SCHEDULER_IMAGE" --maintenance "$MAINTENANCE_IMAGE" --source "$GITHUB_SHA" --database "$PWD/.migration/ci/website.sqlite" --runtime-env "$PWD/.build-inputs/build.env"
+      - name: Save deployment acceptance receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-deployment-e2e
+          path: .migration/receipts/deployment.json
+          if-no-files-found: ignore
       - name: Save HTTP acceptance receipt
         if: always()
         uses: actions/upload-artifact@v4
@@ -166,3 +197,35 @@ jobs:
       - name: Remove temporary build inputs
         if: always()
         run: rm -rf .build-inputs
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: production-website
+      url: https://www.uniclipboard.app
+    concurrency:
+      group: production-website
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/deploy
+        with:
+          app: website
+          source: ${{ github.sha }}
+          images: '{"website":"ghcr.io/uniclipboard/uc-website@${{ needs.build.outputs.website }}","scheduler":"ghcr.io/uniclipboard/uc-website-scheduler@${{ needs.build.outputs.scheduler }}","maintenance":"ghcr.io/uniclipboard/uc-website-maintenance@${{ needs.build.outputs.maintenance }}"}'
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          target: ${{ secrets.DEPLOY_TARGET }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          known-hosts: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: website-production-deployment
+          path: .deployment/*.json
+          if-no-files-found: ignore

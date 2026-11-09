@@ -20,6 +20,9 @@ RUN --mount=type=secret,id=build_db,required=true \
     find .next/standalone -type f \( -name '*.sqlite' -o -name '*.sqlite-wal' -o -name '*.sqlite-shm' -o -name '.env*' \) -delete
 
 FROM dependencies AS maintenance
+ARG SOURCE_REVISION
+LABEL org.opencontainers.image.revision=$SOURCE_REVISION
+LABEL org.opencontainers.image.source=https://github.com/UniClipboard/uc-website
 COPY scripts ./scripts
 COPY src/db ./src/db
 COPY drizzle/sqlite ./drizzle/sqlite

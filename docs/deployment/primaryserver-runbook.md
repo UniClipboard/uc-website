@@ -42,10 +42,10 @@ curl --fail http://127.0.0.1:3320/api/health/live
 curl --fail http://127.0.0.1:3320/api/health/ready
 ```
 
-The image ID identifies the runtime image configuration.
+Record the server engine's image ID separately from the CI engine's image ID.
 The OCI revision label identifies the source commit.
-The CI image receipt also records the registry manifest digest.
-Do not substitute one identity for another.
+The CI image receipt records the registry manifest digest used for pulls.
+Use that manifest reference for activation rather than assuming engine IDs match across hosts.
 
 ## Build and activate a release
 
@@ -61,12 +61,12 @@ An image pull does not activate a deployment.
 After the workflow passes:
 
 1. Download its `website-image-receipt` artifact.
-2. Pull both registry manifest references and verify their source commit and image IDs on primaryserver.
+2. Pull both registry manifest references and record their source commit and server image IDs on primaryserver.
 3. Run a verified backup with the current scheduler image.
 4. Save the current `.env` as the rollback manifest.
 5. Stop the website and scheduler before any schema migration.
 6. Run the reviewed SQLite migrations with the maintenance image when needed.
-7. Set `.env` to the receipt's `websiteLocalImageId` and `schedulerLocalImageId`.
+7. Set `.env` to the receipt's `website` and `scheduler` registry manifest references.
 8. Recreate the website with `docker compose up -d --force-recreate website`.
 9. Verify readiness and public HTTP behavior.
 10. Start jobs with `docker compose --profile jobs up -d scheduler`.

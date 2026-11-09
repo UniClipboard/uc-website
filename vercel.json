@@ -6,5 +6,8 @@
       "schedule": "0 3 * * *"
     }
   ],
-  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':(exclude)apps/try'"
+  "ignoreCommand": "git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':(exclude)apps/try'",
+  "git": {
+    "deploymentEnabled": false
+  }
 }

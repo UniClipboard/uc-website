@@ -6,10 +6,10 @@ config({ path: ".env" });
 
 export default defineConfig({
   schema: "./src/db/schema.ts",
-  out: "./drizzle",
-  dialect: "postgresql",
+  out: "./drizzle/sqlite",
+  dialect: "sqlite",
   dbCredentials: {
-    url: process.env.DATABASE_URL ?? "",
+    url: process.env.SQLITE_PATH ?? "",
   },
   casing: "snake_case",
 });

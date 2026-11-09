@@ -4,10 +4,10 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { config as loadEnv } from "dotenv";
-import { drizzle } from "drizzle-orm/postgres-js";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 import { sql } from "drizzle-orm/sql";
-import postgres from "postgres";
 
+import { openSqlite } from "../src/db/connection";
 import { articles, articleTranslations } from "../src/db/schema";
 import {
   articleContentSchema,
@@ -17,9 +17,9 @@ import {
 loadEnv({ path: ".env.local" });
 loadEnv({ path: ".env" });
 
-const url = process.env.DATABASE_URL;
+const url = process.env.SQLITE_PATH;
 if (!url) {
-  throw new Error("DATABASE_URL is not set");
+  throw new Error("SQLITE_PATH is not set");
 }
 
 type LegacyPayload = {
@@ -196,7 +196,7 @@ async function main() {
     readFileSync(resolve("content/article-seeds/zh.json"), "utf8"),
   ) as Record<string, unknown>;
 
-  const client = postgres(url!, { max: 1 });
+  const client = openSqlite(url!);
   const db = drizzle(client);
 
   for (const spec of SEEDS) {
@@ -257,7 +257,7 @@ async function main() {
   }
 
   console.log("Seed complete.");
-  await client.end();
+  client.close();
 }
 
 main().catch((err) => {

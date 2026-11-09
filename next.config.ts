@@ -26,8 +26,9 @@ if (
 }
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+  serverExternalPackages: ["better-sqlite3", "@takumi-rs/core"],
   allowedDevOrigins: ["127.0.0.1"],
-  serverExternalPackages: ["@takumi-rs/core"],
   images: {
     remotePatterns: [
       {

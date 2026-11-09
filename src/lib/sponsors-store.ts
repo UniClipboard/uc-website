@@ -297,25 +297,29 @@ export async function swapSponsorOrder(
   idA: string,
   idB: string,
 ): Promise<boolean> {
-  return db.transaction(async (tx) => {
-    const rows = await tx
-      .select({ id: sponsors.id, displayOrder: sponsors.displayOrder })
-      .from(sponsors)
-      .where(inArray(sponsors.id, [idA, idB]));
-    const a = rows.find((r) => r.id === idA);
-    const b = rows.find((r) => r.id === idB);
-    if (!a || !b) return false;
-    const now = new Date();
-    await tx
-      .update(sponsors)
-      .set({ displayOrder: b.displayOrder, updatedAt: now })
-      .where(eq(sponsors.id, idA));
-    await tx
-      .update(sponsors)
-      .set({ displayOrder: a.displayOrder, updatedAt: now })
-      .where(eq(sponsors.id, idB));
-    return true;
-  });
+  return db.transaction(
+    (tx) => {
+      const rows = tx
+        .select({ id: sponsors.id, displayOrder: sponsors.displayOrder })
+        .from(sponsors)
+        .where(inArray(sponsors.id, [idA, idB]))
+        .all();
+      const a = rows.find((r) => r.id === idA);
+      const b = rows.find((r) => r.id === idB);
+      if (!a || !b) return false;
+      const now = new Date();
+      tx.update(sponsors)
+        .set({ displayOrder: b.displayOrder, updatedAt: now })
+        .where(eq(sponsors.id, idA))
+        .run();
+      tx.update(sponsors)
+        .set({ displayOrder: a.displayOrder, updatedAt: now })
+        .where(eq(sponsors.id, idB))
+        .run();
+      return true;
+    },
+    { behavior: "immediate" },
+  );
 }
 
 /**

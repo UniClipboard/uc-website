@@ -8,6 +8,7 @@ import {
   hubCacheTag,
 } from "@/db/articles";
 import { db } from "@/db/client";
+import { isUniqueConstraint } from "@/db/errors";
 import { articles, articleTranslations } from "@/db/schema";
 import { requireAdmin } from "@/lib/admin-auth";
 import { articleUpsertSchema } from "@/lib/article-content";
@@ -54,26 +55,52 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const [inserted] = await db
-    .insert(articles)
-    .values({
-      slug: parsed.slug,
-      category: parsed.category,
-      datePublished: parsed.datePublished,
-      status: parsed.status,
-    })
-    .returning();
+  try {
+    const inserted = db.transaction(
+      (tx) => {
+        const [row] = tx
+          .insert(articles)
+          .values({
+            slug: parsed.slug,
+            category: parsed.category,
+            datePublished: parsed.datePublished,
+            status: parsed.status,
+          })
+          .returning()
+          .all();
 
-  await db.insert(articleTranslations).values([
-    { articleId: inserted.id, locale: "en", payload: parsed.translations.en },
-    { articleId: inserted.id, locale: "zh", payload: parsed.translations.zh },
-  ]);
+        tx.insert(articleTranslations)
+          .values([
+            {
+              articleId: row.id,
+              locale: "en",
+              payload: parsed.translations.en,
+            },
+            {
+              articleId: row.id,
+              locale: "zh",
+              payload: parsed.translations.zh,
+            },
+          ])
+          .run();
+        return row;
+      },
+      { behavior: "immediate" },
+    );
 
-  revalidateTag(articleCacheTag(parsed.category, parsed.slug));
-  revalidateTag(hubCacheTag(parsed.category));
-  revalidateTag(allArticlesCacheTag);
+    revalidateTag(articleCacheTag(parsed.category, parsed.slug));
+    revalidateTag(hubCacheTag(parsed.category));
+    revalidateTag(allArticlesCacheTag);
 
-  return NextResponse.json({ id: inserted.id }, { status: 201 });
+    return NextResponse.json({ id: inserted.id }, { status: 201 });
+  } catch (error) {
+    if (isUniqueConstraint(error))
+      return NextResponse.json(
+        { error: "An article with this category and slug already exists." },
+        { status: 409 },
+      );
+    throw error;
+  }
 }
 
 export async function GET() {

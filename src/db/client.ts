@@ -1,28 +1,12 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 
+import { openSqlite } from "./connection";
 import * as schema from "./schema";
 
-const connectionString = process.env.DATABASE_URL;
-
-if (!connectionString) {
-  throw new Error("DATABASE_URL is not set");
-}
-
 const globalForDb = globalThis as unknown as {
-  pgClient: ReturnType<typeof postgres> | undefined;
+  sqliteClient?: ReturnType<typeof openSqlite>;
 };
-
-const client =
-  globalForDb.pgClient ??
-  postgres(connectionString, {
-    max: 1,
-    prepare: false,
-  });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.pgClient = client;
-}
-
+const client = globalForDb.sqliteClient ?? openSqlite(process.env.SQLITE_PATH);
+if (process.env.NODE_ENV !== "production") globalForDb.sqliteClient = client;
 export const db = drizzle(client, { schema });
-export { schema };
+export { client, schema };

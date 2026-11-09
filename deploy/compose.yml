@@ -1,0 +1,38 @@
+name: uc-website
+services:
+  website:
+    image: ${WEBSITE_IMAGE:?Set an immutable website image}
+    restart: unless-stopped
+    env_file: ./website.env
+    environment:
+      SQLITE_PATH: /data/website.sqlite
+    ports:
+      - "127.0.0.1:${WEBSITE_PORT:-3320}:3000"
+    volumes:
+      - ./data:/data
+    init: true
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+  scheduler:
+    image: ${SCHEDULER_IMAGE:?Set an immutable scheduler image}
+    restart: unless-stopped
+    profiles: [jobs]
+    depends_on:
+      website:
+        condition: service_healthy
+    secrets: [cron_secret, backup_env, backup_password]
+    volumes:
+      - ./data:/data:ro
+      - ./backups:/backups
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+secrets:
+  cron_secret:
+    file: ./secrets/cron_secret
+  backup_env:
+    file: ./secrets/backup.env
+  backup_password:
+    file: ./secrets/backup_password

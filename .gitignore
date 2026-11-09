@@ -67,3 +67,11 @@ sitemap-*.xml
 /apps/try/.shared/
 /apps/try/public/tailcat/
 .env*
+!.env.example
+
+# Local website databases and migration credentials
+.migration/
+.build-inputs/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

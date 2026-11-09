@@ -9,6 +9,7 @@ import {
   hubCacheTag,
 } from "@/db/articles";
 import { db } from "@/db/client";
+import { isUniqueConstraint } from "@/db/errors";
 import { articles, articleTranslations } from "@/db/schema";
 import { requireAdmin } from "@/lib/admin-auth";
 import { articleUpsertSchema } from "@/lib/article-content";
@@ -85,32 +86,49 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
     );
   }
 
-  await db
-    .update(articles)
-    .set({
-      slug: parsed.slug,
-      category: parsed.category,
-      datePublished: parsed.datePublished,
-      status: parsed.status,
-      updatedAt: new Date(),
-    })
-    .where(eq(articles.id, id));
+  try {
+    db.transaction(
+      (tx) => {
+        tx.update(articles)
+          .set({
+            slug: parsed.slug,
+            category: parsed.category,
+            datePublished: parsed.datePublished,
+            status: parsed.status,
+            updatedAt: new Date(),
+          })
+          .where(eq(articles.id, id))
+          .run();
 
-  for (const locale of ["en", "zh"] as const) {
-    await db
-      .insert(articleTranslations)
-      .values({
-        articleId: id,
-        locale,
-        payload: parsed.translations[locale],
-      })
-      .onConflictDoUpdate({
-        target: [articleTranslations.articleId, articleTranslations.locale],
-        set: {
-          payload: parsed.translations[locale],
-          updatedAt: new Date(),
-        },
-      });
+        for (const locale of ["en", "zh"] as const) {
+          tx.insert(articleTranslations)
+            .values({
+              articleId: id,
+              locale,
+              payload: parsed.translations[locale],
+            })
+            .onConflictDoUpdate({
+              target: [
+                articleTranslations.articleId,
+                articleTranslations.locale,
+              ],
+              set: {
+                payload: parsed.translations[locale],
+                updatedAt: new Date(),
+              },
+            })
+            .run();
+        }
+      },
+      { behavior: "immediate" },
+    );
+  } catch (error) {
+    if (isUniqueConstraint(error))
+      return NextResponse.json(
+        { error: "Another article already uses this category and slug." },
+        { status: 409 },
+      );
+    throw error;
   }
 
   // Invalidate caches for both old and new slug/category locations

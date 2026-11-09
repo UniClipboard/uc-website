@@ -2,7 +2,7 @@ import "server-only";
 
 import { createHash, randomBytes } from "node:crypto";
 
-import { desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, isNull, sql } from "drizzle-orm";
 
 import { db } from "@/db/client";
 import { sponsorInvites, sponsors } from "@/db/schema";
@@ -158,55 +158,66 @@ export type ConsumeResult =
 /**
  * Atomically consume a token and create a pending sponsor in one transaction.
  * The row inherits the invite's tier + amount and starts "pending" so it only
- * reaches the wall after an admin approves it. The token row is locked
- * `for update` so two concurrent submissions can't both succeed.
+ * reaches the wall after an admin approves it. An immediate SQLite transaction serializes claims so two requests cannot both succeed.
  */
 export async function consumeInvite(
   token: string,
   submission: SponsorSubmission,
 ): Promise<ConsumeResult> {
   const tokenHash = hashInviteToken(token);
-  return db.transaction(async (tx) => {
-    const [invite] = await tx
-      .select()
-      .from(sponsorInvites)
-      .where(eq(sponsorInvites.tokenHash, tokenHash))
-      .limit(1)
-      .for("update");
-    if (!invite) return { ok: false, reason: "not_found" } as const;
-    if (invite.usedAt) return { ok: false, reason: "used" } as const;
-    if (invite.expiresAt && invite.expiresAt.getTime() <= Date.now())
-      return { ok: false, reason: "expired" } as const;
+  return db.transaction(
+    (tx) => {
+      const [invite] = tx
+        .select()
+        .from(sponsorInvites)
+        .where(eq(sponsorInvites.tokenHash, tokenHash))
+        .limit(1)
+        .all();
+      if (!invite) return { ok: false, reason: "not_found" } as const;
+      if (invite.usedAt) return { ok: false, reason: "used" } as const;
+      if (invite.expiresAt && invite.expiresAt.getTime() <= Date.now())
+        return { ok: false, reason: "expired" } as const;
 
-    const [{ max }] = await tx
-      .select({ max: sql<number | null>`max(${sponsors.displayOrder})` })
-      .from(sponsors);
-    const displayOrder = (max ?? -1) + 1;
+      const [{ max }] = tx
+        .select({ max: sql<number | null>`max(${sponsors.displayOrder})` })
+        .from(sponsors)
+        .all();
+      const displayOrder = (max ?? -1) + 1;
 
-    const hasUpload =
-      typeof submission.avatarData === "string" && submission.avatarData;
-    const [created] = await tx
-      .insert(sponsors)
-      .values({
-        name: submission.name,
-        url: submission.url ?? null,
-        tier: invite.tier,
-        status: "pending",
-        note: submission.note ?? null,
-        amountCents: invite.amountCents,
-        githubLogin: submission.githubLogin ?? null,
-        avatarUrl: hasUpload ? null : (submission.avatarUrl ?? null),
-        avatarData: hasUpload ? submission.avatarData : null,
-        avatarMime: hasUpload ? (submission.avatarMime ?? "image/webp") : null,
-        displayOrder,
-      })
-      .returning({ id: sponsors.id });
+      const hasUpload =
+        typeof submission.avatarData === "string" && submission.avatarData;
+      const [created] = tx
+        .insert(sponsors)
+        .values({
+          name: submission.name,
+          url: submission.url ?? null,
+          tier: invite.tier,
+          status: "pending",
+          note: submission.note ?? null,
+          amountCents: invite.amountCents,
+          githubLogin: submission.githubLogin ?? null,
+          avatarUrl: hasUpload ? null : (submission.avatarUrl ?? null),
+          avatarData: hasUpload ? submission.avatarData : null,
+          avatarMime: hasUpload
+            ? (submission.avatarMime ?? "image/webp")
+            : null,
+          displayOrder,
+        })
+        .returning({ id: sponsors.id })
+        .all();
 
-    await tx
-      .update(sponsorInvites)
-      .set({ usedAt: new Date(), sponsorId: created.id })
-      .where(eq(sponsorInvites.id, invite.id));
+      const claimed = tx
+        .update(sponsorInvites)
+        .set({ usedAt: new Date(), sponsorId: created.id })
+        .where(
+          and(eq(sponsorInvites.id, invite.id), isNull(sponsorInvites.usedAt)),
+        )
+        .run();
+      if (claimed.changes !== 1)
+        throw new Error("Invitation consumption conflict");
 
-    return { ok: true, sponsorId: created.id } as const;
-  });
+      return { ok: true, sponsorId: created.id } as const;
+    },
+    { behavior: "immediate" },
+  );
 }

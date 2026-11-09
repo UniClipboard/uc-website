@@ -4,7 +4,7 @@ import { z } from "zod";
 export const env = createEnv({
   server: {
     // Database
-    DATABASE_URL: z.string().optional(),
+    SQLITE_PATH: z.string().optional(),
 
     // App URL
     APP_URL: z.string().url().optional().default("http://localhost:3000"),
@@ -30,11 +30,17 @@ export const env = createEnv({
 
     // Clerk
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().optional(),
-    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().optional().default("/admin/sign-in"),
-    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().optional().default("/admin/sign-in"),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z
+      .string()
+      .optional()
+      .default("/admin/sign-in"),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z
+      .string()
+      .optional()
+      .default("/admin/sign-in"),
   },
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    SQLITE_PATH: process.env.SQLITE_PATH,
     APP_URL: process.env.APP_URL,
     GOOGLE_SITE_VERIFICATION_ID: process.env.GOOGLE_SITE_VERIFICATION_ID,
     BING_SITE_VERIFICATION_ID: process.env.BING_SITE_VERIFICATION_ID,

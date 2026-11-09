@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
+import { dirname } from "node:path";
 import { gunzipSync } from "node:zlib";
 const origin = (process.env.TRY_E2E_URL || "http://127.0.0.1:3321").replace(
   /\/$/,
@@ -49,12 +50,13 @@ for (const locale of locales) {
     const html = await r.text();
     assert.ok(html.includes(`lang="${locale}"`), path);
     assert.match(html, /data-try-site/, path);
-    assert.ok(
-      html.includes(
-        `href="https://try.uniclipboard.app${path === "/" ? "/" : path}"`,
-      ),
-      `canonical ${path}`,
+    const canonical = html.match(
+      /<link[^>]+rel="canonical"[^>]+href="([^"]+)"/,
     );
+    assert.ok(canonical, `canonical ${path}`);
+    const canonicalUrl = new URL(canonical[1]);
+    assert.equal(canonicalUrl.origin, "https://try.uniclipboard.app", path);
+    assert.equal(canonicalUrl.pathname, path, path);
     assert.doesNotMatch(
       html,
       /google-analytics|googletagmanager|speed-insights|cloudflareinsights|static\.cloudflareinsights|clerk\.accounts/i,
@@ -152,8 +154,6 @@ const receipt = {
   productionTransfer: "NOT_PROVEN_BY_HTTP",
 };
 const output = process.env.TRY_E2E_RECEIPT || ".migration/try/http.json";
-await mkdir(new URL(".", `file://${process.cwd()}/${output}`).pathname, {
-  recursive: true,
-});
+await mkdir(dirname(output), { recursive: true });
 await writeFile(output, JSON.stringify(receipt, null, 2) + "\n");
 console.log(JSON.stringify(receipt));

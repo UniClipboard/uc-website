@@ -7,6 +7,8 @@ The website and try workflows build, verify HTTP behavior, and exercise the depl
 A deployment job starts only after all build-job steps succeed.
 Feature branches build and verify images but cannot deploy production.
 Documentation-only changes do not trigger application releases.
+Both Vercel configurations disable automatic Git deployments.
+The preserved Vercel projects remain separate recovery sources during the migration window.
 
 The production environments are `production-website` and `production-try`.
 Each environment allows only the `main` branch.

@@ -105,6 +105,23 @@ jobs:
             sleep 1
           done
           curl -fsS http://127.0.0.1:3317/api/health/ready
+          docker run --rm -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migration/database.ts backup /fixture/website.sqlite /fixture/restored.sqlite
+          sudo chmod 666 .migration/ci/restored.sqlite
+          docker rm -f migration-e2e
+          docker run -d --name migration-restored -p 127.0.0.1:3317:3000 -v "$PWD/.migration/ci:/data" --env-file .build-inputs/build.env -e SQLITE_PATH=/data/restored.sqlite -e CRON_SECRET=migration-fixture-secret "$WEBSITE_IMAGE"
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
+            sleep 1
+          done
+          node --env-file=.migration/ci/fixture.env --input-type=module - <<'JS'
+          import assert from 'node:assert/strict';
+          import {readFileSync,writeFileSync} from 'node:fs';
+          assert.equal((await fetch(`http://localhost:3317/api/sponsor-invite/${process.env.MIGRATION_E2E_INVITE}`)).status,410);
+          assert.equal((await fetch('http://localhost:3317/api/v1/articles',{headers:{authorization:`Bearer ${process.env.MIGRATION_E2E_TOKEN}`}})).status,200);
+          const receipt=JSON.parse(readFileSync('.migration/receipts/http.json'));
+          receipt.results.push({name:'container replacement and online backup restore preserve committed data',status:'PASS'});
+          writeFileSync('.migration/receipts/http.json',JSON.stringify(receipt,null,2)+'\n');
+          JS
       - name: Save HTTP acceptance receipt
         if: always()
         uses: actions/upload-artifact@v4
@@ -129,7 +146,7 @@ jobs:
           scheduler_id=$(docker inspect --format '{{.Id}}' "$SCHEDULER_IMAGE")
           echo "WEBSITE_LOCAL_ID=$website_id" >> "$GITHUB_ENV"
           echo "SCHEDULER_LOCAL_ID=$scheduler_id" >> "$GITHUB_ENV"
-          docker save "$WEBSITE_IMAGE" "$SCHEDULER_IMAGE" | gzip | ssh -i .build-inputs/load-key -p "$BUILD_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=.build-inputs/known_hosts "$BUILD_TARGET"
+          docker save "$website_id" "$scheduler_id" | gzip | ssh -i .build-inputs/load-key -p "$BUILD_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=.build-inputs/known_hosts "$BUILD_TARGET"
       - name: Record immutable image identities
         env:
           SOURCE_SHA: ${{ github.sha }}

@@ -134,6 +134,22 @@ try {
     const responses = await Promise.all([submit(), submit()]);
     assert.deepEqual(responses.map((r) => r.status).sort(), [201, 410]);
   });
+  await check("duplicate beta signup remains idempotent", async () => {
+    const email = `migration-e2e-${Date.now()}@example.invalid`;
+    const submit = () =>
+      request("/api/v1/ios-beta-signups", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, locale: "en" }),
+      });
+    const responses = await Promise.all([submit(), submit()]);
+    assert.deepEqual(
+      responses.map((r) => r.status),
+      [200, 200],
+    );
+    const bodies = await Promise.all(responses.map((r) => r.json()));
+    assert.deepEqual(bodies.map((b) => b.status).sort(), ["created", "exists"]);
+  });
   await check("public pages and metadata", async () => {
     for (const path of [
       "/",

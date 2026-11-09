@@ -359,8 +359,11 @@ Keep private snapshots and conversion details out of that receipt.
 - Image CI, serialized deployment, scheduler, backup, restore, and rollback procedures.
 - Updated environment examples, deployment guidance, and an end-to-end acceptance receipt.
 
-Implementation, exports, image builds, restore rehearsal, browser acceptance, and deployment remain `NOT RUN`.
-This documentation change does not install a driver or change production services.
+Execution has started under the user's migration authorization.
+Local data conversion and initial production-server HTTP checks have passed.
+Use [the operations runbook](primaryserver-runbook.md) for the implemented commands.
+The final acceptance receipt must identify the activated source, images, database, backup, and DNS state.
+Do not infer production completion from this plan or from a local check.
 
 ## References
 

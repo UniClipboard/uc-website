@@ -35,6 +35,7 @@ COPY --from=builder --chown=node:node /app/public ./public
 COPY deploy/jobs.mjs ./deploy/jobs.mjs
 ARG SOURCE_REVISION
 LABEL org.opencontainers.image.revision=$SOURCE_REVISION
+LABEL org.opencontainers.image.source=https://github.com/UniClipboard/uc-website
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s CMD node -e "fetch('http://127.0.0.1:3000/api/health/live').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

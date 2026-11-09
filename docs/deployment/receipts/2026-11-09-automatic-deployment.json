@@ -1,0 +1,398 @@
+{
+  "state": "CONFIGURED_AWAITING_FIRST_MAIN_MERGE",
+  "recordedAt": "2026-11-09T08:51:47.491808+00:00",
+  "implementationSource": "cd71f6ff7903c9934c27b82dff4ee2c612ff14f2",
+  "branch": "feat/primaryserver-sqlite-migration",
+  "productionBranch": "main",
+  "environments": {
+    "production-website": {
+      "branches": [
+        "main"
+      ],
+      "requiredReviewers": [],
+      "secretNames": [
+        "DEPLOY_SSH_KEY",
+        "DEPLOY_TARGET",
+        "DEPLOY_PORT",
+        "DEPLOY_KNOWN_HOSTS"
+      ]
+    },
+    "production-try": {
+      "branches": [
+        "main"
+      ],
+      "requiredReviewers": [],
+      "secretNames": [
+        "DEPLOY_SSH_KEY",
+        "DEPLOY_TARGET",
+        "DEPLOY_PORT",
+        "DEPLOY_KNOWN_HOSTS"
+      ]
+    }
+  },
+  "installedFiles": {
+    "deploy/automation/deploy.py": "6093ab25b6f07a9b0a7d52070f7d037c0eb9f21f8d24776e347a06d25b15c4e2",
+    "deploy/automation/ssh-entry.sh": "7c9f7a9f78d7b98cdc748842e4a1e5905924a289bd25418cb9230404d2f865d5",
+    "deploy/read-build-snapshot.sh": "ac4f77174e1bd9e0343cd083f1255d00c1bf18508199f089832933ebc53bdc17",
+    "apps/try/deploy/openresty.conf": "77bf98993eef1276919b85b0e8207d7b6363f782804cd61d403495ec1346d9b7"
+  },
+  "restrictedSSH": {
+    "results": [
+      {
+        "app": "website",
+        "test": "arbitrary shell denied",
+        "exit": 64,
+        "status": "PASS"
+      },
+      {
+        "app": "website",
+        "test": "non-main deployment rejected",
+        "status": "PASS"
+      },
+      {
+        "app": "website",
+        "test": "cross-application deployment rejected",
+        "status": "PASS"
+      },
+      {
+        "app": "try",
+        "test": "arbitrary shell denied",
+        "exit": 64,
+        "status": "PASS"
+      },
+      {
+        "app": "try",
+        "test": "non-main deployment rejected",
+        "status": "PASS"
+      },
+      {
+        "app": "try",
+        "test": "cross-application deployment rejected",
+        "status": "PASS"
+      }
+    ]
+  },
+  "targetHostWebsiteRehearsal": {
+    "results": [
+      {
+        "name": "website immutable release and real HTTP verification",
+        "status": "PASS"
+      },
+      {
+        "name": "website failed public verification rolls back",
+        "status": "PASS"
+      },
+      {
+        "name": "website rejects stale release",
+        "status": "PASS"
+      },
+      {
+        "name": "website rejects mutable images and non-main requests",
+        "status": "PASS"
+      },
+      {
+        "name": "website concurrent upgrades serialize and preserve newest release",
+        "status": "PASS"
+      },
+      {
+        "name": "SQLite data, read-only configuration and stopped scheduler preserved",
+        "status": "PASS"
+      }
+    ],
+    "browser": "NOT_RUN_USER_OWNED",
+    "database": "DISPOSABLE_FIXTURE"
+  },
+  "targetHostTryRehearsal": {
+    "results": [
+      {
+        "name": "try immutable release and real HTTP verification",
+        "status": "PASS"
+      },
+      {
+        "name": "try failed public verification rolls back",
+        "status": "PASS"
+      },
+      {
+        "name": "try rejects stale release",
+        "status": "PASS"
+      },
+      {
+        "name": "try rejects mutable images and non-main requests",
+        "status": "PASS"
+      },
+      {
+        "name": "try concurrent upgrades serialize and preserve newest release",
+        "status": "PASS"
+      },
+      {
+        "name": "versioned WASM and hashed assets exported for OpenResty",
+        "status": "PASS"
+      }
+    ],
+    "browser": "NOT_RUN_USER_OWNED",
+    "database": "DISPOSABLE_FIXTURE"
+  },
+  "tryCI": {
+    "url": "https://github.com/UniClipboard/uc-website/actions/runs/42588132246",
+    "source": "cd71f6ff7903c9934c27b82dff4ee2c612ff14f2",
+    "deploymentE2E": {
+      "results": [
+        {
+          "name": "try immutable release and real HTTP verification",
+          "status": "PASS"
+        },
+        {
+          "name": "try failed public verification rolls back",
+          "status": "PASS"
+        },
+        {
+          "name": "try rejects stale release",
+          "status": "PASS"
+        },
+        {
+          "name": "try rejects mutable images and non-main requests",
+          "status": "PASS"
+        },
+        {
+          "name": "try concurrent upgrades serialize and preserve newest release",
+          "status": "PASS"
+        },
+        {
+          "name": "versioned WASM and hashed assets exported for OpenResty",
+          "status": "PASS"
+        }
+      ],
+      "browser": "NOT_RUN_USER_OWNED",
+      "database": "DISPOSABLE_FIXTURE"
+    },
+    "state": "SUCCESS",
+    "deploymentJob": "SKIPPED_FEATURE_BRANCH",
+    "http": {
+      "timestamp": "2026-11-09T08:44:55.003Z",
+      "origin": "http://127.0.0.1:3321",
+      "results": [
+        {
+          "name": "en static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "zh static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "zh-Hant static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "ja static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "ko static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "es static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "fr static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "de static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "pt-BR static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "ru static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "it static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "tr static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "vi static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "id static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "ar static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "hi static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "th static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "pl static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "nl static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "uk static pages and send/receive routes",
+          "status": "PASS"
+        },
+        {
+          "name": "locale and legacy redirects omit fragments",
+          "status": "PASS"
+        },
+        {
+          "name": "all HTML-referenced static assets load",
+          "assets": 17,
+          "status": "PASS"
+        },
+        {
+          "name": "pinned WASM and runtime digests and gzip semantics",
+          "source": "83921d7141b80db20fd733ee195c805d2721e489",
+          "status": "PASS"
+        },
+        {
+          "name": "health and missing asset behavior",
+          "status": "PASS"
+        }
+      ],
+      "browserAcceptance": "NOT_RUN_USER_OWNED",
+      "productionTransfer": "NOT_PROVEN_BY_HTTP"
+    },
+    "images": {
+      "source": "cd71f6ff7903c9934c27b82dff4ee2c612ff14f2",
+      "image": "ghcr.io/uniclipboard/uc-try@sha256:8e1f9c90d73921ceb5fb9014e971283fd1481068e7938191f28020cc11195e44",
+      "buildConfig": {
+        "NEXT_PUBLIC_TRY_SHORT_CODE": "1",
+        "NEXT_PUBLIC_TRY_RENDEZVOUS_URL": "https://rendezvous.uniclipboard.app"
+      }
+    }
+  },
+  "websiteCI": {
+    "url": "https://github.com/UniClipboard/uc-website/actions/runs/42588132256",
+    "state": "SUCCESS",
+    "source": "cd71f6ff7903c9934c27b82dff4ee2c612ff14f2",
+    "deploymentJob": "SKIPPED_FEATURE_BRANCH",
+    "deploymentE2E": {
+      "results": [
+        {
+          "name": "website immutable release and real HTTP verification",
+          "status": "PASS"
+        },
+        {
+          "name": "website failed public verification rolls back",
+          "status": "PASS"
+        },
+        {
+          "name": "website rejects stale release",
+          "status": "PASS"
+        },
+        {
+          "name": "website rejects mutable images and non-main requests",
+          "status": "PASS"
+        },
+        {
+          "name": "website concurrent upgrades serialize and preserve newest release",
+          "status": "PASS"
+        },
+        {
+          "name": "all eight SQLite table values, read-only configuration and stopped scheduler preserved",
+          "status": "PASS"
+        }
+      ],
+      "browser": "NOT_RUN_USER_OWNED",
+      "database": "DISPOSABLE_FIXTURE"
+    },
+    "http": {
+      "timestamp": "2026-11-09T08:48:08.701Z",
+      "origin": "http://localhost:3317",
+      "results": [
+        {
+          "name": "liveness and database readiness",
+          "status": "PASS"
+        },
+        {
+          "name": "unauthorized APIs and cron reject requests",
+          "status": "PASS"
+        },
+        {
+          "name": "active token and article creation",
+          "status": "PASS"
+        },
+        {
+          "name": "public content and representation isolation",
+          "status": "PASS"
+        },
+        {
+          "name": "article update invalidates public cache",
+          "status": "PASS"
+        },
+        {
+          "name": "concurrent invitation consumption is atomic",
+          "status": "PASS"
+        },
+        {
+          "name": "duplicate beta signup remains idempotent",
+          "status": "PASS"
+        },
+        {
+          "name": "public pages and metadata",
+          "status": "PASS"
+        },
+        {
+          "name": "fixture article deletion",
+          "status": "PASS"
+        },
+        {
+          "name": "container replacement and online backup restore preserve committed data",
+          "status": "PASS"
+        }
+      ]
+    },
+    "images": {
+      "source": "cd71f6ff7903c9934c27b82dff4ee2c612ff14f2",
+      "website": "ghcr.io/uniclipboard/uc-website@sha256:3adb6fb04a17acf357c05cf573676d56fc7530d249c45de4d6a3b5eb5d559374",
+      "scheduler": "ghcr.io/uniclipboard/uc-website-scheduler@sha256:8438e58e37f30be79f0d259f6793f9fed23aa72a72ba7619c3249b2324bc6406",
+      "maintenance": "ghcr.io/uniclipboard/uc-website-maintenance@sha256:9eea4f37c8bae96a70ed11d8c8e72576f0c1bb6c9e2f164cfe4c5bd0b7d5fed2",
+      "websiteLocalImageId": "sha256:582bd14782d2c35110e500349c03f268623ce84621105922dec5cd52c7636d81",
+      "schedulerLocalImageId": "sha256:21a0e5aa138458e136d5992f8e497e762c17df10ba5f0b2ecbe339a164882891"
+    }
+  },
+  "validationBoundaries": {
+    "mainMerge": "NOT_RUN",
+    "mainTriggeredProductionRollout": "NOT_RUN_PRE_MERGE",
+    "browser": "NOT_RUN_USER_OWNED",
+    "productionApplicationImages": "UNCHANGED",
+    "websiteReadOnly": true,
+    "websiteScheduler": "PRESERVED_STOPPED"
+  },
+  "onePanel": {
+    "version": "2.4.1",
+    "manualEntryProgram": "/opt/uc-deploy/deploy.py",
+    "panelShellTaskRecords": "OPTIONAL_NOT_CREATED"
+  },
+  "targetRehearsalApplicationImagesSource": "bb3b0e8109bc6042aea9c2a2401e1b2d443c8251 (website), 7a2def1f7b60c669ca8ffecf5c822e2b57070f17 (try)",
+  "targetRehearsalDatabase": "SANITIZED_PUBLIC_SNAPSHOT_ONLY",
+  "targetRehearsalBackup": "ISOLATED_LOCAL_ENCRYPTED_REPOSITORY",
+  "deploymentHelperSource": "9f1e9971701650342006bdb454deef2eee0c205f",
+  "mergeReadiness": {
+    "main": "f2a17b8e5c26beeeca273bcb839851649bb5f66c",
+    "mergeTree": "16f7e01dcb0b29c5a6c945553f15e6031eb4b474",
+    "conflicts": false,
+    "actualMergePerformed": false
+  }
+}

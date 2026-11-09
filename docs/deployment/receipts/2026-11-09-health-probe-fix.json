@@ -1,0 +1,42 @@
+{
+  "failureRun": "https://github.com/UniClipboard/uc-website/actions/runs/42603939701",
+  "originalAttempt": 1,
+  "originalFailure": "Cloudflare HTTP 403 for Python default User-Agent",
+  "fixedUserAgent": "UniClipboard-Deployment/1.0",
+  "retryAttempt": 2,
+  "retryConclusion": "SUCCESS",
+  "liveWebsiteSource": "618714e78a55824675b1fa4d78aed2a890e77f7e",
+  "liveWebsiteHealth": "healthy",
+  "websiteReadOnly": true,
+  "regressionGateway": "Rejects requests without the deployment User-Agent",
+  "regression": {
+    "results": [
+      {
+        "name": "website immutable release and real HTTP verification",
+        "status": "PASS"
+      },
+      {
+        "name": "website failed public verification rolls back",
+        "status": "PASS"
+      },
+      {
+        "name": "website rejects stale release",
+        "status": "PASS"
+      },
+      {
+        "name": "website rejects mutable images and non-main requests",
+        "status": "PASS"
+      },
+      {
+        "name": "website concurrent upgrades serialize and preserve newest release",
+        "status": "PASS"
+      },
+      {
+        "name": "all eight SQLite table values, read-only configuration and stopped scheduler preserved",
+        "status": "PASS"
+      }
+    ],
+    "browser": "NOT_RUN_USER_OWNED",
+    "database": "DISPOSABLE_FIXTURE"
+  }
+}

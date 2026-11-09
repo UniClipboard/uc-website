@@ -10,6 +10,10 @@ import shutil
 import sqlite3
 import subprocess
 import tempfile
+import threading
+import urllib.request
+import urllib.error
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--app', choices=['website', 'try'], required=True)
@@ -20,6 +24,25 @@ repo = Path.cwd()
 root = Path(tempfile.mkdtemp(prefix='uc-deployment-e2e-'))
 config = {}
 results = []
+
+class DeploymentGateway(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.headers.get('User-Agent') != 'UniClipboard-Deployment/1.0':
+            self.send_error(403)
+            return
+        app, _, path = self.path.lstrip('/').partition('/')
+        try:
+            with urllib.request.urlopen(f'http://127.0.0.1:{config[app]["port"]}/' + path, timeout=30) as r:
+                self.send_response(r.status)
+                self.end_headers()
+                self.wfile.write(r.read())
+        except urllib.error.HTTPError as error:
+            self.send_error(error.code)
+    def log_message(self, *_):
+        pass
+
+gateway = ThreadingHTTPServer(('127.0.0.1', 0), DeploymentGateway)
+threading.Thread(target=gateway.serve_forever, daemon=True).start()
 
 
 def command(args, **kw):
@@ -74,7 +97,7 @@ try:
             (site / 'secrets/cron_secret').write_text('deployment-e2e-only')
             (site / 'secrets/backup_password').write_text('deployment-e2e-only-password')
             (site / 'secrets/backup.env').write_text('AWS_ACCESS_KEY_ID=local-e2e\nAWS_SECRET_ACCESS_KEY=local-e2e\nRESTIC_REPOSITORY=/backups/restic-repository\n')
-        config[app] = {'directory': str(site), 'staticRoot': str(root / ('assets-' + app)), 'port': port, 'publicUrl': f'http://127.0.0.1:{port}', 'container': project + ('-website-1' if app == 'website' else '-try-1')}
+        config[app] = {'directory': str(site), 'staticRoot': str(root / ('assets-' + app)), 'port': port, 'publicUrl': f'http://127.0.0.1:{gateway.server_port}/{app}', 'container': project + ('-website-1' if app == 'website' else '-try-1')}
     (root / 'config.json').write_text(json.dumps(config))
     if a.app == 'website':
         command(['docker', 'compose', '--project-directory', config['website']['directory'], '--profile', 'jobs', 'run', '--rm', '--no-deps', 'scheduler', 'node', '--env-file=/run/secrets/backup_env', 'deploy/jobs.mjs', 'init'])
@@ -121,6 +144,8 @@ try:
     output.write_text(json.dumps({'results': results, 'browser': 'NOT_RUN_USER_OWNED', 'database': 'DISPOSABLE_FIXTURE'}, indent=2) + '\n')
     print(output.read_text())
 finally:
+    gateway.shutdown()
+    gateway.server_close()
     for app in config:
         subprocess.run(['docker', 'compose', '--project-directory', config[app]['directory'], '--profile', 'jobs', 'down'], capture_output=True)
     # Keep failed receipts/logs locally for diagnosis. The fixture has no production secrets.

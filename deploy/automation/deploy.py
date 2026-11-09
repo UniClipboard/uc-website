@@ -19,6 +19,11 @@ import urllib.request
 REPOSITORIES = {'website': 'uc-website', 'scheduler': 'uc-website-scheduler', 'maintenance': 'uc-website-maintenance', 'try': 'uc-try'}
 
 
+def open_http(url, timeout):
+    request = urllib.request.Request(url, headers={'User-Agent': 'UniClipboard-Deployment/1.0'})
+    return urllib.request.urlopen(request, timeout=timeout)
+
+
 def atomic(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -116,16 +121,16 @@ class Deployment:
     def probe(self, base):
         paths = ['/api/health/ready', '/', '/download'] if self.app == 'website' else ['/api/health/live', '/', '/send', '/receive']
         for path in paths:
-            with urllib.request.urlopen(base.rstrip('/') + path, timeout=30) as response:
+            with open_http(base.rstrip('/') + path, timeout=30) as response:
                 if response.status != 200:
                     raise RuntimeError('HTTP verification failed')
                 if '/api/health/' in path and json.load(response) != {'ok': True}:
                     raise RuntimeError('Health response is invalid')
         if self.app == 'try':
-            with urllib.request.urlopen(base + '/tailcat/manifest.json', timeout=30) as response:
+            with open_http(base + '/tailcat/manifest.json', timeout=30) as response:
                 manifest = json.load(response)
             for item in manifest['files'].values():
-                with urllib.request.urlopen(base + item['path'], timeout=60) as response:
+                with open_http(base + item['path'], timeout=60) as response:
                     if response.headers.get('Content-Encoding'):
                         raise RuntimeError('Pinned assets must retain original gzip bytes')
                     if hashlib.sha256(response.read()).hexdigest() != item['sha256']:
@@ -136,7 +141,7 @@ class Deployment:
         url = f'http://127.0.0.1:{self.config["port"]}'
         for _ in range(60):
             try:
-                with urllib.request.urlopen(url + health, timeout=2) as r:
+                with open_http(url + health, timeout=2) as r:
                     if r.status == 200:
                         return
             except Exception:

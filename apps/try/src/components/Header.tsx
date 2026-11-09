@@ -11,6 +11,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
@@ -76,14 +77,16 @@ function Plus({ at }: { at: string }) {
 function LanguageOption({
   entry,
   current,
+  modePath,
 }: {
   entry: LocaleEntry;
   current: boolean;
+  modePath: string;
 }) {
   return (
     <a
       className="transfer-lang-option"
-      href={localePathPrefix(entry.code) || "/"}
+      href={`${localePathPrefix(entry.code)}${modePath}` || "/"}
       hrefLang={entry.code}
       lang={entry.code}
       aria-current={current ? "page" : undefined}
@@ -108,6 +111,9 @@ function LanguageMenu() {
   const locale = useLocale();
   const t = useTranslations("try.header");
   const nav = useTranslations("nav");
+  const pathname = usePathname();
+  const mode = pathname.split("/").at(-1);
+  const modePath = mode === "send" || mode === "receive" ? `/${mode}` : "";
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [suggested, setSuggested] = useState<LocaleEntry>();
@@ -207,7 +213,11 @@ function LanguageMenu() {
             {suggestion && (
               <section aria-label={t("languageSuggested")}>
                 <p className="transfer-lang-label">{t("languageSuggested")}</p>
-                <LanguageOption entry={suggestion} current={false} />
+                <LanguageOption
+                  entry={suggestion}
+                  current={false}
+                  modePath={modePath}
+                />
               </section>
             )}
             <section aria-label={t("languageAll")}>
@@ -221,6 +231,7 @@ function LanguageMenu() {
                       <LanguageOption
                         entry={entry}
                         current={entry.code === locale}
+                        modePath={modePath}
                       />
                     </li>
                   ))}

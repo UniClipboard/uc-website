@@ -790,6 +790,10 @@
   display: none;
 }
 
+.try-code-start[data-entry-mode="receive"] {
+  display: flex;
+}
+
 .try-code-start-alt {
   align-self: center;
 }

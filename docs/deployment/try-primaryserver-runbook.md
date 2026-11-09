@@ -1,5 +1,10 @@
 # Transfer site on primaryserver
 
+
+Routine releases use [the automatic deployment workflow](automatic-deployment.md) after its merge into `main`.
+Use the shared deployment program for manual retries from 1Panel.
+The low-level Docker commands below remain available for operator recovery.
+
 ## Scope and state
 
 The transfer site routes to primaryserver as of 2026-11-09T07:07:38Z.

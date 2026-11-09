@@ -1,6 +1,6 @@
 # Agent Instructions
 
-UniClipboard marketing site — Next.js App Router, `bun`, Drizzle/Postgres, next-intl, Clerk (admin).
+UniClipboard marketing site — Next.js App Router, `bun`, Drizzle/SQLite, next-intl, Clerk (admin).
 
 ## Commands
 | Task | Command |
@@ -11,8 +11,8 @@ UniClipboard marketing site — Next.js App Router, `bun`, Drizzle/Postgres, nex
 
 ## Rendering & Performance (must follow)
 
-Public pages run on the Vercel Hobby plan; every per-request DB read or SSR on a
-public page burns Active CPU. Keep public pages static and cached. Prior art: `git log --grep=perf`.
+Production runs on primaryserver with Docker Compose. Keep public pages static
+and cached to limit request-time CPU and database reads. Prior art: `git log --grep=perf`.
 
 - Public `[locale]` pages MUST stay static — never `export const dynamic = "force-dynamic"`, and never read `headers()`, `cookies()`, or `searchParams`. Any one opts the whole subtree into per-request SSR.
 - Locale is primed once in `src/app/[locale]/layout.tsx` (`generateStaticParams` + `setRequestLocale`). Do not call `setRequestLocale` per page or resolve locale from headers.
@@ -35,3 +35,11 @@ public page burns Active CPU. Keep public pages static and cached. Prior art: `g
 
 ## Verify
 - After any rendering/caching change, run `bun run build` and confirm affected routes show Static (○) / SSG / ISR — not Dynamic (ƒ).
+
+## Production deployment
+- The website and `apps/try` have separate container workflows and production environments.
+- Only `main` deploys production after the complete build and HTTP deployment E2E job succeeds.
+- Use immutable image manifests and the server deployment program described in `docs/deployment/automatic-deployment.md`.
+- Preserve the website's read-only flag, scheduler state, SQLite data, and runtime secrets during releases.
+- Keep versioned static assets available across releases. Preserve the raw gzip bytes of Tailcat WASM.
+- The build snapshot SSH key is read-only. Use separate forced-command deployment keys for production.

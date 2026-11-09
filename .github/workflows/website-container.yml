@@ -178,6 +178,7 @@ jobs:
           SOURCE_SHA: ${{ github.sha }}
           WEBSITE_DIGEST: ${{ steps.website.outputs.digest }}
           SCHEDULER_DIGEST: ${{ steps.scheduler.outputs.digest }}
+          MAINTENANCE_DIGEST: ${{ steps.maintenance.outputs.digest }}
         run: |
           python3 - <<'PY'
           import json, os
@@ -186,6 +187,7 @@ jobs:
             'source': os.environ['SOURCE_SHA'],
             'website': 'ghcr.io/uniclipboard/uc-website@' + os.environ['WEBSITE_DIGEST'],
             'scheduler': 'ghcr.io/uniclipboard/uc-website-scheduler@' + os.environ['SCHEDULER_DIGEST'],
+            'maintenance': 'ghcr.io/uniclipboard/uc-website-maintenance@' + os.environ['MAINTENANCE_DIGEST'],
             'websiteLocalImageId': os.environ['WEBSITE_LOCAL_ID'],
             'schedulerLocalImageId': os.environ['SCHEDULER_LOCAL_ID'],
           }, indent=2) + '\n')

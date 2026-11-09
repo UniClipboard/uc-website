@@ -58,9 +58,9 @@ Actions uploads only the deployment request and result JSON.
 2. Retain the old and new hashed static assets for OpenResty fallback.
 3. Rehearse the SQLite migration on an online backup in an isolated directory.
 4. Record the current read-only flag and scheduler activation state.
-5. Stop the website and scheduler.
-6. Save a consistent local snapshot.
-7. Complete the encrypted R2 backup with the existing scheduler image.
+5. Stop the scheduler and recreate the old website in read-only mode.
+6. Complete the encrypted R2 backup while the old website keeps its WAL connection open.
+7. Stop the website and save a consistent local snapshot.
 8. Apply the reviewed SQLite migrations with the matching maintenance image.
 9. Start the candidate website with database writes disabled.
 10. Verify readiness and public pages through both loopback and the public hostname.

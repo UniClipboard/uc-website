@@ -190,10 +190,15 @@ class Deployment:
             save(approved, release)
             atomic(work / 'previous.env', old_env)
             if self.app == 'website':
-                self.compose('stop', 'scheduler', 'website')
+                atomic(self.readonly, 'services:\n  website:\n    environment:\n      WEBSITE_READ_ONLY: "1"\n')
+                self.compose('stop', 'scheduler')
                 changed = True
-                backup(self.site / 'data/website.sqlite', snapshot)
+                # Keep the old WAL connection alive during its online backup.
+                self.compose('up', '-d', '--force-recreate', 'website', readonly=True)
+                self.wait()
                 self.compose('run', '--rm', '--no-deps', 'scheduler', 'node', '--env-file=/run/secrets/backup_env', 'deploy/jobs.mjs', 'backup')
+                self.compose('stop', 'website')
+                backup(self.site / 'data/website.sqlite', snapshot)
                 with closing(sqlite3.connect(snapshot)) as db:
                     before = db.execute('SELECT hash FROM __drizzle_migrations ORDER BY id').fetchall()
                 self.migrate(release['images']['maintenance'], self.site / 'data')
@@ -246,7 +251,7 @@ class Deployment:
                         if scheduler_running:
                             self.compose('up', '-d', 'scheduler')
                         receipt['status'] = 'ROLLED_BACK'
-                        receipt['databaseRestored'] = self.app == 'website' and not writes_opened
+                        receipt['databaseRestored'] = self.app == 'website' and not writes_opened and snapshot.exists()
                 except Exception as rollback_error:
                     receipt.update(status='FAILED_ROLLBACK', rollbackError=str(rollback_error))
         finally:

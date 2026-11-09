@@ -90,6 +90,10 @@ jobs:
           chmod 666 .migration/ci/website.sqlite
           docker run --rm --user "$(id -u):$(id -g)" -v "$PWD/.migration/ci:/fixture" --entrypoint node uc-website-maintenance --import tsx scripts/migration/fixture.ts /fixture/website.sqlite /fixture/fixture.env
           docker run -d --name migration-e2e -p 127.0.0.1:3317:3000 -v "$PWD/.migration/ci:/data" --env-file .build-inputs/build.env -e CRON_SECRET=migration-fixture-secret "$WEBSITE_IMAGE"
+          if docker run --rm -e SQLITE_PATH=/data/missing.sqlite "$WEBSITE_IMAGE"; then
+            echo 'Missing database must fail startup'
+            exit 1
+          fi
           for attempt in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:3317/api/health/ready >/dev/null; then break; fi
             sleep 1

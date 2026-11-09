@@ -6,7 +6,7 @@ COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
 RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY package.json bun.lock ./
 COPY patches ./patches
-RUN bun install --frozen-lockfile
+RUN mkdir -p public && bun install --frozen-lockfile
 
 FROM dependencies AS builder
 COPY . .
@@ -33,13 +33,16 @@ COPY --from=builder --chown=node:node /app/.next/standalone ./
 COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 COPY --from=builder --chown=node:node /app/public ./public
 COPY deploy/jobs.mjs ./deploy/jobs.mjs
+COPY deploy/start.mjs ./deploy/start.mjs
+COPY deploy/public-snapshot.mjs ./deploy/public-snapshot.mjs
+COPY --from=builder /app/drizzle/sqlite/*.sql ./drizzle/sqlite/
 ARG SOURCE_REVISION
 LABEL org.opencontainers.image.revision=$SOURCE_REVISION
 LABEL org.opencontainers.image.source=https://github.com/UniClipboard/uc-website
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s CMD node -e "fetch('http://127.0.0.1:3000/api/health/live').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
-CMD ["node", "server.js"]
+CMD ["node", "deploy/start.mjs"]
 
 FROM runner AS scheduler
 USER root

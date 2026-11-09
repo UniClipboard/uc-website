@@ -147,7 +147,7 @@ jobs:
         run: |
           set -euo pipefail
           # Both apps use the same deployment program. Exercise the website here.
-          sudo python3 e2e/deployment/http.py --app website --website "$WEBSITE_IMAGE" --scheduler "$SCHEDULER_IMAGE" --maintenance "$MAINTENANCE_IMAGE" --source "$GITHUB_SHA" --database "$PWD/.migration/ci/website.sqlite" --runtime-env "$PWD/.build-inputs/build.env"
+          sudo python3 e2e/deployment/http.py --app website --website "$WEBSITE_IMAGE" --scheduler "$SCHEDULER_IMAGE" --maintenance "$MAINTENANCE_IMAGE" --source "$GITHUB_SHA" --database "$PWD/.build-inputs/public.sqlite" --runtime-env "$PWD/.build-inputs/build.env"
       - name: Save deployment acceptance receipt
         if: always()
         uses: actions/upload-artifact@v4
